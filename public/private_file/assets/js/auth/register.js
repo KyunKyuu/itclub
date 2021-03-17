@@ -11,6 +11,9 @@ $(document).ready(function(){
             url : '/api/v1/auth/register',
             contentType:false,
             processData:false,
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken,
+            },
             success:res=>{
                 console.log(res);
             },

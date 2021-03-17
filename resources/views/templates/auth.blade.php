@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>Register &mdash; Stisla</title>
+  <meta name="csrf-token" data-token="{{ csrf_token() }}">
 
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -48,8 +49,10 @@
 <!-- Page Specific JS File -->
 <script src="/public_file/assets/js/page/auth-register.js"></script>
 
+{{-- !NOTE Internal JS File --}}
 <script src="/private_file/assets/js/{{Request::segment(1)}}/{{Request::segment(2)}}.js"></script>
 <script src="/private_file/assets/js/function/script.js"></script>
+<script src="/private_file/assets/js/variable/script.js"></script>
 
 </body>
 </html>

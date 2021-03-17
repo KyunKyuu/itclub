@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController as ApiAuthController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
@@ -17,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/auth/register', [AuthController::class, 'register']);
+
+// !NOTE API Request & Response
+Route::post('/api/v1/auth/register', [ApiAuthController::class, 'register']);
