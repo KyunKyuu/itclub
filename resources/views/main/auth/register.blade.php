@@ -69,7 +69,7 @@
             </div>
 
             <div class="simple-footer">
-                Copyright &copy; Stisla 2018
+                Copyright &copy; ITClub 2021
             </div>
         </div>
     </div>
