@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'member_token'
     ];
 
     /**
@@ -29,6 +30,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'member_token',
         'remember_token',
     ];
 
@@ -40,4 +42,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
 }
