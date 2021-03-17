@@ -16,13 +16,13 @@
                   <li class="active"><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
                 </ul>
               </li>
-              <li class="menu-header">Setting</li>
+              <li class="menu-header">Master</li>
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Preferences Web</span></a>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link text-capitalize" href="/setting/preferences/section" >section</a></li>
-                  <li><a class="nav-link text-capitalize" href="/setting/preferences/menu">menu</a></li>
-                  <li><a class="nav-link text-capitalize" href="/setting/preferences/submenu">submenu</a></li>
+                  <li><a class="nav-link text-capitalize" href="/master/preferences/section" >section</a></li>
+                  <li><a class="nav-link text-capitalize" href="/master/preferences/menu">menu</a></li>
+                  <li><a class="nav-link text-capitalize" href="/master/preferences/submenu">submenu</a></li>
                 </ul>
               </li>
           </ul>

@@ -7,5 +7,9 @@ use Illuminate\Http\Request;
 
 class PreferencesController extends Controller
 {
-    //
+
+    public function section()
+    {
+        return view('main.preferences.section');
+    }
 }

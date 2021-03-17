@@ -22,7 +22,7 @@ Route::get('/dashboard/index', [IndexController::class, 'index']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login']);
 
-Route::group(['prefix' => '/setting'], function () {
+Route::group(['prefix' => '/master'], function () {
     Route::get('/preferences/section', [PreferencesController::class, 'section']);
 });
 
