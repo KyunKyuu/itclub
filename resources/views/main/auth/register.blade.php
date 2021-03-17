@@ -62,7 +62,19 @@
                     </button>
                   </div>
                 </form>
+                <div class="text-center">
+                    Do you have account <a href="/auth/login">Login</a>
+                </div>
             </div>
             </div>
+
+            <div class="simple-footer">
+                Copyright &copy; Stisla 2018
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+</div>
 
     @endsection
