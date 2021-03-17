@@ -7,9 +7,9 @@
       <div class="section-header">
         <h1>Table</h1>
         <div class="section-header-breadcrumb">
-          <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-          <div class="breadcrumb-item"><a href="#">Components</a></div>
-          <div class="breadcrumb-item">Table</div>
+          <div class="breadcrumb-item active"><a href="#">Master</a></div>
+          <div class="breadcrumb-item"><a href="#">Preferences Web</a></div>
+          <div class="breadcrumb-item">Section</div>
         </div>
       </div>
 
@@ -22,7 +22,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4>Advanced Table</h4>
+                <h4>Master Data Section</h4>
                 <div class="card-header-form">
                   <form>
                     <div class="input-group">

@@ -12,6 +12,7 @@
 <script src="/public_file/node_modules/owl.carousel/dist/owl.carousel.min.js"></script>
 <script src="/public_file/node_modules/summernote/dist/summernote-bs4.js"></script>
 <script src="/public_file/node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+<script src="/public_file/node_modules/dataTables/js/jquery.dataTables.js"></script>
 
 <!-- Template JS File -->
 <script src="/public_file/assets/js/scripts.js"></script>
