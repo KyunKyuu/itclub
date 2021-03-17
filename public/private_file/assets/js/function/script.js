@@ -10,3 +10,14 @@ function SeePassword(params) {
         $(`#${button}`).html('<i class="fas fa-eye-slash"></i>')
     }
 }
+
+function ConfirmPassword(params) {
+    let password = $(`#${params.idPassword}`).val()
+    let confirmPassword = $(`#${params.idConfirmPassword}`).val()
+
+    if (password == confirmPassword) {
+        return 1;
+    }else{
+        return 0;
+    }
+}

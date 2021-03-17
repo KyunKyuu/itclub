@@ -11,7 +11,9 @@
                   <div class="card card-primary">
               <div class="card-header"><h4>Register</h4></div>
 
+
               <div class="card-body">
+                  <div id="message"></div>
                   <form method="POST" id="register">
                       <div class="row">
                     <div class="form-group col-6">
