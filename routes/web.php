@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
+use App\Http\Controllers\Api\PreferencesController as ApiPreferencesController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Setting\PreferencesController;
@@ -27,6 +28,9 @@ Route::group(['prefix' => '/master'], function () {
 });
 
 // !NOTE API Request & Response
-Route::post('/api/v1/auth/register', [ApiAuthController::class, 'register']);
-Route::post('/api/v1/auth/login', [ApiAuthController::class, 'login']);
-Route::get('/api/v1/auth/logout', [ApiAuthController::class, 'logout']);
+Route::group(['prefix' => '/api/v1'], function () {
+    Route::post('/auth/register', [ApiAuthController::class, 'register']);
+    Route::post('/auth/login', [ApiAuthController::class, 'login']);
+    Route::get('/auth/logout', [ApiAuthController::class, 'logout']);
+    Route::get('/preferences/section', [ApiPreferencesController::class, 'section']);
+});
