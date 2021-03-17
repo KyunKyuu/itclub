@@ -20,3 +20,14 @@
 
 <!-- Page Specific JS File -->
 <script src="/public_file/assets/js/page/index.js"></script>
+
+@if (request()->segment(3))
+    <script src="/private_file/assets/js/{{request()->segment(1)}}/{{request()->segment(2)}}/{{request()->segment(3)}}.js"></script>
+@elseif(request()->segment(2))
+    <script src="/private_file/assets/js/{{request()->segment(1)}}/{{request()->segment(2)}}/script.js"></script>
+@else
+    <script src="/private_file/assets/js/{{request()->segment(1)}}.js"></script>
+@endif
+
+<!-- Private File JS File -->
+<script src="/private_file/assets/js/function/script.js"></script>

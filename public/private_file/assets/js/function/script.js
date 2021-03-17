@@ -21,3 +21,28 @@ function ConfirmPassword(params) {
         return 0;
     }
 }
+
+function RequestTable(data) {
+    $(data.table).DataTable().destroy();
+    if(data.parm){
+        $(data.table).DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: baseurl + data.url,
+                data:data.parm
+            },
+            columns: data.data,
+        });
+    }else{
+        $(data.table).DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: baseurl + data.url
+            },
+            columns: data.data,
+        });
+    }
+}
+
