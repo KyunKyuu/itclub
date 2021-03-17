@@ -17,8 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index']);
+Route::get('/dashboard/index', [IndexController::class, 'index']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login']);
 
 // !NOTE API Request & Response
 Route::post('/api/v1/auth/register', [ApiAuthController::class, 'register']);
+Route::post('/api/v1/auth/login', [ApiAuthController::class, 'login']);
+Route::get('/api/v1/auth/logout', [ApiAuthController::class, 'logout']);

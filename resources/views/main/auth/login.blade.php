@@ -10,10 +10,11 @@
             {{-- <img src="/public_file/assets/img/stisla-fill.svg" alt="logo" width="80" class="shadow-light rounded-circle mb-5 mt-2"> --}}
             <h4 class="mt-4 text-dark font-weight-normal">Welcome to <span class="font-weight-bold">IT Club</span></h4>
             <p class="text-muted">Before you get started, you must login or register if you don't already have an account.</p>
+            <div id="message"></div>
             <form method="POST" action="#" class="needs-validation" novalidate="" id="login">
               <div class="form-group">
                 <label for="email">Username/Email</label>
-                <input id="name" type="text" class="form-control" name="username" tabindex="1" required autofocus autocomplete>
+                <input id="username" type="text" class="form-control" name="username" tabindex="1" required autofocus autocomplete>
                 <div class="invalid-feedback">
                   Please fill in your email
                 </div>
@@ -24,8 +25,8 @@
                   <label for="password" class="control-label">Password</label>
                 </div>
                 <div class="input-group mb-3">
-                    <input id="password" type="password" class="form-control" required name="password">
-                    <div class="input-group-append">
+                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
+                    <div class="input-group-append" >
                       <button class="btn btn-primary" id="seePassword" type="button"><i class="fas fa-eye-slash"></i></button>
                     </div>
                   </div>
