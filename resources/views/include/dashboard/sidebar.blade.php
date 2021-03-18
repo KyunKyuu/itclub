@@ -12,7 +12,7 @@
                 <li class="menu-header">{{$section->name}}</li>
                 @foreach (Menu($section->id) as $menu)
                     @if ($menu->type == 'dynamic')
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown {{active($menu->id)}}">
                             <a href="#" class="nav-link has-dropdown"><i class="{{$menu->icon}}"></i><span>{{$menu->name}}</span></a>
                             <ul class="dropdown-menu">
                                 @foreach (Submenu($menu->id) as $submenu)

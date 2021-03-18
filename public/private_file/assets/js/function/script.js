@@ -48,15 +48,8 @@ function Table(data) {
 
 function SweetAlert(data){
     let status, title
-    if(data.status == 200){
-        status = 'success'
-        title = 'Success'
-    }else{
-        status = 'error'
-        title = 'Failed!'
-    }
 
-    Swal.fire(title, data.message, status)
+    Swal.fire(data.status, data.message, data.status)
 }
 
 function RefreshTable(data) {
