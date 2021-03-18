@@ -15,12 +15,14 @@ class CreateBlogsTable extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
             $table->string('name');
             $table->longText('content');
             $table->string('image')->nullable();
+            $table->foreignId('created_by');
             $table->string('slug');
+            $table->enum('type', ['pending', 'publish'])->default('pending');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

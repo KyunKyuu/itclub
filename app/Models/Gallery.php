@@ -4,21 +4,32 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Gallery extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $table = 'galleries';
     protected $guarded = ['id','created_at','updated_at'];
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:m:s',
         'updated_at' => 'datetime:Y-m-d H:m:s',
-        'image' => 'array'
+        'deleted_at' => 'datetime:Y-m-d H:m:s' 
     ];
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class)->withTrashed();
+    }
+
+    public function image()
+    {
+        return $this->hasMany(ImageGallery::class);
+    }
+
+     public function created_by()
+    {
+        return $this->belongsTo(User::class, 'created_by')->withTrashed();
     }
 }

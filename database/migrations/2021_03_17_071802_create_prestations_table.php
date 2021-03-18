@@ -18,7 +18,9 @@ class CreatePrestationsTable extends Migration
             $table->string('name');
             $table->longText('content');
             $table->string('image');
+            $table->foreignId('created_by')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
