@@ -57,10 +57,14 @@ $(document).ready(function() {
             url:'/api/v1/menu/get/'+value,
             type:'GET',
             success:res=>{
-                $('#update_name').val(res.data.name)
-                $('#update_name').data('id',res.data.id)
-                $('#update_comments').val(res.data.comments)
-                $('#updatemenu').modal('show')
+                $('#updateMenu input[name="name"]').val(res.data.name);
+                $('#updateMenu input[name="name"]').data('id',res.data.id);
+                $('#updateMenu input[name="url"]').val(res.data.url);
+                $('#updateMenu input[name="icon"]').val(res.data.icon);
+                $('#updateMenu select[name="type"] option[value="'+res.data.type+'"]').attr('selected', true);
+                $('#updateMenu select[name="section_id"] option[value="'+res.data.section_id+'"]').attr('selected', true);
+                $('#updateMenu textarea[name="comments"]').val(res.data.comments);
+                $('#updateMenu').modal('show');
             },
             error:err=>console.log(err)
         })
