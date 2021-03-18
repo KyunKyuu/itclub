@@ -8,23 +8,25 @@
             <a href="/">ITC</a>
           </div>
           <ul class="sidebar-menu">
-              <li class="menu-header">Dashboard</li>
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
-                <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="index-0.html">General Dashboard</a></li>
-                  <li class="active"><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li>
-                </ul>
-              </li>
-              <li class="menu-header">Master</li>
-              <li class="nav-item dropdown">
-                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Preferences Web</span></a>
-                <ul class="dropdown-menu">
-                  <li><a class="nav-link text-capitalize" href="/master/preferences/section" >section</a></li>
-                  <li><a class="nav-link text-capitalize" href="/master/preferences/menu">menu</a></li>
-                  <li><a class="nav-link text-capitalize" href="/master/preferences/submenu">submenu</a></li>
-                </ul>
-              </li>
+              @foreach (Section() as $section)
+                <li class="menu-header">{{$section->name}}</li>
+                @foreach (Menu($section->id) as $menu)
+                    @if ($menu->type == 'dynamic')
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link has-dropdown"><i class="{{$menu->icon}}"></i><span>{{$menu->name}}</span></a>
+                            <ul class="dropdown-menu">
+                                @foreach (Submenu($menu->id) as $submenu)
+                                    <li><a class="nav-link text-capitalize" href="{{$submenu->url}}" >{{$submenu->name}}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
+                    @else
+                        <li>
+                            <a class="nav-link" href="{{$menu->url}}"><i class="{{$menu->icon}}"></i> <span>{{$menu->name}}</span></a>
+                        </li>
+                    @endif
+                @endforeach
+              @endforeach
           </ul>
         </aside>
       </div>
