@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/dashboard/index', [IndexController::class, 'index']);
 Route::get('/auth/register', [AuthController::class, 'register']);
-Route::get('/auth/login', [AuthController::class, 'login']);
+Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
 
-Route::group(['prefix' => '/master'], function () {
+Route::group(['prefix' => '/master', 'middleware' => 'auth'], function () {
     Route::get('/preferences/section', [PreferencesController::class, 'section']);
     Route::get('/preferences/menu', [PreferencesController::class, 'menu']);
 });

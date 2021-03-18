@@ -4,9 +4,13 @@
       <div class="section-header">
         <h1>Preferences Web</h1>
         <div class="section-header-breadcrumb">
-          <div class="breadcrumb-item active"><a href="#">Master</a></div>
-          <div class="breadcrumb-item"><a href="#">Preferences Web</a></div>
-          <div class="breadcrumb-item">Menu</div>
+          <div class="breadcrumb-item text-capitalize active"><a href="#">{{request()->segment(1)}}</a></div>
+          @if (request()->segment(3))
+            <div class="breadcrumb-item text-capitalize"><a href="#">{{request()->segment(2)}}</a></div>
+            <div class="breadcrumb-item text-capitalize">{{request()->segment(3)}}</div>
+          @else
+            <div class="breadcrumb-item text-capitalize">{{request()->segment(2)}}</div>
+          @endif
         </div>
       </div>
 

@@ -14,7 +14,7 @@
               </div>
               <div class="card-body p-3">
                 <div class="table-responsive">
-                  <table class="table table-striped" id="table">
+                  <table class="table table-hover" id="table">
                     <thead>
                         <tr>
                             <th width="20px">
@@ -60,7 +60,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Section ID</label>
                         <div class="col-sm-9">
-                          <select name="section_id" id="type" class="form-control">
+                          <select name="section_id" class="form-control">
                               <option selected disabled>== pilih section ==</option>
                               @foreach ($section as $data)
                                 <option value="{{$data->id}}">{{$data->name}}</option>
@@ -83,7 +83,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Menu Type</label>
                         <div class="col-sm-9">
-                          <select name="type" id="type" class="form-control">
+                          <select name="type" class="form-control">
                               <option value selected disabled>== pilih type ==</option>
                               <option value="static">static</option>
                               <option value="dynamic">dynamic</option>
@@ -136,22 +136,61 @@
             </div>
             <div class="modal-body">
                 <form class="needs-validation" novalidate id="update">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Section Name</label>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Section ID</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="update_name" name="name" required="">
+                          <select name="section_id" class="form-control">
+                              <option selected disabled>== pilih section ==</option>
+                              @foreach ($section as $data)
+                                <option value="{{$data->id}}">{{$data->name}}</option>
+                              @endforeach
+                          </select>
                           <div class="invalid-feedback">
-                            What's section name?
+                            What's Section ID?
                           </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Menu Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" name="name" required="">
+                          <div class="invalid-feedback">
+                            What's Menu name?
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Menu Type</label>
+                        <div class="col-sm-9">
+                          <select name="type" class="form-control">
+                              <option value selected disabled>== pilih type ==</option>
+                              <option value="static">static</option>
+                              <option value="dynamic">dynamic</option>
+                          </select>
+                          <div class="invalid-feedback">
+                            What's Menu Type?
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Menu Icon</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" name="icon" required="">
+                          <div class="invalid-feedback">
+                            What's Menu icon?
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Menu Url</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" name="url">
                         </div>
                       </div>
                       <div class="form-group mb-0 row">
                         <label class="col-sm-3 col-form-label">Comments</label>
                         <div class="col-sm-9">
-                          <textarea class="form-control" id="update_comments" name="comments" required=""></textarea>
-                          <div class="invalid-feedback">
-                            What do you wanna say?
-                          </div>
+                          <textarea class="form-control" name="comments"></textarea>
                         </div>
                       </div>
                     </div>
