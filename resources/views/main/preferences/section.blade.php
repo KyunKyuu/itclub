@@ -92,7 +92,7 @@
                     </div>
                     <div class="modal-footer ml-3">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Understood</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </div>
                 </form>
         </div>

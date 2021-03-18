@@ -46,3 +46,21 @@ function Table(data) {
     }
 }
 
+function SweetAlert(data){
+    let status, title
+    if(data.status == 200){
+        status = 'success'
+        title = 'Success'
+    }else{
+        status = 'error'
+        title = 'Failed!'
+    }
+
+    Swal.fire(title, data.message, status)
+}
+
+function RefreshTable(data) {
+    table = $(`#${data}`).DataTable();
+    table.ajax.reload()
+}
+

@@ -21,7 +21,28 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN' : csrftoken
             },
             success:res=>{
-                console.log(res);
+                SweetAlert(res)
+                RefreshTable('table')
+            },
+            error:err=>console.log(err)
+        })
+    })
+
+    $('#table').on('click', '#delete', function (e) {
+        e.preventDefault();
+        let value = $(this).data('value')
+        $.ajax({
+            url:'/api/v1/section/delete',
+            data:{
+                value : value
+            },
+            type:'DELETE',
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            success:res=>{
+                SweetAlert(res)
+                RefreshTable('table')
             },
             error:err=>console.log(err)
         })

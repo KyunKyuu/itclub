@@ -13,6 +13,8 @@
 <script src="/public_file/node_modules/summernote/dist/summernote-bs4.js"></script>
 <script src="/public_file/node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 <script src="/public_file/node_modules/dataTables/js/jquery.dataTables.js"></script>
+{{-- <script src="/public_file/node_modules/sweetalert/dist/sweetalert.js"></script> --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <!-- Template JS File -->
 <script src="/public_file/assets/js/scripts.js"></script>

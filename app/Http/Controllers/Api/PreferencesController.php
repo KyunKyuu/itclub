@@ -24,7 +24,7 @@ class PreferencesController extends Controller
             ->addColumn('btn', function ($section) {
                 return '
             <a href="#" class="btn btn-icon btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-            <a href="#" class="btn btn-icon btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $section->id . '" id="delete"><i class="fas fa-trash"></i></a>
             ';
             })
             ->rawColumns(['check', 'btn', 'status'])
@@ -36,5 +36,12 @@ class PreferencesController extends Controller
         $request->request->add(['created_by' => auth()->user()->id, 'status' => 200]);
         Section::create($request->all());
         return response()->json(['status' => 200, 'message' => 'Data berhasil ditambahkan!']);
+    }
+
+    public function delete_section(Request $request)
+    {
+        $section = Section::find($request->value);
+        $section->delete();
+        return response()->json(['status' => 200, 'message' => 'Data berhasil dihapus!']);
     }
 }

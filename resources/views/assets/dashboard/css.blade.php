@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/public_file/node_modules/owl.carousel/dist/assets/owl.carousel.min.css">
   <link rel="stylesheet" href="/public_file/node_modules/owl.carousel/dist/assets/owl.theme.default.min.css">
   <link rel="stylesheet" href="/public_file/node_modules/dataTables/css/dataTables.bootstrap4.css">
+  {{-- <link rel="stylesheet" href="/public_file/node_modules/sweetalert/dist/sweetalert.css"> --}}
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="/public_file/assets/css/style.css">
