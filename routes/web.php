@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [IndexController::class, 'index']);
-Route::get('/dashboard/index', [IndexController::class, 'index']);
+Route::get('/dashboard/general/index', [IndexController::class, 'index']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
 
