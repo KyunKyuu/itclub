@@ -3,7 +3,8 @@ $(document).ready(function() {
         {data:'check', name:'check', orderable:false, searchable:false},
         {data:'menu_id', name:'menu_id', orderable:false,},
         {data:'name', name:'name'},
-        {data:'comments', name:'action', searchable:false, orderable:false},
+        {data:'comments', name:'action', orderable:false},
+        {data:'created_by', name:'created_by'},
         {data:'status', name:'status', },
         {data:'btn', name:'btn', searchable:false, orderable:false},
     ];
@@ -59,9 +60,8 @@ $(document).ready(function() {
                 $('#updateSubmenu input[name="name"]').val(res.data.name);
                 $('#updateSubmenu input[name="name"]').data('id',res.data.id);
                 $('#updateSubmenu input[name="url"]').val(res.data.url);
-                $('#updateSubmenu input[name="icon"]').val(res.data.icon);
                 $('#updateSubmenu select[name="type"] option[value="'+res.data.type+'"]').attr('selected', true);
-                $('#updateSubmenu select[name="section_id"] option[value="'+res.data.section_id+'"]').attr('selected', true);
+                $('#updateSubmenu select[name="menu_id"] option[value="'+res.data.menu_id+'"]').attr('selected', true);
                 $('#updateSubmenu textarea[name="comments"]').val(res.data.comments);
                 $('#updateSubmenu').modal('show');
             },

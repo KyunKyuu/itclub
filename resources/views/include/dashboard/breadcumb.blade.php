@@ -12,8 +12,11 @@
             <div class="breadcrumb-item text-capitalize">{{request()->segment(2)}}</div>
           @endif
         </div>
-      </div>
+    </div>
 
-      <div class="section-body">
-        <h2 class="section-title">Menu</h2>
-        <p class="section-lead">Example of some Bootstrap table components.</p>
+    @if (request()->segment(3))
+        <div class="section-body">
+            <h2 class="section-title text-capitalize">{{request()->segment(3)}}</h2>
+            <p class="section-lead">Example of some Bootstrap table components.</p>
+    @else
+    @endif

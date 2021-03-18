@@ -97,8 +97,8 @@ class PreferencesController extends Controller
 
     public function get_menu($id)
     {
-        $section = Menu::find($id);
-        return response()->json(['status' => 200, 'message' => 'Get data berhasil', 'data' => $section]);
+        $submenu = Menu::find($id);
+        return response()->json(['status' => 200, 'message' => 'Get data berhasil', 'data' => $submenu]);
     }
 
     public function insert_menu(Request $request)
@@ -110,15 +110,15 @@ class PreferencesController extends Controller
 
     public function delete_menu(Request $request)
     {
-        $section = Menu::find($request->value);
-        $section->delete();
+        $submenu = Menu::find($request->value);
+        $submenu->delete();
         return response()->json(['status' => 200, 'message' => 'Data berhasil dihapus!']);
     }
 
     public function update_menu(Request $request)
     {
-        $section = Menu::find($request->id);
-        $section->update($request->all());
+        $submenu = Menu::find($request->id);
+        $submenu->update($request->all());
         return response()->json(['status' => 200, 'message' => 'Data berhasil diperbaharui!']);
     }
 
@@ -144,8 +144,8 @@ class PreferencesController extends Controller
             ->editColumn('created_by', function ($submenu) {
                 return $submenu->users()->name;
             })
-            ->editColumn('section_id', function ($submenu) {
-                return $submenu->section()->name;
+            ->editColumn('menu_id', function ($submenu) {
+                return $submenu->menu()->name;
             })
             ->editColumn('icon', function ($submenu) {
                 return '<i class="' . $submenu->icon . '"></i>';
@@ -156,8 +156,8 @@ class PreferencesController extends Controller
 
     public function get_submenu($id)
     {
-        $section = Submenu::find($id);
-        return response()->json(['status' => 200, 'message' => 'Get data berhasil', 'data' => $section]);
+        $submenu = Submenu::find($id);
+        return response()->json(['status' => 200, 'message' => 'Get data berhasil', 'data' => $submenu]);
     }
 
     public function insert_submenu(Request $request)
@@ -169,15 +169,15 @@ class PreferencesController extends Controller
 
     public function delete_submenu(Request $request)
     {
-        $section = Submenu::find($request->value);
-        $section->delete();
+        $submenu = Submenu::find($request->value);
+        $submenu->delete();
         return response()->json(['status' => 200, 'message' => 'Data berhasil dihapus!']);
     }
 
     public function update_submenu(Request $request)
     {
-        $section = Submenu::find($request->id);
-        $section->update($request->all());
+        $submenu = Submenu::find($request->id);
+        $submenu->update($request->all());
         return response()->json(['status' => 200, 'message' => 'Data berhasil diperbaharui!']);
     }
 }

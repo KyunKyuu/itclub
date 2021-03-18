@@ -23,9 +23,10 @@
                                 <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                 </div>
                             </th>
-                            <th width="50px">Section</th>
+                            <th width="40px">Menu</th>
                             <th width="100px">Submenu Name</th>
                             <th>Comments</th>
+                            <th width="40px">Created_By</th>
                             <th width="10px">Status</th>
                             <th width="100px">Action</th>
                             </tr>
@@ -57,38 +58,25 @@
             <div class="modal-body">
                 <form class="needs-validation" novalidate id="insert">
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Section ID</label>
+                        <label class="col-sm-3 col-form-label">Menu ID</label>
                         <div class="col-sm-9">
-                          <select name="section_id" class="form-control" required>
-                              <option selected disabled>== pilih section ==</option>
+                          <select name="menu_id" class="form-control" required>
+                              <option selected disabled>== pilih menu ==</option>
                               @foreach ($menu as $data)
                                 <option value="{{$data->id}}">{{$data->name}}</option>
                               @endforeach
                           </select>
                           <div class="invalid-feedback">
-                            What's Section ID?
+                            What's Menu ID?
                           </div>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Submenu Name</label>
+                        <label class="col-sm-3 col-form-label">Name</label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control" name="name" required="">
                           <div class="invalid-feedback">
                             What's Submenu name?
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Submenu Type</label>
-                        <div class="col-sm-9">
-                          <select name="type" class="form-control" required>
-                              <option value selected disabled>== pilih type ==</option>
-                              <option value="static">static</option>
-                              <option value="dynamic">dynamic</option>
-                          </select>
-                          <div class="invalid-feedback">
-                            What's Submenu Type?
                           </div>
                         </div>
                       </div>
@@ -130,38 +118,25 @@
             <div class="modal-body">
                 <form class="needs-validation" novalidate id="update">
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Section ID</label>
+                        <label class="col-sm-3 col-form-label">Menu ID</label>
                         <div class="col-sm-9">
-                          <select name="section_id" class="form-control" required>
-                              <option selected disabled>== pilih section ==</option>
+                          <select name="menu_id" class="form-control" required>
+                              <option selected disabled>== pilih menu ==</option>
                               @foreach ($menu as $data)
                                 <option value="{{$data->id}}">{{$data->name}}</option>
                               @endforeach
                           </select>
                           <div class="invalid-feedback">
-                            What's Section ID?
+                            What's Menu ID?
                           </div>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Submenu Name</label>
+                        <label class="col-sm-3 col-form-label">Name</label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control" name="name" required="">
                           <div class="invalid-feedback">
                             What's Submenu name?
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Submenu Type</label>
-                        <div class="col-sm-9">
-                          <select name="type" class="form-control" required>
-                              <option value selected disabled>== pilih type ==</option>
-                              <option value="static">static</option>
-                              <option value="dynamic">dynamic</option>
-                          </select>
-                          <div class="invalid-feedback">
-                            What's Submenu Type?
                           </div>
                         </div>
                       </div>
