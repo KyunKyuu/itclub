@@ -2,7 +2,7 @@
 <div class="main-content" style="min-height: 549px;">
     <section class="section">
       <div class="section-header">
-        <h1>Preferences Web</h1>
+        <h1 class="text-capitalize">{{TitleBreadcumb()}}</h1>
         <div class="section-header-breadcrumb">
           <div class="breadcrumb-item text-capitalize active"><a href="#">{{request()->segment(1)}}</a></div>
           @if (request()->segment(3))

@@ -33,3 +33,15 @@ function active($id)
     }
     return $data > 0 ? 'active' : ' ';
 }
+
+function TitleBreadcumb()
+{
+    if (request()->segment(3)) {
+        $url = '/' . request()->segment(1) . '/' . request()->segment(2) . '/' . request()->segment(3);
+        $data = Submenu::where('url', $url)->get();
+    } else {
+        $url = '/' . request()->segment(1) . '/' . request()->segment(2);
+        $data = Menu::where('url', $url)->get();
+    }
+    return $data[0]->name;
+}
