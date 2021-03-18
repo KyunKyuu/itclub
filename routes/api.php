@@ -6,7 +6,8 @@ use App\Http\Controllers\Api\{
     MemberController,
     DivisionController,
     ImageDivisionController,
-    AlumniController
+    AlumniController,
+    PreferencesController
 };
 
 /*
@@ -67,29 +68,29 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::group(['prefix' => '/preferences'], function () {
-        Route::get('/section', [ApiPreferencesController::class, 'section']);
-        Route::get('/menu', [ApiPreferencesController::class, 'menu']);
-        Route::get('/submenu', [ApiPreferencesController::class, 'submenu']);
+        Route::get('/section', [PreferencesController::class, 'section']);
+        Route::get('/menu', [PreferencesController::class, 'menu']);
+        Route::get('/submenu', [PreferencesController::class, 'submenu']);
     });
 
     Route::group(['prefix' => '/section'], function () {
-        Route::get('/get/{id}', [ApiPreferencesController::class, 'get_section']);
-        Route::post('/insert', [ApiPreferencesController::class, 'insert_section']);
-        Route::delete('/delete', [ApiPreferencesController::class, 'delete_section']);
-        Route::post('/update', [ApiPreferencesController::class, 'update_section']);
+        Route::get('/get/{id}', [PreferencesController::class, 'get_section']);
+        Route::post('/insert', [PreferencesController::class, 'insert_section']);
+        Route::delete('/delete', [PreferencesController::class, 'delete_section']);
+        Route::post('/update', [PreferencesController::class, 'update_section']);
     });
 
     Route::group(['prefix' => '/menu'], function () {
-        Route::get('/get/{id}', [ApiPreferencesController::class, 'get_menu']);
-        Route::post('/insert', [ApiPreferencesController::class, 'insert_menu']);
-        Route::delete('/delete', [ApiPreferencesController::class, 'delete_menu']);
-        Route::post('/update', [ApiPreferencesController::class, 'update_menu']);
+        Route::get('/get/{id}', [PreferencesController::class, 'get_menu']);
+        Route::post('/insert', [PreferencesController::class, 'insert_menu']);
+        Route::delete('/delete', [PreferencesController::class, 'delete_menu']);
+        Route::post('/update', [PreferencesController::class, 'update_menu']);
     });
 
     Route::group(['prefix' => '/submenu'], function () {
-        Route::get('/get/{id}', [ApiPreferencesController::class, 'get_menu']);
-        Route::post('/insert', [ApiPreferencesController::class, 'insert_menu']);
-        Route::delete('/delete', [ApiPreferencesController::class, 'delete_menu']);
-        Route::post('/update', [ApiPreferencesController::class, 'update_menu']);
+        Route::get('/get/{id}', [PreferencesController::class, 'get_menu']);
+        Route::post('/insert', [PreferencesController::class, 'insert_menu']);
+        Route::delete('/delete', [PreferencesController::class, 'delete_menu']);
+        Route::post('/update', [PreferencesController::class, 'update_menu']);
     });
 });
