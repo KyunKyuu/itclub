@@ -12,4 +12,9 @@ class PreferencesController extends Controller
     {
         return view('main.preferences.section');
     }
+
+    public function menu()
+    {
+        return view('main.preferences.menu');
+    }
 }
