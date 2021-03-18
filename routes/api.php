@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\{
     DivisionController,
     ImageDivisionController,
     AlumniController,
+    AuthController,
     PreferencesController
 };
 
@@ -62,9 +63,9 @@ Route::prefix('v1')->group(function () {
 
     // !NOTE API Request & Response
     Route::group(['prefix' => '/auth'], function () {
-        Route::post('/auth/register', [ApiAuthController::class, 'register']);
-        Route::post('/auth/login', [ApiAuthController::class, 'login']);
-        Route::get('/auth/logout', [ApiAuthController::class, 'logout']);
+        Route::post('/register', [AuthController::class, 'register']);
+        Route::post('/login', [AuthController::class, 'login']);
+        Route::get('/logout', [AuthController::class, 'logout']);
     });
 
     Route::group(['prefix' => '/preferences'], function () {

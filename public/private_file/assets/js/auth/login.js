@@ -19,8 +19,8 @@ $(document).ready(function() {
             },
             success:res=>{
                 let color = ''
-                if (res.status == 200) {
-                    window.location.href = '/dashboard/index';
+                if (res.status == 'success') {
+                    window.location.href = '/dashboard/general/index';
                 }else{
                     $('#message').html(` <div class="alert alert-danger alert-dismissible show fade"><div class="alert-body"><button class="close" data-dismiss="alert"><span>×</span></button>${res.message}.</div></div>`)
                 }
