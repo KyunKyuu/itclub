@@ -16,7 +16,7 @@
 
     @if (request()->segment(3))
         <div class="section-body">
-            <h2 class="section-title text-capitalize">{{SubtitleBreadcumb()}}</h2>
-            <p class="section-lead">Example of some Bootstrap table components.</p>
+            <h2 class="section-title text-capitalize">{{SubtitleBreadcumb()->name}}</h2>
+            <p class="section-lead">{{SubtitleBreadcumb()->comments}}.</p>
     @else
     @endif

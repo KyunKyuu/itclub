@@ -47,9 +47,9 @@ function TitleBreadcumb()
     return $data[0]->name;
 }
 
-function SUbtitleBreadcumb()
+function SubtitleBreadcumb()
 {
     $url = '/' . request()->segment(1) . '/' . request()->segment(2) . '/' . request()->segment(3);
     $data = Submenu::where('url', $url)->get();
-    return $data[0]->name;
+    return $data[0];
 }
