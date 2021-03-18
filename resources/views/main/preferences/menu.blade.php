@@ -17,16 +17,18 @@
                   <table class="table table-striped" id="table">
                     <thead>
                         <tr>
-                            <th>
+                            <th width="20px">
                                 <div class="custom-checkbox custom-control">
                                 <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
                                 <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                 </div>
                             </th>
-                            <th>Menu Name</th>
-                            <th>Created By</th>
+                            <th width="50px">Section</th>
+                            <th width="100px">Menu Name</th>
+                            <th width="10px">Icon</th>
+                            <th width="30px">Type</th>
                             <th>Comments</th>
-                            <th>Action</th>
+                            <th width="100px">Action</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -43,7 +45,7 @@
 
   {{-- !NOTE Data Modal here  --}}
 
-  <!-- Modal Insert Section -->
+  <!-- Modal Insert Menu -->
     <div class="modal fade" id="insertMenu" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="insertMenuLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -55,22 +57,61 @@
             </div>
             <div class="modal-body">
                 <form class="needs-validation" novalidate id="insert">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Section ID</label>
+                        <div class="col-sm-9">
+                          <select name="section_id" id="type" class="form-control">
+                              <option selected disabled>== pilih section ==</option>
+                              @foreach ($section as $data)
+                                <option value="{{$data->id}}">{{$data->name}}</option>
+                              @endforeach
+                          </select>
+                          <div class="invalid-feedback">
+                            What's Section ID?
+                          </div>
+                        </div>
+                      </div>
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Section Name</label>
+                        <label class="col-sm-3 col-form-label">Menu Name</label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control" name="name" required="">
                           <div class="invalid-feedback">
-                            What's section name?
+                            What's Menu name?
                           </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Menu Type</label>
+                        <div class="col-sm-9">
+                          <select name="type" id="type" class="form-control">
+                              <option value selected disabled>== pilih type ==</option>
+                              <option value="static">static</option>
+                              <option value="dynamic">dynamic</option>
+                          </select>
+                          <div class="invalid-feedback">
+                            What's Menu Type?
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Menu Icon</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" name="icon" required="">
+                          <div class="invalid-feedback">
+                            What's Menu icon?
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Menu Url</label>
+                        <div class="col-sm-9">
+                          <input type="text" class="form-control" name="url">
                         </div>
                       </div>
                       <div class="form-group mb-0 row">
                         <label class="col-sm-3 col-form-label">Comments</label>
                         <div class="col-sm-9">
-                          <textarea class="form-control" name="comments" required=""></textarea>
-                          <div class="invalid-feedback">
-                            What do you wanna say?
-                          </div>
+                          <textarea class="form-control" name="comments"></textarea>
                         </div>
                       </div>
                     </div>

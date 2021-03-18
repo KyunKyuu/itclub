@@ -44,7 +44,7 @@ class PreferencesController extends Controller
 
     public function insert_section(Request $request)
     {
-        $request->request->add(['created_by' => auth()->user()->id, 'status' => 200]);
+        $request->request->add(['created_by' => auth()->user()->id]);
         Section::create($request->all());
         return response()->json(['status' => 200, 'message' => 'Data berhasil ditambahkan!']);
     }
@@ -84,7 +84,13 @@ class PreferencesController extends Controller
             ->editColumn('created_by', function ($menu) {
                 return $menu->users()->name;
             })
-            ->rawColumns(['check', 'btn', 'status'])
+            ->editColumn('section_id', function ($menu) {
+                return $menu->section()->name;
+            })
+            ->editColumn('icon', function ($menu) {
+                return '<i class="' . $menu->icon . '"></i>';
+            })
+            ->rawColumns(['check', 'btn', 'status', 'icon'])
             ->make(true);
     }
 
@@ -96,7 +102,7 @@ class PreferencesController extends Controller
 
     public function insert_menu(Request $request)
     {
-        $request->request->add(['created_by' => auth()->user()->id, 'status' => 200]);
+        $request->request->add(['created_by' => auth()->user()->id]);
         Menu::create($request->all());
         return response()->json(['status' => 200, 'message' => 'Data berhasil ditambahkan!']);
     }
