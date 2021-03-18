@@ -38,10 +38,18 @@ function TitleBreadcumb()
 {
     if (request()->segment(3)) {
         $url = '/' . request()->segment(1) . '/' . request()->segment(2) . '/' . request()->segment(3);
-        $data = Submenu::where('url', $url)->get();
+        $submenu = Submenu::where('url', $url)->get();
+        $data = Menu::where('id', $submenu[0]->menu_id)->get();
     } else {
         $url = '/' . request()->segment(1) . '/' . request()->segment(2);
         $data = Menu::where('url', $url)->get();
     }
+    return $data[0]->name;
+}
+
+function SUbtitleBreadcumb()
+{
+    $url = '/' . request()->segment(1) . '/' . request()->segment(2) . '/' . request()->segment(3);
+    $data = Submenu::where('url', $url)->get();
     return $data[0]->name;
 }
