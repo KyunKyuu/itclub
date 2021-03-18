@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Models\Section;
+use App\Models\Submenu;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
