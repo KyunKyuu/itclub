@@ -23,12 +23,21 @@ class PreferencesController extends Controller
             })
             ->addColumn('btn', function ($section) {
                 return '
-            <a href="#" class="btn btn-icon btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $section->id . '" id="edit"><i class="fas fa-edit"></i></a>
             <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $section->id . '" id="delete"><i class="fas fa-trash"></i></a>
             ';
             })
+            ->editColumn('created_by', function ($section) {
+                return $section->users()->name;
+            })
             ->rawColumns(['check', 'btn', 'status'])
             ->make(true);
+    }
+
+    public function get_section($id)
+    {
+        $section = Section::find($id);
+        return response()->json(['status' => 200, 'message' => 'Get data berhasil', 'data' => $section]);
     }
 
     public function insert_section(Request $request)
@@ -43,5 +52,12 @@ class PreferencesController extends Controller
         $section = Section::find($request->value);
         $section->delete();
         return response()->json(['status' => 200, 'message' => 'Data berhasil dihapus!']);
+    }
+
+    public function update_section(Request $request)
+    {
+        $section = Section::find($request->id);
+        $section->update($request->all());
+        return response()->json(['status' => 200, 'message' => 'Data berhasil diperbaharui!']);
     }
 }

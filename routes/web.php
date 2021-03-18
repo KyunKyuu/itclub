@@ -33,6 +33,8 @@ Route::group(['prefix' => '/api/v1'], function () {
     Route::post('/auth/login', [ApiAuthController::class, 'login']);
     Route::get('/auth/logout', [ApiAuthController::class, 'logout']);
     Route::get('/preferences/section', [ApiPreferencesController::class, 'section']);
+    Route::get('/section/get/{id}', [ApiPreferencesController::class, 'get_section']);
     Route::post('/section/insert', [ApiPreferencesController::class, 'insert_section']);
     Route::delete('/section/delete', [ApiPreferencesController::class, 'delete_section']);
+    Route::post('/section/update', [ApiPreferencesController::class, 'update_section']);
 });
