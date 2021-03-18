@@ -22,14 +22,14 @@ function ConfirmPassword(params) {
     }
 }
 
-function RequestTable(data) {
+function Table(data) {
     $(data.table).DataTable().destroy();
     if(data.parm){
         $(data.table).DataTable({
             processing: true,
             serverSide: true,
             ajax: {
-                url: baseurl + data.url,
+                url: data.url,
                 data:data.parm
             },
             columns: data.data,
@@ -39,7 +39,7 @@ function RequestTable(data) {
             processing: true,
             serverSide: true,
             ajax: {
-                url: baseurl + data.url
+                url: data.url
             },
             columns: data.data,
         });

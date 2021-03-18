@@ -16,12 +16,25 @@ class PreferencesController extends Controller
         return DataTables::of($section)
             ->addIndexColumn()
             ->addColumn('check', function ($section) {
-                return  '<div class="custom-control custom-checkbox">
-                <input type="checkbox" class="customCheck custom-control-input" id="customCheck' . $section->id . '" data-id="' . $section->id . '">
-                <label class="custom-control-label" for="customCheck' . $section->id . '"></label>
-            </div>';
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                    </div>';
             })
-            ->rawColumns(['check', 'btn', 'access', 'status'])
+            ->addColumn('btn', function ($section) {
+                return '
+            <a href="#" class="btn btn-icon btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+            ';
+            })
+            ->rawColumns(['check', 'btn', 'status'])
             ->make(true);
+    }
+
+    public function insert_section(Request $request)
+    {
+        $request->request->add(['created_by' => auth()->user()->id, 'status' => 200]);
+        Section::create($request->all());
+        return response()->json(['status' => 200, 'message' => 'Data berhasil ditambahkan!']);
     }
 }
