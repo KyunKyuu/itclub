@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\{
     ImageDivisionController,
     AlumniController,
     AuthController,
-    PreferencesController
+    PreferencesController,
 };
 
 /*
@@ -58,40 +58,5 @@ Route::prefix('v1')->group(function () {
         Route::get('edit/{id}', [AlumniController::class, 'edit'])->name('Alumni.edit');
         Route::post('edit/{id}', [AlumniController::class, 'update'])->name('alumni.update');
         Route::delete('delete/{id}', [AlumniController::class, 'destroy'])->name('alumni.destroy');
-    });
-
-
-    // !NOTE API Request & Response
-    Route::group(['prefix' => '/auth'], function () {
-        Route::post('/register', [AuthController::class, 'register']);
-        Route::post('/login', [AuthController::class, 'login']);
-        Route::get('/logout', [AuthController::class, 'logout']);
-    });
-
-    Route::group(['prefix' => '/preferences'], function () {
-        Route::get('/section', [PreferencesController::class, 'section']);
-        Route::get('/menu', [PreferencesController::class, 'menu']);
-        Route::get('/submenu', [PreferencesController::class, 'submenu']);
-    });
-
-    Route::group(['prefix' => '/section'], function () {
-        Route::get('/get/{id}', [PreferencesController::class, 'get_section']);
-        Route::post('/insert', [PreferencesController::class, 'insert_section']);
-        Route::delete('/delete', [PreferencesController::class, 'delete_section']);
-        Route::post('/update', [PreferencesController::class, 'update_section']);
-    });
-
-    Route::group(['prefix' => '/menu'], function () {
-        Route::get('/get/{id}', [PreferencesController::class, 'get_menu']);
-        Route::post('/insert', [PreferencesController::class, 'insert_menu']);
-        Route::delete('/delete', [PreferencesController::class, 'delete_menu']);
-        Route::post('/update', [PreferencesController::class, 'update_menu']);
-    });
-
-    Route::group(['prefix' => '/submenu'], function () {
-        Route::get('/get/{id}', [PreferencesController::class, 'get_menu']);
-        Route::post('/insert', [PreferencesController::class, 'insert_menu']);
-        Route::delete('/delete', [PreferencesController::class, 'delete_menu']);
-        Route::post('/update', [PreferencesController::class, 'update_menu']);
     });
 });
