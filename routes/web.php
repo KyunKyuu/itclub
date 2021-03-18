@@ -26,6 +26,7 @@ Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
 Route::group(['prefix' => '/master', 'middleware' => 'auth'], function () {
     Route::get('/preferences/section', [PreferencesController::class, 'section']);
     Route::get('/preferences/menu', [PreferencesController::class, 'menu']);
+    Route::get('/preferences/submenu', [PreferencesController::class, 'submenu']);
 });
 
 // !NOTE API Request & Response
@@ -43,4 +44,9 @@ Route::group(['prefix' => '/api/v1'], function () {
     Route::post('/menu/insert', [ApiPreferencesController::class, 'insert_menu']);
     Route::delete('/menu/delete', [ApiPreferencesController::class, 'delete_menu']);
     Route::post('/menu/update', [ApiPreferencesController::class, 'update_menu']);
+    Route::get('/preferences/submenu', [ApiPreferencesController::class, 'submenu']);
+    Route::get('/submenu/get/{id}', [ApiPreferencesController::class, 'get_submenu']);
+    Route::post('/submenu/insert', [ApiPreferencesController::class, 'insert_submenu']);
+    Route::delete('/submenu/delete', [ApiPreferencesController::class, 'delete_submenu']);
+    Route::post('/submenu/update', [ApiPreferencesController::class, 'update_submenu']);
 });

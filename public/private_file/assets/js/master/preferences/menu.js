@@ -73,7 +73,7 @@ $(document).ready(function() {
     $('#update').on('submit', function(e) {
         e.preventDefault();
         let value = new FormData(this)
-        value.append('id', $('#update_name').data('id'));
+        value.append('id', $('#updateMenu input[name="name"]').data('id'));
         $.ajax({
             url:'/api/v1/menu/update',
             data:value,

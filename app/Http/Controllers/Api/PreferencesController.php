@@ -120,4 +120,63 @@ class PreferencesController extends Controller
         $section->update($request->all());
         return response()->json(['status' => 200, 'message' => 'Data berhasil diperbaharui!']);
     }
+
+
+    // !NOTE Menu Query
+    public function submenu()
+    {
+        $submenu = Submenu::all();
+        return DataTables::of($submenu)
+            ->addIndexColumn()
+            ->addColumn('check', function ($submenu) {
+                return  '<div class="custom-checkbox custom-control">
+                            <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-' . $submenu->id . '">
+                        <label for="checkbox-' . $submenu->id . '" class="custom-control-label">&nbsp;</label>
+                        </div>';
+            })
+            ->addColumn('btn', function ($submenu) {
+                return '
+            <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $submenu->id . '" id="edit"><i class="fas fa-edit"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $submenu->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+            ->editColumn('created_by', function ($submenu) {
+                return $submenu->users()->name;
+            })
+            ->editColumn('section_id', function ($submenu) {
+                return $submenu->section()->name;
+            })
+            ->editColumn('icon', function ($submenu) {
+                return '<i class="' . $submenu->icon . '"></i>';
+            })
+            ->rawColumns(['check', 'btn', 'status', 'icon'])
+            ->make(true);
+    }
+
+    public function get_submenu($id)
+    {
+        $section = Submenu::find($id);
+        return response()->json(['status' => 200, 'message' => 'Get data berhasil', 'data' => $section]);
+    }
+
+    public function insert_submenu(Request $request)
+    {
+        $request->request->add(['created_by' => auth()->user()->id]);
+        Submenu::create($request->all());
+        return response()->json(['status' => 200, 'message' => 'Data berhasil ditambahkan!']);
+    }
+
+    public function delete_submenu(Request $request)
+    {
+        $section = Submenu::find($request->value);
+        $section->delete();
+        return response()->json(['status' => 200, 'message' => 'Data berhasil dihapus!']);
+    }
+
+    public function update_submenu(Request $request)
+    {
+        $section = Submenu::find($request->id);
+        $section->update($request->all());
+        return response()->json(['status' => 200, 'message' => 'Data berhasil diperbaharui!']);
+    }
 }

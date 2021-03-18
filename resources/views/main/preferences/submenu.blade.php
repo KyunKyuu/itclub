@@ -6,9 +6,9 @@
           <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Master Data Menu</h4>
+                    <h4>Master Data Submenu</h4>
                 <div class="ml-auto">
-                    <a href="#" class="btn btn-primary rounded" data-target="#insertMenu" data-toggle="modal"><i class="fas fa-plus"></i> Tambah</a>
+                    <a href="#" class="btn btn-primary rounded" data-target="#insertSubmenu" data-toggle="modal"><i class="fas fa-plus"></i> Tambah</a>
                     <a href="#" class="btn btn-danger rounded"><i class="far fa-trash-alt"></i> Hapus</a>
                 </div>
               </div>
@@ -24,10 +24,9 @@
                                 </div>
                             </th>
                             <th width="50px">Section</th>
-                            <th width="100px">Menu Name</th>
-                            <th width="10px">Icon</th>
-                            <th width="30px">Type</th>
+                            <th width="100px">Submenu Name</th>
                             <th>Comments</th>
+                            <th width="10px">Status</th>
                             <th width="100px">Action</th>
                             </tr>
                         </thead>
@@ -45,12 +44,12 @@
 
   {{-- !NOTE Data Modal here  --}}
 
-  <!-- Modal Insert Menu -->
-    <div class="modal fade" id="insertMenu" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="insertMenuLabel" aria-hidden="true">
+  <!-- Modal Insert Submenu -->
+    <div class="modal fade" id="insertSubmenu" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="insertSubmenuLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-bottom pb-4">
-            <h5 class="modal-title" id="insertMenuLabel">Insert Menu</h5>
+            <h5 class="modal-title" id="insertSubmenuLabel">Insert Submenu</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -60,9 +59,9 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Section ID</label>
                         <div class="col-sm-9">
-                          <select required name="section_id" class="form-control">
+                          <select name="section_id" class="form-control" required>
                               <option selected disabled>== pilih section ==</option>
-                              @foreach ($section as $data)
+                              @foreach ($menu as $data)
                                 <option value="{{$data->id}}">{{$data->name}}</option>
                               @endforeach
                           </select>
@@ -72,40 +71,34 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Menu Name</label>
+                        <label class="col-sm-3 col-form-label">Submenu Name</label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control" name="name" required="">
                           <div class="invalid-feedback">
-                            What's Menu name?
+                            What's Submenu name?
                           </div>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Menu Type</label>
+                        <label class="col-sm-3 col-form-label">Submenu Type</label>
                         <div class="col-sm-9">
-                          <select required name="type" class="form-control">
+                          <select name="type" class="form-control" required>
                               <option value selected disabled>== pilih type ==</option>
                               <option value="static">static</option>
                               <option value="dynamic">dynamic</option>
                           </select>
                           <div class="invalid-feedback">
-                            What's Menu Type?
+                            What's Submenu Type?
                           </div>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Menu Icon</label>
+                        <label class="col-sm-3 col-form-label">Submenu Url</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="icon" required="">
+                          <input required type="text" class="form-control" name="url">
                           <div class="invalid-feedback">
-                            What's Menu icon?
+                            What's Submenu Type?
                           </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Menu Url</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" name="url">
                         </div>
                       </div>
                       <div class="form-group mb-0 row">
@@ -125,11 +118,11 @@
     </div>
 
   <!-- Modal Update Section -->
-    <div class="modal fade" id="updateMenu" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="updateMenuLabel" aria-hidden="true">
+    <div class="modal fade" id="updateSubmenu" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="updateSubmenuLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-bottom pb-4">
-            <h5 class="modal-title" id="updateMenuLabel">Update Menu</h5>
+            <h5 class="modal-title" id="updateSubmenuLabel">Update Submenu</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -139,9 +132,9 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Section ID</label>
                         <div class="col-sm-9">
-                          <select required name="section_id" class="form-control">
+                          <select name="section_id" class="form-control" required>
                               <option selected disabled>== pilih section ==</option>
-                              @foreach ($section as $data)
+                              @foreach ($menu as $data)
                                 <option value="{{$data->id}}">{{$data->name}}</option>
                               @endforeach
                           </select>
@@ -151,40 +144,34 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Menu Name</label>
+                        <label class="col-sm-3 col-form-label">Submenu Name</label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control" name="name" required="">
                           <div class="invalid-feedback">
-                            What's Menu name?
+                            What's Submenu name?
                           </div>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Menu Type</label>
+                        <label class="col-sm-3 col-form-label">Submenu Type</label>
                         <div class="col-sm-9">
-                          <select required name="type" class="form-control">
+                          <select name="type" class="form-control" required>
                               <option value selected disabled>== pilih type ==</option>
                               <option value="static">static</option>
                               <option value="dynamic">dynamic</option>
                           </select>
                           <div class="invalid-feedback">
-                            What's Menu Type?
+                            What's Submenu Type?
                           </div>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Menu Icon</label>
+                        <label class="col-sm-3 col-form-label">Submenu Url</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" name="icon" required="">
+                          <input required type="text" class="form-control" name="url">
                           <div class="invalid-feedback">
-                            What's Menu icon?
+                            What's Submenu Type?
                           </div>
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Menu Url</label>
-                        <div class="col-sm-9">
-                          <input type="text" class="form-control" name="url">
                         </div>
                       </div>
                       <div class="form-group mb-0 row">
