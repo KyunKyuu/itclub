@@ -18,8 +18,11 @@ class CreateMembersTable extends Migration
             $table->foreignId('division_id');
             $table->string('name');
             $table->string('class');
-            $table->string('image');
+            $table->string('position');
+            $table->string('image')->nullable();
+            $table->foreignId('created_by')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
