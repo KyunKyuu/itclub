@@ -64,5 +64,6 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/insert', [ApiPreferencesController::class, 'insert_submenu']);
         Route::delete('/delete', [ApiPreferencesController::class, 'delete_submenu']);
         Route::post('/update', [ApiPreferencesController::class, 'update_submenu']);
+        Route::put('/status/update', [ApiPreferencesController::class, 'update_status_submenu']);
     });
 });

@@ -91,6 +91,10 @@ class PreferencesController extends Controller
             ->editColumn('icon', function ($menu) {
                 return '<i class="' . $menu->icon . '"></i>';
             })
+            ->editColumn('status', function ($menu) {
+                $checked = $menu->status > 0 ? 'checked' : '';
+                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $menu->id . '"> ';
+            })
             ->rawColumns(['check', 'btn', 'status', 'icon'])
             ->make(true);
     }
@@ -150,6 +154,10 @@ class PreferencesController extends Controller
             ->editColumn('icon', function ($submenu) {
                 return '<i class="' . $submenu->icon . '"></i>';
             })
+            ->editColumn('status', function ($submenu) {
+                $checked = $submenu->status > 0 ? 'checked' : '';
+                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $submenu->id . '"> ';
+            })
             ->rawColumns(['check', 'btn', 'status', 'icon'])
             ->make(true);
     }
@@ -178,6 +186,13 @@ class PreferencesController extends Controller
     {
         $submenu = Submenu::find($request->id);
         $submenu->update($request->all());
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!']);
+    }
+
+    public function update_status_submenu(Request $request)
+    {
+        $submenu = Submenu::find($request->id);
+        $submenu->update(['status' => $request->status]);
         return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!']);
     }
 }
