@@ -26,6 +26,7 @@
                             <th>Section Name</th>
                             <th>Created By</th>
                             <th>Comments</th>
+                            <th>Status</th>
                             <th>Action</th>
                             </tr>
                         </thead>

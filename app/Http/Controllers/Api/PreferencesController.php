@@ -33,6 +33,10 @@ class PreferencesController extends Controller
             ->editColumn('created_by', function ($section) {
                 return $section->users()->name;
             })
+            ->editColumn('status', function ($section) {
+                $checked = $section->status > 0 ? 'checked' : '';
+                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $section->id . '"> ';
+            })
             ->rawColumns(['check', 'btn', 'status'])
             ->make(true);
     }
