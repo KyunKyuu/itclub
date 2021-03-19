@@ -42,7 +42,7 @@ Route::prefix('/api/v1')->group(function () {
     });
 
     Route::group(['prefix' => '/user'], function () {
-        Route::get('/get/{id}', [ApiUserController::class, 'user']);
+        Route::get('/get', [ApiUserController::class, 'user']);
         Route::post('/insert', [ApiUserController::class, 'insert_user']);
         Route::delete('/delete', [ApiUserController::class, 'delete_user']);
         Route::post('/update', [ApiUserController::class, 'update_user']);
