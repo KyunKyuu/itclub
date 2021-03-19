@@ -18,7 +18,7 @@ class CreateBlogsTable extends Migration
             $table->string('name');
             $table->longText('content');
             $table->string('image')->nullable();
-            $table->foreignId('created_by');
+            $table->foreignId('created_by')->default(1);
             $table->string('slug');
             $table->enum('type', ['pending', 'publish'])->default('pending');
             $table->timestamps();
