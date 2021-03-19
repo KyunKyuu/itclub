@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Division,ImageDivision};
+use App\Models\{Division, ImageDivision};
 use App\Http\Requests\ImageDivisionRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ImageDivisionController extends Controller
 {
     public function index()
     {
         $imageDivision = ImageDivision::orderBy('division_id', 'DESC')->get();
-        
+
         return response()->json([
             'status' => 'success',
             'data' => $imageDivision
@@ -20,7 +21,7 @@ class ImageDivisionController extends Controller
 
     public function create()
     {
-         return response()->json([
+        return response()->json([
             'status' => 'success',
             'message' =>  'form create image division'
         ]);
@@ -29,12 +30,11 @@ class ImageDivisionController extends Controller
     public function store(ImageDivisionRequest $request)
     {
         $divison = Division::where('id', $request->division_id)->exists();
-        if(!$divison)
-        {
+        if (!$divison) {
             return response()->json([
-            'status' => 'error',
-            'message' =>  'division not found'
-          ],404);
+                'status' => 'error',
+                'message' =>  'division not found'
+            ], 404);
         }
 
         $imageDivision = ImageDivision::create([
@@ -47,7 +47,6 @@ class ImageDivisionController extends Controller
             'status' => 'success',
             'data' => $imageDivision
         ]);
-
     }
 
 
@@ -55,15 +54,14 @@ class ImageDivisionController extends Controller
     {
         $imageDivision = ImageDivision::find($id);
 
-        if(!$imageDivision)
-        {
+        if (!$imageDivision) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Image not found'
-            ],404);
+            ], 404);
         }
 
-        \Storage::delete($imageDivision->image);
+        Storage::delete($imageDivision->image);
 
         $imageDivision->delete();
 

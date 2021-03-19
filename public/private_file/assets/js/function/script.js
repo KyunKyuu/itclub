@@ -33,6 +33,15 @@ function Table(data) {
                 data:data.parm
             },
             columns: data.data,
+            fnDrawCallback: function() {
+                $('.input-toggle').bootstrapToggle({
+                    size:'small',
+                    on:'<i class="fas fa-check"></i> Active',
+                    onstyle : 'success',
+                    off:'<i class="fas fa-time"></i> Inactive',
+                    offstyle:'danger',
+                });
+            },
         });
     }else{
         $(data.table).DataTable({
@@ -42,21 +51,23 @@ function Table(data) {
                 url: data.url
             },
             columns: data.data,
+            fnDrawCallback: function() {
+                $('.input-toggle').bootstrapToggle({
+                    size:'small',
+                    on:'<i class="fas fa-check"></i> Active',
+                    onstyle : 'success',
+                    off:'<i class="fas fa-time"></i> Inactive',
+                    offstyle:'danger',
+                });
+            },
         });
     }
 }
 
 function SweetAlert(data){
     let status, title
-    if(data.status == 200){
-        status = 'success'
-        title = 'Success'
-    }else{
-        status = 'error'
-        title = 'Failed!'
-    }
 
-    Swal.fire(title, data.message, status)
+    Swal.fire(data.status, data.message, data.status)
 }
 
 function RefreshTable(data) {

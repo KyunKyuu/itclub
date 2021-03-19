@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\{
-    MemberController,DivisionController,ImageDivisionController,AlumniController,AuthController,PrestationController,CategoryController,GalleryController,ImageGalleryController,BlogController
+    MemberController,DivisionController,ImageDivisionController,AlumniController,AuthController,PrestationController,CategoryController,GalleryController,ImageGalleryController,BlogController,PreferencesController
+
 };
 
 /*
@@ -107,3 +108,5 @@ Route::prefix('v1')->group(function() {
  });
 
 });
+
+

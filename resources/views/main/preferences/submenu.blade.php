@@ -105,7 +105,7 @@
         </div>
     </div>
 
-  <!-- Modal Update Section -->
+  <!-- Modal Update Submenu -->
     <div class="modal fade" id="updateSubmenu" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="updateSubmenuLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">

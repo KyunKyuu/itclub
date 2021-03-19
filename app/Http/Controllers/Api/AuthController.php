@@ -25,12 +25,12 @@ class AuthController extends Controller
                 ];
 
                 User::create($data);
-                $response = ['status' => 200, 'message' => 'User berhasil ditambahkan, <a href="/auth/login">Login Sekarang</a>'];
+                $response = ['status' => 'success', 'message' => 'User berhasil ditambahkan, <a href="/auth/login">Login Sekarang</a>'];
             } else {
-                $response = ['status' => 500, 'message' => 'User gagal ditambahkan, Username atau email telah digunakan'];
+                $response = ['status' => 'error', 'message' => 'User gagal ditambahkan, Username atau email telah digunakan'];
             }
         } else {
-            $response = ['status' => 500, 'message' => 'User gagal ditambahkan, mohon lengkapi dulu data diri anda'];
+            $response = ['status' => 'error', 'message' => 'User gagal ditambahkan, mohon lengkapi dulu data diri anda'];
         }
         return response()->json($response);
     }
@@ -45,18 +45,18 @@ class AuthController extends Controller
                 $active = User::all()->where($fieldType, $request->username)->where('status', 1);
                 if ($active->count() > 0) {
                     if (Auth::attempt([$fieldType => $request->username, 'password' => $request->password])) {
-                        return response()->json(['message' => 'Login berhasil', 'status' => 200]);
+                        return response()->json(['message' => 'Login berhasil', 'status' => 'success']);
                     } else {
-                        return response()->json(['message' => 'Login gagal, Username atau Password Salah!', 'status' => 500]);
+                        return response()->json(['message' => 'Login gagal, Username atau Password Salah!', 'status' => 'error']);
                     }
                 } else {
-                    return response()->json(['message' => 'Login gagal, Username belum aktif, atau hubungi admin!', 'status' => 500]);
+                    return response()->json(['message' => 'Login gagal, Username belum aktif, atau hubungi admin!', 'status' => 'error']);
                 }
             } else {
-                return response()->json(['message' => 'Login gagal, Username belum melakukan aktivasi email, mohon lakukan aktivasi terlebih dahulu atau hubungi admin!', 'status' => 500]);
+                return response()->json(['message' => 'Login gagal, Username belum melakukan aktivasi email, mohon lakukan aktivasi terlebih dahulu atau hubungi admin!', 'status' => 'error']);
             }
         } else {
-            return response()->json(['message' => 'Login gagal, Username/email belum terdaftar!', 'status' => 500]);
+            return response()->json(['message' => 'Login gagal, Username/email belum terdaftar!', 'status' => 'error']);
         }
     }
 

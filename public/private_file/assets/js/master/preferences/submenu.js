@@ -4,7 +4,7 @@ $(document).ready(function() {
         {data:'menu_id', name:'menu_id', orderable:false,},
         {data:'name', name:'name'},
         {data:'comments', name:'action', orderable:false},
-        {data:'created_by', name:'created_by'},
+        {data:'created_by', name:'created_by', className:'align-top'},
         {data:'status', name:'status', },
         {data:'btn', name:'btn', searchable:false, orderable:false},
     ];
@@ -89,5 +89,25 @@ $(document).ready(function() {
             error:err=>console.log(err)
         })
     })
+
+    $('#table').on('change', '.input-toggle', function() {
+        $.ajax({
+            url:'/api/v1/submenu/status/update',
+            data:{
+                status:$(this).prop('checked') == true ? 1 : 0,
+                id:$(this).data('value'),
+            },
+            type:'PUT',
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            success:res=>{
+                SweetAlert(res)
+                RefreshTable('table')
+            },
+            error:err=>console.log(err)
+        })
+    })
+
 })
 
