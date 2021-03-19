@@ -50,6 +50,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/insert', [ApiPreferencesController::class, 'insert_section']);
         Route::delete('/delete', [ApiPreferencesController::class, 'delete_section']);
         Route::post('/update', [ApiPreferencesController::class, 'update_section']);
+        Route::put('/status/update', [ApiPreferencesController::class, 'update_status_section']);
     });
 
     Route::group(['prefix' => '/menu'], function () {
@@ -57,6 +58,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/insert', [ApiPreferencesController::class, 'insert_menu']);
         Route::delete('/delete', [ApiPreferencesController::class, 'delete_menu']);
         Route::post('/update', [ApiPreferencesController::class, 'update_menu']);
+        Route::put('/status/update', [ApiPreferencesController::class, 'update_status_menu']);
     });
 
     Route::group(['prefix' => '/submenu'], function () {

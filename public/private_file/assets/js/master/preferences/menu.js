@@ -6,6 +6,7 @@ $(document).ready(function() {
         {data:'icon', name:'icon', orderable:false},
         {data:'type', name:'type', },
         {data:'comments', name:'action', searchable:false, orderable:false},
+        {data:'status', name:'status', orderable:false},
         {data:'btn', name:'btn', searchable:false, orderable:false},
     ];
 
@@ -80,6 +81,25 @@ $(document).ready(function() {
             type:'POST',
             contentType:false,
             processData:false,
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            success:res=>{
+                SweetAlert(res)
+                RefreshTable('table')
+            },
+            error:err=>console.log(err)
+        })
+    })
+
+    $('#table').on('change', '.input-toggle', function() {
+        $.ajax({
+            url:'/api/v1/menu/status/update',
+            data:{
+                status:$(this).prop('checked') == true ? 1 : 0,
+                id:$(this).data('value'),
+            },
+            type:'PUT',
             headers:{
                 'X-CSRF-TOKEN' : csrftoken
             },

@@ -3,7 +3,8 @@ $(document).ready(function() {
         {data:'check', name:'check', orderable:false, searchable:false},
         {data:'name', name:'name'},
         {data:'created_by', name:'created_by', orderable:false},
-        {data:'comments', name:'action', searchable:false, orderable:false},
+        {data:'comments', name:'comments', searchable:false, orderable:false},
+        {data:'status', name:'status', searchable:false, orderable:false},
         {data:'btn', name:'btn', searchable:false, orderable:false},
     ];
 
@@ -74,6 +75,26 @@ $(document).ready(function() {
             type:'POST',
             contentType:false,
             processData:false,
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            success:res=>{
+                SweetAlert(res)
+                RefreshTable('table')
+            },
+            error:err=>console.log(err)
+        })
+    })
+
+
+    $('#table').on('change', '.input-toggle', function() {
+        $.ajax({
+            url:'/api/v1/section/status/update',
+            data:{
+                status:$(this).prop('checked') == true ? 1 : 0,
+                id:$(this).data('value'),
+            },
+            type:'PUT',
             headers:{
                 'X-CSRF-TOKEN' : csrftoken
             },

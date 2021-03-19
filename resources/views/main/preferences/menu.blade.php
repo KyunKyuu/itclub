@@ -28,6 +28,7 @@
                             <th width="10px">Icon</th>
                             <th width="30px">Type</th>
                             <th>Comments</th>
+                            <th width="30px">Status</th>
                             <th width="100px">Action</th>
                             </tr>
                         </thead>

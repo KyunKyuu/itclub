@@ -64,6 +64,13 @@ class PreferencesController extends Controller
         return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!']);
     }
 
+    public function update_status_section(Request $request)
+    {
+        $section = Section::find($request->id);
+        $section->update(['status' => $request->status]);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!']);
+    }
+
     // !NOTE Menu Query
     public function menu()
     {
@@ -123,6 +130,13 @@ class PreferencesController extends Controller
     {
         $submenu = Menu::find($request->id);
         $submenu->update($request->all());
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!']);
+    }
+
+    public function update_status_menu(Request $request)
+    {
+        $menu = Menu::find($request->id);
+        $menu->update(['status' => $request->status]);
         return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!']);
     }
 
