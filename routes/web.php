@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
 use App\Http\Controllers\Api\PreferencesController as ApiPreferencesController;
+use App\Http\Controllers\Api\UserController as ApiUserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Master\UserController;
 use App\Http\Controllers\Setting\PreferencesController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,8 +29,8 @@ Route::group(['prefix' => '/master', 'middleware' => 'auth'], function () {
     Route::get('/preferences/section', [PreferencesController::class, 'section']);
     Route::get('/preferences/menu', [PreferencesController::class, 'menu']);
     Route::get('/preferences/submenu', [PreferencesController::class, 'submenu']);
+    Route::get('/user', [UserController::class, 'user']);
 });
-
 
 // !NOTE API Request & Response
 Route::prefix('/api/v1')->group(function () {
@@ -37,6 +39,14 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/register', [ApiAuthController::class, 'register']);
         Route::post('/login', [ApiAuthController::class, 'login']);
         Route::get('/logout', [ApiAuthController::class, 'logout']);
+    });
+
+    Route::group(['prefix' => '/user'], function () {
+        Route::get('/get/{id}', [ApiUserController::class, 'user']);
+        Route::post('/insert', [ApiUserController::class, 'insert_user']);
+        Route::delete('/delete', [ApiUserController::class, 'delete_user']);
+        Route::post('/update', [ApiUserController::class, 'update_user']);
+        Route::put('/status/update', [ApiUserController::class, 'update_status_user']);
     });
 
     Route::group(['prefix' => '/preferences'], function () {
