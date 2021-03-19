@@ -10,7 +10,7 @@ class AlumniController extends Controller
 {
     public function index()
     {
-        $alumni = Alumni::with('member')->latest()->get();
+        $alumni = Alumni::with('member','created_by')->latest()->get();
 
         return response()->json([
             'status' => 'success',
@@ -20,7 +20,7 @@ class AlumniController extends Controller
 
     public function show($id)
     {
-        $alumni = Alumni::with('member')->find($id);
+        $alumni = Alumni::with('member','created_by')->find($id);
         if(!$alumni)
         {
             return response()->json([
@@ -40,7 +40,7 @@ class AlumniController extends Controller
 
     public function store(AlumniRequest $request)
     {
-        
+
         $memberId = Member::where('id', $request->member_id)->exists();
         if(!$memberId)
         {
@@ -61,7 +61,8 @@ class AlumniController extends Controller
 
         $alumni = Alumni::create([
             'member_id' => $request->member_id,
-            'place' => $request->place
+            'place' => $request->place,
+             // 'created_by' => auth()->user()->id
         ]);
 
         if($request->study)
@@ -121,7 +122,8 @@ class AlumniController extends Controller
 
         $alumni->update([
             'member_id' => $request->member_id,
-            'place' => $request->place
+            'place' => $request->place,
+             // 'created_by' => auth()->user()->id
         ]);
 
         if($request->study)

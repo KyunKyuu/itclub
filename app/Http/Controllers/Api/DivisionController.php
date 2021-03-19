@@ -51,7 +51,8 @@ class DivisionController extends Controller
             'name' => $request->name,
             'content' => $request->content,
             'image' =>  $request->file('image')->store('images/division'),
-            'slug' => $slug
+            'slug' => $slug,
+            // 'created_by' => auth()->user()->id
         ]);
 
         return response()->json([
@@ -106,7 +107,8 @@ class DivisionController extends Controller
             'name' => $request->name,
             'content' => $request->content,
             'image' =>  $image,
-            'slug' => $slug
+            'slug' => $slug,
+             // 'created_by' => auth()->user()->id
         ]);
        
        return response()->json([

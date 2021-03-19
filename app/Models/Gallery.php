@@ -23,7 +23,7 @@ class Gallery extends Model
         return $this->belongsTo(Category::class)->withTrashed();
     }
 
-    public function image()
+    public function images()
     {
         return $this->hasMany(ImageGallery::class);
     }

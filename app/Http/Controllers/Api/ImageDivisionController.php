@@ -39,7 +39,8 @@ class ImageDivisionController extends Controller
 
         $imageDivision = ImageDivision::create([
             'division_id' => $request->division_id,
-            'image' => request()->file('image')->store('images/DivisionLearning')
+            'image' => request()->file('image')->store('images/DivisionLearning'),
+             // 'created_by' => auth()->user()->id
         ]);
 
         return response()->json([
@@ -68,7 +69,7 @@ class ImageDivisionController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'division deleted successfuly'
+            'message' => 'division image deleted successfuly'
         ],200);
     }
 }

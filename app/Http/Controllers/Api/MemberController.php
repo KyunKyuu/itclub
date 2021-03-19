@@ -13,7 +13,7 @@ class MemberController extends Controller
 
     public function index()
     {
-        $members = Member::with('division','alumni')->latest()->get();
+        $members = Member::with('division','alumni','created_by')->latest()->get();
 
         return response()->json([
             'status' => 'success',
@@ -23,7 +23,7 @@ class MemberController extends Controller
 
     public function show($id)
     {
-        $member = Member::with('division','alumni')->find($id);
+        $member = Member::with('division','alumni','created_by')->find($id);
 
         if(!$member)
         {
@@ -64,7 +64,8 @@ class MemberController extends Controller
         'class' => $request->class,
         'division_id' => $request->division_id,
         'image' => $request->image ? request()->file('image')->store('images/member') : null,
-        'position' => $request->position
+        'position' => $request->position,
+         // 'created_by' => auth()->user()->id
        ]);
 
        return response()->json([
@@ -127,7 +128,8 @@ class MemberController extends Controller
             'class' => $request->class,
             'division_id' => $request->division_id,
             'image' => $image,
-            'position' => $request->position
+            'position' => $request->position,
+             // 'created_by' => auth()->user()->id
         ]);
        
        return response()->json([
