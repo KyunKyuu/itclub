@@ -38,7 +38,7 @@ function Table(data) {
                     size:'small',
                     on:'<i class="fas fa-check"></i> Active',
                     onstyle : 'success',
-                    off:'<i class="fas fa-time"></i> Inactive',
+                    off:'<i class="fas fa-times"></i> Inactive',
                     offstyle:'danger',
                 });
             },
@@ -56,7 +56,7 @@ function Table(data) {
                     size:'small',
                     on:'<i class="fas fa-check"></i> Active',
                     onstyle : 'success',
-                    off:'<i class="fas fa-time"></i> Inactive',
+                    off:'<i class="fas fa-times"></i> Inactive',
                     offstyle:'danger',
                 });
             },

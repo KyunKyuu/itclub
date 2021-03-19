@@ -23,10 +23,11 @@
                                 <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                 </div>
                             </th>
-                            <th width="80px">Section Name</th>
-                            <th width="70px">Created By</th>
-                            <th>Comments</th>
-                            <th width="50px">Status</th>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Email</th>
+                            <th>Verifikasi</th>
+                            <th>Status</th>
                             <th width="70px">Action</th>
                             </tr>
                         </thead>

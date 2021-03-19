@@ -33,7 +33,19 @@ class UserController extends Controller
                 $checked = $user->status > 0 ? 'checked' : '';
                 return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $user->id . '"> ';
             })
-            ->rawColumns(['check', 'btn', 'status'])
+            ->editColumn('role_id', function ($user) {
+                return $user->roles->name;
+            })
+            ->editColumn('email_verified_at', function ($user) {
+                if ($user->email_verified_at) {
+                    $data = '<a class="text-success"><i class="fas fa-check"></i> Verified</a>';
+                } else {
+                    $data = '<a class="text-danger"><i class="fas fa-times"></i> Not Verified</a>';
+                }
+
+                return $data;
+            })
+            ->rawColumns(['check', 'btn', 'status', 'email_verified_at'])
             ->make(true);
     }
 }

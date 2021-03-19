@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -52,6 +52,11 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class)->withTrashed();
+    }
+
+    public function roles()
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
 
     public function blogs()
