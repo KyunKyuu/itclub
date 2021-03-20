@@ -8,7 +8,8 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Master\RoleController;
 use App\Http\Controllers\Master\UserController;
-use App\Http\Controllers\Setting\PreferencesController;
+use App\Http\Controllers\Setting\MenuAccessControlller;
+use App\Http\Controllers\Master\PreferencesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,11 @@ Route::group(['prefix' => '/master', 'middleware' => 'auth'], function () {
     Route::get('/preferences/submenu', [PreferencesController::class, 'submenu']);
     Route::get('/user', [UserController::class, 'user']);
     Route::get('/role', [RoleController::class, 'role']);
+});
+
+Route::group(['prefix' => '/setting', 'middleware' => 'auth'], function () {
+    Route::get('/menu/user', [MenuAccessControlller::class, 'user']);
+    Route::get('/menu/role', [MenuAccessControlller::class, 'role']);
 });
 
 // !NOTE API Request & Response
