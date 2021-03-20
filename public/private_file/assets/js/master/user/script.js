@@ -10,4 +10,9 @@ $(document).ready(function() {
     ];
 
     Table({table:'#table', data:data, url:'/api/v1/user/get'});
+
+    $('#modalInsert').on('click', function() {
+        
+    })
+
 })
