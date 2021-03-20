@@ -45,12 +45,12 @@
 
   {{-- !NOTE Data Modal here  --}}
 
-  <!-- Modal Insert Section -->
+  <!-- Modal Insert Role -->
     <div class="modal fade" id="insertRole" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="insertRoleLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-bottom pb-4">
-            <h5 class="modal-title" id="insertRoleLabel">Insert Section</h5>
+            <h5 class="modal-title" id="insertRoleLabel">Insert Role</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
