@@ -57,6 +57,25 @@ $(document).ready(function() {
         })
     })
 
+    $('#table').on('click',  '#delete', function (e) {
+        e.preventDefault()
+        $.ajax({
+            url:'/api/v1/user/delete',
+            data:{
+                user_id:$(this).data('value')
+            },
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            type:'DELETE',
+            success:res=>{
+                RefreshTable('table')
+                SweetAlert(res)
+            },
+            error:err=>console.log(err)
+        })
+    })
+
     $('#table').on('click', '#edit', function() {
         let id = $(this).data('value')
         $('#insertUser select[name="role_id"] option').attr('selected', false)
