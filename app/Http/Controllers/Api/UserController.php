@@ -48,4 +48,10 @@ class UserController extends Controller
             ->rawColumns(['check', 'btn', 'status', 'email_verified_at'])
             ->make(true);
     }
+
+    public function insert_user(Request $request)
+    {
+        $request->request->add(['password' => bcrypt($request->passwd), 'created_by' => auth()->user()->id]);
+        User::create($request->all());
+    }
 }

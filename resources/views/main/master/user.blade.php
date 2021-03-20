@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <h4>Master Data Section</h4>
                 <div class="ml-auto">
-                    <a href="#" class="btn btn-primary rounded" data-target="#insertSection" data-toggle="modal"><i class="fas fa-plus"></i> Tambah</a>
+                    <a href="#" class="btn btn-primary rounded" id="modalInsert"><i class="fas fa-plus"></i> Tambah</a>
                     <a href="#" class="btn btn-danger rounded"><i class="far fa-trash-alt"></i> Hapus</a>
                 </div>
               </div>
@@ -45,33 +45,56 @@
 
   {{-- !NOTE Data Modal here  --}}
 
-  <!-- Modal Insert Section -->
-    <div class="modal fade" id="insertSection" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="insertSectionLabel" aria-hidden="true">
+  <!-- Modal Insert User -->
+    <div class="modal fade" id="insertUser" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="insertUserLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-bottom pb-4">
-            <h5 class="modal-title" id="insertSectionLabel">Insert Section</h5>
+            <h5 class="modal-title" id="insertUserLabel">Insert User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form class="needs-validation" novalidate id="insert">
+                <form class="needs-validation" novalidate>
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Section Name</label>
+                        <label class="col-sm-3 col-form-label">User Name</label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control" name="name" required="">
                           <div class="invalid-feedback">
-                            What's section name?
+                            What's User name?
                           </div>
                         </div>
                       </div>
-                      <div class="form-group mb-0 row">
-                        <label class="col-sm-3 col-form-label">Comments</label>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">User Password</label>
                         <div class="col-sm-9">
-                          <textarea class="form-control" name="comments" required=""></textarea>
+                          <input type="password" class="form-control" name="passwd" required="">
                           <div class="invalid-feedback">
-                            What do you wanna say?
+                            What's User password?
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">User Email</label>
+                        <div class="col-sm-9">
+                          <input type="email" class="form-control" name="email" required="">
+                          <div class="invalid-feedback">
+                            What's User email?
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">User Role</label>
+                        <div class="col-sm-9">
+                          <select name="role_id" class="form-control" required>
+                              <option disabled selected>== Pilih Role ===</option>
+                              @foreach ($roles as $role)
+                                <option value="{{$role->id}}">{{$role->name}} ({{$role->id_role}})</option>
+                              @endforeach
+                          </select>
+                          <div class="invalid-feedback">
+                            What's User role?
                           </div>
                         </div>
                       </div>
@@ -85,12 +108,12 @@
         </div>
     </div>
 
-  <!-- Modal Update Section -->
-    <div class="modal fade" id="updateSection" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="updateSectionLabel" aria-hidden="true">
+  <!-- Modal Update User -->
+    <div class="modal fade" id="updateUser" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="updateUserLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-bottom pb-4">
-            <h5 class="modal-title" id="updateSectionLabel">Update Section</h5>
+            <h5 class="modal-title" id="updateUserLabel">Update User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -98,11 +121,11 @@
             <div class="modal-body">
                 <form class="needs-validation" novalidate id="update">
                       <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Section Name</label>
+                        <label class="col-sm-3 col-form-label">User Name</label>
                         <div class="col-sm-9">
                           <input type="text" class="form-control" id="update_name" name="name" required="">
                           <div class="invalid-feedback">
-                            What's section name?
+                            What's User name?
                           </div>
                         </div>
                       </div>
