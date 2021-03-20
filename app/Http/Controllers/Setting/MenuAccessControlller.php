@@ -11,5 +11,11 @@ class MenuAccessControlller extends Controller
 
     public function role()
     {
+        return view('main.setting.roleaccess');
+    }
+
+    public function user()
+    {
+        return view('main.setting.useraccess');
     }
 }
