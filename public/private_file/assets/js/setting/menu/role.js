@@ -4,15 +4,18 @@ $(document).ready(function() {
     $('#dataRole').on('click', '.nav-link', function() {
         $('#dataRole .nav-link').removeClass('active')
         $(this).addClass('active', true)
+        let id = $(this).data('value')
+        $('.btn-group a.btn').attr('data-value', id)
     })
 
     $('.btn-group a.btn').on('click', function() {
         let data = $(this).text()
+        let id = $(this).data('value')
         $('.btn-group a.btn').removeClass('btn-primary');
         $('.btn-group a.btn').addClass('btn-outline-primary')
         $(this).removeClass('btn-outline-primary')
         $(this).addClass('btn-primary')
-        createTable(data)
+        createTable({data:data, id:id})
     })
 })
 
@@ -32,6 +35,13 @@ function role() {
 }
 
 function createTable(param) {
+    const data = [
+        {data:'id', name:'id', orderable:false, searchable:false},
+        {data:'name', name:'name'},
+        {data:'id', name:'id', orderable:false},
+        {data:'btn', name:'btn', searchable:false, orderable:false},
+    ];
+
     let table = `
     <table class="table table-striped" id="table">
         <thead>
@@ -39,7 +49,7 @@ function createTable(param) {
                 <th width="10px">
                     ID
                 </th>
-                <th class="text-capitalize">${param}</th>
+                <th class="text-capitalize">${param.data}</th>
                 <th class="text-capitalize">access</th>
                 <th class="text-capitalize">action</th>
             </tr>
@@ -48,5 +58,5 @@ function createTable(param) {
     </table>
     `;
     $('#formTable').html(table);
-    Table({table:'#table', data:data, url:'/api/v1/get/access/'+param})
+    Table({table:'#table', data:data, url:'/api/v1/get/access/'+param.data, param:{id:param.id}})
 }

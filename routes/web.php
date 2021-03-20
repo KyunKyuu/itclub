@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
+use App\Http\Controllers\Api\MenuAccessControlller as ApiMenuAccessControlller;
 use App\Http\Controllers\Api\PreferencesController as ApiPreferencesController;
 use App\Http\Controllers\Api\RoleController as ApiRoleController;
 use App\Http\Controllers\Api\UserController as ApiUserController;
@@ -95,5 +96,11 @@ Route::prefix('/api/v1')->group(function () {
         Route::delete('/delete', [ApiPreferencesController::class, 'delete_submenu']);
         Route::post('/update', [ApiPreferencesController::class, 'update_submenu']);
         Route::put('/status/update', [ApiPreferencesController::class, 'update_status_submenu']);
+    });
+
+    Route::group(['prefix' => '/get/access'], function () {
+        Route::get('/section', [ApiMenuAccessControlller::class, 'section_get']);
+        Route::get('/menu', [ApiMenuAccessControlller::class, 'menu_get']);
+        Route::get('/submenu', [ApiMenuAccessControlller::class, 'submenu_get']);
     });
 });
