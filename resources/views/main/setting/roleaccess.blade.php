@@ -6,16 +6,11 @@
     <div class="col-md-4">
       <div class="card">
         <div class="card-header">
-          <h4>Jump To</h4>
+          <h4>Data Role</h4>
         </div>
         <div class="card-body">
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item"><a href="#" class="nav-link active">General</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">SEO</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Email</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">System</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Security</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Automation</a></li>
+          <ul class="nav nav-pills flex-column" id="dataRole">
+
           </ul>
         </div>
       </div>
@@ -69,7 +64,7 @@
           </div>
           <div class="card-footer bg-whitesmoke text-md-right">
             <button class="btn btn-primary" id="save-btn">Save Changes</button>
-            <button class="btn btn-secondary" type="button">Reset</button>
+            <button class="btn btn-secondary" type="reset">Reset</button>
           </div>
         </div>
       </form>

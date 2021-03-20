@@ -60,6 +60,7 @@ Route::prefix('/api/v1')->group(function () {
 
     Route::group(['prefix' => '/role'], function () {
         Route::get('/get', [ApiRoleController::class, 'role']);
+        Route::get('/all', [ApiRoleController::class, 'get_role']);
         Route::post('/insert', [ApiRoleController::class, 'insert_role']);
         Route::delete('/delete', [ApiRoleController::class, 'delete_role']);
         Route::post('/update', [ApiRoleController::class, 'update_role']);

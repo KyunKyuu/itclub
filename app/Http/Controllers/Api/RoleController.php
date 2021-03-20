@@ -52,4 +52,10 @@ class RoleController extends Controller
         $role->delete();
         return response()->json(['message' => 'Data berhasil dihapus', 'status' => 'success']);
     }
+
+    public function get_role()
+    {
+        $data = Role::all();
+        return response()->json(['message' => 'Query data berhasil', 'status' => 'success', 'data' => $data]);
+    }
 }

@@ -21,7 +21,7 @@
                             </ul>
                         </li>
                     @else
-                        <li>
+                        <li class=" {{active($menu->id)}}">
                             <a class="nav-link" href="{{$menu->url}}"><i class="{{$menu->icon}}"></i> <span>{{$menu->name}}</span></a>
                         </li>
                     @endif
