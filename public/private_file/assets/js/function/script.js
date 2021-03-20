@@ -24,43 +24,84 @@ function ConfirmPassword(params) {
 
 function Table(data) {
     $(data.table).DataTable().destroy();
-    if(data.parm){
-        $(data.table).DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: data.url,
-                data:data.parm
-            },
-            columns: data.data,
-            fnDrawCallback: function() {
-                $('.input-toggle').bootstrapToggle({
-                    size:'small',
-                    on:'<i class="fas fa-check"></i> Active',
-                    onstyle : 'success',
-                    off:'<i class="fas fa-times"></i> Inactive',
-                    offstyle:'danger',
-                });
-            },
-        });
-    }else{
-        $(data.table).DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: data.url
-            },
-            columns: data.data,
-            fnDrawCallback: function() {
-                $('.input-toggle').bootstrapToggle({
-                    size:'small',
-                    on:'<i class="fas fa-check"></i> Active',
-                    onstyle : 'success',
-                    off:'<i class="fas fa-times"></i> Inactive',
-                    offstyle:'danger',
-                });
-            },
-        });
+    if (data.callbackButton) {
+        if(data.parm){
+            $(data.table).DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: data.url,
+                    data:data.parm
+                },
+                columns: data.data,
+                fnDrawCallback: function() {
+                    $(`${data.callbackButton.id}`).bootstrapToggle({
+                        size:data.callbackButton.size,
+                        on:data.callbackButton.on,
+                        onstyle:data.callbackButton.onstyle,
+                        offstyle:data.callbackButton.offstyle,
+                        off:data.callbackButton.off,
+                    });
+                },
+            });
+        }else{
+            $(data.table).DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: data.url
+                },
+                columns: data.data,
+                fnDrawCallback: function() {
+                    $(`${data.callbackButton.id}`).bootstrapToggle({
+                        size:data.callbackButton.size,
+                        on:data.callbackButton.on,
+                        onstyle:data.callbackButton.onstyle,
+                        offstyle:data.callbackButton.offstyle,
+                        off:data.callbackButton.off,
+                    });
+                },
+            });
+        }
+    } else {
+        if(data.parm){
+            $(data.table).DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: data.url,
+                    data:data.parm
+                },
+                columns: data.data,
+                fnDrawCallback: function() {
+                    $('.input-toggle').bootstrapToggle({
+                        size:'small',
+                        on:'<i class="fas fa-check"></i> Active',
+                        onstyle : 'success',
+                        off:'<i class="fas fa-times"></i> Inactive',
+                        offstyle:'danger',
+                    });
+                },
+            });
+        }else{
+            $(data.table).DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: data.url
+                },
+                columns: data.data,
+                fnDrawCallback: function() {
+                    $('.input-toggle').bootstrapToggle({
+                        size:'small',
+                        on:'<i class="fas fa-check"></i> Active',
+                        onstyle : 'success',
+                        off:'<i class="fas fa-times"></i> Inactive',
+                        offstyle:'danger',
+                    });
+                },
+            });
+        }
     }
 }
 

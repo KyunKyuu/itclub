@@ -16,9 +16,8 @@ class SetAccessSubmenu extends Migration
         Schema::create('set_access_submenu', function (Blueprint $table) {
             $table->id();
             $table->integer('role_id');
-            $table->integer('menu_id');
+            $table->integer('submenu_id');
             $table->integer('created_by')->default(1);
-            $table->timestamp('deleted_at')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });

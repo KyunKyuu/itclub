@@ -15,6 +15,9 @@ $(document).ready(function() {
         $('.btn-group a.btn').addClass('btn-outline-primary')
         $(this).removeClass('btn-outline-primary')
         $(this).addClass('btn-primary')
+        if (id == null) {
+            return SweetAlert({status:'info', message :'Please choice role!'});
+        }
         createTable({data:data, id:id})
     })
 })
@@ -36,9 +39,9 @@ function role() {
 
 function createTable(param) {
     const data = [
-        {data:'id', name:'id', orderable:false, searchable:false},
+        {data:'DT_RowIndex', name:'DT_RowIndex', orderable:false, searchable:false},
         {data:'name', name:'name'},
-        {data:'id', name:'id', orderable:false},
+        {data:'access', name:'access', orderable:false},
         {data:'btn', name:'btn', searchable:false, orderable:false},
     ];
 
@@ -58,5 +61,20 @@ function createTable(param) {
     </table>
     `;
     $('#formTable').html(table);
-    Table({table:'#table', data:data, url:'/api/v1/get/access/'+param.data, param:{id:param.id}})
+    Table({
+        table:'#table',
+        data:data,
+        url:'/api/v1/get/access/'+param.data,
+        parm:{
+            id:param.id
+        },
+        callbackButton:{
+            id:'.input-toggle',
+            size:'small',
+            on:'<i class="fas fa-check"></i> Granted',
+            onstyle:'success',
+            offstyle:'danger',
+            off:'<i class="fas fa-times"></i> Denied',
+        }
+    });
 }
