@@ -8,4 +8,8 @@ use Illuminate\Http\Request;
 class MenuAccessControlller extends Controller
 {
     //
+
+    public function role()
+    {
+    }
 }
