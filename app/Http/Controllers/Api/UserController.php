@@ -9,9 +9,11 @@ use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
-    public function user($id = FALSE)
+    public function user()
     {
-        if ($id) {
+        if (!empty($_GET['id'])) {
+            $data = User::find($_GET['id']);
+            return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data]);
         }
 
         $user = User::all();
@@ -53,5 +55,20 @@ class UserController extends Controller
     {
         $request->request->add(['password' => bcrypt($request->passwd), 'created_by' => auth()->user()->id]);
         User::create($request->all());
+        return response()->json(['message' => 'Data berhasil ditambahkan', 'status' => 'success']);
+    }
+
+    public function update_user(Request $request)
+    {
+        if (empty($request->passwd)) {
+            $user = User::find($request->user_id);
+            $user->update($request->all());
+            return response()->json(['message' => 'Data berhasil diperbaharui', 'status' => 'success']);
+        }
+
+        $user = User::find($request->user_id);
+        $request->request->add(['password' => bcrypt($request->passwd)]);
+        $user->update($request->all());
+        return response()->json(['message' => 'Data berhasil diperbaharui', 'status' => 'success']);
     }
 }

@@ -12,7 +12,70 @@ $(document).ready(function() {
     Table({table:'#table', data:data, url:'/api/v1/user/get'});
 
     $('#modalInsert').on('click', function() {
-        
+        $('#insertUser').modal('show');
+        $('#insertUser form').attr('id', 'insert');
+        $('#insertUser input[name="passwd"]').attr('required', true)
+    })
+
+    $('#insertUser').on('submit',  '#insert', function (e) {
+        e.preventDefault()
+        $.ajax({
+            url:'/api/v1/user/insert',
+            data:new FormData(this),
+            processData:false,
+            contentType:false,
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            type:'POST',
+            success:res=>{
+                RefreshTable('table')
+                SweetAlert(res)
+            },
+            error:err=>console.log(err)
+        })
+    })
+
+    $('#insertUser').on('submit',  '#update', function (e) {
+        e.preventDefault()
+        let data = new FormData(this);
+        data.append('user_id', $('#insertUser input[name="name"]').data('id'))
+        $.ajax({
+            url:'/api/v1/user/update',
+            data:data,
+            processData:false,
+            contentType:false,
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            type:'POST',
+            success:res=>{
+                RefreshTable('table')
+                SweetAlert(res)
+            },
+            error:err=>console.log(err)
+        })
+    })
+
+    $('#table').on('click', '#edit', function() {
+        let id = $(this).data('value')
+        $('#insertUser select[name="role_id"] option').attr('selected', false)
+        $('#insertUser input[name="passwd"]').attr('required', false)
+        $.ajax({
+            url:'/api/v1/user/get',
+            data:{
+                id:id
+            },
+            success:res=>{
+                $('#insertUser').modal('show');
+                $('#insertUser form').attr('id', 'update');
+                $('#insertUser input[name="name"]').val(res.data.name)
+                $('#insertUser input[name="name"]').data('id', res.data.id)
+                $('#insertUser input[name="email"]').val(res.data.email)
+                $('#insertUser select[name="role_id"] option[value="'+res.data.role_id+'"]').attr('selected', true)
+            },
+            error:err=>console.log(err)
+        })
     })
 
 })
