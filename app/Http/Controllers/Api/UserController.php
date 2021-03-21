@@ -61,7 +61,7 @@ class UserController extends Controller
     {
         $request->request->add(['password' => bcrypt($request->passwd), 'created_by' => auth()->user()->id]);
         $user = User::create($request->all());
-        $this->access_create($request->role_id, $user->id);
+        access_create($request->role_id, $user->id);
         return response()->json(['message' => 'Data berhasil ditambahkan', 'status' => 'success']);
     }
 
@@ -69,7 +69,7 @@ class UserController extends Controller
     {
         $userole = User::where('id', $request->user_id)->where('role_id', $request->role_id)->count();
         if ($userole < 1) {
-            $this->access_update($request->role_id, $request->user_id);
+            access_update($request->role_id, $request->user_id);
         }
         if (empty($request->passwd)) {
             $user = User::find($request->user_id);
@@ -88,45 +88,5 @@ class UserController extends Controller
         $user = User::find($request->user_id);
         $user->delete();
         return response()->json(['message' => 'Data berhasil dihapus', 'status' => 'success']);
-    }
-
-    private function access_create($role, $id = False)
-    {
-        $access_section = DB::table('set_access_section')->where('role_id', $role)->get();
-        $access_menu = DB::table('set_access_menu')->where('role_id', $role)->get();
-        $access_submenu = DB::table('set_access_submenu')->where('role_id', $role)->get();
-
-        foreach ($access_section as $section) {
-            SectionAccess::create(['section_id' => $section->section_id, 'user_id' => $id, 'created_by' => auth()->user()->id]);
-        }
-
-        foreach ($access_menu as $menu) {
-            MenuAccess::create(['menu_id' => $menu->menu_id, 'user_id' => $id, 'created_by' => auth()->user()->id]);
-        }
-
-        foreach ($access_submenu as $submenu) {
-            SubmenuAccess::create(['submenu_id' => $submenu->submenu_id, 'user_id' => $id, 'created_by' => auth()->user()->id]);
-        }
-    }
-
-    private function access_update($role, $id = False)
-    {
-        $access_section = SectionAccess::where('user_id', $id)->get();
-        $access_menu = MenuAccess::where('user_id', $id)->get();
-        $access_submenu = SubmenuAccess::where('user_id', $id)->get();
-
-        foreach ($access_section as $section) {
-            SectionAccess::where('id', $section->id)->delete();
-        }
-
-        foreach ($access_menu as $menu) {
-            MenuAccess::where('id', $menu->id)->delete();
-        }
-
-        foreach ($access_submenu as $submenu) {
-            SubmenuAccess::where('id', $submenu->id)->delete();
-        }
-
-        $this->access_create($role, $id);
     }
 }
