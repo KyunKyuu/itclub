@@ -3,10 +3,7 @@
 @section('main')
 
       <div class="section-body">
-        <h2 class="section-title">Hi, Ujang!</h2>
-        <p class="section-lead">
-          Change information about yourself on this page.
-        </p>
+        <h2 class="section-title text-capitalize">Hi, {{auth()->user()->name}}!</h2>
 
         <div class="row mt-sm-4">
           <div class="col-12 col-md-12 col-lg-5">
@@ -29,22 +26,22 @@
                 </div>
               </div>
               <div class="profile-widget-description">
-                <div class="profile-widget-name">Ujang Maman <div class="text-muted d-inline font-weight-normal"><div class="slash"></div> Web Developer</div></div>
-                Ujang maman is a superhero name in <b>Indonesia</b>, especially in my family. He is not a fictional character but an original hero in my family, a hero for his children and for his wife. So, I use the name as a user in this template. Not a tribute, I'm just bored with <b>'John Doe'</b>.
+                <div class="profile-widget-name"> - <div class="text-muted d-inline font-weight-normal"><div class="slash"></div> - </div></div>
+                No deskripsi
               </div>
               <div class="card-footer text-center">
-                <div class="font-weight-bold mb-2">Follow Ujang On</div>
-                <a href="#" class="btn btn-social-icon btn-facebook mr-1">
-                  <i class="fab fa-facebook-f"></i>
+                <div class="font-weight-bold mb-2 text-capitalize">Follow {{request()->segment(1)}} On</div>
+                <a href="#" class="btn btn-primary mr-1 d-block my-1">
+                  <i class="fa-fw fab fa-facebook"></i> Facebook
                 </a>
-                <a href="#" class="btn btn-social-icon btn-twitter mr-1">
-                  <i class="fab fa-twitter"></i>
+                <a href="#" class="btn btn-danger mr-1 d-block my-1">
+                  <i class="fa-fw fab fa-instagram"></i> Instagram
                 </a>
-                <a href="#" class="btn btn-social-icon btn-github mr-1">
-                  <i class="fab fa-github"></i>
+                <a href="#" class="btn btn-info mr-1 d-block my-1">
+                  <i class="fa-fw fab fa-twitter"></i> Twitter
                 </a>
-                <a href="#" class="btn btn-social-icon btn-instagram">
-                  <i class="fab fa-instagram"></i>
+                <a href="#" class="btn btn-primary mr-1 d-block my-1">
+                  <i class="fa-fw fab fa-linkedin"></i> LinkedIn
                 </a>
               </div>
             </div>
