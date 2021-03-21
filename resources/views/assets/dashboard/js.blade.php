@@ -1,6 +1,6 @@
 <!-- General JS Scripts -->
 <script src="/public_file/node_modules/jquery/jquery-3.3.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+<script src="/public_file/node_modules/popper/popper.min.js" ></script>
 <script src="/public_file/node_modules/bootstrap/js/bootstrap.min.js"  crossorigin="anonymous"></script>
 <script src="/public_file/node_modules/jquery-nicescroll/jquery-nicescroll.min.js"></script>
 <script src="/public_file/node_modules/moment/moment.js"></script>
@@ -14,8 +14,7 @@
 <script src="/public_file/node_modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 <script src="/public_file/node_modules/dataTables/js/jquery.dataTables.js"></script>
 <script src="/public_file/node_modules/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
-{{-- <script src="/public_file/node_modules/sweetalert/dist/sweetalert.js"></script> --}}
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="/public_file/node_modules/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- Template JS File -->
 <script src="/public_file/assets/js/scripts.js"></script>
