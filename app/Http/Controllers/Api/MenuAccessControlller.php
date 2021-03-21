@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
+use App\Models\MenuAccess;
 use App\Models\Section;
 use App\Models\SectionAccess;
 use App\Models\Submenu;
+use App\Models\SubmenuAccess;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -81,8 +83,35 @@ class MenuAccessControlller extends Controller
             ->addColumn('access', function ($section) {
                 $access = SectionAccess::where('user_id', $_GET['id'])->where('section_id', $section->id)->count();
                 $checked = $access > 0 ? 'checked' : ' ';
-                // return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $section->id . '" data-user="' . $_GET['id'] . '" data-id="section"> ';
-                return $section->id;
+                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $section->id . '" data-user="' . $_GET['id'] . '" data-id="section"> ';
+            })
+            ->rawColumns(['access'])
+            ->make(true);
+    }
+
+    public function users_menu()
+    {
+        $menu = Menu::all();
+        return DataTables::of($menu)
+            ->addIndexColumn()
+            ->addColumn('access', function ($menu) {
+                $access = MenuAccess::where('user_id', $_GET['id'])->where('menu_id', $menu->id)->count();
+                $checked = $access > 0 ? 'checked' : ' ';
+                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $menu->id . '" data-user="' . $_GET['id'] . '" data-id="menu"> ';
+            })
+            ->rawColumns(['access'])
+            ->make(true);
+    }
+
+    public function users_submenu()
+    {
+        $submenu = Submenu::all();
+        return DataTables::of($submenu)
+            ->addIndexColumn()
+            ->addColumn('access', function ($submenu) {
+                $access = SubmenuAccess::where('user_id', $_GET['id'])->where('submenu_id', $submenu->id)->count();
+                $checked = $access > 0 ? 'checked' : ' ';
+                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $submenu->id . '" data-user="' . $_GET['id'] . '" data-id="submenu"> ';
             })
             ->rawColumns(['access'])
             ->make(true);

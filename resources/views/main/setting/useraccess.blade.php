@@ -37,7 +37,7 @@
               </div>
           </div>
           <div class="card-body">
-            <div id="formTable"></div>
+            <div id="formTable" class="table-responsive"></div>
 
           </div>
         </div>
