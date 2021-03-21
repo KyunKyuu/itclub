@@ -203,14 +203,14 @@
               <div class="d-sm-none d-lg-inline-block">Hi, Admin</div></a>
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">Logged in 5 min ago</div>
-                <a href="features-profile.html" class="dropdown-item has-icon">
+                <a href="/{{auth()->user()->name}}/dashboard" class="dropdown-item has-icon">
+                    <i class="fas fa-columns"></i> Dashborad
+                </a>
+                <a href="/{{auth()->user()->name}}/profile" class="dropdown-item has-icon">
                   <i class="far fa-user"></i> Profile
                 </a>
-                <a href="features-activities.html" class="dropdown-item has-icon">
+                <a href="/{{auth()->user()->name}}/activities" class="dropdown-item has-icon">
                   <i class="fas fa-bolt"></i> Activities
-                </a>
-                <a href="features-settings.html" class="dropdown-item has-icon">
-                  <i class="fas fa-cog"></i> Settings
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="/api/v1/auth/logout" class="dropdown-item has-icon text-danger">

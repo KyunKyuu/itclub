@@ -11,4 +11,9 @@ class IndexController extends Controller
     {
         return view('main.dashboard.index');
     }
+
+    public function profile_user()
+    {
+        return view('main.resource.profile_user');
+    }
 }
