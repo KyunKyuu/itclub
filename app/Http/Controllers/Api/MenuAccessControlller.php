@@ -95,6 +95,9 @@ class MenuAccessControlller extends Controller
         return DataTables::of($menu)
             ->addIndexColumn()
             ->addColumn('access', function ($menu) {
+                // cek apakah section nya granted
+                $check = SectionAccess::where('user_id', $_GET['id'])->where('section_id', $menu->section_id)->count();
+                // cek apakah granted/denied
                 $access = MenuAccess::where('user_id', $_GET['id'])->where('menu_id', $menu->id)->count();
                 $checked = $access > 0 ? 'checked' : ' ';
                 return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $menu->id . '" data-user="' . $_GET['id'] . '" data-id="menu"> ';

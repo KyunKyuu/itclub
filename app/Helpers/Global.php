@@ -15,6 +15,7 @@ function Section()
         ->where('user_id', auth()->user()->id)
         ->where('section.status', 1)
         ->where('access_user_section.deleted_at', null)
+        ->orderBy('section.id', 'asc')
         ->get();
     return $data;
 }
