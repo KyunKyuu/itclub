@@ -18,6 +18,29 @@ $(document).ready(function() {
         createTable({id:id, value:value})
     })
 
+    $('#formTable').on('change', '.input-toggle', function() {
+        let id = $(this).data('id');
+        let value = $(this).data('value');
+        let user = $(this).data('user');
+
+        $.ajax({
+            url:'/api/v1/access/users/change/'+id,
+            type:'POST',
+            headers:{
+                'X-CSRF-TOKEN':csrftoken
+            },
+            data:{
+                id:user,
+                value:value
+            },
+            success:res=>{
+                RefreshTable('table');
+                SweetAlert(res)
+            },
+            error:err=>console.log(err)
+        })
+    })
+
 })
 
 function createTable(param) {

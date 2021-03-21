@@ -152,4 +152,40 @@ class MenuAccessControlller extends Controller
             return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
         }
     }
+
+    public function users_change_section(Request $request)
+    {
+        $access = SectionAccess::where('section_id', $request->value)->where('user_id', $request->id);
+        if ($access->count() > 0) {
+            $access->delete();
+            return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
+        } else {
+            SectionAccess::create(['user_id' => $request->id, 'section_id' => $request->value, 'created_by' => auth()->user()->id]);
+            return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
+        }
+    }
+
+    public function users_change_menu(Request $request)
+    {
+        $access = MenuAccess::where('menu_id', $request->value)->where('user_id', $request->id);
+        if ($access->count() > 0) {
+            $access->delete();
+            return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
+        } else {
+            MenuAccess::create(['user_id' => $request->id, 'menu_id' => $request->value, 'created_by' => auth()->user()->id]);
+            return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
+        }
+    }
+
+    public function users_change_submenu(Request $request)
+    {
+        $access = SubmenuAccess::where('submenu_id', $request->value)->where('user_id', $request->id);
+        if ($access->count() > 0) {
+            $access->delete();
+            return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
+        } else {
+            SubmenuAccess::create(['user_id' => $request->id, 'submenu_id' => $request->value, 'created_by' => auth()->user()->id]);
+            return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
+        }
+    }
 }
