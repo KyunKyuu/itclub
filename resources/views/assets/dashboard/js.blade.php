@@ -28,9 +28,13 @@
 <script src="/private_file/assets/js/function/script.js"></script>
 <script src="/private_file/assets/js/variable/script.js"></script>
 @if (request()->segment(3))
-<script src="/private_file/assets/js/{{request()->segment(1)}}/{{request()->segment(2)}}/{{request()->segment(3)}}.js"></script>
+    @if (request()->segment(1) == 'member')
+        <script src="/private_file/assets/js/{{request()->segment(1)}}/{{request()->segment(3)}}/script.js"></script>
+    @else
+        <script src="/private_file/assets/js/{{request()->segment(1)}}/{{request()->segment(2)}}/{{request()->segment(3)}}.js"></script>
+    @endif
 @elseif(request()->segment(2))
-<script src="/private_file/assets/js/{{request()->segment(1)}}/{{request()->segment(2)}}/script.js"></script>
+    <script src="/private_file/assets/js/{{request()->segment(1)}}/{{request()->segment(2)}}/script.js"></script>
 @else
-<script src="/private_file/assets/js/{{request()->segment(1)}}.js"></script>
+    <script src="/private_file/assets/js/{{request()->segment(1)}}.js"></script>
 @endif

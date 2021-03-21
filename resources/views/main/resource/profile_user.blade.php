@@ -9,7 +9,10 @@
           <div class="col-12 col-md-12 col-lg-5">
             <div class="card profile-widget">
               <div class="profile-widget-header">
-                <img alt="image" src="/public_file/assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
+                {{-- <img alt="image" src="/public_file/assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture"> --}}
+                <div id="image-profile">
+                    <figure class="avatar mr-2 avatar-xl rounded-circle profile-widget-picture" data-initial="RM" style="width: 100px; height: 100px;"></figure>
+                </div>
                 <div class="profile-widget-items">
                   <div class="profile-widget-item">
                     <div class="profile-widget-item-label">Posts</div>
@@ -50,7 +53,7 @@
 
           <div class="col-12 col-md-12 col-lg-7">
             <div class="card">
-              <form method="post" class="needs-validation" novalidate="">
+              <form id="insert-profile" class="needs-validation" novalidate="">
                 <div class="card-header">
                   <h4>Edit Profile</h4>
                 </div>
@@ -85,6 +88,15 @@
                       </div>
                     </div>
                     <div class="row">
+                      <div class="form-group col-md-6 col-12">
+                        <label>Thumbnail</label>
+                        <input type="file" class="form-control image-input-preview" value="" name="thumbnail" placeholder="Pelajar" data-id="img-thumbnail">
+                      </div>
+                      <div class="form-group col-md-6 col-12">
+                        <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt="" class="img-fluid" style="max-width: 150px">
+                      </div>
+                    </div>
+                    <div class="row">
                       <div class="form-group col-12">
                         <label>Bio</label>
                         <textarea class="form-control use-ckeditor" name="bio" placeholder="hahaha"></textarea>
@@ -94,7 +106,7 @@
                         <a class="d-block mx-auto text-capitalize" id="advancedProfile" style="cursor: pointer;">advanced profile</a>
                     </div>
                     <hr>
-                    <div id="social-media" style="display: none">
+                    <div id="social-media" class="d-none">
                         <div class="row">
                             <div class="form-group col-md-6 col-12">
                           <label>Display Name</label>

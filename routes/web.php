@@ -42,9 +42,9 @@ Route::group(['prefix' => '/setting', 'middleware' => 'auth'], function () {
     Route::get('/menu/role', [MenuAccessControlller::class, 'role']);
 });
 
-Route::get('/{resource}/profile', [IndexController::class, 'profile_user']);
-Route::get('/{resource}/dashboard', [IndexController::class, 'dashboard_user']);
-Route::get('/{resource}/activities', [IndexController::class, 'activities_user']);
+Route::get('/member/{resource}/profile', [IndexController::class, 'profile_user']);
+Route::get('/member/{resource}/dashboard', [IndexController::class, 'dashboard_user']);
+Route::get('/member/{resource}/activities', [IndexController::class, 'activities_user']);
 
 // !NOTE API Request & Response
 Route::prefix('/api/v1')->group(function () {
