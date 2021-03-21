@@ -20,7 +20,7 @@
                     </thead>
                     <tbody>
                     </tbody>
-                  </table>
+                </table>
               </div>
         </div>
       </div>
@@ -29,7 +29,7 @@
       <form id="setting-role">
         <div class="card" id="settings-card">
           <div class="card-header">
-            <h4>Role Access</h4>
+            <h4>Data Users Access</h4>
             <div class="card-header-action">
                 <div class="btn-group" id="btnGroup">
 
@@ -37,8 +37,6 @@
               </div>
           </div>
           <div class="card-body">
-            <p class="text-muted">General Setting Access Role.</p>
-
             <div id="formTable"></div>
 
           </div>

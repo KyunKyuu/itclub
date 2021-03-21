@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Models\Section;
+use App\Models\SectionAccess;
 use App\Models\Submenu;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -63,10 +64,25 @@ class MenuAccessControlller extends Controller
             ->addIndexColumn()
             ->addColumn('access', function ($users) {
                 return '<div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-primary" data-value="' . $users->id . '">Section</button>
-                            <button type="button" class="btn btn-outline-primary" data-value="' . $users->id . '">Menu</button>
-                            <button type="button" class="btn btn-outline-primary" data-value="' . $users->id . '">Submenu</button>
+                            <button type="button" class="btn btn-outline-primary" data-id="section" data-value="' . $users->id . '">Section</button>
+                            <button type="button" class="btn btn-outline-primary" data-id="menu" data-value="' . $users->id . '">Menu</button>
+                            <button type="button" class="btn btn-outline-primary" data-id="submenu" data-value="' . $users->id . '">Submenu</button>
                         </div>';
+            })
+            ->rawColumns(['access'])
+            ->make(true);
+    }
+
+    public function users_section()
+    {
+        $section = Section::all();
+        return DataTables::of($section)
+            ->addIndexColumn()
+            ->addColumn('access', function ($section) {
+                $access = SectionAccess::where('user_id', $_GET['id'])->where('section_id', $section->id)->count();
+                $checked = $access > 0 ? 'checked' : ' ';
+                // return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $section->id . '" data-user="' . $_GET['id'] . '" data-id="section"> ';
+                return $section->id;
             })
             ->rawColumns(['access'])
             ->make(true);
