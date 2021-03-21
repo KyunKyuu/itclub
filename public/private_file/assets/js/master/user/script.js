@@ -89,6 +89,7 @@ $(document).ready(function() {
                 $('#insertUser').modal('show');
                 $('#insertUser form').attr('id', 'update');
                 $('#insertUser input[name="name"]').val(res.data.name)
+                $('#insertUser input[name="passwd"]').val('')
                 $('#insertUser input[name="name"]').data('id', res.data.id)
                 $('#insertUser input[name="email"]').val(res.data.email)
                 $('#insertUser select[name="role_id"] option[value="'+res.data.role_id+'"]').attr('selected', true)
