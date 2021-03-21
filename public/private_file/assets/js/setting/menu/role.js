@@ -2,13 +2,19 @@ $(document).ready(function() {
     role()
 
     $('#dataRole').on('click', '.nav-link', function() {
+        let html
         $('#dataRole .nav-link').removeClass('active')
         $(this).addClass('active', true)
         let id = $(this).data('value')
-        $('.btn-group a.btn').attr('data-value', id)
+        html = `
+            <a href="#" class="btn btn-outline-primary text-capitalize" data-value="${id}" id="sectionRole">section</a>
+            <a href="#" class="btn btn-outline-primary text-capitalize" data-value="${id}" id="menuRole">menu</a>
+            <a href="#" class="btn btn-outline-primary text-capitalize" data-value="${id}" id="submenuRole">submenu</a>
+        `;
+        $('#btnGroup').html(html)
     })
 
-    $('.btn-group a.btn').on('click', function() {
+    $('.btn-group').on('click', ' a.btn', function() {
         let data = $(this).text()
         let id = $(this).data('value')
         $('.btn-group a.btn').removeClass('btn-primary');
@@ -20,6 +26,30 @@ $(document).ready(function() {
         }
         createTable({data:data, id:id})
     })
+
+    $('#formTable').on('change', '.input-toggle', function() {
+        let type = $(this).data('id')
+        let value = $(this).data('value')
+        let roleid = $(this).data('role')
+
+        $.ajax({
+            data:{
+                value:value,
+                roleid:roleid,
+            },
+            url:'/api/v1/access/change/'+type,
+            headers:{
+                'X-CSRF-TOKEN':csrftoken
+            },
+            type:'POST',
+            success:res=>{
+                RefreshTable('table');
+                SweetAlert(res);
+            },
+            error:err=>console.log(err)
+        })
+    })
+
 })
 
 function role() {
@@ -28,7 +58,6 @@ function role() {
         success:res=>{
             let html =' '
             res.data.forEach(response=>{
-                console.log(response);
                 html += `<li class="nav-item"><a href="#" class="nav-link" data-value="${response.id}">${response.name}</a></li>`;
             })
 
@@ -40,21 +69,19 @@ function role() {
 function createTable(param) {
     const data = [
         {data:'DT_RowIndex', name:'DT_RowIndex', orderable:false, searchable:false},
-        {data:'name', name:'name'},
+        {data:'name', name:'name', className:'text-capitalize'},
         {data:'access', name:'access', orderable:false},
-        {data:'btn', name:'btn', searchable:false, orderable:false},
     ];
 
     let table = `
     <table class="table table-striped" id="table">
         <thead>
             <tr>
-                <th width="10px">
+                <th>
                     ID
                 </th>
                 <th class="text-capitalize">${param.data}</th>
                 <th class="text-capitalize">access</th>
-                <th class="text-capitalize">action</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -64,7 +91,7 @@ function createTable(param) {
     Table({
         table:'#table',
         data:data,
-        url:'/api/v1/get/access/'+param.data,
+        url:'/api/v1/access/get/'+param.data,
         parm:{
             id:param.id
         },

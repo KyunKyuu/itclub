@@ -21,10 +21,8 @@
           <div class="card-header">
             <h4>Role Access</h4>
             <div class="card-header-action">
-                <div class="btn-group">
-                  <a href="#" class="btn btn-outline-primary text-capitalize" id="sectionRole">section</a>
-                  <a href="#" class="btn btn-outline-primary text-capitalize" id="menuRole">menu</a>
-                  <a href="#" class="btn btn-outline-primary text-capitalize" id="submenuRole">submenu</a>
+                <div class="btn-group" id="btnGroup">
+
                 </div>
               </div>
           </div>

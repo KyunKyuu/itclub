@@ -98,9 +98,12 @@ Route::prefix('/api/v1')->group(function () {
         Route::put('/status/update', [ApiPreferencesController::class, 'update_status_submenu']);
     });
 
-    Route::group(['prefix' => '/get/access'], function () {
-        Route::get('/section', [ApiMenuAccessControlller::class, 'section_get']);
-        Route::get('/menu', [ApiMenuAccessControlller::class, 'menu_get']);
-        Route::get('/submenu', [ApiMenuAccessControlller::class, 'submenu_get']);
+    Route::group(['prefix' => '/access'], function () {
+        Route::get('/get/section', [ApiMenuAccessControlller::class, 'section_get']);
+        Route::get('/get/menu', [ApiMenuAccessControlller::class, 'menu_get']);
+        Route::get('/get/submenu', [ApiMenuAccessControlller::class, 'submenu_get']);
+        Route::post('/change/section', [ApiMenuAccessControlller::class, 'section_change']);
+        Route::post('/change/menu', [ApiMenuAccessControlller::class, 'menu_change']);
+        Route::post('/change/submenu', [ApiMenuAccessControlller::class, 'submenu_change']);
     });
 });

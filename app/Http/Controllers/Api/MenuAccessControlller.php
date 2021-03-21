@@ -18,16 +18,10 @@ class MenuAccessControlller extends Controller
         $section = Section::all();
         return DataTables::of($section)
             ->addIndexColumn()
-            ->addColumn('btn', function ($section) {
-                return '
-            <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $section->id . '" id="edit"><i class="fas fa-edit"></i></a>
-            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $section->id . '" id="delete"><i class="fas fa-trash"></i></a>
-            ';
-            })
             ->addColumn('access', function ($section) {
-                $access = DB::table('set_access_section')->where('section_id', $section->id)->where('role_id', $_GET['id'])->get()->count();
+                $access = DB::table('set_access_section')->where('section_id', $section->id)->where('role_id', $_GET['id'])->count();
                 $checked = $access > 0 ? 'checked' : ' ';
-                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $section->id . '"> ';
+                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $section->id . '" data-role="' . $_GET['id'] . '" data-id="section"> ';
             })
             ->rawColumns(['check', 'btn', 'access'])
             ->make(true);
@@ -38,16 +32,10 @@ class MenuAccessControlller extends Controller
         $menu = Menu::all();
         return DataTables::of($menu)
             ->addIndexColumn()
-            ->addColumn('btn', function ($menu) {
-                return '
-            <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $menu->id . '" id="edit"><i class="fas fa-edit"></i></a>
-            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $menu->id . '" id="delete"><i class="fas fa-trash"></i></a>
-            ';
-            })
             ->addColumn('access', function ($menu) {
-                $access = DB::table('set_access_menu')->where('menu_id', $menu->id)->where('role_id', $_GET['id'])->get()->count();
+                $access = DB::table('set_access_menu')->where('menu_id', $menu->id)->where('role_id', $_GET['id'])->count();
                 $checked = $access > 0 ? 'checked' : ' ';
-                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $menu->id . '"> ';
+                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $menu->id . '" data-role="' . $_GET['id'] . '" data-id="menu"> ';
             })
             ->rawColumns(['check', 'btn', 'access'])
             ->make(true);
@@ -58,18 +46,48 @@ class MenuAccessControlller extends Controller
         $submenu = Submenu::all();
         return DataTables::of($submenu)
             ->addIndexColumn()
-            ->addColumn('btn', function ($submenu) {
-                return '
-            <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $submenu->id . '" id="edit"><i class="fas fa-edit"></i></a>
-            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $submenu->id . '" id="delete"><i class="fas fa-trash"></i></a>
-            ';
-            })
             ->addColumn('access', function ($submenu) {
-                $access = DB::table('set_access_submenu')->where('submenu_id', $submenu->id)->where('role_id', $_GET['id'])->get()->count();
+                $access = DB::table('set_access_submenu')->where('submenu_id', $submenu->id)->where('role_id', $_GET['id'])->count();
                 $checked = $access > 0 ? 'checked' : ' ';
-                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $submenu->id . '"> ';
+                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $submenu->id . '" data-role="' . $_GET['id'] . '" data-id="submenu"> ';
             })
             ->rawColumns(['check', 'btn', 'access'])
             ->make(true);
+    }
+
+    public function section_change(Request $request)
+    {
+        $access = DB::table('set_access_section')->where('section_id', $request->value)->where('role_id', $request->roleid);
+        if ($access->count() > 0) {
+            $access->delete();
+            return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
+        } else {
+            DB::insert('insert into set_access_section (role_id, section_id) values (?, ?)', [$request->roleid, $request->value]);
+            return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
+        }
+    }
+
+    public function menu_change(Request $request)
+    {
+        $access = DB::table('set_access_menu')->where('menu_id', $request->value)->where('role_id', $request->roleid);
+        if ($access->count() > 0) {
+            $access->delete();
+            return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
+        } else {
+            DB::insert('insert into set_access_menu (role_id, menu_id) values (?, ?)', [$request->roleid, $request->value]);
+            return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
+        }
+    }
+
+    public function submenu_change(Request $request)
+    {
+        $access = DB::table('set_access_submenu')->where('submenu_id', $request->value)->where('role_id', $request->roleid);
+        if ($access->count() > 0) {
+            $access->delete();
+            return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
+        } else {
+            DB::insert('insert into set_access_submenu (role_id, submenu_id) values (?, ?)', [$request->roleid, $request->value]);
+            return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
+        }
     }
 }
