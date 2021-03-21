@@ -55,8 +55,8 @@ class UserController extends Controller
     public function insert_user(Request $request)
     {
         $request->request->add(['password' => bcrypt($request->passwd), 'created_by' => auth()->user()->id]);
-        User::create($request->all());
-        $access = DB::table('set_access_section')->where('role_id', $request->role_id);
+        // $user = User::create($request->all());
+        $this->access_create($request);
         return response()->json(['message' => 'Data berhasil ditambahkan', 'status' => 'success']);
     }
 
@@ -79,5 +79,15 @@ class UserController extends Controller
         $user = User::find($request->user_id);
         $user->delete();
         return response()->json(['message' => 'Data berhasil dihapus', 'status' => 'success']);
+    }
+
+    private function access_create($request, $id = False)
+    {
+        $access_section = DB::table('set_access_section')->where('role_id', $request->role_id)->get();
+        $access_menu = DB::table('set_access_menu')->where('role_id', $request->role_id)->get();
+        $access_submenu = DB::table('set_access_submenu')->where('role_id', $request->role_id)->get();
+
+        foreach ($access_section as $section) {
+        }
     }
 }
