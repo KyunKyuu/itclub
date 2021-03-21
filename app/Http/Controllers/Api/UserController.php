@@ -75,12 +75,12 @@ class UserController extends Controller
             $user = User::find($request->user_id);
             $user->update($request->all());
             return response()->json(['message' => 'Data berhasil diperbaharui', 'status' => 'success']);
+        } else {
+            $user = User::find($request->user_id);
+            $request->request->add(['password' => bcrypt($request->passwd)]);
+            $user->update($request->all());
+            return response()->json(['message' => 'Data berhasil diperbaharui', 'status' => 'success']);
         }
-
-        $user = User::find($request->user_id);
-        $request->request->add(['password' => bcrypt($request->passwd)]);
-        $user->update($request->all());
-        return response()->json(['message' => 'Data berhasil diperbaharui', 'status' => 'success']);
     }
 
     public function delete_user(Request $request)
