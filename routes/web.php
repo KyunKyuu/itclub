@@ -102,6 +102,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::get('/get/section', [ApiMenuAccessControlller::class, 'section_get']);
         Route::get('/get/menu', [ApiMenuAccessControlller::class, 'menu_get']);
         Route::get('/get/submenu', [ApiMenuAccessControlller::class, 'submenu_get']);
+        Route::get('/get/users', [ApiMenuAccessControlller::class, 'users_get']);
         Route::post('/change/section', [ApiMenuAccessControlller::class, 'section_change']);
         Route::post('/change/menu', [ApiMenuAccessControlller::class, 'menu_change']);
         Route::post('/change/submenu', [ApiMenuAccessControlller::class, 'submenu_change']);
