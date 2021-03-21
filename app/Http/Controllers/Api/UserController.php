@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
@@ -55,6 +56,7 @@ class UserController extends Controller
     {
         $request->request->add(['password' => bcrypt($request->passwd), 'created_by' => auth()->user()->id]);
         User::create($request->all());
+        $access = DB::table('set_access_section')->where('role_id', $request->role_id);
         return response()->json(['message' => 'Data berhasil ditambahkan', 'status' => 'success']);
     }
 

@@ -62,7 +62,7 @@ class MenuAccessControlller extends Controller
             $access->delete();
             return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
         } else {
-            DB::insert('insert into set_access_section (role_id, section_id) values (?, ?)', [$request->roleid, $request->value]);
+            DB::insert('insert into set_access_section (role_id, created_by, section_id) values (?, ?, ?)', [$request->roleid, auth()->user()->id, $request->value]);
             return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
         }
     }
@@ -74,7 +74,7 @@ class MenuAccessControlller extends Controller
             $access->delete();
             return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
         } else {
-            DB::insert('insert into set_access_menu (role_id, menu_id) values (?, ?)', [$request->roleid, $request->value]);
+            DB::insert('insert into set_access_menu (role_id, created_by, menu_id) values (?, ?, ?)', [$request->roleid, auth()->user()->id, $request->value]);
             return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
         }
     }
@@ -86,7 +86,7 @@ class MenuAccessControlller extends Controller
             $access->delete();
             return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
         } else {
-            DB::insert('insert into set_access_submenu (role_id, submenu_id) values (?, ?)', [$request->roleid, $request->value]);
+            DB::insert('insert into set_access_submenu (role_id, created_by, submenu_id) values (?, ?, ?)', [$request->roleid, auth()->user()->id, $request->value]);
             return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
         }
     }
