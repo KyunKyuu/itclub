@@ -9,9 +9,19 @@
           <h4>Data Users</h4>
         </div>
         <div class="card-body">
-          <ul class="nav nav-pills flex-column" id="dataUsers">
-
-          </ul>
+            <div class="table-responsive">
+                <table class="table table-striped table-md" id="dataUsers">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Action</th>
+                          </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
+              </div>
         </div>
       </div>
     </div>

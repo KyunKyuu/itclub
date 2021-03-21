@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Models\Section;
 use App\Models\Submenu;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -52,6 +53,22 @@ class MenuAccessControlller extends Controller
                 return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $submenu->id . '" data-role="' . $_GET['id'] . '" data-id="submenu"> ';
             })
             ->rawColumns(['check', 'btn', 'access'])
+            ->make(true);
+    }
+
+    public function users_get()
+    {
+        $users = User::all();
+        return DataTables::of($users)
+            ->addIndexColumn()
+            ->addColumn('access', function ($users) {
+                return '<div class="btn-group mb-3 btn-group-sm" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-outline-primary" data-value="' . $users->id . '">Section</button>
+                            <button type="button" class="btn btn-outline-primary" data-value="' . $users->id . '">Menu</button>
+                            <button type="button" class="btn btn-outline-primary" data-value="' . $users->id . '">Submenu</button>
+                        </div>';
+            })
+            ->rawColumns(['access'])
             ->make(true);
     }
 
