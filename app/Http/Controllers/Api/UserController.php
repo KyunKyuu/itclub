@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use AccessUserSection;
 use App\Http\Controllers\Controller;
+use App\Models\MenuAccess;
+use App\Models\SectionAccess;
+use App\Models\SubmenuAccess;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -55,13 +59,17 @@ class UserController extends Controller
     public function insert_user(Request $request)
     {
         $request->request->add(['password' => bcrypt($request->passwd), 'created_by' => auth()->user()->id]);
-        // $user = User::create($request->all());
-        $this->access_create($request);
+        $user = User::create($request->all());
+        $this->access_create($request, $user->id);
         return response()->json(['message' => 'Data berhasil ditambahkan', 'status' => 'success']);
     }
 
     public function update_user(Request $request)
     {
+        User::where('id', $request->user_id)->where('role_id', $request->role_id);
+        if (condition) {
+            # code...
+        }
         if (empty($request->passwd)) {
             $user = User::find($request->user_id);
             $user->update($request->all());
@@ -88,6 +96,15 @@ class UserController extends Controller
         $access_submenu = DB::table('set_access_submenu')->where('role_id', $request->role_id)->get();
 
         foreach ($access_section as $section) {
+            SectionAccess::create(['section_id' => $section->id, 'user_id' => $id, 'created_by' => auth()->user()->id]);
+        }
+
+        foreach ($access_menu as $menu) {
+            MenuAccess::create(['menu_id' => $menu->id, 'user_id' => $id, 'created_by' => auth()->user()->id]);
+        }
+
+        foreach ($access_submenu as $submenu) {
+            SubmenuAccess::create(['submenu_id' => $submenu->id, 'user_id' => $id, 'created_by' => auth()->user()->id]);
         }
     }
 }
