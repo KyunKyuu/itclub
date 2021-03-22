@@ -93,7 +93,7 @@
                         <textarea class="form-control use-ckeditor" placeholder="hahaha">
                             {{$data['profile']->bio}}
                         </textarea>
-                        <input type="hidden" name="bio" data-editor="ckeditor">
+                        <input type="hidden" name="bio" data-editor="ckeditor" value="{{$data['profile']->bio}}">
                       </div>
                     </div>
                     <div class="row text-center mb-3">

@@ -186,7 +186,10 @@ class MemberController extends Controller
         return response()->json(['status' => 'success', 'message' => 'Profile berhasil diperbarui'], 200);
     }
 
-    public function hapus_gambar_profile()
+    public function delete_image_profile()
     {
+        $user = UserProfile::where('user_id', auth()->user()->id);
+        $user->update(['thumbnail' => NULL]);
+        return response()->json(['status' => 'success', 'message' => 'Profile berhasil diperbarui'], 200);
     }
 }

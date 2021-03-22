@@ -28,6 +28,17 @@ $(document).ready(function() {
         })
     })
 
+    $('#hapusGambarProfile').on('click', function(e) {
+        e.preventDefault()
+        $.ajax({
+            url:'/api/v1/member/delete/image/profile',
+            success:res=>{
+                profile(ID)
+            },
+            error:err=>console.log(err)
+        })
+    })
+
 })
 
 function profile(name) {
