@@ -53,7 +53,7 @@
 
           <div class="col-12 col-md-12 col-lg-7">
             <div class="card">
-              <form id="insert-profile" class="needs-validation" novalidate="">
+              <form id="insert-profile" class="needs-validation" novalidate="" data-id="{{auth()->user()->id}}">
                 <div class="card-header">
                   <h4>Edit Profile</h4>
                 </div>
@@ -150,7 +150,7 @@
                 </div>
             </div>
                 <div class="card-footer text-right">
-                    <button class="btn btn-primary">Save Changes</button>
+                    <button class="btn btn-primary" type="submit">Save Changes</button>
                 </div>
             </form>
             </div>

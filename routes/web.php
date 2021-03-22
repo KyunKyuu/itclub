@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
+use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\MenuAccessControlller as ApiMenuAccessControlller;
 use App\Http\Controllers\Api\PreferencesController as ApiPreferencesController;
 use App\Http\Controllers\Api\RoleController as ApiRoleController;
@@ -116,5 +117,9 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/change/section', [ApiMenuAccessControlller::class, 'section_change']);
         Route::post('/change/menu', [ApiMenuAccessControlller::class, 'menu_change']);
         Route::post('/change/submenu', [ApiMenuAccessControlller::class, 'submenu_change']);
+    });
+
+    Route::group(['prefix' => '/member'], function () {
+        Route::post('/profile', [MemberController::class, 'profile']);
     });
 });
