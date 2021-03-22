@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\{Member,Division};
+use App\Models\{Member, Division};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 
@@ -13,7 +13,7 @@ class MemberController extends Controller
 
     public function index()
     {
-        $members = Member::with('division','alumni','created_by')->latest()->get();
+        $members = Member::with('division', 'alumni', 'created_by')->latest()->get();
 
         return response()->json([
             'status' => 'success',
@@ -23,20 +23,19 @@ class MemberController extends Controller
 
     public function show($id)
     {
-        $member = Member::with('division','alumni','created_by')->find($id);
+        $member = Member::with('division', 'alumni', 'created_by')->find($id);
 
-        if(!$member)
-        {
+        if (!$member) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'member not found'
-            ],404);
+            ], 404);
         }
 
         return response()->json([
             'status' => 'success',
             'data' => $member
-        ],200);
+        ], 200);
     }
 
     public function create()
@@ -49,37 +48,35 @@ class MemberController extends Controller
 
     public function store(MemberRequest $request)
     {
-       
-        $division = Division::where('id',$request->division_id)->exists();
-        if(!$division)
-        {
+
+        $division = Division::where('id', $request->division_id)->exists();
+        if (!$division) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'division not found'
-            ],404);
+            ], 404);
         }
 
-       $member = Member::create([
-        'name' => $request->name,
-        'class' => $request->class,
-        'division_id' => $request->division_id,
-        'image' => $request->image ? request()->file('image')->store('images/member') : null,
-        'position' => $request->position,
-         // 'created_by' => auth()->user()->id
-       ]);
+        $member = Member::create([
+            'name' => $request->name,
+            'class' => $request->class,
+            'division_id' => $request->division_id,
+            'image' => $request->image ? request()->file('image')->store('images/member') : null,
+            'position' => $request->position,
+            // 'created_by' => auth()->user()->id
+        ]);
 
-       return response()->json([
-        'status' => 'success',
-        'data' => $member
-       ],200);
+        return response()->json([
+            'status' => 'success',
+            'data' => $member
+        ], 200);
     }
 
     public function edit($id)
     {
         $member = Member::find($id);
 
-        if(!$member)
-        {
+        if (!$member) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'member not found'
@@ -97,31 +94,29 @@ class MemberController extends Controller
     {
         $member = Member::find($id);
 
-        if(!$member)
-        {
+        if (!$member) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'member not found'
-            ],404);
+            ], 404);
         }
 
-        $division = Division::where('id',$request->division_id)->exists();
-        if(!$division)
-        {
+        $division = Division::where('id', $request->division_id)->exists();
+        if (!$division) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'division not found'
-            ],404);
+            ], 404);
         }
 
-       if($request->image){
+        if ($request->image) {
             \Storage::delete($member->image);
             $image = request()->file('image')->store('images/member');
-       }elseif($member->image){
+        } elseif ($member->image) {
             $image = $member->image;
-       }else{
+        } else {
             $image = null;
-       }
+        }
 
         $member->update([
             'name' => $request->name,
@@ -129,25 +124,24 @@ class MemberController extends Controller
             'division_id' => $request->division_id,
             'image' => $image,
             'position' => $request->position,
-             // 'created_by' => auth()->user()->id
+            // 'created_by' => auth()->user()->id
         ]);
-       
-       return response()->json([
+
+        return response()->json([
             'status' => 'success',
             'data' => $member
-       ],200);
+        ], 200);
     }
 
     public function destroy($id)
     {
         $member = Member::find($id);
 
-        if(!$member)
-        {
+        if (!$member) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'member not found'
-            ],404);
+            ], 404);
         }
 
         \Storage::delete($member->image);
@@ -158,6 +152,10 @@ class MemberController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'member deleted successfuly'
-        ],200);
+        ], 200);
+    }
+
+    public function profile()
+    {
     }
 }
