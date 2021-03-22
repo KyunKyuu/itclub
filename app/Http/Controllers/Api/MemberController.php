@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\{Member, Division};
+use App\Models\{Member, Division, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Http\Request;
 
 class MemberController extends Controller
 {
@@ -155,7 +155,26 @@ class MemberController extends Controller
         ], 200);
     }
 
-    public function profile()
+    public function profile(Request $request)
     {
+        $user = UserProfile::where('user_id', auth()->user()->id);
+
+        dd($request->all());
+
+        if ($request->hasFile('image')) {
+            $request->file('image')->move('private_file/user/image-thumbnail/', $request->file('image')->getClientOriginalName());
+            $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10);
+            $request->request->add(['thumbnail' => $name]);
+        }
+
+        if (!empty($user)) {
+            $request->request->add(['user_id', auth()->user()->id]);
+            UserProfile::create($request->all());
+        }
+        $request->request->add(['user_id', auth()->user()->id]);
+        $user->update($request->all());
+
+
+        return response()->json(['status' => 'success', 'message' => 'Profile berhasil diperbarui'], 200);
     }
 }

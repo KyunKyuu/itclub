@@ -53,7 +53,7 @@
 
           <div class="col-12 col-md-12 col-lg-7">
             <div class="card">
-              <form id="insert-profile" class="needs-validation" novalidate="" data-id="{{auth()->user()->id}}">
+              <form id="insert-profile" class="needs-validation" novalidate="" >
                 <div class="card-header">
                   <h4>Edit Profile</h4>
                 </div>
@@ -90,7 +90,7 @@
                     <div class="row">
                       <div class="form-group col-md-6 col-12">
                         <label>Thumbnail</label>
-                        <input type="file" class="form-control image-input-preview" value="" name="thumbnail" placeholder="Pelajar" data-id="img-thumbnail">
+                        <input type="file" class="form-control image-input-preview" value="" name="image" placeholder="Pelajar" data-id="img-thumbnail">
                       </div>
                       <div class="form-group col-md-6 col-12">
                         <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt="" class="img-fluid" style="max-width: 150px">
@@ -110,41 +110,41 @@
                         <div class="row">
                             <div class="form-group col-md-6 col-12">
                           <label>Display Name</label>
-                          <input type="text" class="form-control" value="" name="status" placeholder="Input your nickname here">
+                          <input type="text" class="form-control" value="" name="facebook_name" placeholder="Input your nickname here">
                         </div>
                         <div class="form-group col-md-6 col-12">
                             <label>Facebook Url</label>
-                          <input type="number" class="form-control" name="telepon" value="" placeholder="Input your url facebook here">
+                          <input type="number" class="form-control" name="facebook_url" value="" placeholder="Input your url facebook here">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6 col-12">
                             <label>Display Name</label>
-                          <input type="text" class="form-control" value="" name="status" placeholder="Input your nickname here">
+                          <input type="text" class="form-control" value="" name="instagram_name" placeholder="Input your nickname here">
                         </div>
                         <div class="form-group col-md-6 col-12">
                           <label>Instagram Url</label>
-                          <input type="number" class="form-control" name="telepon" value="" placeholder="Input your url instagram here">
+                          <input type="number" class="form-control" name="instagram_url" value="" placeholder="Input your url instagram here">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6 col-12">
                             <label>Display Name</label>
-                          <input type="text" class="form-control" value="" name="status" placeholder="Input your nickname here">
+                          <input type="text" class="form-control" value="" name="linkedin_name" placeholder="Input your nickname here">
                         </div>
                         <div class="form-group col-md-6 col-12">
                           <label>LinkedIn Url</label>
-                          <input type="number" class="form-control" name="telepon" value="" placeholder="Input your url LinkedIn here">
+                          <input type="number" class="form-control" name="linkedin_url" value="" placeholder="Input your url LinkedIn here">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6 col-12">
                           <label>Display Name</label>
-                          <input type="text" class="form-control" value="" name="status" placeholder="Input your nickname here">
+                          <input type="text" class="form-control" value="" name="twitter_name" placeholder="Input your nickname here">
                         </div>
                         <div class="form-group col-md-6 col-12">
                           <label>Twitter Url</label>
-                          <input type="number" class="form-control" name="telepon" value="" placeholder="Input your url Twitter here">
+                          <input type="number" class="form-control" name="twitter_url" value="" placeholder="Input your url Twitter here">
                         </div>
                     </div>
                 </div>

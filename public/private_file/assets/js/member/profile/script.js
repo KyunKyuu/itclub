@@ -8,8 +8,7 @@ $(document).ready(function() {
 
     $('#insert-profile').on('submit', function(e) {
         e.preventDefault()
-        let data = FormData(this)
-        data.append('user_id', $(this).data('id'))
+        let data = new FormData(this)
         $.ajax({
             url:'/api/v1/member/profile',
             data:data,
