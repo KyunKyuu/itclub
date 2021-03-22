@@ -119,7 +119,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/change/submenu', [ApiMenuAccessControlller::class, 'submenu_change']);
     });
 
-    Route::group(['prefix' => '/member'], function () {
+    Route::group(['prefix' => '/member', 'middleware' => ['auth']], function () {
         Route::get('/get/profile', [MemberController::class, 'get_profile']);
         Route::post('/insert/profile', [MemberController::class, 'insert_profile']);
         Route::get('/delete/image/profile', [MemberController::class, 'delete_image_profile']);
