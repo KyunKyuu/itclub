@@ -3,15 +3,14 @@
 @section('main')
 
       <div class="section-body">
-        <h2 class="section-title text-capitalize">Hi, {{auth()->user()->name}}!</h2>
+        <h2 class="section-title text-capitalize" id="IDCARD" data-id="{{request()->segment(2)}}">Hi, {{auth()->user()->name}}!</h2>
 
         <div class="row mt-sm-4">
           <div class="col-12 col-md-12 col-lg-5">
             <div class="card profile-widget">
               <div class="profile-widget-header">
-                {{-- <img alt="image" src="/public_file/assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture"> --}}
-                <div id="image-profile">
-                    <figure class="avatar mr-2 avatar-xl rounded-circle profile-widget-picture" data-initial="RM" style="width: 100px; height: 100px;"></figure>
+                  <div id="image-profile">
+                    <img alt="image" src="/public_file/assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
                 </div>
                 <div class="profile-widget-items">
                   <div class="profile-widget-item">
@@ -29,23 +28,14 @@
                 </div>
               </div>
               <div class="profile-widget-description">
-                <div class="profile-widget-name"> - <div class="text-muted d-inline font-weight-normal"><div class="slash"></div> - </div></div>
-                No deskripsi
+                <div class="profile-widget-name"> <a id="name">-</a> <div class="text-muted d-inline font-weight-normal"><div class="slash"></div> <a id="status">-</a> </div></div>
+                <div id="deskripsi">No deskripsi</div>
               </div>
               <div class="card-footer text-center">
-                <div class="font-weight-bold mb-2 text-capitalize">Follow {{request()->segment(1)}} On</div>
-                <a href="#" class="btn btn-primary mr-1 d-block my-1">
-                  <i class="fa-fw fab fa-facebook-square"></i> Facebook
-                </a>
-                <a href="#" class="btn btn-danger mr-1 d-block my-1">
-                  <i class="fa-fw fab fa-instagram"></i> Instagram
-                </a>
-                <a href="#" class="btn btn-info mr-1 d-block my-1">
-                  <i class="fa-fw fab fa-twitter"></i> Twitter
-                </a>
-                <a href="#" class="btn btn-primary mr-1 d-block my-1">
-                  <i class="fa-fw fab fa-linkedin"></i> LinkedIn
-                </a>
+                <div class="font-weight-bold mb-2 text-capitalize">Follow {{request()->segment(2)}} On</div>
+                <div id="social-media-card">
+
+                </div>
               </div>
             </div>
           </div>
@@ -99,7 +89,8 @@
                     <div class="row">
                       <div class="form-group col-12">
                         <label>Bio</label>
-                        <textarea class="form-control use-ckeditor" name="bio" placeholder="hahaha"></textarea>
+                        <textarea class="form-control use-ckeditor" placeholder="hahaha"></textarea>
+                        <input type="hidden" name="bio" data-editor="ckeditor">
                       </div>
                     </div>
                     <div class="row text-center mb-3">

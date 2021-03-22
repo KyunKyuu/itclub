@@ -4,6 +4,12 @@ $(document).ready(function() {
     ClassicEditor
     .create( document.querySelector( '.use-ckeditor' ), {
     } )
+    .then( editor => {
+        editor.model.document.on( 'change:data', () => {
+            $('input[data-editor="ckeditor"]').val(editor.getData()) ;
+            deskripsi = editor.getData();
+        } );
+    } )
     .catch( error => {
         console.log( error );
     } );

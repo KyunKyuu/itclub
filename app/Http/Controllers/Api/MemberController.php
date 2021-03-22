@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\{Member, Division, UserProfile};
+use App\Models\{Member, Division, User, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -155,24 +155,32 @@ class MemberController extends Controller
         ], 200);
     }
 
-    public function profile(Request $request)
+    public function get_profile()
+    {
+        $user = User::where('name', $_GET['name']);
+        $profile = UserProfile::where('user_id', $user->get()[0]->id);
+
+        if ($profile->count() < 1) {
+            return response()->json(['message' => 'query gagal, data tidak ditemukan', 'status' => 'error'], 404);
+        }
+        return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $profile->get()[0]], 200);
+    }
+
+    public function insert_profile(Request $request)
     {
         $user = UserProfile::where('user_id', auth()->user()->id);
-
-        dd($request->all());
+        $request->request->add(['user_id' => auth()->user()->id]);
 
         if ($request->hasFile('image')) {
-            $request->file('image')->move('private_file/user/image-thumbnail/', $request->file('image')->getClientOriginalName());
-            $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10);
+            $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10) . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move('private_file/user/image-thumbnail/', $name);
             $request->request->add(['thumbnail' => $name]);
         }
 
-        if (!empty($user)) {
-            $request->request->add(['user_id', auth()->user()->id]);
-            UserProfile::create($request->all());
+        if ($user->count() < 1) {
+            UserProfile::create($request->except('image'));
         }
-        $request->request->add(['user_id', auth()->user()->id]);
-        $user->update($request->all());
+        $user->update($request->except('image'));
 
 
         return response()->json(['status' => 'success', 'message' => 'Profile berhasil diperbarui'], 200);

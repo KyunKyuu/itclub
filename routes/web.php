@@ -120,6 +120,7 @@ Route::prefix('/api/v1')->group(function () {
     });
 
     Route::group(['prefix' => '/member'], function () {
-        Route::post('/profile', [MemberController::class, 'profile']);
+        Route::get('/get/profile', [MemberController::class, 'get_profile']);
+        Route::post('/insert/profile', [MemberController::class, 'insert_profile']);
     });
 });
