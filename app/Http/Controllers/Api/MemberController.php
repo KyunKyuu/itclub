@@ -185,4 +185,8 @@ class MemberController extends Controller
 
         return response()->json(['status' => 'success', 'message' => 'Profile berhasil diperbarui'], 200);
     }
+
+    public function hapus_gambar_profile()
+    {
+    }
 }

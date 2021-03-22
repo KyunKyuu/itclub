@@ -28,8 +28,8 @@
                 </div>
               </div>
               <div class="profile-widget-description">
-                <div class="profile-widget-name"> <a id="name">-</a> <div class="text-muted d-inline font-weight-normal"><div class="slash"></div> <a id="status">-</a> </div></div>
-                <div id="deskripsi">No deskripsi</div>
+                <div class="profile-widget-name"> <a id="name-profile">-</a> <div class="text-muted d-inline font-weight-normal"><div class="slash"></div> <a id="status-profile">-</a> </div></div>
+                <div id="deskripsi-profile">No deskripsi</div>
               </div>
               <div class="card-footer text-center">
                 <div class="font-weight-bold mb-2 text-capitalize">Follow {{request()->segment(2)}} On</div>
@@ -51,14 +51,14 @@
                     <div class="row">
                       <div class="form-group col-md-6 col-12">
                         <label>First Name</label>
-                        <input type="text" class="form-control" value="{{request()->segment(1)}}" required="" name="first_name" placeholder="First Name">
+                        <input type="text" class="form-control" value="{{$data['profile']->first_name}}" required="" name="first_name" placeholder="First Name">
                         <div class="invalid-feedback">
                           Please fill in the first name
                         </div>
                       </div>
                       <div class="form-group col-md-6 col-12">
                         <label>Last Name</label>
-                        <input type="text" class="form-control" required="" name="last_name" placeholder="Last Name">
+                        <input type="text" class="form-control" required="" name="last_name"  value="{{$data['profile']->last_name}}"  placeholder="Last Name">
                         <div class="invalid-feedback">
                           Please fill in the last name
                         </div>
@@ -67,29 +67,32 @@
                     <div class="row">
                       <div class="form-group col-md-6 col-12">
                         <label>Status</label>
-                        <input type="text" class="form-control" value="" name="status" required="" placeholder="Pelajar">
+                        <input type="text" class="form-control" name="status" required="" placeholder="Pelajar"  value="{{$data['profile']->status}}" >
                         <div class="invalid-feedback">
                           Please fill in the status
                         </div>
                       </div>
                       <div class="form-group col-md-6 col-12">
                         <label>Phone</label>
-                        <input type="number" class="form-control" name="telepon" value="" placeholder="Number Phone">
+                        <input type="number" class="form-control" name="telepon"  value="{{$data['profile']->telepon}}" placeholder="Number Phone">
                       </div>
                     </div>
                     <div class="row">
                       <div class="form-group col-md-6 col-12">
                         <label>Thumbnail</label>
-                        <input type="file" class="form-control image-input-preview" value="" name="image" placeholder="Pelajar" data-id="img-thumbnail">
+                        <input type="file" class="form-control image-input-preview"  value="" name="image" placeholder="Pelajar" data-id="img-thumbnail">
                       </div>
                       <div class="form-group col-md-6 col-12">
-                        <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt="" class="img-fluid" style="max-width: 150px">
-                      </div>
+                          <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt="" class="img-fluid" style="max-width: 150px"><br>
+                          <a id="hapusGambarProfile" href="#">Hapus Gambar</a>
                     </div>
+                </div>
                     <div class="row">
                       <div class="form-group col-12">
                         <label>Bio</label>
-                        <textarea class="form-control use-ckeditor" placeholder="hahaha"></textarea>
+                        <textarea class="form-control use-ckeditor" placeholder="hahaha">
+                            {{$data['profile']->bio}}
+                        </textarea>
                         <input type="hidden" name="bio" data-editor="ckeditor">
                       </div>
                     </div>
@@ -101,41 +104,41 @@
                         <div class="row">
                             <div class="form-group col-md-6 col-12">
                           <label>Display Name</label>
-                          <input type="text" class="form-control" value="" name="facebook_name" placeholder="Input your nickname here">
+                          <input type="text" class="form-control"  value="{{$data['profile']->facebook_name}}" name="facebook_name" placeholder="Input your nickname here">
                         </div>
                         <div class="form-group col-md-6 col-12">
                             <label>Facebook Url</label>
-                          <input type="number" class="form-control" name="facebook_url" value="" placeholder="Input your url facebook here">
+                          <input type="text" class="form-control" name="facebook_url"  value="{{$data['profile']->facebook_url}}" placeholder="Input your url facebook here">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6 col-12">
                             <label>Display Name</label>
-                          <input type="text" class="form-control" value="" name="instagram_name" placeholder="Input your nickname here">
+                          <input type="text" class="form-control"  value="{{$data['profile']->instagram_name}}" name="instagram_name" placeholder="Input your nickname here">
                         </div>
                         <div class="form-group col-md-6 col-12">
                           <label>Instagram Url</label>
-                          <input type="number" class="form-control" name="instagram_url" value="" placeholder="Input your url instagram here">
+                          <input type="text" class="form-control" name="instagram_url"  value="{{$data['profile']->instagram_url}}" placeholder="Input your url instagram here">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6 col-12">
                             <label>Display Name</label>
-                          <input type="text" class="form-control" value="" name="linkedin_name" placeholder="Input your nickname here">
+                          <input type="text" class="form-control"  value="{{$data['profile']->linkedin_name}}" name="linkedin_name" placeholder="Input your nickname here">
                         </div>
                         <div class="form-group col-md-6 col-12">
                           <label>LinkedIn Url</label>
-                          <input type="number" class="form-control" name="linkedin_url" value="" placeholder="Input your url LinkedIn here">
+                          <input type="text" class="form-control" name="linkedin_url"  value="{{$data['profile']->linkedin_url}}" placeholder="Input your url LinkedIn here">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6 col-12">
                           <label>Display Name</label>
-                          <input type="text" class="form-control" value="" name="twitter_name" placeholder="Input your nickname here">
+                          <input type="text" class="form-control"  value="{{$data['profile']->twitter_name}}" name="twitter_name" placeholder="Input your nickname here">
                         </div>
                         <div class="form-group col-md-6 col-12">
                           <label>Twitter Url</label>
-                          <input type="number" class="form-control" name="twitter_url" value="" placeholder="Input your url Twitter here">
+                          <input type="text" class="form-control" name="twitter_url"  value="{{$data['profile']->twitter_url}}" placeholder="Input your url Twitter here">
                         </div>
                     </div>
                 </div>
