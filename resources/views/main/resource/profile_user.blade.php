@@ -31,7 +31,7 @@
                 <div class="profile-widget-name"> <a id="name-profile">-</a> <div class="text-muted d-inline font-weight-normal"><div class="slash"></div> <a id="status-profile">-</a> </div></div>
                 <div id="deskripsi-profile">No deskripsi</div>
               </div>
-              <div class="card-footer text-center">
+              <div class="card-footer text-center" style="margin-top: -20px;">
                 <div class="font-weight-bold mb-2 text-capitalize">Follow {{request()->segment(2)}} On</div>
                 <div id="social-media-card">
 

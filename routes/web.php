@@ -25,7 +25,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', function () {
+    return redirect('/auth/login');
+});
 Route::get('/dashboard/general/index', [IndexController::class, 'index']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
@@ -43,8 +45,10 @@ Route::group(['prefix' => '/setting', 'middleware' => 'auth'], function () {
     Route::get('/menu/role', [MenuAccessControlller::class, 'role']);
 });
 
-Route::get('/member/{resource}/profile', [IndexController::class, 'profile_user']);
-Route::get('/member/{resource}/dashboard', [IndexController::class, 'dashboard_user']);
+Route::group(['prefix' => '/member', 'middleware' => 'auth'], function () {
+    Route::get('/{resource}/profile', [IndexController::class, 'profile_user']);
+    Route::get('/{resource}/dashboard', [IndexController::class, 'dashboard_user']);
+});
 Route::get('/member/{resource}/activities', [IndexController::class, 'activities_user']);
 
 // !NOTE API Request & Response
@@ -103,7 +107,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::put('/status/update', [ApiPreferencesController::class, 'update_status_submenu']);
     });
 
-    Route::group(['prefix' => '/access'], function () {
+    Route::group(['prefix' => '/access', 'middleware' => ['auth']], function () {
         Route::get('/get/section', [ApiMenuAccessControlller::class, 'section_get']);
         Route::get('/get/menu', [ApiMenuAccessControlller::class, 'menu_get']);
         Route::get('/get/submenu', [ApiMenuAccessControlller::class, 'submenu_get']);

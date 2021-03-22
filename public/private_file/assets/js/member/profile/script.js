@@ -62,23 +62,23 @@ function profile(name) {
                     gambar = `<figure class="avatar mr-2 avatar-xl rounded-circle profile-widget-picture" data-initial="${res.data.first_name.substr(0, 1)}${res.data.last_name.substr(0, 1)}" style="width: 100px; height: 100px;"></figure>`;
                 }
             }
-            if (res.data.facebook_url) {
-                socialmedia += `<a href="#" class="btn btn-primary mr-1 d-block my-1">
+            if (res.data.facebook_url || res.data.facebook_name) {
+                socialmedia += `<a href="${res.data.facebook_url ? res.data.facebook_url : '#'}" class="btn btn-primary mr-1 d-block my-1">
                 <i class="fa-fw fab fa-facebook-square"></i> ${res.data.facebook_name ? res.data.facebook_name : 'Facebook'}
                 </a>`
             }
-            if (res.data.instagram_url) {
-                socialmedia += `<a href="#" class="btn btn-danger mr-1 d-block my-1">
+            if (res.data.instagram_url || res.data.instagram_name) {
+                socialmedia += `<a href="${res.data.instagram_url ? res.data.instagram_url : '#'}" class="btn btn-danger mr-1 d-block my-1">
                 <i class="fa-fw fab fa-instagram"></i> ${res.data.instagram_name ? res.data.instagram_name : 'Instagram'}
                 </a>`
             }
-            if (res.data.twitter_url) {
-                socialmedia += `<a href="#" class="btn btn-info mr-1 d-block my-1">
+            if (res.data.twitter_url || res.data.twitter_name) {
+                socialmedia += `<a href="${res.data.twitter_url ? res.data.twitter_url : '#'}" class="btn btn-info mr-1 d-block my-1">
                 <i class="fa-fw fab fa-twitter"></i> ${res.data.twitter_name ? res.data.twitter_name : 'Twitter'}
                 </a>`
             }
-            if (res.data.linkedin_url) {
-                socialmedia += `<a href="#" class="btn btn-primary mr-1 d-block my-1">
+            if (res.data.linkedin_url || res.data.linkedin_name) {
+                socialmedia += `<a href="${res.data.linkedin_url ? res.data.linkedin_url : '#'}" class="btn btn-primary mr-1 d-block my-1">
                 <i class="fa-fw fab fa-linkedin"></i> ${res.data.linkedin_name ? res.data.linkedin_name : 'LinkedIn'}
                 </a>`
             }
