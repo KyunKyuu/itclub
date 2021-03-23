@@ -129,5 +129,6 @@ Route::prefix('/api/v1')->group(function () {
         Route::get('/get/profile', [MemberController::class, 'get_profile']);
         Route::post('/insert/profile', [MemberController::class, 'insert_profile']);
         Route::get('/delete/image/profile', [MemberController::class, 'delete_image_profile']);
+        Route::post('/setting/changepassword', [MemberController::class, 'setting_changepassword']);
     });
 });

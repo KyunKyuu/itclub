@@ -192,4 +192,19 @@ class MemberController extends Controller
         $user->update(['thumbnail' => NULL]);
         return response()->json(['status' => 'success', 'message' => 'Profile berhasil diperbarui'], 200);
     }
+
+    public function setting_changepassword(Request $request)
+    {
+        $user = User::find(auth()->user()->id);
+        $password = password_verify($request->oldpassword, $user->password);
+        if ($password == true) {
+            $newpassword = password_verify($request->newpassword, $user->password);
+            if ($newpassword == false) {
+                $user->update(['password' => bcrypt($request->newpassword)]);
+                return response()->json(['status' => 'success', 'message' => 'Password has been changes'], 200);
+            }
+            return response()->json(['status' => 'error', 'message' => 'the new password is the same as the old password'], 500);
+        }
+        return response()->json(['status' => 'error', 'message' => 'Old Password is wrong'], 404);
+    }
 }
