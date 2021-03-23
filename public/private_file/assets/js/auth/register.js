@@ -20,7 +20,7 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN' : csrftoken,
             },
             success:res=>{
-               $('#message').html(` <div class="alert alert-${res.status} alert-dismissible show fade"><div class="alert-body"><button class="close" data-dismiss="alert"><span>×</span></button>${res.message}.</div></div>`)
+               $('#message').html(` <div class="alert alert-${res.status == 'success' ? 'success' : 'danger'} alert-dismissible show fade"><div class="alert-body"><button class="close" data-dismiss="alert"><span>×</span></button>${res.message}.</div></div>`)
             },
             error:err=>console.log(err)
         })
