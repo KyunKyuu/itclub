@@ -11,4 +11,25 @@ $(document).ready(function() {
     Table({table:'#table', data:data, url:'/api/v1/features/article/get'});
 
     $('#category').select2()
+
+    $('#insert').on('submit', function(e) {
+        e.preventDefault()
+        $.ajax({
+            url:'/api/v1/features/article/insert',
+            type:'POST',
+            headers:{
+                'X-CSRF-TOKEN':csrftoken
+            },
+            data:new FormData(this),
+            processData:false,
+            contentType:false,
+            success:res=>{
+                Table('table');
+                SweetAlert(res)
+            },
+            error:err=>{
+                SweetAlert({message:err.responseJSON.message, status:err.status == 500 ? 'danger' :'warning'})
+            }
+        })
+    })
 })

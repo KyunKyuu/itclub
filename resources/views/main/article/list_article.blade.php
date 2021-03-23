@@ -109,12 +109,12 @@
             <div class="modal-body">
                 <form class="needs-validation" novalidate id="insert">
                     <div class="form-group row">
-                        <img class="img-fluid" src="" style="max-height: 150px;width:480px;" id="image-preview">
+                        <img class="img-fluid " src="" style="max-height: 150px;width:480px;" id="image-preview">
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Thumbnail</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control" name="image" required="">
+                                <input type="file" class="form-control image-input-preview" data-id="image-preview"  name="image" required="">
                                 <div class="invalid-feedback">
                                     What's Image article?
                                 </div>
@@ -130,11 +130,15 @@
                         </div>
                       </div>
                     <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Title</label>
+                        <label class="col-sm-3 col-form-label">Category</label>
                         <div class="col-sm-9">
-                          <input type="text" name="category" id="category" class="form-control" required>
+                          <select name="category[]" id="category" class="form-control" required multiple="multiple">
+                              @foreach ($data['category'] as $category)
+                                  <option value="{{$category->id}}">{{$category->name}}</option>
+                              @endforeach
+                          </select>
                           <div class="invalid-feedback">
-                            What's title article?
+                            What's category article?
                           </div>
                         </div>
                       </div>
