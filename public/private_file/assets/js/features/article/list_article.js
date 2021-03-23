@@ -9,4 +9,6 @@ $(document).ready(function() {
     ];
 
     Table({table:'#table', data:data, url:'/api/v1/features/article/get'});
+
+    $('#category').select2()
 })

@@ -22,7 +22,7 @@
                 </li>
             @endif
             <li class="nav-item ml-auto">
-                <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i> Add New</a>
+                <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#insertArticle"><i class="fas fa-plus"></i> Add New</a>
             </li>
           </ul>
         </div>
@@ -92,5 +92,60 @@
       </div>
     </div>
   </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- Modal Insert Article -->
+    <div class="modal fade" id="insertArticle" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="insertArticleLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom pb-4">
+            <h5 class="modal-title" id="insertArticleLabel">Insert Article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" novalidate id="insert">
+                    <div class="form-group row">
+                        <img class="img-fluid" src="" style="max-height: 150px;width:480px;" id="image-preview">
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Thumbnail</label>
+                            <div class="col-sm-9">
+                                <input type="file" class="form-control" name="image" required="">
+                                <div class="invalid-feedback">
+                                    What's Image article?
+                                </div>
+                            </div>
+                        </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Title</label>
+                        <div class="col-sm-9">
+                          <textarea name="title" id="title" cols="30" rows="10" class="form-control" style="min-height: 70px;" required></textarea>
+                          <div class="invalid-feedback">
+                            What's title article?
+                          </div>
+                        </div>
+                      </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Title</label>
+                        <div class="col-sm-9">
+                          <input type="text" name="category" id="category" class="form-control" required>
+                          <div class="invalid-feedback">
+                            What's title article?
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer ml-3">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+        </div>
+        </div>
+    </div>
 
 @endsection
