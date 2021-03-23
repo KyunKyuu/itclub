@@ -60,19 +60,23 @@
 
           <div class="table-responsive">
             <table class="table table-striped" id="table">
-              <tbody><tr>
-                <th class="text-center pt-2">
-                  <div class="custom-checkbox custom-checkbox-table custom-control">
-                    <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                  </div>
-                </th>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Author</th>
-                <th>Created At</th>
-                <th>Status</th>
-              </tr>
+                <thead>
+                    <tr>
+                        <th class="text-center pt-2">
+                          <div class="custom-checkbox custom-checkbox-table custom-control">
+                            <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                            <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                          </div>
+                        </th>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Author</th>
+                        <th>Created At</th>
+                        <th>Status</th>
+                      </tr>
+                </thead>
+              <tbody>
+
               <tr>
                 <td>
                   <div class="custom-checkbox custom-control">
