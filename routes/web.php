@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ArticleController as ApiArticleController;
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
 use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\MenuAccessControlller as ApiMenuAccessControlller;
@@ -135,5 +136,9 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/insert/profile', [MemberController::class, 'insert_profile']);
         Route::get('/delete/image/profile', [MemberController::class, 'delete_image_profile']);
         Route::post('/setting/changepassword', [MemberController::class, 'setting_changepassword']);
+    });
+
+    Route::group(['prefix' => '/features', 'middleware' => ['auth']], function () {
+        Route::get('/article/get', [ApiArticleController::class, 'get_article']);
     });
 });
