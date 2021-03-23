@@ -3,7 +3,7 @@ $(document).ready(function() {
         {data:'check', name:'check'},
         {data:'title', name:'title'},
         {data:'category', name:'category'},
-        {data:'author', name:'author'},
+        {data:'created_by', name:'created_by'},
         {data:'created_at', name:'created_at'},
         {data:'status', name:'status'},
     ];
@@ -24,11 +24,11 @@ $(document).ready(function() {
             processData:false,
             contentType:false,
             success:res=>{
-                Table('table');
+                RefreshTable('table');
                 SweetAlert(res)
             },
             error:err=>{
-                SweetAlert({message:err.responseJSON.message, status:err.status == 500 ? 'danger' :'warning'})
+                SweetAlert({message:err.responseJSON.message, status:err.status == 500 ? 'error' :'warning'})
             }
         })
     })
