@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\PreferencesController as ApiPreferencesController;
 use App\Http\Controllers\Api\RoleController as ApiRoleController;
 use App\Http\Controllers\Api\UserController as ApiUserController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Features\ArticleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Master\RoleController;
 use App\Http\Controllers\Master\UserController;
@@ -50,8 +51,12 @@ Route::group(['prefix' => '/member', 'middleware' => 'auth'], function () {
     Route::get('/{resource}/dashboard', [IndexController::class, 'dashboard_user']);
     Route::get('/{resource}/setting', [IndexController::class, 'setting_user']);
     Route::get('/{resource}/setting/changepassword', [IndexController::class, 'changepassword_setting']);
+    Route::get('/{resource}/activities', [IndexController::class, 'activities_user']);
 });
-Route::get('/member/{resource}/activities', [IndexController::class, 'activities_user']);
+
+Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
+    Route::get('/article/list_article', [ArticleController::class, 'list_article']);
+});
 
 // !NOTE API Request & Response
 Route::prefix('/api/v1')->group(function () {
