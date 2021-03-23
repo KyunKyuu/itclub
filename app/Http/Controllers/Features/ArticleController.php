@@ -10,6 +10,6 @@ class ArticleController extends Controller
     //
     public function list_article()
     {
-        return view('main.article.list_article')
+        return view('main.article.list_article');
     }
 }
