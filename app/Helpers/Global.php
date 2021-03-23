@@ -84,15 +84,15 @@ function access_create($role, $id = False)
     $access_submenu = DB::table('set_access_submenu')->where('role_id', $role)->get();
 
     foreach ($access_section as $section) {
-        SectionAccess::create(['section_id' => $section->section_id, 'user_id' => $id, 'created_by' => auth()->user()->id]);
+        SectionAccess::create(['section_id' => $section->section_id, 'user_id' => $id, 'created_by' => auth()->user()->id ?? 1]);
     }
 
     foreach ($access_menu as $menu) {
-        MenuAccess::create(['menu_id' => $menu->menu_id, 'user_id' => $id, 'created_by' => auth()->user()->id]);
+        MenuAccess::create(['menu_id' => $menu->menu_id, 'user_id' => $id, 'created_by' => auth()->user()->id ?? 1]);
     }
 
     foreach ($access_submenu as $submenu) {
-        SubmenuAccess::create(['submenu_id' => $submenu->submenu_id, 'user_id' => $id, 'created_by' => auth()->user()->id]);
+        SubmenuAccess::create(['submenu_id' => $submenu->submenu_id, 'user_id' => $id, 'created_by' => auth()->user()->id ?? 1]);
     }
 }
 
