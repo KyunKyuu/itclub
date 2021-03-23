@@ -24,4 +24,14 @@ class IndexController extends Controller
         ];
         return view('main.resource.profile_user', ['data' => $data]);
     }
+
+    public function setting_user()
+    {
+        return view('main.resource.setting_user');
+    }
+
+    public function changepassword_setting()
+    {
+        return view('main.resource.setting_user.changepassword');
+    }
 }

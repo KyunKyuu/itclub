@@ -204,13 +204,16 @@
               <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">Logged in 5 min ago</div>
                 <a href="/member/{{auth()->user()->name}}/dashboard" class="dropdown-item has-icon">
-                    <i class="fas fa-columns"></i> Dashborad
+                    <i class="fas fa-columns"></i> Dashboard
                 </a>
                 <a href="/member/{{auth()->user()->name}}/profile" class="dropdown-item has-icon">
                   <i class="far fa-user"></i> Profile
                 </a>
                 <a href="/member/{{auth()->user()->name}}/activities" class="dropdown-item has-icon">
                   <i class="fas fa-bolt"></i> Activities
+                </a>
+                <a href="/member/{{auth()->user()->name}}/setting" class="dropdown-item has-icon">
+                  <i class="fas fa-cog"></i> Setting
                 </a>
                 <div class="dropdown-divider"></div>
                 <a href="/api/v1/auth/logout" class="dropdown-item has-icon text-danger">

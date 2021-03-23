@@ -48,6 +48,8 @@ Route::group(['prefix' => '/setting', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => '/member', 'middleware' => 'auth'], function () {
     Route::get('/{resource}/profile', [IndexController::class, 'profile_user']);
     Route::get('/{resource}/dashboard', [IndexController::class, 'dashboard_user']);
+    Route::get('/{resource}/setting', [IndexController::class, 'setting_user']);
+    Route::get('/{resource}/setting/changepassword', [IndexController::class, 'changepassword_setting']);
 });
 Route::get('/member/{resource}/activities', [IndexController::class, 'activities_user']);
 

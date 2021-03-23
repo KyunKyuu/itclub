@@ -24,7 +24,8 @@ class AuthController extends Controller
                     'role_id' => 1,
                 ];
 
-                User::create($data);
+                $user = User::create($data);
+                access_create($data['role_id'], $user->id);
                 $response = ['status' => 'success', 'message' => 'User berhasil ditambahkan, <a href="/auth/login">Login Sekarang</a>'];
             } else {
                 $response = ['status' => 'error', 'message' => 'User gagal ditambahkan, Username atau email telah digunakan'];
