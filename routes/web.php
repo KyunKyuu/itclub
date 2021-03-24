@@ -145,5 +145,6 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/article/insert', [ApiArticleController::class, 'insert_article']);
         Route::post('/article/category', [ApiArticleController::class, 'category_article']);
         Route::post('/article/save_content', [ApiArticleController::class, 'save_content']);
+        Route::post('/article/update', [ApiArticleController::class, 'update_article']);
     });
 });

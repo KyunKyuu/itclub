@@ -142,32 +142,23 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Thumbnail</label>
                             <div class="col-sm-9">
-                                <input type="file" class="form-control image-input-preview" data-id="update-preview"  name="image" required="">
-                                <div class="invalid-feedback">
-                                    What's Image article?
-                                </div>
+                                <input type="file" class="form-control image-input-preview" data-id="update-preview"  name="image">
                             </div>
                         </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Title</label>
                         <div class="col-sm-9">
-                          <textarea name="title" cols="30" rows="10" class="form-control" style="min-height: 70px;" required></textarea>
-                          <div class="invalid-feedback">
-                            What's title article?
-                          </div>
+                          <textarea name="title" cols="30" rows="10" class="form-control" style="min-height: 70px;" ></textarea>
                         </div>
                       </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Category</label>
                         <div class="col-sm-9">
-                          <select name="category[]" class="form-control" required multiple="multiple">
+                          <select name="category[]" class="form-control"  multiple="multiple">
                               @foreach ($data['category'] as $category)
                                   <option value="{{$category->id}}">{{$category->name}}</option>
                               @endforeach
                           </select>
-                          <div class="invalid-feedback">
-                            What's category article?
-                          </div>
                         </div>
                       </div>
                     </div>

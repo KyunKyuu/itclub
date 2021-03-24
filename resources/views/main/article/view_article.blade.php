@@ -30,11 +30,15 @@
                   <div class="form-group row mb-4">
                     <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
                     <div class="col-sm-12 col-md-7">
-                      <select class="form-control selectric text-capitalize" name="status">
-                          @foreach ($data['status'] as $status)
-                              <option value="{{$status['id']}}" class="text-capitalize">{{$status['value']}}</option>
-                          @endforeach
-                      </select>
+                        @if ($data['blog']->status > 200)
+                        <input type="text" class="form-control" disabled value="{{$data['blog']->status == 300 ? 'Pending' : 'Error'}}">
+                        @else
+                        <select class="form-control selectric text-capitalize" name="status" >
+                            @foreach ($data['status'] as $status)
+                            <option value="{{$status['id']}}" {{$data['blog']->status == $status['id'] ? 'selected' : ' '}} class="text-capitalize">{{$status['value']}}</option>
+                            @endforeach
+                        </select>
+                        @endif
                     </div>
                   </div>
                   <div class="form-group row mb-4">

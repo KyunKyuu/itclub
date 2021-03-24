@@ -17,7 +17,11 @@ class ArticleController extends Controller
     //
     public function get_article()
     {
-        $article = Blog::all();
+        if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
+            $article = Blog::all();
+        } else {
+            $article = Blog::all()->where('user_id', auth()->user()->id);
+        }
         return DataTables::of($article)
             ->editColumn('check', function ($article) {
                 return ' <div class="custom-checkbox custom-control">
@@ -26,14 +30,16 @@ class ArticleController extends Controller
                 </div>';
             })
             ->editColumn('title', function ($article) {
-                return $article->title . '
-                <div class="table-links">
-                  <a href="/features/article/view/' . $article->id . '/' . $article->slug . '"><i class="fas fa-eye"></i></a>
-                  <div class="bullet"></div>
-                  <a href="#" data-id="' . $article->id . '" id="Edit"><i class="fas fa-edit"></i></a>
-                  <div class="bullet"></div>
-                  <a href="#" class="text-danger"><i class="fas fa-trash"></i></a>
-                </div>';
+                $button = '<a href="/features/article/view/' . $article->id . '/' . $article->slug . '"><i class="fas fa-eye"></i></a>
+                <div class="bullet"></div>
+                <a href="#" data-id="' . $article->id . '" id="Edit" class="text-warning"><i class="fas fa-edit"></i></a>
+                <div class="bullet"></div>
+                <a href="#" data-id="' . $article->id . '" id="Delete" class="text-danger"><i class="fas fa-trash"></i></a>';
+                if (auth()->user()->id == 1 || auth()->user()->id == 2) {
+                    $button .= '<div class="bullet"></div><a href="#" data-id="' . $article->id . '" id="Delete" class="text-info"><i class="fas fa-random"></i></a>';
+                }
+                $data = '<div class="table-links"> ' . $button . ' </div>';
+                return $article->title . $data;
             })
             ->editColumn('category', function ($article) {
                 $category = ' ';
@@ -68,7 +74,7 @@ class ArticleController extends Controller
                     $status = 'Error';
                     $color = 'warning';
                 } else {
-                    $status = 'Deleted';
+                    $status = 'Unknown';
                 }
                 return '<div class="badge badge-' . $color . '">' . $status . '</div>';
             })
@@ -121,5 +127,23 @@ class ArticleController extends Controller
         }
         CategoryBlog::where('blog_id', $request->blog_id)->where('category_id', $request->category_id)->delete();
         return response()->json(['message' => 'Category baru berhasil dihapus', 'status' => 'success'], 200);
+    }
+
+    public function update_article(Request $request)
+    {
+        if ($request->title == null) {
+            return response()->json(['message' => 'Error, Lengkapi form kosong terlebih dahulu!', 'status' => 'error'], 500);
+        }
+        if ($request->hasFile('image')) {
+            $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10) . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move('private_file/user/image-article/', $name);
+            $request->request->add(['thumbnail' => $name]);
+        }
+        $title = str_replace('"', '-', $request->title);
+        $request->request->add(['user_id' => auth()->user()->id, 'slug' => str_replace(" ", "-", $title)]);
+        $blog = Article::find($request->id);
+        $blog->update($request->except('image'));
+
+        return response()->json(['message' => 'Selamat, article berhasil diperbaharui!', 'status' => 'success'], 200);
     }
 }

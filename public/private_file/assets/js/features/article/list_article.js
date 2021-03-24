@@ -101,4 +101,25 @@ $(document).ready(function() {
         })
     });
 
+    $('#update').on('submit', function(e) {
+        e.preventDefault()
+        let data = new FormData(this)
+        data.append('id', $('#updateArticle textarea[name="title"]').data('id'));
+        $.ajax({
+            url:'/api/v1/features/article/update',
+            data:data,
+            processData:false,
+            contentType:false,
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            type:'POST',
+            success:res=>{
+                RefreshTable('table')
+                SweetAlert(res)
+            },
+            error:err=>console.log(res.responseJSON)
+        })
+    })
+
 })
