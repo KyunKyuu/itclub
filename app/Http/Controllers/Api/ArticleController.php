@@ -28,7 +28,7 @@ class ArticleController extends Controller
             ->editColumn('title', function ($article) {
                 return $article->title . '
                 <div class="table-links">
-                  <a href="/features/article/view/' . $article->id . '/ ' . $article->slug . '"><i class="fas fa-eye"></i></a>
+                  <a href="/features/article/view/' . $article->id . '/' . $article->slug . '"><i class="fas fa-eye"></i></a>
                   <div class="bullet"></div>
                   <a href="#"><i class="fas fa-edit"></i></a>
                   <div class="bullet"></div>
