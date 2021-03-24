@@ -30,7 +30,7 @@ class ArticleController extends Controller
                 <div class="table-links">
                   <a href="/features/article/view/' . $article->id . '/' . $article->slug . '"><i class="fas fa-eye"></i></a>
                   <div class="bullet"></div>
-                  <a href="#"><i class="fas fa-edit"></i></a>
+                  <a href="#" data-id="' . $article->id . '" id="Edit"><i class="fas fa-edit"></i></a>
                   <div class="bullet"></div>
                   <a href="#" class="text-danger"><i class="fas fa-trash"></i></a>
                 </div>';
@@ -104,5 +104,22 @@ class ArticleController extends Controller
         $article = Blog::find($request->id);
         $article->update($request->all());
         return response()->json(['message' => 'Post berhasil diperbaharui', 'status' => 'success'], 200);
+    }
+
+    public function get_first_article()
+    {
+        $article = Blog::find($_GET['id']);
+        $category = CategoryBlog::where('blog_id', $_GET['id'])->get();
+        return response()->json(['message' => 'Post berhasil diperbaharui', 'status' => 'success', 'data' => ['article' => $article, 'category' => $category]], 200);
+    }
+
+    public function category_article(Request $request)
+    {
+        if ($request->type == 'select') {
+            CategoryBlog::create($request->only(['blog_id', 'category_id']));
+            return response()->json(['message' => 'Category baru berhasil ditambahkan', 'status' => 'success'], 200);
+        }
+        CategoryBlog::where('blog_id', $request->blog_id)->where('category_id', $request->category_id)->delete();
+        return response()->json(['message' => 'Category baru berhasil dihapus', 'status' => 'success'], 200);
     }
 }

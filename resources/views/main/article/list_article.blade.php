@@ -123,4 +123,61 @@
         </div>
     </div>
 
+
+  <!-- Modal update Article -->
+    <div class="modal fade" id="updateArticle" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="updateArticleLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom pb-4">
+            <h5 class="modal-title" id="updateArticleLabel">Update Article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" novalidate id="update">
+                    <div class="form-group row">
+                        <img class="img-fluid " src="" style="max-height: 150px;width:480px;" id="update-preview">
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Thumbnail</label>
+                            <div class="col-sm-9">
+                                <input type="file" class="form-control image-input-preview" data-id="update-preview"  name="image" required="">
+                                <div class="invalid-feedback">
+                                    What's Image article?
+                                </div>
+                            </div>
+                        </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Title</label>
+                        <div class="col-sm-9">
+                          <textarea name="title" cols="30" rows="10" class="form-control" style="min-height: 70px;" required></textarea>
+                          <div class="invalid-feedback">
+                            What's title article?
+                          </div>
+                        </div>
+                      </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Category</label>
+                        <div class="col-sm-9">
+                          <select name="category[]" class="form-control" required multiple="multiple">
+                              @foreach ($data['category'] as $category)
+                                  <option value="{{$category->id}}">{{$category->name}}</option>
+                              @endforeach
+                          </select>
+                          <div class="invalid-feedback">
+                            What's category article?
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer ml-3">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+        </div>
+        </div>
+    </div>
+
 @endsection

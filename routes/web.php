@@ -141,7 +141,9 @@ Route::prefix('/api/v1')->group(function () {
 
     Route::group(['prefix' => '/features', 'middleware' => ['auth']], function () {
         Route::get('/article/get', [ApiArticleController::class, 'get_article']);
+        Route::get('/article/get_first', [ApiArticleController::class, 'get_first_article']);
         Route::post('/article/insert', [ApiArticleController::class, 'insert_article']);
+        Route::post('/article/category', [ApiArticleController::class, 'category_article']);
         Route::post('/article/save_content', [ApiArticleController::class, 'save_content']);
     });
 });
