@@ -8,15 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Blog extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
+    use SoftDeletes;
 
     protected $table = 'blogs';
-    protected $guarded = ['id','created_at','updated_at'];
-    protected $casts = [
-        'created_at' => 'datetime:Y-m-d H:m:s',
-        'updated_at' => 'datetime:Y-m-d H:m:s',
-        'deleted_at' => 'datetime:Y-m-d H:m:s'
-    ];
+    protected $fillable = ['user_id', 'title', 'content', 'image', 'slug', 'deleted_at'];
+    protected $dates = ['deleted_at'];
 
     public function categories()
     {

@@ -42,7 +42,7 @@
             <table class="table table-striped" id="table">
                 <thead>
                     <tr>
-                        <th class="text-center pt-2">
+                        <th style="width: 10px;">
                           <div class="custom-checkbox custom-checkbox-table custom-control">
                             <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
                             <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
@@ -50,41 +50,12 @@
                         </th>
                         <th>Title</th>
                         <th>Category</th>
-                        <th>Author</th>
-                        <th>Created At</th>
-                        <th>Status</th>
+                        <th style="width: 20px">Author</th>
+                        <th style="width: 100px">Created At</th>
+                        <th style="width: 20px">Status</th>
                       </tr>
                 </thead>
               <tbody>
-
-              <tr>
-                <td>
-                  <div class="custom-checkbox custom-control">
-                    <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-2">
-                    <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
-                  </div>
-                </td>
-                <td>Laravel 5 Tutorial: Introduction
-                  <div class="table-links">
-                    <a href="#">View</a>
-                    <div class="bullet"></div>
-                    <a href="#">Edit</a>
-                    <div class="bullet"></div>
-                    <a href="#" class="text-danger">Trash</a>
-                  </div>
-                </td>
-                <td>
-                  <a href="#">Web Developer</a>,
-                  <a href="#">Tutorial</a>
-                </td>
-                <td>
-                  <a href="#">
-                    <img alt="image" src="/public_file/assets/img/avatar/avatar-5.png" class="rounded-circle" width="35" data-toggle="title" title=""> <div class="d-inline-block ml-1">Rizal Fakhri</div>
-                  </a>
-                </td>
-                <td>2018-01-20</td>
-                <td><div class="badge badge-primary">Published</div></td>
-              </tr>
 
             </tbody></table>
           </div>

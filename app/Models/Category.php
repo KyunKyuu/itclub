@@ -21,7 +21,7 @@ class Category extends Model
 
     public function blogs()
     {
-        return $this->belongsToMany(Blog::class)->withTrashed();
+        return $this->belongsToMany(Blog::class)->withPivot('category_id', 'blog_id');
     }
 
     public function galleries()
@@ -31,6 +31,6 @@ class Category extends Model
 
     public function created_by()
     {
-        return $this->belongsTo(User::class, 'created_by')->withTrashed();
+        return $this->belongsTo(User::class, 'id', 'user_id')->withTrashed();
     }
 }

@@ -14,4 +14,14 @@ class Article extends Model
     protected $table = 'blogs';
     protected $fillable = ['user_id', 'title', 'content', 'image', 'slug', 'deleted_at'];
     protected $dates = ['deleted_at'];
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class)->withPivot('category_id', 'blog_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }

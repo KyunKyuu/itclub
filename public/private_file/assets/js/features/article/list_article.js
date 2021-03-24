@@ -3,7 +3,7 @@ $(document).ready(function() {
         {data:'check', name:'check'},
         {data:'title', name:'title'},
         {data:'category', name:'category'},
-        {data:'created_by', name:'created_by'},
+        {data:'author', name:'author'},
         {data:'created_at', name:'created_at'},
         {data:'status', name:'status'},
     ];
