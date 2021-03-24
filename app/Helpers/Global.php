@@ -150,5 +150,5 @@ function timeMoments($date)
 function Suspended($id)
 {
     $suspend = Suspended::where('blog_id', $id)->get()[0];
-    return $suspend->suspended;
+    return $suspend;
 }

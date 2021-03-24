@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $('#AlertModa').modal('show')
+    $('#AlertModal').modal('show')
 
     $('#savePost').on('submit', function(e) {
         e.preventDefault()
