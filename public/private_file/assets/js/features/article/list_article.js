@@ -1,11 +1,11 @@
 $(document).ready(function() {
     const data = [
-        {data:'check', name:'check'},
+        {data:'check', name:'check', orderable:false, searchable:false},
         {data:'title', name:'title'},
         {data:'category', name:'category'},
         {data:'author', name:'author'},
         {data:'created_at', name:'created_at'},
-        {data:'status', name:'status'},
+        {data:'status', name:'status', className:'text-center'},
     ];
 
     Table({table:'#table', data:data, url:'/api/v1/features/article/get'});
@@ -153,9 +153,29 @@ $(document).ready(function() {
                 id:id
             },
             success:res=>{
+                $(`#statusArticle select[name="status"] option`).attr('selected', false)
                 $('#statusArticle').modal('show')
                 $(`#statusArticle select[name="status"] option[value="${res.data.article.status}"]`).attr('selected', true)
                 $('#statusArticle select[name="status"]').attr('data-id', id);
+                if (res.data.article.status == 300) {
+                    $('#addedInput').html(` <div class="col-md-3"><label for="">Deskripsi</label></div>
+                    <div class="col-md-9">
+                        <textarea name="description" id="DeskripsiArtikel" value="${res.data.suspend.description}" class="form-control" cols="30" rows="10">${res.data.suspend.description}</textarea>
+                    </div>`);
+                    $('#addedInputSuspended').html(` <div class="col-md-3"><label for="">End Suspended</label></div>
+                        <div class="col-md-9">
+                            <input type="date" name="suspended" id="endSuspended" class="form-control datetimepicker" value="${res.data.suspend.suspended}">
+                    </div>`);
+                }else if (res.data.article.status > 300) {
+                    $('#addedInput').html(` <div class="col-md-3"><label for="">Deskripsi</label></div>
+                    <div class="col-md-9">
+                        <textarea name="description" id="DeskripsiArtikel" value="${res.data.suspend.description}" class="form-control" cols="30" rows="10">${res.data.suspend.description}</textarea>
+                    </div>`);
+                    $('#addedInputSuspended').html('')
+                }else{
+                    $('#addedInput').html('')
+                    $('#addedInputSuspended').html('')
+                }
             },
             error:err=>{
                 SweetAlert(err.responseJSON)
@@ -199,7 +219,8 @@ $(document).ready(function() {
             },
             type:'POST',
             success:res=>{
-                console.log(res);
+                RefreshTable('table')
+                SweetAlert(res)
             },
             error:err=>{
                 SweetAlert(res.responseJSON)

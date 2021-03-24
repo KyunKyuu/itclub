@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+    $('#AlertModa').modal('show')
+
     $('#savePost').on('submit', function(e) {
         e.preventDefault()
         $.ajax({

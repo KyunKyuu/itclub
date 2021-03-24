@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\CategoryBlog;
+use App\Models\Suspended;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -59,24 +60,31 @@ class ArticleController extends Controller
             })
             ->editColumn('status', function ($article) {
                 if ($article->status == 100) {
-                    $status = 'Draft';
+                    $status = '<i class="fas fa-save"></i> Draft';
                     $color = 'secondary';
+                    $added = ' ';
                 } else if ($article->status == 200) {
-                    $status = 'Published';
+                    $status = '<i class="fas fa-upload"></i> Published';
                     $color = 'success';
+                    $added = ' ';
                 } else if ($article->status == 300) {
-                    $status = 'Suspended';
-                    $color = 'info';
-                } else if ($article->status == 400) {
-                    $status = 'Block';
-                    $color = 'danger';
-                } else if ($article->status == 500) {
-                    $status = 'Error';
+                    $status = '<i class="fas fa-hourglass"></i> Suspended';
                     $color = 'warning';
+                    $suspend = Suspended::where('blog_id', $article->id)->get()[0];
+                    $added = '<div class="badge badge-secondary m-2"> <i class="fas fa-clock"></i> ' . timeMoments($suspend->suspended) . '</div>';
+                } else if ($article->status == 400) {
+                    $status = '<i class="fas fa-minus-circle"></i> Block';
+                    $color = 'danger';
+                    $added = ' ';
+                } else if ($article->status == 500) {
+                    $status = '<i class="fas fa-exclamation-triangle"></i> Error';
+                    $color = 'warning';
+                    $added = ' ';
                 } else {
                     $status = 'Unknown';
+                    $added = ' ';
                 }
-                return '<div class="badge badge-' . $color . '">' . $status . '</div>';
+                return '<div class="badge badge-' . $color . '">' . $status . '</div> ' . $added;
             })
             ->rawColumns(['check', 'category', 'status', 'title'])
             ->make(true);
@@ -116,7 +124,8 @@ class ArticleController extends Controller
     {
         $article = Blog::find($_GET['id']);
         $category = CategoryBlog::where('blog_id', $_GET['id'])->get();
-        return response()->json(['message' => 'Post berhasil diperbaharui', 'status' => 'success', 'data' => ['article' => $article, 'category' => $category]], 200);
+        $suspend = Suspended::where('blog_id', $_GET['id'])->get()[0] ?? 'Nothink';
+        return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => ['article' => $article, 'category' => $category, 'suspend' => $suspend]], 200);
     }
 
     public function category_article(Request $request)
@@ -156,7 +165,18 @@ class ArticleController extends Controller
 
     public function suspended_article(Request $request)
     {
-        if ($request->status > 200) {
+        $suspend = Suspended::where('blog_id', $request->blog_id);
+        if ($suspend->count() > 0) {
+            $suspend->delete();
         }
+        if ($request->status > 200) {
+            Suspended::create($request->all());
+            $blog = Blog::find($request->blog_id);
+            $blog->update($request->only('status'));
+            return response()->json(['message' => 'Suspend diberikan ke blog ' . $blog->title . '!', 'status' => 'info'], 200);
+        }
+        $blog = Blog::find($request->blog_id);
+        $blog->update($request->only('status'));
+        return response()->json(['message' => 'Status blog telah diperbaharui! ', 'status' => 'info'], 200);
     }
 }

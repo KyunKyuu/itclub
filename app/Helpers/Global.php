@@ -6,6 +6,7 @@ use App\Models\Section;
 use App\Models\SectionAccess;
 use App\Models\Submenu;
 use App\Models\SubmenuAccess;
+use App\Models\Suspended;
 use Illuminate\Support\Facades\DB;
 
 function Section()
@@ -115,4 +116,39 @@ function access_update($role, $id = False)
     }
 
     access_create($role, $id);
+}
+
+
+function timeMoments($date)
+{
+    $awal  = date_create(date('Y-m-d H:i:s', strtotime($date)));
+    $akhir = date_create(); // waktu sekarang
+    $diff  = date_diff($awal, $akhir);
+    if ($date) {
+        if ($diff->y) {
+            $time = $diff->y . ' year';
+        } else if ($diff->m) {
+            $time = $diff->m . ' month';
+        } else if ($diff->d) {
+            $time = $diff->d . ' day';
+        } else if ($diff->h) {
+            $time = $diff->h . ' hours';
+        } else if ($diff->i) {
+            $time = $diff->i . ' minute';
+        } else {
+            $time = '';
+        }
+        $data = $time;
+    } else {
+        $data = ' ';
+    }
+
+
+    return $data;
+}
+
+function Suspended($id)
+{
+    $suspend = Suspended::where('blog_id', $id)->get()[0];
+    return $suspend->suspended;
 }
