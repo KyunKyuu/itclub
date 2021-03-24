@@ -147,5 +147,6 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/article/save_content', [ApiArticleController::class, 'save_content']);
         Route::post('/article/update', [ApiArticleController::class, 'update_article']);
         Route::delete('/article/delete', [ApiArticleController::class, 'delete_article']);
+        Route::post('/article/suspended', [ApiArticleController::class, 'suspended_article']);
     });
 });
