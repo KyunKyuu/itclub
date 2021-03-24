@@ -153,4 +153,10 @@ class ArticleController extends Controller
         return response()->json(['message' => 'Selamat, article berhasil dihapus!', 'status' => 'success'], 200);
         // $category = CategoryBlog::where('blog_id', $request->id)->delete();
     }
+
+    public function suspended_article(Request $request)
+    {
+        if ($request->status > 200) {
+        }
+    }
 }

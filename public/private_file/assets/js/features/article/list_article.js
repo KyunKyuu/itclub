@@ -171,7 +171,7 @@ $(document).ready(function() {
             </div>`);
             $('#addedInputSuspended').html(` <div class="col-md-3"><label for="">End Suspended</label></div>
                 <div class="col-md-9">
-                    <input type="date" name="suspended" id="endSuspended" class="form-control">
+                    <input type="date" name="suspended" id="endSuspended" class="form-control datetimepicker">
             </div>`);
         }else if ($(this).val() > 300) {
             $('#addedInput').html(` <div class="col-md-3"><label for="">Deskripsi</label></div>
@@ -183,6 +183,28 @@ $(document).ready(function() {
             $('#addedInput').html('')
             $('#addedInputSuspended').html('')
         }
+    })
+
+    $('#status').on('submit', function(e) {
+        e.preventDefault()
+        let data = new FormData(this)
+        data.append('blog_id', $('#statusArticle select[name="status"]').data('id'))
+        $.ajax({
+            url:'/api/v1/features/article/suspended',
+            data:data,
+            processData:false,
+            contentType:false,
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            type:'POST',
+            success:res=>{
+                console.log(res);
+            },
+            error:err=>{
+                SweetAlert(res.responseJSON)
+            }
+        })
     })
 
 
