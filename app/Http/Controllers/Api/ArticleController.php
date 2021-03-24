@@ -146,4 +146,11 @@ class ArticleController extends Controller
 
         return response()->json(['message' => 'Selamat, article berhasil diperbaharui!', 'status' => 'success'], 200);
     }
+
+    public function delete_article(Request $request)
+    {
+        $blog = Blog::find($request->id)->delete();
+        return response()->json(['message' => 'Selamat, article berhasil dihapus!', 'status' => 'success'], 200);
+        // $category = CategoryBlog::where('blog_id', $request->id)->delete();
+    }
 }

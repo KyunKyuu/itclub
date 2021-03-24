@@ -59,6 +59,28 @@ $(document).ready(function() {
         })
     })
 
+    $('#table').on('click', '#Delete', function(e) {
+        e.preventDefault()
+        let id = $(this).data('id')
+        $.ajax({
+            url:'/api/v1/features/article/delete',
+            data:{
+                id:id
+            },
+            type:'DELETE',
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            success:res=>{
+                RefreshTable('table')
+                SweetAlert(res)
+            },
+            error:err=>{
+                SweetAlert(err.responseJSON)
+            }
+        })
+    })
+
     $('#updateArticle select[name="category[]"').on("select2:unselect", function (e) {
         let id = $('#updateArticle textarea[name="title"]').data('id')
         let category_id = e.params.data.id
