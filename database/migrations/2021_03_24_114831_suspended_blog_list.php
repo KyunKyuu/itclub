@@ -15,7 +15,11 @@ class SuspendedBlogList extends Migration
     {
         Schema::create('blog_suspended', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('blog_id');
+            $table->string('description');
+            $table->timestamp('suspended');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 

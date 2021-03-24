@@ -13,7 +13,14 @@ class ArticleController extends Controller
     public function list_article()
     {
         $category = Category::all();
-        $data = ['category' => $category];
+        $status = [
+            ['id' => 100, 'value' => 'draft'],
+            ['id' => 200, 'value' => 'published'],
+            ['id' => 300, 'value' => 'suspended'],
+            ['id' => 400, 'value' => 'block'],
+            ['id' => 500, 'value' => 'error'],
+        ];
+        $data = ['category' => $category, 'status' => $status];
         return view('main.article.list_article', ['data' => $data]);
     }
 

@@ -144,4 +144,9 @@ $(document).ready(function() {
         })
     })
 
+    $('#table').on('click', '#Status', function(e) {
+        e.preventDefault()
+        $('#statusArticle').modal('show')
+    })
+
 })

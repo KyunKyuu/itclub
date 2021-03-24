@@ -171,4 +171,42 @@
         </div>
     </div>
 
+
+  <!-- Modal Status Article -->
+    <div class="modal fade" id="statusArticle" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="statusArticleLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom pb-4">
+            <h5 class="modal-title" id="statusArticleLabel">Status Article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" novalidate id="status">
+                    <div class="form-group row">
+                        <div class="col-md-3"><label for="">Status</label></div>
+                        <div class="col-md-9">
+                            <select name="status" id="StatusArticle" class="text-capitalize form-control">
+                                @foreach ($data['status'] as $val)
+                                    <option class="text-capitalize" value="{{$val['id']}}">{{$val['value']}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3"><label for="">Deskripsi</label></div>
+                        <div class="col-md-9">
+                            <textarea name="description" id="DeskripsiArtikel" class="form-control" cols="30" rows="10"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer ml-3">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+        </div>
+        </div>
+    </div>
+
 @endsection
