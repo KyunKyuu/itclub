@@ -35,7 +35,7 @@ class ArticleController extends Controller
                 <a href="#" data-id="' . $article->id . '" id="Edit" class="text-warning"><i class="fas fa-edit"></i></a>
                 <div class="bullet"></div>
                 <a href="#" data-id="' . $article->id . '" id="Delete" class="text-danger"><i class="fas fa-trash"></i></a>';
-                if (auth()->user()->id == 1 || auth()->user()->id == 2) {
+                if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
                     $button .= '<div class="bullet"></div><a href="#" data-id="' . $article->id . '" id="Status" class="text-info"><i class="fas fa-random"></i></a>';
                 }
                 $data = '<div class="table-links"> ' . $button . ' </div>';

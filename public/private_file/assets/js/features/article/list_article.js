@@ -146,7 +146,45 @@ $(document).ready(function() {
 
     $('#table').on('click', '#Status', function(e) {
         e.preventDefault()
-        $('#statusArticle').modal('show')
+        let id = $(this).data('id')
+        $.ajax({
+            url:'/api/v1/features/article/get_first',
+            data:{
+                id:id
+            },
+            success:res=>{
+                $('#statusArticle').modal('show')
+                $(`#statusArticle select[name="status"] option[value="${res.data.article.status}"]`).attr('selected', true)
+                $('#statusArticle select[name="status"]').attr('data-id', id);
+            },
+            error:err=>{
+                SweetAlert(err.responseJSON)
+            }
+        })
     })
+
+    $('#statusArticle select[name="status"]').on('change', function() {
+        if($(this).val() == 300){
+            $('#addedInput').html(` <div class="col-md-3"><label for="">Deskripsi</label></div>
+            <div class="col-md-9">
+                <textarea name="description" id="DeskripsiArtikel" class="form-control" cols="30" rows="10"></textarea>
+            </div>`);
+            $('#addedInputSuspended').html(` <div class="col-md-3"><label for="">End Suspended</label></div>
+                <div class="col-md-9">
+                    <input type="date" name="suspended" id="endSuspended" class="form-control">
+            </div>`);
+        }else if ($(this).val() > 300) {
+            $('#addedInput').html(` <div class="col-md-3"><label for="">Deskripsi</label></div>
+            <div class="col-md-9">
+                <textarea name="description" id="DeskripsiArtikel" class="form-control" cols="30" rows="10"></textarea>
+            </div>`);
+            $('#addedInputSuspended').html('')
+        }else{
+            $('#addedInput').html('')
+            $('#addedInputSuspended').html('')
+        }
+    })
+
+
 
 })

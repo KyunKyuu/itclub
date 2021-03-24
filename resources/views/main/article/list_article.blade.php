@@ -194,15 +194,16 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-md-3"><label for="">Deskripsi</label></div>
-                        <div class="col-md-9">
-                            <textarea name="description" id="DeskripsiArtikel" class="form-control" cols="30" rows="10"></textarea>
-                        </div>
+                    <div class="form-group row" id="addedInput">
+
+                    </div>
+                    <div class="form-group row" id="addedInputSuspended">
+
                     </div>
                     <div class="modal-footer ml-3">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
                     </div>
                 </form>
         </div>
