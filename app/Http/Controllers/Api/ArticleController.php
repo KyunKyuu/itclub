@@ -28,7 +28,7 @@ class ArticleController extends Controller
             ->editColumn('title', function ($article) {
                 return $article->title . '
                 <div class="table-links">
-                  <a href="#"><i class="fas fa-eye"></i></a>
+                  <a href="/features/article/view/' . $article->id . '/ ' . $article->slug . '"><i class="fas fa-eye"></i></a>
                   <div class="bullet"></div>
                   <a href="#"><i class="fas fa-edit"></i></a>
                   <div class="bullet"></div>
@@ -86,7 +86,8 @@ class ArticleController extends Controller
             $request->file('image')->move('private_file/user/image-article/', $name);
             $request->request->add(['thumbnail' => $name]);
         }
-        $request->request->add(['user_id' => auth()->user()->id, 'slug' => str_replace(" ", "-", $request->title)]);
+        $title = str_replace('"', '-', $request->title);
+        $request->request->add(['user_id' => auth()->user()->id, 'slug' => str_replace(" ", "-", $title)]);
         $blog = Article::create($request->except('image'));
 
         if ($request->category) {
@@ -96,5 +97,12 @@ class ArticleController extends Controller
         }
 
         return response()->json(['message' => 'Selamat, article berhasil ditambahkan!', 'status' => 'success'], 200);
+    }
+
+    public function save_content(Request $request)
+    {
+        $article = Blog::find($request->id);
+        $article->update($request->all());
+        return response()->json(['message' => 'Post berhasil diperbaharui', 'status' => 'success'], 200);
     }
 }

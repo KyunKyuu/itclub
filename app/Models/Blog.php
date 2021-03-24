@@ -12,7 +12,7 @@ class Blog extends Model
     use SoftDeletes;
 
     protected $table = 'blogs';
-    protected $fillable = ['user_id', 'title', 'content', 'image', 'slug', 'deleted_at'];
+    protected $fillable = ['user_id', 'title', 'content', 'image', 'slug', 'deleted_at', 'status'];
     protected $dates = ['deleted_at'];
 
     public function categories()

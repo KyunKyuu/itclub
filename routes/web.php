@@ -57,7 +57,7 @@ Route::group(['prefix' => '/member', 'middleware' => 'auth'], function () {
 
 Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
     Route::get('/article/list_article', [ArticleController::class, 'list_article']);
-    Route::get('/article/{resource}', [ArticleController::class, 'article']);
+    Route::get('/article/view/{id}/{resource}', [ArticleController::class, 'article']);
 });
 
 // !NOTE API Request & Response
@@ -142,5 +142,6 @@ Route::prefix('/api/v1')->group(function () {
     Route::group(['prefix' => '/features', 'middleware' => ['auth']], function () {
         Route::get('/article/get', [ApiArticleController::class, 'get_article']);
         Route::post('/article/insert', [ApiArticleController::class, 'insert_article']);
+        Route::post('/article/save_content', [ApiArticleController::class, 'save_content']);
     });
 });
