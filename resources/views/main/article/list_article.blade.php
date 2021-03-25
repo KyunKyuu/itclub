@@ -6,19 +6,28 @@
     <div class="col-12">
       <div class="card mb-0">
         <div class="card-body">
-          <ul class="nav nav-pills">
+          <ul class="nav nav-pills" id="dataArticle">
             <li class="nav-item">
-              <a class="nav-link active" href="#">All <span class="badge badge-white">5</span></a>
+              <a data-value="all" class="nav-link active" href="#">All <span class="badge badge-white" id="allCount">-</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Draft <span class="badge badge-primary">1</span></a>
+              <a data-value="100" class="nav-link" href="#">Draft <span class="badge badge-secondary" id="draftCount">-</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Pending <span class="badge badge-primary">1</span></a>
+              <a data-value="200" class="nav-link" href="#">Published <span class="badge badge-success" id="publishedCount">-</span></a>
+            </li>
+            <li class="nav-item">
+              <a data-value="300" class="nav-link" href="#">Suspended <span class="badge badge-warning " id="suspendedCount">-</span></a>
+            </li>
+            <li class="nav-item">
+                <a data-value="400" class="nav-link" href="#">Block <span class="badge badge-danger" id="blockCount">-</span></a>
+            </li>
+            <li class="nav-item">
+                <a data-value="500" class="nav-link" href="#">Error <span class="badge badge-danger" id="errorCount">-</span></a>
             </li>
             @if (auth()->user()->role_id == 1)
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Trash <span class="badge badge-primary">0</span></a>
+                    <a data-value="trash" class="nav-link" href="#">Trash <span class="badge badge-danger" id="trashedCount">-</span></a>
                 </li>
             @endif
             <li class="nav-item ml-auto">

@@ -19,9 +19,19 @@ class ArticleController extends Controller
     public function get_article()
     {
         if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
-            $article = Blog::all();
+            if ($_GET['id'] == 'all') {
+                $article = Blog::all();
+            } elseif ($_GET['id'] == 'trash') {
+                $article = Blog::onlyTrashed();
+            } else {
+                $article = Blog::all()->where('status', $_GET['id']);
+            }
         } else {
-            $article = Blog::all()->where('user_id', auth()->user()->id);
+            if ($_GET['id'] == 'all') {
+                $article = Blog::where('user_id', auth()->user()->id);
+            } else {
+                $article = Blog::all()->where('status', $_GET['id'])->where('user_id', auth()->user()->id);
+            }
         }
         return DataTables::of($article)
             ->editColumn('check', function ($article) {
@@ -126,6 +136,28 @@ class ArticleController extends Controller
         $category = CategoryBlog::where('blog_id', $_GET['id'])->get();
         $suspend = Suspended::where('blog_id', $_GET['id'])->get()[0] ?? 'Nothink';
         return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => ['article' => $article, 'category' => $category, 'suspend' => $suspend]], 200);
+    }
+
+    public function get_all_article()
+    {
+        $data = [];
+        if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {
+            array_push($data, ['all' => Blog::all()->count()]);
+            array_push($data, ['draft' => Blog::all()->where('status', 100)->count()]);
+            array_push($data, ['published' => Blog::all()->where('status', 200)->count()]);
+            array_push($data, ['suspended' => Blog::all()->where('status', 300)->count()]);
+            array_push($data, ['block' => Blog::all()->where('status', 400)->count()]);
+            array_push($data, ['error' => Blog::all()->where('status', 500)->count()]);
+            array_push($data, ['trashed' => Blog::onlyTrashed()->count()]);
+        } else {
+            array_push($data, ['all' => Blog::all()->where('user_id', auth()->user()->id)->count()]);
+            array_push($data, ['draft' => Blog::all()->where('status', 100)->where('user_id', auth()->user()->id)->count()]);
+            array_push($data, ['published' => Blog::all()->where('status', 200)->where('user_id', auth()->user()->id)->count()]);
+            array_push($data, ['suspended' => Blog::all()->where('status', 300)->where('user_id', auth()->user()->id)->count()]);
+            array_push($data, ['block' => Blog::all()->where('status', 400)->where('user_id', auth()->user()->id)->count()]);
+            array_push($data, ['error' => Blog::all()->where('status', 500)->where('user_id', auth()->user()->id)->count()]);
+        }
+        return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data], 200);
     }
 
     public function category_article(Request $request)

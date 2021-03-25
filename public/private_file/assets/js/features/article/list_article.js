@@ -8,9 +8,17 @@ $(document).ready(function() {
         {data:'status', name:'status', className:'text-center'},
     ];
 
-    Table({table:'#table', data:data, url:'/api/v1/features/article/get'});
+    Table({table:'#table', data:data, url:'/api/v1/features/article/get', parm:{id:'all'}});
+    getAll();
 
     $('#category').select2()
+
+    $('#dataArticle .nav-link').on('click', function(e) {
+        $('.nav-link').removeClass('active')
+        $(this).addClass('active')
+        let parm = $(this).data('value')
+        Table({table:'#table', data:data, url:'/api/v1/features/article/get', parm:{id:parm}});
+    })
 
     $('#insert').on('submit', function(e) {
         e.preventDefault()
@@ -231,3 +239,19 @@ $(document).ready(function() {
 
 
 })
+
+function getAll(){
+    $.ajax({
+        url:'/api/v1/features/article/get_all',
+        success:res=>{
+            $('#dataArticle #allCount').html(res.data[0].all)
+            $('#dataArticle #draftCount').html(res.data[1].draft)
+            $('#dataArticle #publishedCount').html(res.data[2].published)
+            $('#dataArticle #suspendedCount').html(res.data[3].suspended)
+            $('#dataArticle #blockCount').html(res.data[4].block)
+            $('#dataArticle #errorCount').html(res.data[5].error)
+            $('#dataArticle #trashedCount').html(res.data[6].trashed)
+        },
+        error:err=>console.log(err)
+    })
+}
