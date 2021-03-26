@@ -63,7 +63,10 @@ class MemberController extends Controller
             'division_id' => $request->division_id,
             'image' => $request->image ? request()->file('image')->store('images/member') : null,
             'position' => $request->position,
-            // 'created_by' => auth()->user()->id
+            'majors' => $request->majors,
+            'status' => $request->status,
+            'entry_year' => $request->entry_year,
+            'created_by' => auth()->user()->id
         ]);
 
         return response()->json([
@@ -124,7 +127,10 @@ class MemberController extends Controller
             'division_id' => $request->division_id,
             'image' => $image,
             'position' => $request->position,
-            // 'created_by' => auth()->user()->id
+             'majors' => $request->majors,
+            'status' => $request->status,
+            'entry_year' => $request->entry_year,
+            'created_by' => auth()->user()->id
         ]);
 
         return response()->json([

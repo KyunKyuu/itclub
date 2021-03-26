@@ -20,8 +20,13 @@ class ImageGallery extends Model
 
     public function gallery()
     {
-        return $this->belongsTo(gallery::class)->withTrashed();
+        return $this->belongsTo(Gallery::class)->withTrashed();
     }
 
+   
 
+    public function image()
+    {
+        return !$this->image ? asset('no-image.jpg') : asset("storage/" . $this->image);
+    }
 }

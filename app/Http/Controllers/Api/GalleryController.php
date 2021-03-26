@@ -6,17 +6,42 @@ use App\Http\Controllers\Controller;
 use App\Models\{Category,Gallery};
 use App\Http\Requests\GalleryRequest;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class GalleryController extends Controller
 {
-    public function index()
+     public function index()
     {
-        $gallery = Gallery::latest()->get();
+       if (!empty($_GET['id'])) {
+            $data = Gallery::find($_GET['id']);
+            return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data]);
+        }
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $gallery
-        ]);
+         $gallery = Gallery::all();
+
+        return DataTables::of($gallery)
+            ->addIndexColumn()
+            ->addColumn('check', function ($gallery) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($gallery) {
+                return '
+            <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $gallery->id . '" id="edit"><i class="fas fa-edit"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $gallery->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+           ->addColumn('imageGallery', function ($gallery) {   
+                return '<img src="'.$gallery->image().'" width="50">';
+            })
+           ->editColumn('category_id', function ($gallery) {
+                return $gallery->category->name;
+            })
+            ->rawColumns(['check', 'btn','imageGallery','category_id'])
+            ->make(true);
     }
 
     public function show($id)
@@ -46,12 +71,13 @@ class GalleryController extends Controller
 
     public function store(GalleryRequest $request)
     {
+         
         $categoryId = Category::where('id', $request->category_id)->exists();
         if(!$categoryId)
         {
             return response()->json([
                 'status' => 'error',
-                'message' => 'gallery not found'
+                'message' => 'category not found'
             ],404);
         }
 
@@ -61,14 +87,14 @@ class GalleryController extends Controller
             'name' => $request->name,
             'content' => $request->content,
             'category_id' => $request->category_id,
-            'image' =>  $request->file('image')->store('images/division'),
+            'image' =>  $request->file('image')->store('images/gallery'),
             'slug' => $slug,
-            // 'created_by' => auth()->user()->id
+            'created_by' => auth()->user()->id
         ]);
 
-        return response()->json([
+         return response()->json([
             'status' => 'success',
-            'data' => $gallery
+            'message' => 'data created successfuly'
         ]);
     }
 
@@ -135,9 +161,9 @@ class GalleryController extends Controller
         ]);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $gallery = Gallery::find($id);
+        $gallery = Gallery::find($request->id);
 
         if(!$gallery)
         {
@@ -147,7 +173,7 @@ class GalleryController extends Controller
             ],404);
         }
 
-        \Storage::delete($gallery->image);
+        // \Storage::delete($gallery->image);
 
         $gallery->images()->delete();
         $gallery->delete();

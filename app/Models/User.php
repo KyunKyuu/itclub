@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Blog::class);
     }
+
+    public function divisions()
+    {
+        return $this->hasMany(Division::class);
+    }
 }
