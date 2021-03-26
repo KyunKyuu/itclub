@@ -35,7 +35,7 @@ Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
 
-Route::group(['prefix' => '/master', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => '/master', 'middleware' => ['auth', 'access']], function () {
     Route::get('/preferences/section', [PreferencesController::class, 'section']);
     Route::get('/preferences/menu', [PreferencesController::class, 'menu']);
     Route::get('/preferences/submenu', [PreferencesController::class, 'submenu']);
@@ -43,7 +43,7 @@ Route::group(['prefix' => '/master', 'middleware' => 'auth'], function () {
     Route::get('/role', [RoleController::class, 'role']);
 });
 
-Route::group(['prefix' => '/setting', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => '/setting', 'middleware' => ['auth', 'access']], function () {
     Route::get('/menu/user', [MenuAccessControlller::class, 'user']);
     Route::get('/menu/role', [MenuAccessControlller::class, 'role']);
 });
@@ -59,6 +59,16 @@ Route::group(['prefix' => '/member', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
     Route::get('/article/list_article', [ArticleController::class, 'list_article']);
     Route::get('/article/view/{id}/{resource}', [ArticleController::class, 'article']);
+});
+
+Route::group(['prefix' => '/error'], function () {
+    Route::group(['prefix' => '/exceptions'], function () {
+        Route::get('/200', [ArticleController::class, 'page_200']);
+        Route::get('/300', [ArticleController::class, 'page_300']);
+        Route::get('/403', [ArticleController::class, 'page_403']);
+        Route::get('/404', [ArticleController::class, 'page_404']);
+        Route::get('/500', [ArticleController::class, 'page_500']);
+    });
 });
 
 // !NOTE API Request & Response
