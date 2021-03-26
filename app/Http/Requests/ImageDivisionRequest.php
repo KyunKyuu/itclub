@@ -25,7 +25,7 @@ class ImageDivisionRequest extends FormRequest
     {
         return [
             'division_id' => 'integer|required',
-            'image' => 'required|image|mimes:jpeg,png,jpg',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2000',
         ];
     }
 }

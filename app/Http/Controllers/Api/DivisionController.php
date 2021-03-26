@@ -108,7 +108,6 @@ class DivisionController extends Controller
     public function update(DivisionRequest $request)
     {
 
-    dd($request->all());
 
         $division = Division::where('id',$request->id)->first();
         if(!$division)

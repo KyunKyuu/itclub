@@ -15,7 +15,8 @@ class Member extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:m:s',
         'updated_at' => 'datetime:Y-m-d H:m:s',
-        'deleted_at' => 'datetime:Y-m-d H:m:s'
+        'deleted_at' => 'datetime:Y-m-d H:m:s',
+        'entry_year' => 'date:Y-m-d'
     ];
 
     public function division()
@@ -31,6 +32,16 @@ class Member extends Model
     public function created_by()
     {
         return $this->belongsTo(User::class, 'created_by')->withTrashed();
+    }
+
+     public function user()
+    {
+        return $this->belongsTo(User::class)->withTrashed();
+    }
+
+     public function image()
+    {
+        return !$this->image ? asset('no-image.jpg') : asset("storage/" . $this->image);
     }
 
 }

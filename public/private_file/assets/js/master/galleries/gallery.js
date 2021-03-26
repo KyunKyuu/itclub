@@ -65,7 +65,7 @@ $(document).ready(function() {
                 $('#updateGallery input[name="image"]').val(res.data.image);
                 $('#updateGallery input[name="name"]').data('id',res.data.id);
                 $('#updateGallery input[name="category_id"]').val(res.data.category_id);
-                $('#updateGallery input[name="content"]').val(res.data.content);
+                $('#updateGallery textarea[name="content"]').val(res.data.content);
             },
             error:err=>console.log(err)
         })

@@ -24,7 +24,7 @@ class DivisionRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => 'required|image|mimes:jpeg,png,jpg',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2000',
             'name' => 'required|string',
             'content' => 'required|string'
         ];
