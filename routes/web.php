@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ArticleController as ApiArticleController;
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
+use App\Http\Controllers\Api\ErrorController as ApiErrorController;
 use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\MenuAccessControlller as ApiMenuAccessControlller;
 use App\Http\Controllers\Api\PreferencesController as ApiPreferencesController;
@@ -157,5 +158,9 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/article/update', [ApiArticleController::class, 'update_article']);
         Route::delete('/article/delete', [ApiArticleController::class, 'delete_article']);
         Route::post('/article/suspended', [ApiArticleController::class, 'suspended_article']);
+    });
+
+    Route::group(['prefix' => '/error', 'middleware' => ['auth']], function () {
+        Route::get('/get/page', [ApiErrorController::class, 'page']);
     });
 });

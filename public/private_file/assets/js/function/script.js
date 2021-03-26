@@ -120,7 +120,7 @@ function Table(data) {
         }
     }
 
-    $("#table_filter input").removeClass('form-control-sm')
+    $(`${data.table}_filter input`).removeClass('form-control-sm')
 }
 
 function SweetAlert(data){

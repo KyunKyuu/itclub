@@ -13,7 +13,7 @@
                 <table class="table table-striped table-md" id="dataPage">
                     <thead>
                         <tr>
-                            <th>Code</th>
+                            <th style="width: 10px">Code</th>
                             <th>Title</th>
                             <th>Action</th>
                           </tr>
