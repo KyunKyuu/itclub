@@ -164,5 +164,6 @@ Route::prefix('/api/v1')->group(function () {
         Route::get('/error/get/page', [ApiErrorController::class, 'page']);
         Route::get('/error/get/page/{id}', [ApiErrorController::class, 'get_page']);
         Route::post('/error/insert/page', [ApiErrorController::class, 'insert_page']);
+        Route::post('/error/update/page', [ApiErrorController::class, 'update_page']);
     });
 });

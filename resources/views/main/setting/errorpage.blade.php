@@ -8,7 +8,7 @@
         <div class="card-header">
           <h4>Data Page</h4>
           <div class="buttons ml-auto">
-            <a href="#" class="btn btn-primary btn-lg shadow mt-2" data-toggle="modal" data-target="#insertPage" style="border-radius: 5px;">
+            <a href="#" class="btn btn-primary btn-lg shadow mt-2" id="insertModal" style="border-radius: 5px;">
                 <i class="fas fa-plus"></i> Add
             </a>
         </div>
@@ -60,8 +60,8 @@
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-            <form class="needs-validation" novalidate id="insert">
+        <div class="modal-body" >
+            <form class="needs-validation" novalidate>
                 <div class="form-group row justify-content-center">
                     <img class="img-fluid " src="" style="max-height: 150px;width:200px;" id="image-preview">
                 </div>
