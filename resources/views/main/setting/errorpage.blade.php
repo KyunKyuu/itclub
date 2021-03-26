@@ -7,6 +7,11 @@
       <div class="card">
         <div class="card-header">
           <h4>Data Page</h4>
+          <div class="buttons ml-auto">
+            <a href="#" class="btn btn-primary btn-lg shadow mt-2" style="border-radius: 5px;">
+                <i class="fas fa-plus"></i> Add
+            </a>
+        </div>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -31,13 +36,9 @@
           <div class="card-header">
             <h4>Page Preview</h4>
             <div class="card-header-action">
-                <div class="btn-group" id="btnGroup">
-
-                </div>
               </div>
           </div>
-          <div class="card-body">
-            <div id="formTable" class="table-responsive"></div>
+          <div class="card-body" id="pagePreview">
 
           </div>
         </div>

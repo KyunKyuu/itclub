@@ -160,7 +160,8 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/article/suspended', [ApiArticleController::class, 'suspended_article']);
     });
 
-    Route::group(['prefix' => '/error', 'middleware' => ['auth']], function () {
-        Route::get('/get/page', [ApiErrorController::class, 'page']);
+    Route::group(['prefix' => '/setting', 'middleware' => ['auth']], function () {
+        Route::get('/error/get/page', [ApiErrorController::class, 'page']);
+        Route::get('/error/get/page/{id}', [ApiErrorController::class, 'get_page']);
     });
 });
