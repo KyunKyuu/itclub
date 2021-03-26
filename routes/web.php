@@ -31,6 +31,7 @@ Route::get('/', function () {
     return redirect('/auth/login');
 });
 Route::get('/dashboard/general/index', [IndexController::class, 'index']);
+Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
 

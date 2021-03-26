@@ -3,7 +3,7 @@
 @section('main')
 
       <div class="section-body">
-        <h2 class="section-title text-capitalize" id="IDCARD" data-id="{{request()->segment(2)}}">Hi, {{auth()->user()->name}}!</h2>
+            <h2 class="text-capitalize section-title " id="IDCARD" data-id="{{request()->segment(2)}}">Hi, {{auth()->user()->name}}!</h2>
 
         <div class="row mt-sm-4">
           <div class="col-12 col-md-12 col-lg-5">
@@ -46,6 +46,11 @@
               <form id="insert-profile" class="needs-validation" novalidate="" >
                 <div class="card-header">
                   <h4>Edit Profile</h4>
+                  <div class="text-left ml-auto">
+                    <a href="#" class="btn btn-primary btn-lg">
+                        <i class="fas fa-laptop-code"></i> Upgrade to Member
+                    </a>
+                </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
