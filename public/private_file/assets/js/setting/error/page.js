@@ -28,4 +28,25 @@ $(document).ready(function() {
             error:err=>console.log(err)
         })
     })
+
+    $('#insert').on('submit', function(e) {
+        e.preventDefault()
+        $.ajax({
+            url:'/api/v1/setting/error/insert/page',
+            data:new FormData(this),
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            processData:false,
+            contentType:false,
+            type:'POST',
+            success:res=>{
+                RefreshTable('dataPage');
+                SweetAlert(res)
+            },
+            error:err=>{
+                SweetAlert({message:err.responseJSON.message, status:err.status == 404 ? 'warning' : 'error'})
+            }
+        })
+    })
 })
