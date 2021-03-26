@@ -1,12 +1,11 @@
 const csrftoken = $('meta[name="csrf-token"]').data('token')
-
 $(document).ready(function() {
     ClassicEditor
     .create( document.querySelector( '.use-ckeditor' ), {
     } )
     .then( editor => {
         editor.model.document.on( 'change:data', () => {
-            $('input[data-editor="ckeditor"]').val(editor.getData()) ;
+            $('form input[data-editor="ckeditor"]').val(editor.getData()) ;
             deskripsi = editor.getData();
         } );
     } )

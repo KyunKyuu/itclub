@@ -15,9 +15,9 @@ class CreateBlogsTable extends Migration
     {
         Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->longText('content');
-            $table->string('image')->nullable();
+            $table->string('title');
+            $table->longText('content')->nullable();
+            $table->string('thumbnail')->nullable();
             $table->foreignId('created_by')->default(1);
             $table->string('slug');
             $table->enum('type', ['pending', 'publish'])->default('pending');

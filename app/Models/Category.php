@@ -8,28 +8,29 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'categories';
-    protected $guarded = ['id','created_at','updated_at'];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:m:s',
         'updated_at' => 'datetime:Y-m-d H:m:s',
         'deleted_at' => 'datetime:Y-m-d H:m:s'
     ];
+    protected $dates = ['deleted_at'];
 
     public function blogs()
     {
-        return $this->belongsToMany(Blog::class)->withTrashed();
+        return $this->belongsToMany(Blog::class)->withPivot('category_id', 'blog_id');
     }
 
     public function galleries()
     {
         return $this->hasMany(Gallery::class);
     }
-    
-     public function created_by()
+
+    public function created_by()
     {
-        return $this->belongsTo(User::class, 'created_by')->withTrashed();
+        return $this->belongsTo(User::class, 'id', 'user_id')->withTrashed();
     }
 }

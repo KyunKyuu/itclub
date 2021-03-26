@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ArticleController as ApiArticleController;
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
 use App\Http\Controllers\Api\MemberController as MemberController;
 use App\Http\Controllers\Api\MenuAccessControlller as ApiMenuAccessControlller;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Api\PreferencesController as ApiPreferencesController;
 use App\Http\Controllers\Api\RoleController as ApiRoleController;
 use App\Http\Controllers\Api\UserController as ApiUserController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Features\ArticleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Master\RoleController;
 use App\Http\Controllers\Master\UserController;
@@ -62,8 +64,13 @@ Route::group(['prefix' => '/member', 'middleware' => 'auth'], function () {
     Route::get('/{resource}/dashboard', [IndexController::class, 'dashboard_user']);
     Route::get('/{resource}/setting', [IndexController::class, 'setting_user']);
     Route::get('/{resource}/setting/changepassword', [IndexController::class, 'changepassword_setting']);
+    Route::get('/{resource}/activities', [IndexController::class, 'activities_user']);
 });
-Route::get('/member/{resource}/activities', [IndexController::class, 'activities_user']);
+
+Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
+    Route::get('/article/list_article', [ArticleController::class, 'list_article']);
+    Route::get('/article/view/{id}/{resource}', [ArticleController::class, 'article']);
+});
 
 // !NOTE API Request & Response
 Route::prefix('/api/v1')->group(function () {
@@ -141,6 +148,19 @@ Route::prefix('/api/v1')->group(function () {
         Route::get('/get/profile', [MemberController::class, 'get_profile']);
         Route::post('/insert/profile', [MemberController::class, 'insert_profile']);
         Route::get('/delete/image/profile', [MemberController::class, 'delete_image_profile']);
+        Route::post('/setting/changepassword', [MemberController::class, 'setting_changepassword']);
+    });
+
+    Route::group(['prefix' => '/features', 'middleware' => ['auth']], function () {
+        Route::get('/article/get', [ApiArticleController::class, 'get_article']);
+        Route::get('/article/get_first', [ApiArticleController::class, 'get_first_article']);
+        Route::get('/article/get_all', [ApiArticleController::class, 'get_all_article']);
+        Route::post('/article/insert', [ApiArticleController::class, 'insert_article']);
+        Route::post('/article/category', [ApiArticleController::class, 'category_article']);
+        Route::post('/article/save_content', [ApiArticleController::class, 'save_content']);
+        Route::post('/article/update', [ApiArticleController::class, 'update_article']);
+        Route::delete('/article/delete', [ApiArticleController::class, 'delete_article']);
+        Route::post('/article/suspended', [ApiArticleController::class, 'suspended_article']);
     });
 
     Route::prefix('division')->group(function() {

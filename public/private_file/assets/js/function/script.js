@@ -33,6 +33,10 @@ function Table(data) {
                     url: data.url,
                     data:data.parm
                 },
+                language: {
+                    "search": "Search Data:",
+                    'searchPlaceholder' : 'Search'
+                },
                 columns: data.data,
                 fnDrawCallback: function() {
                     $(`${data.callbackButton.id}`).bootstrapToggle({
@@ -50,6 +54,10 @@ function Table(data) {
                 serverSide: true,
                 ajax: {
                     url: data.url
+                },
+                 language: {
+                    "search": "Search Data:",
+                    'searchPlaceholder' : 'Search'
                 },
                 columns: data.data,
                 fnDrawCallback: function() {
@@ -72,6 +80,10 @@ function Table(data) {
                     url: data.url,
                     data:data.parm
                 },
+                 language: {
+                    "search": "Search Data:",
+                    'searchPlaceholder' : 'Search'
+                },
                 columns: data.data,
                 fnDrawCallback: function() {
                     $('.input-toggle').bootstrapToggle({
@@ -90,6 +102,10 @@ function Table(data) {
                 ajax: {
                     url: data.url
                 },
+                 language: {
+                    "search": "Search Data:",
+                    'searchPlaceholder' : 'Search'
+                },
                 columns: data.data,
                 fnDrawCallback: function() {
                     $('.input-toggle').bootstrapToggle({
@@ -103,6 +119,8 @@ function Table(data) {
             });
         }
     }
+
+    $("#table_filter input").removeClass('form-control-sm')
 }
 
 function SweetAlert(data){
