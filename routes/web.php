@@ -63,13 +63,7 @@ Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
 });
 
 Route::group(['prefix' => '/error'], function () {
-    Route::group(['prefix' => '/exception'], function () {
-        Route::get('/200', [ExceptionController::class, 'page_200']);
-        Route::get('/300', [ExceptionController::class, 'page_300']);
-        Route::get('/403', [ExceptionController::class, 'page_403']);
-        Route::get('/404', [ExceptionController::class, 'page_404']);
-        Route::get('/500', [ExceptionController::class, 'page_500']);
-    });
+    Route::get('/exception/{id}', [ExceptionController::class, 'page']);
 });
 
 // !NOTE API Request & Response

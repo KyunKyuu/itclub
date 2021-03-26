@@ -3,11 +3,11 @@
 @section('main')
 <div id="app">
     <section class="section">
-      <div class="container text-center">
-                <img class="img-fluid" src="/public_file/assets/img/drawkit/drawkit-full-stack-man-colour.svg" alt="image" width="300">
-                <h2 style="font-size: 60px">300</h2>
+      <div class="container text-center mt-3">
+                <img class="img-fluid" src="/private_file/assets/img/error/{{$data->thumbnail}}" alt="image" width="300">
+                <h2 class="title-error">{{$data->title}}</h2>
                     <p class="lead">
-                      We were unable to reach the server, it seemed like it was sleeping, so we were reluctant to wake it up.
+                      {{$data->description}}
                     </p>
                     @if (auth())
                         <a href="#" class="btn btn-info mt-4"><i class="fas fa-home"></i> Back to Dashboard</a>

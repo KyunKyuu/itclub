@@ -15,7 +15,12 @@ class TableErrorException extends Migration
     {
         Schema::create('exception_error', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->char('error_code');
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->string('thumbnail');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 

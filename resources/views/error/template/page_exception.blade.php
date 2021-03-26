@@ -14,6 +14,22 @@
   <link rel="stylesheet" href="/public_file/assets/css/components.css">
 </head>
 
+<style>
+    .title-error{
+        font-size: 60px;
+    }
+    @media (min-width: 752px) and (max-width: 990.98px) {
+        .title-error{
+            font-size: 45px;
+        }
+    }
+    @media (max-width: 751.98px) {
+        .title-error{
+            font-size: 35px;
+        }
+    }
+</style>
+
 <body>
 
     @yield('main')

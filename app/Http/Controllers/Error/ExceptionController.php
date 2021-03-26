@@ -4,32 +4,14 @@ namespace App\Http\Controllers\Error;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ExceptionController extends Controller
 {
     //
-    public function page_200()
+    public function page()
     {
-        return view('error.exception.page200');
-    }
-
-    public function page_300()
-    {
-        return view('error.exception.page300');
-    }
-
-    public function page_403()
-    {
-        return view('error.exception.page403');
-    }
-
-    public function page_404()
-    {
-        return view('error.exception.page404');
-    }
-
-    public function page_500()
-    {
-        return view('error.exception.page500');
+        $data = DB::table('exception_error')->where('error_code', request()->segment(3))->get()[0];
+        return view('error.exception.page', ['data' => $data]);
     }
 }
