@@ -18,9 +18,13 @@ class AccessUser
     {
         if (uriSegment() === 200) {
             return $next($request);
+        } else if (uriSegment() === 300) {
+            return redirect('error/exception/300');
         } else if (uriSegment() === 403) {
             return redirect('error/exception/403');
-        } else if (uriSegment() === 404) {
+        } else if (uriSegment() === 502) {
+            return redirect('error/exception/502');
+        } else {
             return redirect('error/exception/404');
         }
 
