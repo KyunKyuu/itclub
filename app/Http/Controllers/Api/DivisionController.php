@@ -5,17 +5,42 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\{Division,ImageDivision};
 use App\Http\Requests\DivisionRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Yajra\DataTables\Facades\DataTables;
 
 class DivisionController extends Controller
 {
     public function index()
     {
-       $divisions = Division::with('created_by','images')->latest()->get();
-        return response()->json([
-            'status' => 'success',
-            'data' => $divisions
-        ]);
+       if (!empty($_GET['id'])) {
+            $data = Division::find($_GET['id']);
+            return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data]);
+        }
+
+        $division = Division::all();
+
+        return DataTables::of($division)
+            ->addIndexColumn()
+            ->addColumn('check', function ($division) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($division) {
+                return '
+            <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $division->id . '" id="edit"><i class="fas fa-edit"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $division->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+           ->addColumn('imageDivision', function ($division) {   
+                return '<img src="'.$division->image().'" width="50">';
+            })
+            
+            ->rawColumns(['check', 'btn','imageDivision'])
+            ->make(true);
+
     }
 
     public function show($id)
@@ -52,12 +77,12 @@ class DivisionController extends Controller
             'content' => $request->content,
             'image' =>  $request->file('image')->store('images/division'),
             'slug' => $slug,
-            // 'created_by' => auth()->user()->id
+            'created_by' => auth()->user()->id
         ]);
 
         return response()->json([
             'status' => 'success',
-            'data' => $division
+            'message' => 'data created successfuly'
         ]);
     }
 
@@ -80,10 +105,11 @@ class DivisionController extends Controller
         ]);
     }
 
-    public function update(DivisionRequest $request, $id)
+    public function update(DivisionRequest $request)
     {
-        $division = Division::find($id);
 
+
+        $division = Division::where('id',$request->id)->first();
         if(!$division)
         {
             return response()->json([
@@ -108,19 +134,20 @@ class DivisionController extends Controller
             'content' => $request->content,
             'image' =>  $image,
             'slug' => $slug,
-             // 'created_by' => auth()->user()->id
+             'created_by' => auth()->user()->id
         ]);
        
        return response()->json([
             'status' => 'success',
-            'data' => $division
+            'message' => 'data update successfuly'
        ],200);
 
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $division = Division::find($id);
+
+        $division = Division::find($request->id);
 
         if(!$division)
         {
@@ -130,15 +157,14 @@ class DivisionController extends Controller
             ],404);
         }
 
-        \Storage::delete($division->image);
+        // \Storage::delete($division->image);
 
         $division->images()->delete();
-        $division->members()->delete();
         $division->delete();
 
         return response()->json([
             'status' => 'success',
             'message' => 'division deleted successfuly'
-        ],200);
+        ]);
     }
 }

@@ -24,10 +24,13 @@ class MemberRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'class' => 'required|string',
-            'division_id' => 'required|integer',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg',
+            'name' => 'required',
+            'class' => 'required',
+            'division_id' => 'required',
+            'user_id' => 'required',
+            'majors' => 'required',
+            'position' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
         ];
     }
 }

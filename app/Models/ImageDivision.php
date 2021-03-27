@@ -23,4 +23,8 @@ class ImageDivision extends Model
         return $this->belongsTo(Division::class)->withTrashed();
     }
 
+    public function image()
+    {
+        return !$this->image ? asset('no-image.jpg') : asset("storage/" . $this->image);
+    }
 }

@@ -5,18 +5,42 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\{Division, ImageDivision};
 use App\Http\Requests\ImageDivisionRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\Facades\DataTables;
 
 class ImageDivisionController extends Controller
 {
     public function index()
     {
-        $imageDivision = ImageDivision::orderBy('division_id', 'DESC')->get();
+        if (!empty($_GET['id'])) {
+            $data = ImageDivision::find($_GET['id']);
+            return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data]);
+        }
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $imageDivision
-        ]);
+        $imageDivision = ImageDivision::all();
+
+        return DataTables::of($imageDivision)
+            ->addIndexColumn()
+            ->addColumn('check', function ($imageDivision) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($imageDivision) {
+                return '
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $imageDivision->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+            ->editColumn('division', function ($imageDivision) {   
+                return $imageDivision->division->name;
+            })
+            ->addColumn('imageLearning', function ($imageDivision) {   
+                return '<img src="'.$imageDivision->image().'" width="50">';
+            })
+            ->rawColumns(['check', 'btn','division','imageLearning'])
+            ->make(true);
     }
 
     public function create()
@@ -39,8 +63,8 @@ class ImageDivisionController extends Controller
 
         $imageDivision = ImageDivision::create([
             'division_id' => $request->division_id,
-            'image' => request()->file('image')->store('images/DivisionLearning'),
-             // 'created_by' => auth()->user()->id
+            'image' => request()->file('image')->store('images/ImageDivision'),
+             'created_by' => auth()->user()->id
         ]);
 
         return response()->json([
@@ -50,9 +74,9 @@ class ImageDivisionController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $imageDivision = ImageDivision::find($id);
+        $imageDivision = ImageDivision::find($request->id);
 
         if (!$imageDivision) {
             return response()->json([
@@ -61,7 +85,7 @@ class ImageDivisionController extends Controller
             ], 404);
         }
 
-        Storage::delete($imageDivision->image);
+        // Storage::delete($imageDivision->image);
 
         $imageDivision->delete();
 
