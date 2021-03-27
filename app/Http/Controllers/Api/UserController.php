@@ -59,6 +59,7 @@ class UserController extends Controller
 
     public function insert_user(Request $request)
     {
+        activity('insert new user');
         $request->request->add(['password' => bcrypt($request->passwd), 'created_by' => auth()->user()->id]);
         $user = User::create($request->all());
         access_create($request->role_id, $user->id);

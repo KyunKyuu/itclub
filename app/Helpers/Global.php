@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Activity;
 use App\Models\Menu;
 use App\Models\MenuAccess;
 use App\Models\Section;
@@ -7,6 +8,7 @@ use App\Models\SectionAccess;
 use App\Models\Submenu;
 use App\Models\SubmenuAccess;
 use App\Models\Suspended;
+use DeviceDetector\Parser\Client\Browser;
 use Illuminate\Support\Facades\DB;
 
 function Section()
@@ -158,6 +160,19 @@ function Suspended($id)
 // !NOTE FORBIDDEN ACCESS HERE
 
 
+function activity($desc)
+{
+    $data = url()->full();
+    $link  = preg_split('/(:|-|0|com|\*|=)/', $data);
+    $url = end($link);
+    $activity = [
+        'user_id' => auth()->user()->id,
+        'url_access' => $url,
+        'description' => $desc,
+        'browser' => Browser::detect()
+    ];
+    Activity::create($activity);
+}
 
 function uriSegment()
 {

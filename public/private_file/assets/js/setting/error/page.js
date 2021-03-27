@@ -11,6 +11,11 @@ $(document).ready(function() {
         e.preventDefault();
         $('#insertPage').modal('show');
         $('#insertPage form').attr('id', 'insert');
+        $('#insertPage img').attr('src', ` `)
+        $('#insertPage textarea[name="title"]').val( ' ')
+        $('#insertPage textarea[name="description"]').val( ' ')
+        $('#insertPage input[name="error_code"]').val( ' ')
+        $('#insertPage input[name="error_code"]').attr('data-id', ' ')
     })
 
     $('#dataPage').on('click', '#Preview', function() {
