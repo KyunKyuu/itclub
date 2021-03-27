@@ -150,7 +150,7 @@
                       </div>
                       <div class="form-group col-md-6 col-12">
                           <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt="" class="img-fluid" style="max-width: 150px"><br>
-                          <a id="hapusGambarProfile" href="#">Hapus Gambar</a>
+                          <a id="" href="#">Hapus Gambar</a>
                     </div>
                 </div>
                     
@@ -267,7 +267,7 @@
                       </div>
                       <div class="form-group col-md-6 col-12">
                           <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt="" class="img-fluid" style="max-width: 150px"><br>
-                          <a id="hapusGambarProfile" href="#">Hapus Gambar</a>
+                          <a id="" href="#">Hapus Gambar</a>
                     </div>
                 </div>
                     

@@ -56,7 +56,7 @@ $(document).ready(function() {
     $('#update').on('submit', function(e) {
         e.preventDefault();
         let value = new FormData(this)
-        value.append('id', $('#updateAlumni input[name="name"]').data('id'));
+        value.append('id', $('#updateAlumni input[name="place"]').data('id'));
         $.ajax({
             url:'/api/v1/alumni/update',
             data:value,
@@ -83,16 +83,12 @@ $(document).ready(function() {
                 id:id
             },
             success:res=>{
-                $('#updateMember').modal('show');
-                $('#updateMember select[name="user_id"] option[value="'+res.data.user_id+'"]').attr('selected', true);
-                $('#updateMember select[name="division_id"] option[value="'+res.data.division_id+'"]').attr('selected', true);
-                $('#updateMember input[name="name"]').val(res.data.name);
-                $('#updateMember input[name="position"]').val(res.data.position);
-                $('#updateMember select[name="class"] option[value="'+res.data.class+'"]').attr('selected', true);
-                $('#updateMember select[name="majors"] option[value="'+res.data.majors+'"]').attr('selected', true);
-                $('#updateMember input[name="entry_year"]').val(res.data.entry_year);
-                $('#updateMember input[name="image"]').val(res.data.image);
-                $('#updateMember input[name="name"]').data('id',res.data.id);
+                $('#updateAlumni').modal('show');
+                $('#updateAlumni select[name="member_id"] option[value="'+res.data.member_id+'"]').attr('selected', true);
+                $('#updateAlumni input[name="work"]').val(res.data.work);
+                $('#updateAlumni input[name="study"]').val(res.data.study);
+                $('#updateAlumni input[name="place"]').val(res.data.place);
+                $('#updateAlumni input[name="place"]').data('id',res.data.id);
             },
             error:err=>console.log(err)
         })

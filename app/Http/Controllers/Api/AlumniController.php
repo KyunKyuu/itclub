@@ -120,9 +120,9 @@ class AlumniController extends Controller
         ]);
     }
 
-    public function update(AlumniRequest $request,$id)
+    public function update(AlumniRequest $request)
     {
-        $alumni = Alumni::find($id);
+        $alumni = Alumni::find($request->id);
         if(!$alumni)
         {
             return response()->json([
@@ -143,22 +143,14 @@ class AlumniController extends Controller
         $alumni->update([
             'member_id' => $request->member_id,
             'place' => $request->place,
-             // 'created_by' => auth()->user()->id
+            'work' => $request->work,
+            'study' => $request->study,
+            'created_by' => auth()->user()->id
         ]);
-
-        if($request->study)
-        {
-            $alumni['study'] = $request->study;
-            $alumni['work'] = null;
-        }elseif($request->work){
-            $alumni['study'] = null;
-            $alumni['work'] = $request->work;
-        }
-        $alumni->save();
 
         return response()->json([
             'status' => 'success',
-            'data' => $alumni
+            'message' => 'data update successfuly'
         ]);
 
     }
