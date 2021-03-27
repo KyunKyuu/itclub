@@ -32,4 +32,11 @@ class Division extends Model
     {
         return $this->belongsTo(User::class, 'created_by')->withTrashed();
     }
+
+    public function image()
+    {
+        return !$this->image ? asset('no-image.jpg') : asset("storage/" . $this->image);
+    }
+
+    
 }

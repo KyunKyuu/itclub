@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\ArticleController as ApiArticleController;
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
-use App\Http\Controllers\Api\MemberController;
+use App\Http\Controllers\Api\MemberController as ApiMemberController;
 use App\Http\Controllers\Api\MenuAccessControlller as ApiMenuAccessControlller;
 use App\Http\Controllers\Api\PreferencesController as ApiPreferencesController;
 use App\Http\Controllers\Api\RoleController as ApiRoleController;
@@ -16,6 +16,17 @@ use App\Http\Controllers\Setting\MenuAccessControlller;
 use App\Http\Controllers\Master\PreferencesController;
 use Illuminate\Support\Facades\Route;
 
+
+use App\Http\Controllers\Api\DivisionController as ApiDivisionController;
+use App\Http\Controllers\Api\ImageDivisionController as ApiImageDivisionController;
+use App\Http\Controllers\Api\GalleryController as ApiGalleryController;
+use App\Http\Controllers\Api\ImageGalleryController as ApiImageGalleryController;
+use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
+use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
+
+use App\Http\Controllers\Master\{
+   DivisionController,ImageDivisionController,GalleryController,ImageGalleryController,PrestationController,MemberController,AlumniController
+};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +51,13 @@ Route::group(['prefix' => '/master', 'middleware' => 'auth'], function () {
     Route::get('/preferences/submenu', [PreferencesController::class, 'submenu']);
     Route::get('/user', [UserController::class, 'user']);
     Route::get('/role', [RoleController::class, 'role']);
+    Route::get('/divisions/division', [DivisionController::class, 'division']);
+    Route::get('/divisions/imagedivision', [ImageDivisionController::class, 'image_division']);
+    Route::get('/galleries/gallery', [GalleryController::class, 'gallery']);
+    Route::get('/galleries/imagegallery', [ImageGalleryController::class, 'image_gallery']); 
+    Route::get('/members/member', [MemberController::class, 'member']);
+    Route::get('/members/alumni', [AlumniController::class, 'alumni']); 
+    Route::get('/prestation', [PrestationController::class, 'prestation']); 
 });
 
 Route::group(['prefix' => '/setting', 'middleware' => 'auth'], function () {
@@ -133,10 +151,15 @@ Route::prefix('/api/v1')->group(function () {
     });
 
     Route::group(['prefix' => '/member', 'middleware' => ['auth']], function () {
-        Route::get('/get/profile', [MemberController::class, 'get_profile']);
-        Route::post('/insert/profile', [MemberController::class, 'insert_profile']);
-        Route::get('/delete/image/profile', [MemberController::class, 'delete_image_profile']);
-        Route::post('/setting/changepassword', [MemberController::class, 'setting_changepassword']);
+        Route::get('get',[ApiMemberController::class, 'index']);
+        Route::post('insert',[ApiMemberController::class, 'store']);
+        Route::post('update', [ApiMemberController::class, 'update']);
+        Route::delete('delete',[ApiMemberController::class, 'destroy']);
+
+        Route::get('/get/profile', [ApiMemberController::class, 'get_profile']);
+        Route::post('/insert/profile', [ApiMemberController::class, 'insert_profile']);
+        Route::get('/delete/image/profile', [ApiMemberController::class, 'delete_image_profile']);
+        Route::post('/setting/changepassword', [ApiMemberController::class, 'setting_changepassword']);
     });
 
     Route::group(['prefix' => '/features', 'middleware' => ['auth']], function () {
@@ -150,4 +173,46 @@ Route::prefix('/api/v1')->group(function () {
         Route::delete('/article/delete', [ApiArticleController::class, 'delete_article']);
         Route::post('/article/suspended', [ApiArticleController::class, 'suspended_article']);
     });
+
+    Route::prefix('division')->group(function() {
+        Route::get('get',[ApiDivisionController::class, 'index']);
+        Route::post('insert',[ApiDivisionController::class, 'store']);
+        Route::post('update', [ApiDivisionController::class, 'update']);
+        Route::delete('delete',[ApiDivisionController::class, 'destroy']);
+     });
+
+      Route::prefix('imageDivision')->group(function() {
+        Route::get('get',[ApiImageDivisionController::class, 'index']);
+        Route::post('insert',[ApiImageDivisionController::class, 'store']);
+        Route::post('update', [ApiImageDivisionController::class, 'update']);
+        Route::delete('delete',[ApiImageDivisionController::class, 'destroy']);
+     });
+
+     Route::prefix('gallery')->group(function() {
+        Route::get('get',[ApiGalleryController::class, 'index']);
+        Route::post('insert',[ApiGalleryController::class, 'store']);
+        Route::post('update', [ApiGalleryController::class, 'update']);
+        Route::delete('delete',[ApiGalleryController::class, 'destroy']);
+     });  
+
+     Route::prefix('imageGallery')->group(function() {
+        Route::get('get',[ApiImageGalleryController::class, 'index']);
+        Route::post('insert',[ApiImageGalleryController::class, 'store']);
+        Route::post('update', [ApiImageGalleryController::class, 'update']);
+        Route::delete('delete',[ApiImageGalleryController::class, 'destroy']);
+     }); 
+
+     Route::prefix('prestation')->group(function() {
+        Route::get('get',[ApiPrestationController::class, 'index']);
+        Route::post('insert',[ApiPrestationController::class, 'store']);
+        Route::post('update', [ApiPrestationController::class, 'update']);
+        Route::delete('delete',[ApiPrestationController::class, 'destroy']);
+     }); 
+
+    Route::prefix('alumni')->group(function() {
+        Route::get('get',[ApiAlumniController::class, 'index']);
+        Route::post('insert',[ApiAlumniController::class, 'store']);
+        Route::post('update', [ApiAlumniController::class, 'update']);
+        Route::delete('delete',[ApiAlumniController::class, 'destroy']);
+     }); 
 });

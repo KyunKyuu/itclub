@@ -6,19 +6,44 @@ use App\Models\{Member, Division, User, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use Yajra\DataTables\Facades\DataTables;
 class MemberController extends Controller
 {
 
-
     public function index()
     {
-        $members = Member::with('division', 'alumni', 'created_by')->latest()->get();
+         if (!empty($_GET['id'])) {
+            $data = Member::find($_GET['id']);
+            return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data]);
+        }
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $members
-        ]);
+        $member = Member::all();
+
+        return DataTables::of($member)
+            ->addIndexColumn()
+            ->addColumn('check', function ($member) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($member) {
+                return '
+            <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $member->id . '" id="edit"><i class="fas fa-edit"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $member->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+           ->addColumn('imageMember', function ($member) {   
+                return '<img src="'.$member->image().'" width="50">';
+            })
+            ->editColumn('class_majors', function ($member) {
+                return $member->class.' '.$member->majors;
+            })
+            ->editColumn('division_id', function ($member) {
+                return $member->division->name;
+            })
+            ->rawColumns(['check', 'btn', 'imageMember'])
+            ->make(true);
     }
 
     public function show($id)
@@ -49,6 +74,22 @@ class MemberController extends Controller
     public function store(MemberRequest $request)
     {
 
+        $user = User::where('id', $request->user_id)->exists();
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
+
+         $memberId = Member::where('user_id', $request->user_id)->exists();
+        if ($memberId) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Member Already exists'
+            ]);
+        }
+
         $division = Division::where('id', $request->division_id)->exists();
         if (!$division) {
             return response()->json([
@@ -63,12 +104,16 @@ class MemberController extends Controller
             'division_id' => $request->division_id,
             'image' => $request->image ? request()->file('image')->store('images/member') : null,
             'position' => $request->position,
-            // 'created_by' => auth()->user()->id
+            'majors' => $request->majors,
+            'status' => 1,
+            'user_id' => $request->user_id,
+            'entry_year' => $request->entry_year,
+            'created_by' => auth()->user()->id
         ]);
 
         return response()->json([
             'status' => 'success',
-            'data' => $member
+            'message' => 'data added successfuly'
         ], 200);
     }
 
@@ -90,15 +135,23 @@ class MemberController extends Controller
         ]);
     }
 
-    public function update(MemberRequest $request, $id)
+    public function update(MemberRequest $request)
     {
-        $member = Member::find($id);
+        $member = Member::find($request->id);
 
         if (!$member) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'member not found'
             ], 404);
+        }
+
+         $memberId = Member::where('user_id', $request->user_id)->exists();
+        if ($memberId) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Member Already exists'
+            ]);
         }
 
         $division = Division::where('id', $request->division_id)->exists();
@@ -124,7 +177,11 @@ class MemberController extends Controller
             'division_id' => $request->division_id,
             'image' => $image,
             'position' => $request->position,
-            // 'created_by' => auth()->user()->id
+            'majors' => $request->majors,
+            'status' => 1,
+            'user_id' => $request->user_id,
+            'entry_year' => $request->entry_year,
+            'created_by' => auth()->user()->id
         ]);
 
         return response()->json([
@@ -133,9 +190,10 @@ class MemberController extends Controller
         ], 200);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $member = Member::find($id);
+
+        $member = Member::find($request->id);
 
         if (!$member) {
             return response()->json([
@@ -144,9 +202,9 @@ class MemberController extends Controller
             ], 404);
         }
 
-        \Storage::delete($member->image);
+        // \Storage::delete($member->image);
 
-        $member->alumni()->delete();
+        // $member->alumni()->delete();
         $member->delete();
 
         return response()->json([

@@ -25,7 +25,7 @@ class ImageGalleryRequest extends FormRequest
     {
         return [
             'gallery_id' => 'required|integer',
-            'image' => 'required|image|mimes:jpeg,png,jpg',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2000',
         ];
     }
 }
