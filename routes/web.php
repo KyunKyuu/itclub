@@ -3,7 +3,6 @@
 use App\Http\Controllers\Api\ArticleController as ApiArticleController;
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
 use App\Http\Controllers\Api\ErrorController as ApiErrorController;
-use App\Http\Controllers\Api\MemberController;
 use App\Http\Controllers\Api\MenuAccessControlller as ApiMenuAccessControlller;
 use App\Http\Controllers\Api\PreferencesController as ApiPreferencesController;
 use App\Http\Controllers\Api\RoleController as ApiRoleController;
