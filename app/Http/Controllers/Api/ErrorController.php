@@ -52,6 +52,7 @@ class ErrorController extends Controller
 
     public function update_page(Request $request)
     {
+
         if ($request->title == null || $request->error_code == null || $request->description == null) {
             return response()->json(['message' => 'Caution, Lengkapi form kosong terlebih dahulu!', 'status' => 'error'], 404);
         }
@@ -68,5 +69,12 @@ class ErrorController extends Controller
         $data = DB::table('exception_error')->where('id', $request->id);
         $data->update($request->except('image'));
         return response()->json(['message' => 'Congrats, Page berhasil diperbaharui', 'status' => 'success'], 200);
+    }
+
+    public function delete_page(Request $request)
+    {
+        $data = DB::table('exception_error')->where('id', $request->id);
+        $data->delete();
+        return response()->json(['message' => 'Congrats, Page berhasil dihapus', 'status' => 'success'], 200);
     }
 }

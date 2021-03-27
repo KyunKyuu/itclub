@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    let idUpdate = ''
     const data = [
         {data:'error_code', name:'error_code'},
         {data:'title', name:'title'},
@@ -57,7 +58,7 @@ $(document).ready(function() {
                 }
             })
         }else{
-            data.append('id', $('#insertPage input[name="error_code"]').data('id'))
+            data.append('id', idUpdate)
             $.ajax({
                 url:'/api/v1/setting/error/update/page',
                 data:data,
@@ -68,6 +69,7 @@ $(document).ready(function() {
                 contentType:false,
                 type:'POST',
                 success:res=>{
+                    idUpdate = ' '
                     RefreshTable('dataPage');
                     SweetAlert(res)
                 },
@@ -79,6 +81,7 @@ $(document).ready(function() {
     })
 
     $('#dataPage').on('click', '#Edit', function() {
+        idUpdate = $(this).data('value');
         $.ajax({
             url:'/api/v1/setting/error/get/page/'+$(this).data('value'),
             success:res=>{
@@ -91,6 +94,26 @@ $(document).ready(function() {
                 $('#insertPage input[name="error_code"]').attr('data-id',res.data.id)
             },
             error:err=>{
+                SweetAlert({message:err.responseJSON.message, status:err.status == 404 ? 'warning' : 'error'})
+            }
+        })
+    })
+
+    $('#dataPage').on('click', '#Delete', function() {
+        let id = $(this).data('value');
+        $.ajax({
+            url:'/api/v1/setting/error/delete/page',
+            data:{
+                id:id
+            },
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            type:'DELETE',
+            success:res=>{
+                RefreshTable('dataPage');
+                SweetAlert(res)
+            },error:err=>{
                 SweetAlert({message:err.responseJSON.message, status:err.status == 404 ? 'warning' : 'error'})
             }
         })
