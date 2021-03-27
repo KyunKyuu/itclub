@@ -169,7 +169,7 @@ function activity($desc)
         'user_id' => auth()->user()->id,
         'url_access' => $url,
         'description' => $desc,
-        'browser' => Browser::detect()
+        'browser' => BrowserDetect()
     ];
     Activity::create($activity);
 }
@@ -236,4 +236,26 @@ function uriSegment()
             return 404;
         }
     }
+}
+
+function BrowserDetect()
+{
+    if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE)
+        $data = 'Internet explorer';
+    elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== FALSE) //For Supporting IE 11
+        $data = 'Internet explorer';
+    elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox') !== FALSE)
+        $data = 'Mozilla Firefox';
+    elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== FALSE)
+        $data = 'Google Chrome';
+    elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== FALSE)
+        $data = "Opera Mini";
+    elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Opera') !== FALSE)
+        $data = "Opera";
+    elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== FALSE)
+        $data = "Safari";
+    else
+        $data = 'Unknown';
+
+    return $data;
 }

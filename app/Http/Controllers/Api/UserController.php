@@ -59,9 +59,9 @@ class UserController extends Controller
 
     public function insert_user(Request $request)
     {
-        activity('insert new user');
         $request->request->add(['password' => bcrypt($request->passwd), 'created_by' => auth()->user()->id]);
         $user = User::create($request->all());
+        activity('Create new user ' . $user->name);
         access_create($request->role_id, $user->id);
         return response()->json(['message' => 'Data berhasil ditambahkan', 'status' => 'success']);
     }
@@ -75,10 +75,12 @@ class UserController extends Controller
         if (empty($request->passwd)) {
             $user = User::find($request->user_id);
             $user->update($request->all());
+            activity('Update user ' . $user->name);
             return response()->json(['message' => 'Data berhasil diperbaharui', 'status' => 'success']);
         } else {
             $user = User::find($request->user_id);
             $request->request->add(['password' => bcrypt($request->passwd)]);
+            activity('Update user ' . $user->name);
             $user->update($request->all());
             return response()->json(['message' => 'Data berhasil diperbaharui', 'status' => 'success']);
         }
@@ -87,6 +89,7 @@ class UserController extends Controller
     public function delete_user(Request $request)
     {
         $user = User::find($request->user_id);
+        activity('Delete user ' . $user->name);
         $user->delete();
         return response()->json(['message' => 'Data berhasil dihapus', 'status' => 'success']);
     }
