@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Activity;
 use App\Models\Menu;
 use App\Models\MenuAccess;
 use App\Models\Section;
@@ -7,6 +8,7 @@ use App\Models\SectionAccess;
 use App\Models\Submenu;
 use App\Models\SubmenuAccess;
 use App\Models\Suspended;
+use DeviceDetector\Parser\Client\Browser;
 use Illuminate\Support\Facades\DB;
 
 function Section()
@@ -151,4 +153,109 @@ function Suspended($id)
 {
     $suspend = Suspended::where('blog_id', $id)->get()[0];
     return $suspend;
+}
+
+
+
+// !NOTE FORBIDDEN ACCESS HERE
+
+
+function activity($desc)
+{
+    $data = url()->full();
+    $link  = preg_split('/(:|-|0|com|\*|=)/', $data);
+    $url = end($link);
+    $activity = [
+        'user_id' => auth()->user()->id,
+        'url_access' => $url,
+        'description' => $desc,
+        'browser' => BrowserDetect()
+    ];
+    Activity::create($activity);
+}
+
+function uriSegment()
+{
+    $data = url()->full();
+    $link  = preg_split('/(:|-|0|com|\*|=)/', $data);
+    $url = end($link);
+    $uri = explode('/', $url);
+
+    if (count($uri) <= 3) {
+        $menu = Menu::where('url', $url)->get()[0];
+        if ($menu->status == 1) {
+            $aksesMenu = MenuAccess::where('menu_id', $menu->id)->where('user_id', auth()->user()->id)->get();
+            if ($aksesMenu->count() > 0) {
+                $section = Section::where('id', $menu->section_id)->get()[0];
+                if ($section->status == 1) {
+                    $aksesSection = SectionAccess::where('section_id', $section->id)->where('user_id', auth()->user()->id)->get();
+                    if ($aksesSection->count() > 0) {
+                        return 200;
+                    } else {
+                        return 403;
+                    }
+                } else {
+                    return 404;
+                }
+            } else {
+                return 403;
+            }
+        } else {
+            return 404;
+        }
+    } else {
+        $submenu = Submenu::where('url', $url)->get()[0];
+        if ($submenu->status == 1) {
+            $aksesSubmenu = SubmenuAccess::where('submenu_id', $submenu->id)->where('user_id', auth()->user()->id)->get();
+            if ($aksesSubmenu->count() > 0) {
+                $menu = Menu::where('id', $submenu->menu_id)->get()[0];
+                if ($menu->status == 1) {
+                    $aksesMenu = MenuAccess::where('menu_id', $menu->id)->where('user_id', auth()->user()->id)->get();
+                    if ($aksesMenu->count() > 0) {
+                        $section = Section::where('id', $menu->section_id)->get()[0];
+                        if ($section->status == 1) {
+                            $aksesSection = SectionAccess::where('section_id', $section->id)->where('user_id', auth()->user()->id)->get();
+                            if ($aksesSection->count() > 0) {
+                                return 200;
+                            } else {
+                                return 403;
+                            }
+                        } else {
+                            return 404;
+                        }
+                    } else {
+                        return 403;
+                    }
+                } else {
+                    return 404;
+                }
+            } else {
+                return 403;
+            }
+        } else {
+            return 404;
+        }
+    }
+}
+
+function BrowserDetect()
+{
+    if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE)
+        $data = 'Internet explorer';
+    elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== FALSE) //For Supporting IE 11
+        $data = 'Internet explorer';
+    elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox') !== FALSE)
+        $data = 'Mozilla Firefox';
+    elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== FALSE)
+        $data = 'Google Chrome';
+    elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== FALSE)
+        $data = "Opera Mini";
+    elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Opera') !== FALSE)
+        $data = "Opera";
+    elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== FALSE)
+        $data = "Safari";
+    else
+        $data = 'Unknown';
+
+    return $data;
 }

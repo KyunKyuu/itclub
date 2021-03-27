@@ -37,7 +37,15 @@
                         @if ($data['blog']->status == 400)
                         <input type="text" class="form-control" disabled value="Blocked">
                         @elseif ($data['blog']->status == 300)
-                            <input type="text" class="form-control" disabled value="Suspended until {{Suspended($data['blog']->id)->suspended}}">
+                            @if (Suspended($data['blog']->id)->suspended == date('Y-m-d'))
+                            <select class="form-control selectric text-capitalize" name="status" {{$data['blog']->status == 500 ? 'disabled' : ''}}>
+                                @foreach ($data['status'] as $status)
+                                <option value="{{$status['id']}}" {{$data['blog']->status == $status['id'] ? 'selected' : ' '}} class="text-capitalize">{{$status['value']}}</option>
+                                @endforeach
+                            </select>
+                            @else
+                                <input type="text" class="form-control" disabled value="Suspended until {{Suspended($data['blog']->id)->suspended}}">
+                            @endif
                         @else
                         <select class="form-control selectric text-capitalize" name="status" {{$data['blog']->status == 500 ? 'disabled' : ''}}>
                             @foreach ($data['status'] as $status)
@@ -53,7 +61,11 @@
                         @if ($data['blog']->status == 400)
                         <button type="disabled" class="btn btn-secondary" disabled>Blocked</button>
                         @elseif ($data['blog']->status == 300)
-                            <button type="disabled" class="btn btn-secondary" disabled value="">Suspended until {{Suspended($data['blog']->id)->suspended}}</button>
+                            @if (Suspended($data['blog']->id)->suspended == date('Y-m-d'))
+                                <button class="btn btn-primary" type="submit">Save Post</button>
+                            @else
+                                <button type="disabled" class="btn btn-secondary" disabled value="">Suspended until {{Suspended($data['blog']->id)->suspended}}</button>
+                            @endif
                         @else
                          <button class="btn btn-primary" type="submit">Save Post</button>
                         @endif

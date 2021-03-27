@@ -2,18 +2,20 @@
 
 use App\Http\Controllers\Api\ArticleController as ApiArticleController;
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
-use App\Http\Controllers\Api\MemberController as ApiMemberController;
+use App\Http\Controllers\Api\ErrorController as ApiErrorController;
 use App\Http\Controllers\Api\MenuAccessControlller as ApiMenuAccessControlller;
 use App\Http\Controllers\Api\PreferencesController as ApiPreferencesController;
 use App\Http\Controllers\Api\RoleController as ApiRoleController;
 use App\Http\Controllers\Api\UserController as ApiUserController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Error\ExceptionController;
 use App\Http\Controllers\Features\ArticleController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Master\RoleController;
 use App\Http\Controllers\Master\UserController;
 use App\Http\Controllers\Setting\MenuAccessControlller;
 use App\Http\Controllers\Master\PreferencesController;
+use App\Http\Controllers\Setting\ErrorController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,7 +28,17 @@ use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
 use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 
 use App\Http\Controllers\Master\{
+<<<<<<< HEAD
    DivisionController,ImageDivisionController,GalleryController,ImageGalleryController,PrestationController,MemberController,AlumniController,CategoryController
+=======
+    DivisionController,
+    ImageDivisionController,
+    GalleryController,
+    ImageGalleryController,
+    PrestationController,
+    MemberController,
+    AlumniController
+>>>>>>> upstream/master
 };
 /*
 |--------------------------------------------------------------------------
@@ -43,10 +55,11 @@ Route::get('/', function () {
     return redirect('/auth/login');
 });
 Route::get('/dashboard/general/index', [IndexController::class, 'index']);
+Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
 
-Route::group(['prefix' => '/master', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => '/master', 'middleware' => ['auth', 'access']], function () {
     Route::get('/preferences/section', [PreferencesController::class, 'section']);
     Route::get('/preferences/menu', [PreferencesController::class, 'menu']);
     Route::get('/preferences/submenu', [PreferencesController::class, 'submenu']);
@@ -56,15 +69,16 @@ Route::group(['prefix' => '/master', 'middleware' => 'auth'], function () {
     Route::get('/divisions/division', [DivisionController::class, 'division']);
     Route::get('/divisions/imagedivision', [ImageDivisionController::class, 'image_division']);
     Route::get('/galleries/gallery', [GalleryController::class, 'gallery']);
-    Route::get('/galleries/imagegallery', [ImageGalleryController::class, 'image_gallery']); 
+    Route::get('/galleries/imagegallery', [ImageGalleryController::class, 'image_gallery']);
     Route::get('/members/member', [MemberController::class, 'member']);
-    Route::get('/members/alumni', [AlumniController::class, 'alumni']); 
-    Route::get('/prestation', [PrestationController::class, 'prestation']); 
+    Route::get('/members/alumni', [AlumniController::class, 'alumni']);
+    Route::get('/prestation', [PrestationController::class, 'prestation']);
 });
 
-Route::group(['prefix' => '/setting', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => '/setting', 'middleware' => ['auth', 'access']], function () {
     Route::get('/menu/user', [MenuAccessControlller::class, 'user']);
     Route::get('/menu/role', [MenuAccessControlller::class, 'role']);
+    Route::get('/error/page', [ErrorController::class, 'page']);
 });
 
 Route::group(['prefix' => '/member', 'middleware' => 'auth'], function () {
@@ -78,6 +92,10 @@ Route::group(['prefix' => '/member', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
     Route::get('/article/list_article', [ArticleController::class, 'list_article']);
     Route::get('/article/view/{id}/{resource}', [ArticleController::class, 'article']);
+});
+
+Route::group(['prefix' => '/error'], function () {
+    Route::get('/exception/{id}', [ExceptionController::class, 'page']);
 });
 
 // !NOTE API Request & Response
@@ -153,10 +171,10 @@ Route::prefix('/api/v1')->group(function () {
     });
 
     Route::group(['prefix' => '/member', 'middleware' => ['auth']], function () {
-        Route::get('get',[ApiMemberController::class, 'index']);
-        Route::post('insert',[ApiMemberController::class, 'store']);
+        Route::get('get', [ApiMemberController::class, 'index']);
+        Route::post('insert', [ApiMemberController::class, 'store']);
         Route::post('update', [ApiMemberController::class, 'update']);
-        Route::delete('delete',[ApiMemberController::class, 'destroy']);
+        Route::delete('delete', [ApiMemberController::class, 'destroy']);
 
         Route::get('/get/profile', [ApiMemberController::class, 'get_profile']);
         Route::post('/insert/profile', [ApiMemberController::class, 'insert_profile']);
@@ -175,6 +193,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::delete('/article/delete', [ApiArticleController::class, 'delete_article']);
         Route::post('/article/suspended', [ApiArticleController::class, 'suspended_article']);
     });
+
 
     Route::prefix('division')->group(function() {
         Route::get('get',[ApiDivisionController::class, 'index']);
@@ -224,4 +243,13 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('update', [ApiCategoryController::class, 'update']);
         Route::delete('delete',[ApiCategoryController::class, 'destroy']);
      }); 
+
+    Route::group(['prefix' => '/setting', 'middleware' => ['auth']], function () {
+        Route::get('/error/get/page', [ApiErrorController::class, 'page']);
+        Route::get('/error/get/page/{id}', [ApiErrorController::class, 'get_page']);
+        Route::post('/error/insert/page', [ApiErrorController::class, 'insert_page']);
+        Route::post('/error/update/page', [ApiErrorController::class, 'update_page']);
+        Route::delete('/error/delete/page', [ApiErrorController::class, 'delete_page']);
+    });
+
 });

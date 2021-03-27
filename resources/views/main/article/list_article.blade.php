@@ -26,9 +26,9 @@
                 <a data-value="500" class="nav-link" href="#">Error <span class="badge badge-danger" id="errorCount">-</span></a>
             </li>
             @if (auth()->user()->role_id == 1)
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a data-value="trash" class="nav-link" href="#">Trash <span class="badge badge-danger" id="trashedCount">-</span></a>
-                </li>
+                </li> --}}
             @endif
             <li class="nav-item ml-auto">
                 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#insertArticle"><i class="fas fa-plus"></i> Add New</a>
