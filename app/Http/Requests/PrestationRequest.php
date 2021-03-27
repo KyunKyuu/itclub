@@ -26,7 +26,7 @@ class PrestationRequest extends FormRequest
         return [
             'name' => 'required|string',
             'content' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2000',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
         ];
     }
 }

@@ -16,7 +16,7 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->id();
             $table->foreignId('division_id');
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->unique();
             $table->string('name');
             $table->string('class');
             $table->string('majors');

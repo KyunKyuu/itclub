@@ -23,9 +23,10 @@ use App\Http\Controllers\Api\GalleryController as ApiGalleryController;
 use App\Http\Controllers\Api\ImageGalleryController as ApiImageGalleryController;
 use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
+use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 
 use App\Http\Controllers\Master\{
-   DivisionController,ImageDivisionController,GalleryController,ImageGalleryController,PrestationController,MemberController,AlumniController
+   DivisionController,ImageDivisionController,GalleryController,ImageGalleryController,PrestationController,MemberController,AlumniController,CategoryController
 };
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,7 @@ Route::group(['prefix' => '/master', 'middleware' => 'auth'], function () {
     Route::get('/preferences/submenu', [PreferencesController::class, 'submenu']);
     Route::get('/user', [UserController::class, 'user']);
     Route::get('/role', [RoleController::class, 'role']);
+    Route::get('/category', [CategoryController::class, 'category']);
     Route::get('/divisions/division', [DivisionController::class, 'division']);
     Route::get('/divisions/imagedivision', [ImageDivisionController::class, 'image_division']);
     Route::get('/galleries/gallery', [GalleryController::class, 'gallery']);
@@ -214,5 +216,12 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('insert',[ApiAlumniController::class, 'store']);
         Route::post('update', [ApiAlumniController::class, 'update']);
         Route::delete('delete',[ApiAlumniController::class, 'destroy']);
+     });
+
+    Route::prefix('category')->group(function() {
+        Route::get('get',[ApiCategoryController::class, 'index']);
+        Route::post('insert',[ApiCategoryController::class, 'store']);
+        Route::post('update', [ApiCategoryController::class, 'update']);
+        Route::delete('delete',[ApiCategoryController::class, 'destroy']);
      }); 
 });
