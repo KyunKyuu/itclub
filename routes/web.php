@@ -22,9 +22,10 @@ use App\Http\Controllers\Api\ImageDivisionController as ApiImageDivisionControll
 use App\Http\Controllers\Api\GalleryController as ApiGalleryController;
 use App\Http\Controllers\Api\ImageGalleryController as ApiImageGalleryController;
 use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
+use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
 
 use App\Http\Controllers\Master\{
-   DivisionController,ImageDivisionController,GalleryController,ImageGalleryController,PrestationController,MemberController
+   DivisionController,ImageDivisionController,GalleryController,ImageGalleryController,PrestationController,MemberController,AlumniController
 };
 /*
 |--------------------------------------------------------------------------
@@ -54,8 +55,9 @@ Route::group(['prefix' => '/master', 'middleware' => 'auth'], function () {
     Route::get('/divisions/imagedivision', [ImageDivisionController::class, 'image_division']);
     Route::get('/galleries/gallery', [GalleryController::class, 'gallery']);
     Route::get('/galleries/imagegallery', [ImageGalleryController::class, 'image_gallery']); 
-    Route::get('/prestation', [PrestationController::class, 'prestation']);
-    Route::get('/member', [MemberController::class, 'member']);
+    Route::get('/members/member', [MemberController::class, 'member']);
+    Route::get('/members/alumni', [AlumniController::class, 'alumni']); 
+    Route::get('/prestation', [PrestationController::class, 'prestation']); 
 });
 
 Route::group(['prefix' => '/setting', 'middleware' => 'auth'], function () {
@@ -205,5 +207,12 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('insert',[ApiPrestationController::class, 'store']);
         Route::post('update', [ApiPrestationController::class, 'update']);
         Route::delete('delete',[ApiPrestationController::class, 'destroy']);
+     }); 
+
+    Route::prefix('alumni')->group(function() {
+        Route::get('get',[ApiAlumniController::class, 'index']);
+        Route::post('insert',[ApiAlumniController::class, 'store']);
+        Route::post('update', [ApiAlumniController::class, 'update']);
+        Route::delete('delete',[ApiAlumniController::class, 'destroy']);
      }); 
 });
