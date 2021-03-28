@@ -30,7 +30,10 @@ class AuthController extends Controller
                 User::create($data);
                 $users = User::where('name', $data['name'])->where('email', $data['email'])->get()[0];
                 access_create($data['role_id'], $users->id);
-                $this->_sendMail($request, 'activation');
+                $data = $this->_sendMail($request, 'activation');
+                if ($data) {
+                    return response()->json($data, 403);
+                }
                 $response = ['status' => 'success', 'message' => 'User berhasil ditambahkan, <a href="/auth/login">Login Sekarang</a>'];
             } else {
                 $response = ['status' => 'error', 'message' => 'User gagal ditambahkan, Username atau email telah digunakan'];
@@ -80,7 +83,10 @@ class AuthController extends Controller
         }
 
         $request->request->add(['name' => $user->get()[0]->name]);
-        $this->_sendMail($request, 'forgotpassword');
+        $data = $this->_sendMail($request, 'forgotpassword');
+        if ($data) {
+            return response()->json($data, 403);
+        }
         return response()->json(['message' => 'Request berhasil, Link telah terkirim ke email anda!', 'status' => 'success'], 200);
     }
 
@@ -100,6 +106,10 @@ class AuthController extends Controller
             'type' => $type,
             'token' => $token
         ];
+        $activate = UserActivation::where('email', $request->email)->count();
+        if ($activate > 3) {
+            return ['message' => 'Gagal memuat request, Email telah melebihi batas request', 'status' => 'error'];
+        }
         UserActivation::create($data);
         Mail::to($request->email)->send(new AuthMail($mail));
     }

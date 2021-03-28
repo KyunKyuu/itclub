@@ -92,6 +92,7 @@ Route::group(['prefix' => '/error'], function () {
 Route::group(['prefix' => '/auth'], function () {
     Route::get('/register', [AuthController::class, 'register']);
     Route::get('/forgotpassword', [AuthController::class, 'forgotpassword']);
+    Route::get('/resetpassword/{resource}', [AuthController::class, 'resetpassword']);
     Route::get('/login', [AuthController::class, 'login'])->name('login');
 });
 
