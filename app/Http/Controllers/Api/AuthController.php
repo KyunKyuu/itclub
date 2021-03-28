@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AuthMail;
 use App\Models\User;
+use App\Models\UserActivation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -21,12 +24,13 @@ class AuthController extends Controller
                     'password' => bcrypt($request->password),
                     'remember_token' => base64_encode($request->name . $request->email),
                     'token' => base64_encode($request->name . $request->email),
-                    'role_id' => 1,
+                    'role_id' => 4,
                 ];
 
                 User::create($data);
                 $users = User::where('name', $data['name'])->where('email', $data['email'])->get()[0];
                 access_create($data['role_id'], $users->id);
+                $this->_sendMail($request);
                 $response = ['status' => 'success', 'message' => 'User berhasil ditambahkan, <a href="/auth/login">Login Sekarang</a>'];
             } else {
                 $response = ['status' => 'error', 'message' => 'User gagal ditambahkan, Username atau email telah digunakan'];
@@ -66,5 +70,25 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect('/auth/login');
+    }
+
+    private function _sendMail($request)
+    {
+        $token = base64_encode($request->email . 'itclubsmkn5bandung' . rand(10, 100));
+        $data = [
+            'email' => $request->email,
+            'type' => 'activation',
+            'token' => $token
+        ];
+        $mail = [
+            'title' => 'Account Verify!',
+            'email' => $request->email,
+            'name' => $request->name,
+            'created_at' => date('d M Y, H:i'),
+            'type' => 'activation',
+            'token' => $token
+        ];
+        UserActivation::create($data);
+        Mail::to($request->email)->send(new AuthMail($mail));
     }
 }

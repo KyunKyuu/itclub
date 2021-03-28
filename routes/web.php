@@ -25,7 +25,7 @@ use App\Http\Controllers\Api\GalleryController as ApiGalleryController;
 use App\Http\Controllers\Api\ImageGalleryController as ApiImageGalleryController;
 use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
-
+use App\Http\Controllers\Auth\MailController;
 use App\Http\Controllers\Master\{
     DivisionController,
     ImageDivisionController,
@@ -90,6 +90,10 @@ Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
 
 Route::group(['prefix' => '/error'], function () {
     Route::get('/exception/{id}', [ExceptionController::class, 'page']);
+});
+
+Route::group(['prefix' => '/authentication/mail'], function () {
+    Route::get('/activation/{resource}', [MailController::class, 'activation']);
 });
 
 // !NOTE API Request & Response

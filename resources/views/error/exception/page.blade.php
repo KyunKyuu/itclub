@@ -9,10 +9,10 @@
                     <p class="lead">
                       {{$data->description}}
                     </p>
-                    @if (auth())
-                        <a href="#" class="btn btn-info mt-4"><i class="fas fa-home"></i> Back to Dashboard</a>
+                    @if (auth()->user())
+                        <a href="/dashboard/general/index" class="btn btn-info mt-4"><i class="fas fa-home"></i> Back to Dashboard</a>
                     @else
-                        <a href="#" class="btn btn-info mt-4"><i class="fas fa-home"></i> Back to Home</a>
+                        <a href="/auth/login" class="btn btn-info mt-4"><i class="fas fa-home"></i> Back to Login</a>
                     @endif
             <div class="mt-3">
                   <a href="#" class="mt-4 bb">Need Help?</a>
