@@ -35,7 +35,7 @@ class MailController extends Controller
             if ($user->status == null) {
                 if (time() - strtotime($user->created_at) < 60 * 60) {
                     $user->update(['status' => 'activated']);
-                    return redirect('/error/exception/205');
+                    return redirect('/auth/resetpassword/getdata?email=' . $_GET['email']);
                 }
                 return redirect('/error/exception/409');
             }

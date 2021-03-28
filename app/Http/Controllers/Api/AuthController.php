@@ -90,6 +90,16 @@ class AuthController extends Controller
         return response()->json(['message' => 'Request berhasil, Link telah terkirim ke email anda!', 'status' => 'success'], 200);
     }
 
+    public function resetpassword(Request $request)
+    {
+        $user = User::where('email', $request->email);
+        if ($user->count() < 1) {
+            return response()->json(['message' => 'Request gagal, Email anda belum terdaftar di situs kami', 'status' => 'error'], 404);
+        }
+        $user->update(['password' => bcrypt($request->password)]);
+        return response()->json(['message' => 'Selamat!, Password anda berhasil dirubah <a href="/auth/login">Login Sekarang</a>', 'status' => 'success'], 200);
+    }
+
     private function _sendMail($request, $type)
     {
         $token = base64_encode($request->email . 'itclubsmkn5bandung' . rand(10, 100));
@@ -107,7 +117,7 @@ class AuthController extends Controller
             'token' => $token
         ];
         $activate = UserActivation::where('email', $request->email)->count();
-        if ($activate > 3) {
+        if ($activate >= 3) {
             return ['message' => 'Gagal memuat request, Email telah melebihi batas request', 'status' => 'error'];
         }
         UserActivation::create($data);

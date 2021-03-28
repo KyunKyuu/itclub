@@ -109,6 +109,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/login', [ApiAuthController::class, 'login']);
         Route::get('/logout', [ApiAuthController::class, 'logout']);
         Route::post('/forgotpassword', [ApiAuthController::class, 'forgotpassword']);
+        Route::post('/resetpassword', [ApiAuthController::class, 'resetpassword']);
     });
 
     Route::group(['prefix' => '/user'], function () {
