@@ -60,7 +60,6 @@ $(document).ready(function() {
             success:res=>{
                $('#updatePrestation').modal('show');
                 $('#updatePrestation input[name="name"]').val(res.data.name);
-                $('#updatePrestation input[name="image"]').val(res.data.image);
                 $('#updatePrestation input[name="name"]').data('id',res.data.id);
                 $('#updatePrestation input[name="content"]').val(res.data.content);
             },

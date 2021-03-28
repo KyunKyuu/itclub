@@ -29,7 +29,7 @@
                             <th>Class</th>
                             <th>Position</th>
                             <th>Entry Year</th>
-                            <th>Image</th>   
+                            <th>Image</th>
                             <th>Created At</th>
                             <th>Status</th>
                             <th width="70px">Action</th>
@@ -67,7 +67,7 @@
                         <select required name="user_id" class="form-control">
                               <option selected disabled>== ID dari table User ==</option>
                               @foreach ($users as $data)
-                                <option value="{{$data->id}}">{{$data->id}}</option>
+                                <option value="{{$data->id}}">{{$data->name}}</option>
                               @endforeach
                           </select>
                         <div class="invalid-feedback">
@@ -141,7 +141,7 @@
                           Please fill in the Year
                         </div>
                       </div>
-                      
+
                     </div>
                     <div class="row">
                       <div class="form-group col-md-6 col-12">
@@ -153,9 +153,9 @@
                           <a id="" href="#">Hapus Gambar</a>
                     </div>
                 </div>
-                    
+
                     <hr>
-                  
+
                     </div>
                     <div class="modal-footer ml-3">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -258,7 +258,7 @@
                           Please fill in the Year
                         </div>
                       </div>
-                      
+
                     </div>
                     <div class="row">
                       <div class="form-group col-md-6 col-12">
@@ -270,9 +270,9 @@
                           <a id="" href="#">Hapus Gambar</a>
                     </div>
                 </div>
-                    
+
                     <hr>
-                  
+
                     </div>
                     <div class="modal-footer ml-3">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

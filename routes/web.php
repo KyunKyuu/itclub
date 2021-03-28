@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\GalleryController as ApiGalleryController;
 use App\Http\Controllers\Api\ImageGalleryController as ApiImageGalleryController;
 use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
+use App\Http\Controllers\Api\MemberController as ApiMemberController;
 use App\Http\Controllers\Auth\MailController;
 use App\Http\Controllers\Master\{
     DivisionController,
@@ -176,10 +177,10 @@ Route::prefix('/api/v1')->group(function () {
     });
 
     Route::group(['prefix' => '/member', 'middleware' => ['auth']], function () {
-        Route::get('get', [ApiMemberController::class, 'index']);
-        Route::post('insert', [ApiMemberController::class, 'store']);
-        Route::post('update', [ApiMemberController::class, 'update']);
-        Route::delete('delete', [ApiMemberController::class, 'destroy']);
+        Route::get('/get', [ApiMemberController::class, 'index']);
+        Route::post('/insert', [ApiMemberController::class, 'store']);
+        Route::post('/update', [ApiMemberController::class, 'update']);
+        Route::delete('/delete', [ApiMemberController::class, 'destroy']);
 
         Route::get('/get/profile', [ApiMemberController::class, 'get_profile']);
         Route::post('/insert/profile', [ApiMemberController::class, 'insert_profile']);
@@ -205,5 +206,12 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/error/insert/page', [ApiErrorController::class, 'insert_page']);
         Route::post('/error/update/page', [ApiErrorController::class, 'update_page']);
         Route::delete('/error/delete/page', [ApiErrorController::class, 'delete_page']);
+    });
+
+    Route::group(['prefix' => '/prestation', 'middleware' => ['auth']], function () {
+        Route::get('/get', [ApiPrestationController::class, 'index']);
+        Route::post('/insert', [ApiPrestationController::class, 'store']);
+        Route::post('/update', [ApiPrestationController::class, 'update']);
+        Route::delete('/delete', [ApiPrestationController::class, 'destroy']);
     });
 });
