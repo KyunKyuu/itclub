@@ -15,6 +15,7 @@
               <div class="card-header"><h4>Forgot Password</h4></div>
 
               <div class="card-body">
+                  <div id="Alert"></div>
                 <p class="text-muted">We will send a link to reset your password</p>
                 <form id="forgotPassword">
                   <div class="form-group">

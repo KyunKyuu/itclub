@@ -5,6 +5,7 @@ $(document).ready(function(){
 
     $('#register').on('submit', function(e) {
         e.preventDefault();
+        $('#message').html(` <div class="alert alert-secondary alert-dismissible show fade"><div class="alert-body"><button class="close" data-dismiss="alert"><span>×</span></button>Tunggu! proses ini akan memakan waktu 10 detik.</div></div>`)
         let confirm = ConfirmPassword({idPassword:'password', idConfirmPassword:'password2'});
         if (confirm == 0) {
             $('#message').html(` <div class="alert alert-danger alert-dismissible show fade"><div class="alert-body"><button class="close" data-dismiss="alert"><span>×</span></button>Password konfirmasi tidak sama, Coba lagi!.</div></div>`)

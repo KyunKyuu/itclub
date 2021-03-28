@@ -72,6 +72,18 @@ class AuthController extends Controller
         return redirect('/auth/login');
     }
 
+    public function forgotpassword(Request $request)
+    {
+        $user = User::where('email', $request->email);
+        if ($user->count() < 1) {
+            return response()->json(['message' => 'Request gagal, Email anda belum terdaftar di situs kami', 'status' => 'error'], 404);
+        }
+
+        $request->request->add(['name' => $user->get()[0]->name]);
+        $this->_sendMail($request, 'forgotpassword');
+        return response()->json(['message' => 'Request berhasil, Link telah terkirim ke email anda!', 'status' => 'success'], 200);
+    }
+
     private function _sendMail($request, $type)
     {
         $token = base64_encode($request->email . 'itclubsmkn5bandung' . rand(10, 100));

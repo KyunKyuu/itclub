@@ -97,6 +97,7 @@ Route::group(['prefix' => '/auth'], function () {
 
 Route::group(['prefix' => '/authentication/mail'], function () {
     Route::get('/activation/{resource}', [MailController::class, 'activation']);
+    Route::get('/forgotpassword/{resource}', [MailController::class, 'forgotpassword']);
 });
 
 // !NOTE API Request & Response
@@ -106,6 +107,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/register', [ApiAuthController::class, 'register']);
         Route::post('/login', [ApiAuthController::class, 'login']);
         Route::get('/logout', [ApiAuthController::class, 'logout']);
+        Route::post('/forgotpassword', [ApiAuthController::class, 'forgotpassword']);
     });
 
     Route::group(['prefix' => '/user'], function () {
