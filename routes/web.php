@@ -50,9 +50,6 @@ Route::get('/', function () {
     return redirect('/auth/login');
 });
 Route::get('/dashboard/general/index', [IndexController::class, 'index']);
-Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
-Route::get('/auth/register', [AuthController::class, 'register']);
-Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
 
 Route::group(['prefix' => '/master', 'middleware' => ['auth', 'access']], function () {
     Route::get('/preferences/section', [PreferencesController::class, 'section']);
@@ -90,6 +87,12 @@ Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
 
 Route::group(['prefix' => '/error'], function () {
     Route::get('/exception/{id}', [ExceptionController::class, 'page']);
+});
+
+Route::group(['prefix' => '/auth'], function () {
+    Route::get('/register', [AuthController::class, 'register']);
+    Route::get('/forgotpassword', [AuthController::class, 'forgotpassword']);
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
 });
 
 Route::group(['prefix' => '/authentication/mail'], function () {

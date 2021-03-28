@@ -30,7 +30,7 @@ class AuthController extends Controller
                 User::create($data);
                 $users = User::where('name', $data['name'])->where('email', $data['email'])->get()[0];
                 access_create($data['role_id'], $users->id);
-                $this->_sendMail($request);
+                $this->_sendMail($request, 'activation');
                 $response = ['status' => 'success', 'message' => 'User berhasil ditambahkan, <a href="/auth/login">Login Sekarang</a>'];
             } else {
                 $response = ['status' => 'error', 'message' => 'User gagal ditambahkan, Username atau email telah digunakan'];
@@ -72,12 +72,12 @@ class AuthController extends Controller
         return redirect('/auth/login');
     }
 
-    private function _sendMail($request)
+    private function _sendMail($request, $type)
     {
         $token = base64_encode($request->email . 'itclubsmkn5bandung' . rand(10, 100));
         $data = [
             'email' => $request->email,
-            'type' => 'activation',
+            'type' => $type,
             'token' => $token
         ];
         $mail = [
@@ -85,7 +85,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'name' => $request->name,
             'created_at' => date('d M Y, H:i'),
-            'type' => 'activation',
+            'type' => $type,
             'token' => $token
         ];
         UserActivation::create($data);

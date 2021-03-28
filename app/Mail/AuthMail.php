@@ -28,6 +28,10 @@ class AuthMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Account Verification')->with('data', $this->data)->view('main.dashboard.mail');
+        if ($this->data['type'] == 'activation') {
+            return $this->subject('Account Verification')->with('data', $this->data)->view('main.mail');
+        } else {
+            return $this->subject('Forgot Password')->with('data', $this->data)->view('main.mail');
+        }
     }
 }
