@@ -1,6 +1,10 @@
 @extends('templates.dashboard')
 
 @section('main')
+
+@if ((time() - strtotime('2021-03-28 01:20:23')) < (60*20))
+    {{(time() - strtotime('2021-03-28 01:20:23')) / (60)}}
+@endif
           <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">

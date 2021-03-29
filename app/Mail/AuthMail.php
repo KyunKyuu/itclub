@@ -10,15 +10,15 @@ use Illuminate\Queue\SerializesModels;
 class AuthMail extends Mailable
 {
     use Queueable, SerializesModels;
-
+    protected $data;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($data)
     {
-        $this->user = $user;
+        $this->data = $data;
     }
 
     /**
@@ -28,6 +28,10 @@ class AuthMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Verification Email')->view('main.dashboard.mail');
+        if ($this->data['type'] == 'activation') {
+            return $this->subject('Account Verification')->with('data', $this->data)->view('main.mail');
+        } else {
+            return $this->subject('Forgot Password')->with('data', $this->data)->view('main.mail');
+        }
     }
 }

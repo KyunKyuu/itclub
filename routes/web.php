@@ -25,20 +25,7 @@ use App\Http\Controllers\Api\GalleryController as ApiGalleryController;
 use App\Http\Controllers\Api\ImageGalleryController as ApiImageGalleryController;
 use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
-use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 
-use App\Http\Controllers\Master\{
-<<<<<<< HEAD
-   DivisionController,ImageDivisionController,GalleryController,ImageGalleryController,PrestationController,MemberController,AlumniController,CategoryController
-=======
-    DivisionController,
-    ImageDivisionController,
-    GalleryController,
-    ImageGalleryController,
-    PrestationController,
-    MemberController,
-    AlumniController
->>>>>>> upstream/master
 };
 /*
 |--------------------------------------------------------------------------
@@ -55,9 +42,6 @@ Route::get('/', function () {
     return redirect('/auth/login');
 });
 Route::get('/dashboard/general/index', [IndexController::class, 'index']);
-Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
-Route::get('/auth/register', [AuthController::class, 'register']);
-Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
 
 Route::group(['prefix' => '/master', 'middleware' => ['auth', 'access']], function () {
     Route::get('/preferences/section', [PreferencesController::class, 'section']);
@@ -98,6 +82,18 @@ Route::group(['prefix' => '/error'], function () {
     Route::get('/exception/{id}', [ExceptionController::class, 'page']);
 });
 
+Route::group(['prefix' => '/auth'], function () {
+    Route::get('/register', [AuthController::class, 'register']);
+    Route::get('/forgotpassword', [AuthController::class, 'forgotpassword']);
+    Route::get('/resetpassword/{resource}', [AuthController::class, 'resetpassword']);
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+});
+
+Route::group(['prefix' => '/authentication/mail'], function () {
+    Route::get('/activation/{resource}', [MailController::class, 'activation']);
+    Route::get('/forgotpassword/{resource}', [MailController::class, 'forgotpassword']);
+});
+
 // !NOTE API Request & Response
 Route::prefix('/api/v1')->group(function () {
 
@@ -105,6 +101,8 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/register', [ApiAuthController::class, 'register']);
         Route::post('/login', [ApiAuthController::class, 'login']);
         Route::get('/logout', [ApiAuthController::class, 'logout']);
+        Route::post('/forgotpassword', [ApiAuthController::class, 'forgotpassword']);
+        Route::post('/resetpassword', [ApiAuthController::class, 'resetpassword']);
     });
 
     Route::group(['prefix' => '/user'], function () {
@@ -171,10 +169,10 @@ Route::prefix('/api/v1')->group(function () {
     });
 
     Route::group(['prefix' => '/member', 'middleware' => ['auth']], function () {
-        Route::get('get', [ApiMemberController::class, 'index']);
-        Route::post('insert', [ApiMemberController::class, 'store']);
-        Route::post('update', [ApiMemberController::class, 'update']);
-        Route::delete('delete', [ApiMemberController::class, 'destroy']);
+        Route::get('/get', [ApiMemberController::class, 'index']);
+        Route::post('/insert', [ApiMemberController::class, 'store']);
+        Route::post('/update', [ApiMemberController::class, 'update']);
+        Route::delete('/delete', [ApiMemberController::class, 'destroy']);
 
         Route::get('/get/profile', [ApiMemberController::class, 'get_profile']);
         Route::post('/insert/profile', [ApiMemberController::class, 'insert_profile']);

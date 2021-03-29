@@ -19,19 +19,9 @@ class IndexController extends Controller
 
     public function mail()
     {
-        // return view('main.dashboard.mail');
-        // $this->mail_send();
         $email =  'riezkanaprianda@gmail.com';
-        Mail::to($email)
-            ->send(new AuthMail('Verifikasi Email', 'Rizkan Firmansyah'));
-        return 'Terkirim';
-    }
-
-    public function mail_send()
-    {
-        $email =  'riezkanaprianda@gmail.com';
-        Mail::to($email)
-            ->send(new AuthMail('Verifikasi Email', 'Rizkan Firmansyah'));
+        $data = ['subject' => 'Verify Account!', 'hahaha' => 'hihi'];
+        Mail::to($email)->queue(new AuthMail($data));
         return 'Terkirim';
     }
 

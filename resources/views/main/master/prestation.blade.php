@@ -38,7 +38,8 @@
           </div>
         </div>
       </div>
-    </section>
+  </div>
+  </div>
   </div>
 
 
@@ -65,8 +66,8 @@
                           </div>
                         </div>
                       </div>
-                      
-                     
+
+
 
                          <div class="form-group row">
                           <div class="form-group col-md-6 col-12">
@@ -75,20 +76,20 @@
                       </div>
                       <div class="form-group col-md-6 col-12">
                           <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt="" class="img-fluid" style="max-width: 150px"><br>
-                          
+
                     </div>
                           <div class="invalid-feedback">
                             What's image Prestation?
-                      </div>    
+                      </div>
                         </div>
-                     
+
                     <div class="form-group row">
                       <div class="form-group col-12">
                         <label>Content Prestation</label>
                         <textarea class="form-control use-ckeditor" name="content" placeholder="content Prestation">
-                          
+
                         </textarea>
-                        
+
                       </div>
                        <div class="invalid-feedback">
                             What's content Prestation?
@@ -101,7 +102,8 @@
                     </div>
                 </form>
         </div>
-        </div>
+    </div>
+    </div>
 
 
 
@@ -126,10 +128,6 @@
                           </div>
                         </div>
                       </div>
-                      
-                      
-
-
                          <div class="form-group row">
                           <div class="form-group col-md-6 col-12">
                         <label>Thumbnail</label>
@@ -137,20 +135,20 @@
                       </div>
                       <div class="form-group col-md-6 col-12">
                           <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt="" class="img-fluid" style="max-width: 150px"><br>
-                          
+
                     </div>
                           <div class="invalid-feedback">
                             What's image Prestation?
-                      </div>    
+                      </div>
                         </div>
-                     
+
                     <div class="form-group row">
                       <div class="form-group col-12">
                         <label>Content Prestation</label>
                         <textarea class="form-control use-ckeditor" name="content" placeholder="content Prestation">
-                          
+
                         </textarea>
-                        
+
                       </div>
                        <div class="invalid-feedback">
                             What's content Prestation?
@@ -165,5 +163,5 @@
         </div>
         </div>
     </div>
-      
+
 @endsection

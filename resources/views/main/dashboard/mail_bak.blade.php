@@ -1,31 +1,7 @@
-@extends('templates.mail')
-
-@section('main')
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>Salted | A Responsive Email Template</title>
-<!--
-
-    SALTED | A RESPONSIVE EMAIL TEMPLATE
-    =====================================
-
-    Based on code used and tested by Litmus (@litmusapp)
-    Originally developed by Kevin Mandeville (@KEVINgotbounce)
-    Cleaned up by Jason Rodriguez (@rodriguezcommaj)
-    Presented by A List Apart (@alistapart)
-
-    Email is surprisingly hard. While this has been thoroughly tested, your mileage may vary.
-    It's highly recommended that you test using a service like Litmus and your own devices.
-
-    Enjoy!
-
- -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <style type="text/css">
@@ -147,11 +123,11 @@
                         <td style="padding: 20px 0px 30px 0px;" class="logo">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                    <td bgcolor="#ffffff" width="100" align="left"><a href="http://alistapart.com/article/can-email-be-responsive/" target="_blank"><img alt="Logo" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/48935/logo.jpg" width="52" height="78" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td>
+                                    <td bgcolor="#ffffff" width="100" align="left"><a href="" target="_blank"><img alt="Logo" src="" width="52" height="78" style="display: block; font-family: Helvetica, Arial, sans-serif; color: #666666; font-size: 16px;" border="0"></a></td>
                                     <td bgcolor="#ffffff" width="400" align="right" class="mobile-hide">
                                         <table border="0" cellpadding="0" cellspacing="0">
                                             <tr>
-                                                <td align="right" style="padding: 0 0 5px 0; font-size: 14px; font-family: Arial, sans-serif; color: #666666; text-decoration: none;"><span style="color: #666666; text-decoration: none;">Salted - a responsive email template.<br>Use preheader text, seriously.</span></td>
+                                                <td align="right" style="padding: 0 0 5px 0; font-size: 14px; font-family: Arial, sans-serif; color: #666666; text-decoration: none;"><span style="color: #666666; text-decoration: none;"><h3>IT CLUB SMKN 5 Bandung</h3></span></td>
                                             </tr>
                                         </table>
                                     </td>
@@ -198,10 +174,10 @@
                                     <!-- COPY -->
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="center" style="font-size: 25px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy">Yes. Email can be responsive, too.</td>
+                                            <td align="center" style="font-size: 25px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy">Verifikasi Email.</td>
                                         </tr>
                                         <tr>
-                                            <td align="center" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Using fluid structures, fluid images, and media queries, we can make email (nearly) as responsive as modern websites.</td>
+                                            <td align="center" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Hi, RizkanFirmansyah silahkan konfirmasi email mu, jangan berikan akses ini pada siapapun.</td>
                                         </tr>
                                     </table>
                                 </td>
@@ -560,5 +536,3 @@
 
 </body>
 </html>
-
-@endsection
