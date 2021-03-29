@@ -117,14 +117,12 @@
         </div>
         </div>
 
-
-
-    <!-- Modal Update -->
-    <div class="modal fade" id="updateGallery" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="updateGalleryLabel" aria-hidden="true">
+  {{-- Modal Update --}}
+   <div class="modal fade" id="updateGallery" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="updateGalleryLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header border-bottom pb-4">
-            <h5 class="modal-title" id="updateGalleryLabel">update Gallery</h5>
+            <h5 class="modal-title" id="updateGalleryLabel">Update Gallery</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -141,7 +139,7 @@
                         </div>
                       </div>
                       
-                       <div class="form-group row">
+                      <div class="form-group row">
                         <div class="form-group col-12">
                         <label>Category</label>
                           <select required name="category_id" class="form-control">
@@ -156,11 +154,10 @@
                         </div>
                       </div>
 
-
                          <div class="form-group row">
                           <div class="form-group col-md-6 col-12">
                         <label>Thumbnail</label>
-                         <input type="file" class="form-control image-input-preview"  value="" name="image" placeholder="Gallery" data-id="img-thumbnail">
+                         <input type="file" class="form-control image-input-preview"  value="" name="image" placeholder="Image" data-id="img-thumbnail">
                       </div>
                       <div class="form-group col-md-6 col-12">
                           <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt="" class="img-fluid" style="max-width: 150px"><br>
@@ -191,6 +188,7 @@
                 </form>
         </div>
         </div>
-    </div>
+
+  
       
 @endsection

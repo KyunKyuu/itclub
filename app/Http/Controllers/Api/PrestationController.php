@@ -98,9 +98,9 @@ class PrestationController extends Controller
 
     }
 
-    public function update(PrestationRequest $request,$id)
+    public function update(PrestationRequest $request)
     {
-        $prestation = Prestation::find($id);
+        $prestation = Prestation::find($request->id);
         if(!$prestation)
         {
             return response()->json([
@@ -122,12 +122,12 @@ class PrestationController extends Controller
             'name' => $request->name,
             'content' => $request->content,
             'image' => $image,
-            // 'created_by' => auth()->user()->id
+            'created_by' => auth()->user()->id
         ]);
 
         return response()->json([
             'status' => 'success',
-            'message' => $prestation
+            'message' => 'data added successfuly'
         ]);
     }
 

@@ -62,9 +62,9 @@ $(document).ready(function() {
             success:res=>{
                 $('#updateGallery').modal('show');
                 $('#updateGallery input[name="name"]').val(res.data.name);
-                $('#updateGallery input[name="image"]').val(res.data.image);
+                
                 $('#updateGallery input[name="name"]').data('id',res.data.id);
-                $('#updateGallery input[name="category_id"]').val(res.data.category_id);
+                $('#updateGallery select[name="category_id"] option[value="'+res.data.category_id+'"]').attr('selected', true);
                 $('#updateGallery textarea[name="content"]').val(res.data.content);
             },
             error:err=>console.log(err)

@@ -81,7 +81,6 @@ $(document).ready(function() {
             success:res=>{
                 $('#updateDivision').modal('show');
                 $('#updateDivision input[name="name"]').val(res.data.name);
-                $('#updateDivision input[name="image"]').val(res.data.image);
                 $('#updateDivision input[name="name"]').data('id',res.data.id);
                 $('#updateDivision textarea[name="content"]').val(res.data.content);
             },

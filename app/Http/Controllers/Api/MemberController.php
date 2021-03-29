@@ -146,13 +146,6 @@ class MemberController extends Controller
             ], 404);
         }
 
-         $memberId = Member::where('user_id', $request->user_id)->exists();
-        if ($memberId) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Member Already exists'
-            ]);
-        }
 
         $division = Division::where('id', $request->division_id)->exists();
         if (!$division) {
@@ -186,7 +179,7 @@ class MemberController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'data' => $member
+            'message' => 'member update successfuly'
         ], 200);
     }
 
@@ -204,7 +197,7 @@ class MemberController extends Controller
 
         // \Storage::delete($member->image);
 
-        // $member->alumni()->delete();
+        $member->alumni()->delete();
         $member->delete();
 
         return response()->json([

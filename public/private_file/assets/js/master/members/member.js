@@ -93,7 +93,7 @@ $(document).ready(function() {
                 $('#updateMember select[name="class"] option[value="'+res.data.class+'"]').attr('selected', true);
                 $('#updateMember select[name="majors"] option[value="'+res.data.majors+'"]').attr('selected', true);
                 $('#updateMember input[name="entry_year"]').val(res.data.entry_year);
-                $('#updateMember input[name="image"]').val(res.data.image);
+             
                 $('#updateMember input[name="name"]').data('id',res.data.id);
             },
             error:err=>console.log(err)

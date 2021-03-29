@@ -5,17 +5,35 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\{Category};
 use App\Http\Requests\CategoryRequest;
-
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 class CategoryController extends Controller
 {
     public function index()
     {
-        $category = Category::with('blogs', 'galleries', 'created_by')->latest()->get();
+        if (!empty($_GET['id'])) {
+            $data = Category::find($_GET['id']);
+            return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data]);
+        }
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $category
-        ]);
+        $category = Category::all();
+
+        return DataTables::of($category)
+            ->addIndexColumn()
+            ->addColumn('check', function ($category) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($category) {
+                return '
+             <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $category->id . '" id="edit"><i class="fas fa-edit"></i></a>    
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $category->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+            ->rawColumns(['check', 'btn'])
+            ->make(true);
     }
 
     public function show($id)
@@ -47,12 +65,12 @@ class CategoryController extends Controller
     {
         $category = Category::create([
             'name' => $request->name,
-            // 'created_by' => auth()->user()->id
+            'created_by' => auth()->user()->id
         ]);
 
             return response()->json([
                 'status' => 'success',
-                'data' => $category
+                'message' => 'data added succesfuly'
             ],);
         
     }
@@ -75,9 +93,9 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function update(CategoryRequest $request,$id)
+    public function update(CategoryRequest $request)
     {
-        $category = Category::find($id);
+        $category = Category::find($request->id);
         if(!$category)
         {
             return response()->json([
@@ -88,18 +106,18 @@ class CategoryController extends Controller
 
         $category->update([
             'name' => $request->name,
-            // 'created_by' => auth()->user()->id
+            'created_by' => auth()->user()->id
         ]);
 
         return response()->json([
             'status' => 'success',
-            'data' => $category
+            'message' => 'data update succesfuly'
         ]);
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $category = Category::find($id);
+        $category = Category::find($request->id);
         if(!$category)
         {
             return response()->json([

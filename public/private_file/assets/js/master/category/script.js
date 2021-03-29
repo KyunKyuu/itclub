@@ -2,18 +2,16 @@ $(document).ready(function() {
     const data = [
         {data:'check', name:'check', orderable:false, searchable:false},
         {data:'name', name:'name'},
-        {data:'images', name:'images'},
         {data:'created_at', name:'created_at', searchable:false, orderable:false},
-        {data:'updated_at', name:'updated_at', orderable:false},
         {data:'btn', name:'btn', searchable:false, orderable:false},
     ];
 
-    Table({table:'#table', data:data, url:'/api/v1/prestation/get'});
+    Table({table:'#table', data:data, url:'/api/v1/category/get'});
 
     $('#insert').on('submit', function(e) {
         e.preventDefault()
         $.ajax({
-            url:'/api/v1/prestation/insert',
+            url:'/api/v1/category/insert',
             data:new FormData(this),
             processData:false,
             contentType:false,
@@ -29,11 +27,11 @@ $(document).ready(function() {
         })
     })
 
-    $('#table').on('click', '#delete', function(e) {
+      $('#table').on('click', '#delete', function(e) {
         e.preventDefault()
         let id = $(this).data('value')
         $.ajax({
-            url:'/api/v1/prestation/delete',
+            url:'/api/v1/category/delete',
             data:{
                 id:id
             },
@@ -49,13 +47,12 @@ $(document).ready(function() {
         })
     })
 
-
-    $('#update').on('submit', function(e) {
+     $('#update').on('submit', function(e) {
         e.preventDefault();
         let value = new FormData(this)
-        value.append('id', $('#updatePrestation input[name="name"]').data('id'));
+        value.append('id', $('#updateCategory input[name="name"]').data('id'));
         $.ajax({
-            url:'/api/v1/prestation/update',
+            url:'/api/v1/category/update',
             data:value,
             type:'POST',
             contentType:false,
@@ -71,23 +68,22 @@ $(document).ready(function() {
         })
     })
 
-     $('#table').on('click', '#edit', function(e) {
+    $('#table').on('click', '#edit', function(e) {
         e.preventDefault();
         let id = $(this).data('value')
         $.ajax({
-            url:'/api/v1/prestation/get',
+            url:'/api/v1/category/get',
             data:{
                 id:id
             },
             success:res=>{
-                $('#updatePrestation').modal('show');
-                $('#updatePrestation input[name="name"]').val(res.data.name);
-                $('#updatePrestation input[name="content"]').val(res.data.content);
-                $('#updatePrestation input[name="name"]').data('id',res.data.id);
+                $('#updateCategory').modal('show');
+                $('#updateCategory input[name="name"]').val(res.data.name);
+                $('#updateCategory input[name="name"]').data('id',res.data.id);
+                
             },
             error:err=>console.log(err)
         })
     })
-
 
 })
