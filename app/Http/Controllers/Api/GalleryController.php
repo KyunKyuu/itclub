@@ -152,12 +152,12 @@ class GalleryController extends Controller
             'content' => $request->content,
             'image' => $image,
             'slug' => $slug,
-            // created_by = auth()->user()->id
+            'created_by' => auth()->user()->id
         ]);
 
         return response()->json([
             'status' => 'success',
-            'data' => $gallery
+            'message' => 'gallery update successfuly'
         ]);
     }
 

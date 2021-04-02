@@ -1,0 +1,457 @@
+@import url("https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;500;600;700;800&display=swap");
+
+h1,
+h2,
+h3 {
+  font-family: "Times New Roman";
+  color: #04132a;
+}
+
+h4,
+h5,
+h6,
+p,
+a {
+  font-family: "assistant";
+  color: #04132a;
+}
+
+.hero {
+  background-image: url(../img/background_header.jpg);
+  background-size: cover;
+  height: 100vh;
+  max-height: 768px;
+}
+
+.hero-text {
+  padding-top: 26%;
+}
+
+.text h1,
+.text p {
+  color: #004b8f !important;
+}
+
+.hr-header {
+  height: 3px !important;
+  background: #004b8f;
+  opacity: 1;
+}
+
+.orange {
+  height: 3px !important;
+  background: #ff6224;
+  opacity: 1;
+  width: 10%;
+}
+
+.fw-700 {
+  font-weight: 700;
+}
+
+.btn-1 {
+  background-color: #0079da;
+  color: white !important;
+}
+
+.btn-1:hover {
+  background-color: #056ec4;
+  color: whitesmoke;
+}
+
+.btn-shadow {
+  background-color: #0079da;
+  color: white;
+  box-shadow: 0px 7px 30px -6px #0079da;
+}
+
+.btn-shadow:hover {
+  background-color: #056ec4;
+  color: whitesmoke;
+  box-shadow: 0px 7px 30px -6px #0079da;
+}
+
+.tentang-kami {
+  background-color: #f4f8fc;
+  background-size: cover;
+  padding: 3rem;
+}
+
+.mentor {
+  background-image: url(../img/background_mentor.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bg-prestasi {
+  z-index: 1;
+}
+
+.text-prestasi {
+  z-index: 2;
+  padding: 3rem;
+  position: relative;
+}
+
+.text-prestasi .card {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 0%;
+  border-top-right-radius: 0%;
+}
+
+.prestasi {
+  background-color: #f4f8fc;
+}
+
+.divisi-itclub {
+  background-color: #f4f8fc;
+}
+
+.berita {
+  background-image: url(../img/background_berita_kegiatan.jpg);
+  background-size: cover;
+}
+
+.tanggal {
+  font-size: 15px;
+  color: #9fa0a5;
+}
+
+.active {
+  color: #004b8f;
+  text-decoration: none;
+}
+
+.contact-index {
+  background-image: url(../img/background_contact.jpg);
+  background-size: cover;
+}
+
+.icon {
+  width: 42px;
+}
+
+.footer-body {
+  background-color: #f4f8fc;
+  border: 1px solid #20c3c5;
+}
+
+.footer-body-elearning {
+  background-color: #f4f8fc;
+  border: 1px solid #20c3c5;
+}
+
+.footer {
+  background-color: #f4f8fc;
+}
+
+.footer-body-elearning {
+  background-color: #ffff;
+}
+
+.footer-elearning {
+  background-color: #ffff;
+}
+
+.navbar-white {
+  background-color: #f4f8fc !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease-in-out;
+}
+
+.navbar-white .nav-link {
+  color: #000000 !important;
+}
+
+.navbar-white .btn-1 {
+  color: white !important;
+}
+
+.navbar-white .nav-link .btn-1:hover {
+  color: whitesmoke !important;
+}
+
+.navbar-white .nav-link:hover {
+  color: #004b8f;
+}
+
+.navbar-white .collapse {
+  transition: 0.4s ease-in-out;
+}
+
+.navbar-meta {
+  background: transparent linear-gradient(180deg, #041d77 0%, #020f3c 100%) 0%
+    0% no-repeat padding-box;
+}
+
+.divisi-item img {
+  width: 96px;
+  height: 91px;
+}
+
+.divisi-item p {
+  font-size: 14px;
+}
+
+.nav-meta .fa-user {
+  color: #87b6ff;
+}
+
+.tentang h4 {
+  font-family: "assistant";
+}
+
+.border-2 {
+  border: 2px solid #dee2e6 !important;
+  border-radius: 4px;
+}
+
+.light {
+  font-weight: 200;
+}
+
+.gradient-anggota {
+  background: transparent linear-gradient(125deg, #032ab1 0%, #04185e 100%) 0%
+    0% no-repeat padding-box;
+}
+
+.alumni,
+.nav-pagination {
+  background-color: #f4f8fc;
+}
+
+.body-alumni {
+  background-color: #f4f8fc;
+}
+
+.body-berita {
+  background-color: #f4f8fc;
+}
+
+.body-elearnig {
+  background-color: #ffff;
+}
+
+.body-anggota-12,
+.body-anggota-11 {
+  background-color: #f4f8fc;
+}
+
+.galery-item img {
+  width: 100%;
+}
+
+.body-divisi {
+  background-image: url("../img/background_divisi.jpg");
+  background-size: contain;
+}
+
+.kegiatan img {
+  width: 122px;
+  height: 91px;
+}
+
+.kegiatan {
+  text-align: left;
+}
+
+.kegiatan h6 {
+  color: #04185e;
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+
+.kegiatan p {
+  margin-bottom: 0px;
+  color: #04185e;
+}
+
+.kegiatan-item {
+  font-size: 12px;
+}
+
+.kegiatan-item-2 {
+  font-size: 14px;
+}
+
+p .tanggal {
+  color: #f3f3f3;
+}
+
+.card-berita p {
+  color: #04185e;
+}
+
+.hero-mini{
+  display: none;
+}
+
+.navbar-dark .navbar-toggler{
+  background: white;
+  color: gray;
+  border-color: gray;
+}
+
+.judul-1[data-scroll="in"],
+.judul-2[data-scroll="in"] {
+  opacity: 1;
+  transition: 1s;
+  transform: translateX(0px);
+}
+
+.judul-1[data-scroll="out"],
+.judul-2[data-scroll="out"] {
+  opacity: 0;
+  transition: 1s;
+  transform: translateX(40px);
+}
+
+.down[data-scroll="in"] {
+  opacity: 1;
+  transition: 1s;
+  transition-delay: 0.2s;
+  transform: translateY(0px);
+}
+
+.down[data-scroll="out"] {
+  opacity: 0;
+  transition: 1s;
+  transform: translateY(40px);
+}
+
+.down-delay-1[data-scroll="in"] {
+  opacity: 1;
+  transition: 1s;
+  transition-delay: 0.2s;
+  transform: translateY(0px);
+}
+
+.down-delay-1[data-scroll="out"] {
+  opacity: 0;
+  transition: 1s;
+  transform: translateY(40px);
+}
+
+.down-delay-static-1 {
+  opacity: 1;
+  transition: 1s;
+  transition-delay: 0.2s;
+  transform: translateY(0px);
+}
+
+.down-delay-static-1 {
+  opacity: 0;
+  transition: 1s;
+  transform: translateY(40px);
+}
+
+.down-delay-2[data-scroll="in"] {
+  opacity: 1;
+  transition: 1s;
+  transition-delay: 0.4s;
+  transform: translateY(0px);
+}
+
+.down-delay-3[data-scroll="in"] {
+  opacity: 1;
+  transition: 1s;
+  transition-delay: 0.6s;
+  transform: translateY(0px);
+}
+
+.down-delay-3[data-scroll="out"] {
+  opacity: 0;
+  transition: 1s;
+  transform: translateY(40px);
+}
+
+.down-delay-2[data-scroll="out"] {
+  opacity: 0;
+  transition: 1s;
+  transform: translateY(40px);
+}
+
+.slide[data-scroll="in"] {
+  opacity: 1;
+  transition: 1s;
+  transform: translateX(0px);
+}
+
+.slide[data-scroll="out"] {
+  opacity: 0;
+  transition: 1s;
+  transform: translateX(-40px);
+}
+
+.zoomin[data-scroll="in"] {
+  opacity: 1;
+  transition: 1s;
+  transition-delay: 0.5s;
+  animation: zoomin 1s ease-in-out 1;
+}
+
+.zoomin[data-scroll="out"] {
+  opacity: 0;
+  transition: 1s;
+}
+
+.slide-delay-1[data-scroll="in"] {
+  opacity: 1;
+  transition: 1s;
+  transition-delay: 0.4s;
+  transform: translateX(0px);
+}
+
+.slide-delay-1[data-scroll="out"] {
+  opacity: 0;
+  transition: 1s;
+  transform: translateX(-40px);
+}
+.slide-delay-2[data-scroll="in"] {
+  opacity: 1;
+  transition: 1s;
+  transition-delay: 0.6s;
+  transform: translateX(0px);
+}
+
+.slide-delay-2[data-scroll="out"] {
+  opacity: 0;
+  transition: 1s;
+  transform: translateX(-40px);
+}
+
+.slide-delay-3[data-scroll="in"] {
+  opacity: 1;
+  transition: 1s;
+  transition-delay: 0.8s;
+  transform: translateX(0px);
+}
+
+.slide-delay-3[data-scroll="out"] {
+  opacity: 0;
+  transition: 1s;
+  transform: translateX(-40px);
+}
+
+[data-scroll] {
+  transition: opacity 1.5s;
+}
+[data-scroll="in"] {
+  opacity: 1;
+}
+[data-scroll="out"] {
+  opacity: 0;
+}
+
+@keyframes zoomin {
+  0% {
+    transform: scale(0, 0);
+  }
+  50% {
+    transform: scale(1.1, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
