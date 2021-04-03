@@ -17,16 +17,14 @@
 <script src="/public_file/node_modules/ckeditor/ckeditor.js"></script>
 <script src="/public_file/node_modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
 <script src="/public_file/node_modules/select2/dist/js/select2.min.js"></script>
-<script src="/public_file/node_modules/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-<script src="/public_file/node_modules/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
 <!-- Template JS File -->
 <script src="/public_file/assets/js/scripts.js"></script>
 <script src="/public_file/assets/js/custom.js"></script>
 
 <!-- Page Specific JS File -->
-<script src="/public_file/assets/js/page/index.js"></script>
-<script src="/public_file/assets/js/page/auth-register.js"></script>
+{{-- <script src="/public_file/assets/js/page/index.js"></script> --}}
+{{-- <script src="/public_file/assets/js/page/auth-register.js"></script> --}}
 
 <!-- Private File JS File -->
 <script src="/private_file/assets/js/function/script.js"></script>
