@@ -1,0 +1,316 @@
+/*
+##Device = Desktop large
+##Screen = 1600px higher resolution desktops
+*/
+
+@media (min-width: 1600px) {
+}
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1367px) and (max-width: 1599px) {
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1366px) {
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 876px) {
+  .hero {
+    height: 65vh;
+  }
+  .hero-text.w-50 {
+    width: 100% !important;
+  }
+  .text-prestasi {
+    padding: 0%;
+    padding-top: 3rem;
+  }
+  .text-prestasi .row.mt-5 {
+    margin-top: 0% !important;
+  }
+  .berita.px-5 {
+    padding-left: 0% !important;
+    padding-right: 0% !important;
+  }
+  .contact-index.p-5,
+  .contact-index .pr-5 {
+    padding: 0% !important;
+  }
+  .contact-address h6 {
+    font-size: 0.8rem;
+  }
+  .navbar-white .navbar-toggler {
+    color: #004b8f !important;
+    border-color: #004b8f;
+    background: transparent;
+  }
+  .navbar-dark .navbar-nav {
+    background: white;
+    padding: 2rem;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .navbar-dark .navbar-nav .nav-link {
+    color: black !important;
+  }
+  .navbar-nav .nav-link.btn-1 {
+    color: white !important;
+  }
+  .navbar-white .navbar-nav {
+    background: transparent !important;
+    padding: 2rem;
+    border-radius: 5px;
+    border: 0px;
+  }
+
+  .img-elearning {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+}
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .hero {
+    height: 65vh;
+  }
+  .hero-text.w-50 {
+    width: 100% !important;
+  }
+  .text-prestasi {
+    padding: 0%;
+    padding-top: 3rem;
+  }
+  .text-prestasi .row.mt-5 {
+    margin-top: 0% !important;
+  }
+  .berita.px-5 {
+    padding-left: 0% !important;
+    padding-right: 0% !important;
+  }
+  .contact-index.p-5,
+  .contact-index .pr-5 {
+    padding: 0% !important;
+  }
+  .contact-address h6 {
+    font-size: 0.8rem;
+  }
+  .navbar-white .navbar-toggler {
+    color: #004b8f !important;
+    border-color: #004b8f;
+  }
+  .navbar-dark .navbar-nav {
+    background: white;
+    padding: 2rem;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .navbar-dark .navbar-nav .nav-link {
+    color: black !important;
+  }
+  .navbar-nav .nav-link.btn-1 {
+    color: white !important;
+  }
+  .navbar-white .navbar-nav {
+    background: transparent !important;
+    padding: 2rem;
+    border-radius: 5px;
+    border: 0px;
+  }
+
+  .img-elearning {
+    width: 100%;
+  }
+  .bg-prestasi {
+    height: 106rem;
+  }
+}
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .hero {
+    background-image: url(../img/background_prestasi.jpg);
+    height: 108vh;
+  }
+  .hero-text {
+    padding-top: 36%;
+  }
+  .hero-text h1, .hero-text p{
+    color: white !important;
+    margin-top: 1rem;
+  }
+  .hero-text .hr-header{
+    background: white !important;
+  }
+  .hero-text.w-50 {
+    width: 100% !important;
+  }
+  .text-prestasi {
+    padding: 0%;
+    padding-top: 3rem;
+  }
+  .text-prestasi .row.mt-5 {
+    margin-top: 0% !important;
+  }
+  .berita.px-5 {
+    padding-left: 0% !important;
+    padding-right: 0% !important;
+  }
+  .contact-index.p-5,
+  .contact-index .pr-5 {
+    padding: 0% !important;
+  }
+  .contact-address h6 {
+    font-size: 0.8rem;
+  }
+  .navbar-white .navbar-toggler {
+    color: #004b8f !important;
+    border-color: #004b8f;
+  }
+  .navbar-dark .navbar-nav {
+    background: white;
+    padding: 2rem;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .navbar-dark .navbar-nav .nav-link {
+    color: black !important;
+  }
+  .navbar-nav .nav-link.btn-1 {
+    color: white !important;
+  }
+  .navbar-white .navbar-nav {
+    background: transparent !important;
+    padding: 2rem;
+    border-radius: 5px;
+    border: 0px;
+  }
+  .mentor{
+    background-size: auto;
+    background-repeat: space;
+  }
+  .bg-prestasi {
+    height: 106rem;
+  }
+  .berita{
+    background-size: auto;
+    background-repeat: space;
+  }
+  .anggota-11{
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  .anggota-11.p-5 {
+    padding-left: 0rem !important;
+    padding-right: 0rem !important;
+  }
+  .card-body {
+    padding: 1rem;
+    font-size: 13px;
+  }
+  .card-body h5{
+    font-size: 16px;
+  }
+  .card-head h4{
+    font-size: 16px;
+  }
+  .pagination{
+    margin-top: 1rem;
+  }
+  .berita-kegiatan.p-5 {
+    padding: 1rem !important;
+  }
+  .berita-kegiatan .col-md-7 {
+    padding: 1.5rem;
+  }
+  .galery-kegiatan.p-5 {
+    padding: 1.5rem !important;
+  }
+  .navbar-meta .navbar-dark .navbar-nav {
+    background: transparent !important;
+    padding: 0rem;
+    border-radius: 0px;
+    border: 0px;
+  }
+  .navbar-meta .navbar-dark .navbar-nav .nav-link {
+    color: white !important;
+  }
+
+  .img-elearning {
+    width: 100%;
+  }
+
+  .icon-titik {
+    margin: 13px !important;
+    width: 21px;
+  }
+
+  .img-tentang {
+    width: 277px !important;
+  }
+  .contact-text.pr-3{
+    padding: 1rem !important;
+  }
+  .contact-address{
+    padding: 1rem;
+  }
+  .footer-body .judul-1{
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .tentang-kami{
+    padding: 1rem;
+  }
+  .tentang-kami.mt-5{
+    margin-top: 0rem !important;
+  }
+  .tentang-kami .col-md-6{
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .judul-1[data-scroll="out"], .judul-2[data-scroll="out"] {
+    opacity: 1;
+    transition: 1s;
+    transform: translateX(4px);
+  }
+  .hero-mini{
+    display: block;
+  }
+}
+
+@media (min-width: 308px) and (max-width: 480px) {
+  .img-tentang {
+    width: 277px !important;
+  }
+}

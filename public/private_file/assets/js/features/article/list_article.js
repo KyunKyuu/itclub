@@ -57,7 +57,7 @@ $(document).ready(function() {
                 $('#updateArticle').modal('show')
                 $('#updateArticle textarea[name="title"]').val(res.data.article.title)
                 $('#updateArticle textarea[name="title"]').attr('data-id',res.data.article.id)
-                $('#updateArticle img').attr('src', '/private_file/user/image-article/' +res.data.article.thumbnail)
+                $('#updateArticle img').attr('src', '/storage/' +res.data.article.thumbnail)
                 $('#updateArticle select[name="category[]"]').val(category)
                 $('#updateArticle select[name="category[]"]').select2()
             },

@@ -86,9 +86,9 @@ class DivisionController extends Controller
         ]);
     }
 
-    public function edit($id)
+    public function edit()
     {
-        $division = Division::find($id);
+        $division = Division::find($_GET['id']);
 
         if(!$division)
         {

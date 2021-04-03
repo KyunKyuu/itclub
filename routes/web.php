@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\Api\ArticleController as ApiArticleController;
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
 use App\Http\Controllers\Api\ErrorController as ApiErrorController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\Master\PreferencesController;
 use App\Http\Controllers\Setting\ErrorController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Home\IndexController as HomeController;
 
 use App\Http\Controllers\Api\DivisionController as ApiDivisionController;
 use App\Http\Controllers\Api\ImageDivisionController as ApiImageDivisionController;
@@ -25,13 +27,8 @@ use App\Http\Controllers\Api\GalleryController as ApiGalleryController;
 use App\Http\Controllers\Api\CategoryController as ApiCategoryController;
 use App\Http\Controllers\Api\ImageGalleryController as ApiImageGalleryController;
 use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
+use App\Http\Controllers\Api\MemberController as ApiMemberController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
-use App\Http\Controllers\Api\MemberController;
-use App\Http\Controllers\Master\AlumniController;
-use App\Http\Controllers\Master\DivisionController;
-use App\Http\Controllers\Master\CategoryController;
-use App\Http\Controllers\Master\ImageDivisionController;
-use App\Http\Controllers\Master\PrestationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,10 +41,24 @@ use App\Http\Controllers\Master\PrestationController;
 |
 */
 
-Route::get('/', function () {
-    return redirect('/auth/login');
-});
-Route::get('/dashboard/general/index', [IndexController::class, 'index']);
+
+// Home Page
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/tentang', [HomeController::class, 'tentang'])->name('tentang');
+Route::get('/division/{slug:slug}', [HomeController::class, 'division'])->name('division');
+Route::get('/gallery', [HomeController::class, 'gallery'])->name('gallery');
+Route::get('/gallery/{slug:slug}', [HomeController::class, 'image_gallery'])->name('image.gallery');
+Route::get('/member/{class:class}', [HomeController::class, 'member'])->name('member');
+Route::get('/alumni', [HomeController::class, 'alumni'])->name('alumni');
+Route::get('/article', [HomeController::class, 'article'])->name('article');
+Route::get('/article/{slug:slug}', [HomeController::class, 'article_detail'])->name('article_detail');
+
+
+
+Route::get('/dashboard/general/index', [IndexController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
+Route::get('/auth/register', [AuthController::class, 'register']);
+Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
 
 Route::group(['prefix' => '/master', 'middleware' => ['auth', 'access']], function () {
     Route::get('/preferences/section', [PreferencesController::class, 'section']);
@@ -88,18 +99,6 @@ Route::group(['prefix' => '/error'], function () {
     Route::get('/exception/{id}', [ExceptionController::class, 'page']);
 });
 
-Route::group(['prefix' => '/auth'], function () {
-    Route::get('/register', [AuthController::class, 'register']);
-    Route::get('/forgotpassword', [AuthController::class, 'forgotpassword']);
-    Route::get('/resetpassword/{resource}', [AuthController::class, 'resetpassword']);
-    Route::get('/login', [AuthController::class, 'login'])->name('login');
-});
-
-Route::group(['prefix' => '/authentication/mail'], function () {
-    Route::get('/activation/{resource}', [MailController::class, 'activation']);
-    Route::get('/forgotpassword/{resource}', [MailController::class, 'forgotpassword']);
-});
-
 // !NOTE API Request & Response
 Route::prefix('/api/v1')->group(function () {
 
@@ -107,8 +106,6 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/register', [ApiAuthController::class, 'register']);
         Route::post('/login', [ApiAuthController::class, 'login']);
         Route::get('/logout', [ApiAuthController::class, 'logout']);
-        Route::post('/forgotpassword', [ApiAuthController::class, 'forgotpassword']);
-        Route::post('/resetpassword', [ApiAuthController::class, 'resetpassword']);
     });
 
     Route::group(['prefix' => '/user'], function () {
@@ -175,10 +172,10 @@ Route::prefix('/api/v1')->group(function () {
     });
 
     Route::group(['prefix' => '/member', 'middleware' => ['auth']], function () {
-        Route::get('/get', [ApiMemberController::class, 'index']);
-        Route::post('/insert', [ApiMemberController::class, 'store']);
-        Route::post('/update', [ApiMemberController::class, 'update']);
-        Route::delete('/delete', [ApiMemberController::class, 'destroy']);
+        Route::get('get', [ApiMemberController::class, 'index']);
+        Route::post('insert', [ApiMemberController::class, 'store']);
+        Route::post('update', [ApiMemberController::class, 'update']);
+        Route::delete('delete', [ApiMemberController::class, 'destroy']);
 
         Route::get('/get/profile', [ApiMemberController::class, 'get_profile']);
         Route::post('/insert/profile', [ApiMemberController::class, 'insert_profile']);

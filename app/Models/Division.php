@@ -20,7 +20,7 @@ class Division extends Model
 
     public function members()
     {
-        return $this->hasMany(Member::class);
+        return $this->hasMany(Member::class, 'id');
     }
 
     public function images()
