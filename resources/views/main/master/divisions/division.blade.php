@@ -128,11 +128,10 @@
                          <div class="form-group row">
                           <div class="form-group col-md-6 col-12">
                         <label>Thumbnail</label>
-                         <input type="file" class="form-control image-input-preview"  value="" name="image" placeholder="Pelajar" data-id="img-thumbnail">
+                         <input type="file" class="form-control image-input-preview" data-id="update-preview"  name="image">
                       </div>
                       <div class="form-group col-md-6 col-12">
-                          <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt="" class="img-fluid" style="max-width: 150px"><br>
-                          
+                          <img src="" id="update-preview" alt="" class="img-fluid" style="max-width: 150px"><br>
                     </div>
                           <div class="invalid-feedback">
                             What's image division?

@@ -12,7 +12,7 @@ class Article extends Model
     use SoftDeletes;
 
     protected $table = 'blogs';
-    protected $fillable = ['user_id', 'title', 'content', 'image', 'slug', 'deleted_at'];
+    protected $fillable = ['user_id', 'title', 'content', 'image', 'slug', 'deleted_at','thumbnail','status'];
     protected $dates = ['deleted_at'];
 
     public function categories()
@@ -22,6 +22,11 @@ class Article extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(User::class);
+    }
+
+    public function thumbnail()
+    {
+        return !$this->thumbnail ? asset('no-image.jpg') : asset("storage/" . $this->thumbnail);
     }
 }

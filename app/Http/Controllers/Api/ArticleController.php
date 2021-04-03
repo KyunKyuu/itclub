@@ -105,13 +105,15 @@ class ArticleController extends Controller
         if ($request->title == null) {
             return response()->json(['message' => 'Error, Lengkapi form kosong terlebih dahulu!', 'status' => 'error'], 500);
         }
-        if ($request->hasFile('image')) {
+
+         if ($request->hasFile('image')) {
             $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10) . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move('private_file/user/image-article/', $name);
-            $request->request->add(['thumbnail' => $name]);
+            $imageArticle = \Storage::putFileAs('images/article', $request->file('image'), $name);
+            $request->request->add(['thumbnail' => $imageArticle]);
         }
+
         $title = str_replace('"', '-', $request->title);
-        $request->request->add(['user_id' => auth()->user()->id, 'slug' => str_replace(" ", "-", $title)]);
+        $request->request->add(['user_id' => auth()->user()->id, 'slug' => \Str::slug(request('title'))]);
         $blog = Article::create($request->except('image'));
 
         if ($request->category) {
@@ -175,14 +177,17 @@ class ArticleController extends Controller
         if ($request->title == null) {
             return response()->json(['message' => 'Error, Lengkapi form kosong terlebih dahulu!', 'status' => 'error'], 500);
         }
-        if ($request->hasFile('image')) {
-            $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10) . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move('private_file/user/image-article/', $name);
-            $request->request->add(['thumbnail' => $name]);
-        }
-        $title = str_replace('"', '-', $request->title);
-        $request->request->add(['user_id' => auth()->user()->id, 'slug' => str_replace(" ", "-", $title)]);
         $blog = Article::find($request->id);
+        if ($request->hasFile('image')) {
+
+          \Storage::delete($blog->thumbnail); 
+           $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10) . '.' . $request->file('image')->getClientOriginalExtension();
+           $imageArticle = \Storage::putFileAs('images/article', $request->file('image'), $name);
+           $request->request->add(['thumbnail' => $imageArticle]);
+         }
+        $title = str_replace('"', '-', $request->title);
+        $request->request->add(['user_id' => auth()->user()->id, 'slug' => \Str::slug(request('title'))]);
+       
         $blog->update($request->except('image'));
 
         return response()->json(['message' => 'Selamat, article berhasil diperbaharui!', 'status' => 'success'], 200);
