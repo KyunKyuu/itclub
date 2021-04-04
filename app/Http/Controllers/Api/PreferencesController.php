@@ -91,9 +91,9 @@ class PreferencesController extends Controller
             ->addIndexColumn()
             ->addColumn('check', function ($menu) {
                 return  '<div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-' . $menu->id . '">
-                        <label for="checkbox-' . $menu->id . '" class="custom-control-label">&nbsp;</label>
-                        </div>';
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $menu->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $menu->id . '" >
+                    <label for="checkbox-' . $menu->id . '" class="custom-control-label">&nbsp;</label>
+                    </div>';
             })
             ->addColumn('btn', function ($menu) {
                 return '
@@ -120,8 +120,8 @@ class PreferencesController extends Controller
 
     public function get_menu($id)
     {
-        $submenu = Menu::find($id);
-        return response()->json(['status' => 'success', 'message' => 'Get data berhasil', 'data' => $submenu], 200);
+        $menu = Menu::find($id);
+        return response()->json(['status' => 'success', 'message' => 'Get data berhasil', 'data' => $menu], 200);
     }
 
     public function insert_menu(Request $request)
@@ -133,15 +133,22 @@ class PreferencesController extends Controller
 
     public function delete_menu(Request $request)
     {
-        $submenu = Menu::find($request->value);
-        $submenu->delete();
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                $menu = Menu::find($value);
+                $menu->delete();
+            }
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
+        }
+        $menu = Menu::find($request->value);
+        $menu->delete();
         return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
     }
 
     public function update_menu(Request $request)
     {
-        $submenu = Menu::find($request->id);
-        $submenu->update($request->all());
+        $menu = Menu::find($request->id);
+        $menu->update($request->all());
         return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 
@@ -161,7 +168,7 @@ class PreferencesController extends Controller
             ->addIndexColumn()
             ->addColumn('check', function ($submenu) {
                 return  '<div class="custom-checkbox custom-control">
-                            <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-' . $submenu->id . '">
+                            <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $submenu->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $submenu->id . '" >
                         <label for="checkbox-' . $submenu->id . '" class="custom-control-label">&nbsp;</label>
                         </div>';
             })
@@ -203,6 +210,13 @@ class PreferencesController extends Controller
 
     public function delete_submenu(Request $request)
     {
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                $submenu = Submenu::find($value);
+                $submenu->delete();
+            }
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
+        }
         $submenu = Submenu::find($request->value);
         $submenu->delete();
         return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);

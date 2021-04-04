@@ -26,8 +26,12 @@ $(document).ready(function() {
             success:res=>{
                 SweetAlert(res)
                 RefreshTable('table')
+                value_checkbox = []
             },
-            error:err=>console.log(err)
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+                value_checkbox = []
+            }
         })
     })
 
@@ -46,8 +50,38 @@ $(document).ready(function() {
             success:res=>{
                 SweetAlert(res)
                 RefreshTable('table')
+                value_checkbox = []
             },
-            error:err=>console.log(err)
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+                value_checkbox = []
+            }
+        })
+    })
+
+    $('#deleteArray').on('click', function (e) {
+        if (value_checkbox.length < 1) {
+            Swal.fire('Perhatian!', 'Pilih salah satu', 'warning')
+            return 0;
+        }
+        $.ajax({
+            url:'/api/v1/menu/delete',
+            data:{
+                value : value_checkbox
+            },
+            type:'DELETE',
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            success:res=>{
+                SweetAlert(res)
+                RefreshTable('table')
+                value_checkbox = []
+            },
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+                value_checkbox = []
+            }
         })
     })
 
@@ -67,7 +101,9 @@ $(document).ready(function() {
                 $('#updateMenu textarea[name="comments"]').val(res.data.comments);
                 $('#updateMenu').modal('show');
             },
-            error:err=>console.log(err)
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+            }
         })
     })
 
@@ -87,8 +123,12 @@ $(document).ready(function() {
             success:res=>{
                 SweetAlert(res)
                 RefreshTable('table')
+                value_checkbox = []
             },
-            error:err=>console.log(err)
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+                value_checkbox = []
+            }
         })
     })
 
@@ -106,8 +146,12 @@ $(document).ready(function() {
             success:res=>{
                 SweetAlert(res)
                 RefreshTable('table')
+            value_checkbox = []
             },
-            error:err=>console.log(err)
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+                value_checkbox = []
+            }
         })
     })
 })
