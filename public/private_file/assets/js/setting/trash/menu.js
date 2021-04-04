@@ -8,7 +8,7 @@ $(document).ready(function() {
         {name:'btn', data:'btn'},
     ];
 
-    Table({table:'table', data:data, url:'/api/v1/trash/section/get'})
+    Table({table:'table', data:data, url:'/api/v1/trash/menu/get'})
 
     $('#recoveryData').on('click', function (e) {
         e.preventDefault();
@@ -18,7 +18,7 @@ $(document).ready(function() {
         }
         SweetQuestions({
             title : 'Apakah anda yakin?',
-            subtitle : 'Apakah anda ingin merestore data section ini?',
+            subtitle : 'Apakah anda ingin merestore data menu ini?',
             buttonConfirm : 'Yes',
             buttonDeny: 'No',
             confirm : 'ajax',
@@ -27,7 +27,7 @@ $(document).ready(function() {
                 title : 'Gagal merestore'
             },
             ajax : {
-                url:'/api/v1/trash/section/recovery',
+                url:'/api/v1/trash/menu/recovery',
                 data:{
                     value : value_checkbox
                 },
@@ -56,7 +56,7 @@ $(document).ready(function() {
         }
         SweetQuestions({
             title : 'Apakah anda yakin?',
-            subtitle : 'Apakah anda ingin menghapus data section ini?',
+            subtitle : 'Apakah anda ingin menghapus data menu ini?',
             buttonConfirm : 'Yes',
             buttonDeny: 'No',
             confirm : 'ajax',
@@ -65,7 +65,7 @@ $(document).ready(function() {
                 title : 'Gagal menghapus'
             },
             ajax : {
-                url:'/api/v1/trash/section/delete',
+                url:'/api/v1/trash/menu/delete',
                 data:{
                     value : value_checkbox
                 },
@@ -90,7 +90,7 @@ $(document).ready(function() {
         let value = $(this).data('value')
         SweetQuestions({
             title : 'Apakah anda yakin?',
-            subtitle : 'Apakah anda ingin merestore data section ini?',
+            subtitle : 'Apakah anda ingin merestore data menu ini?',
             buttonConfirm : 'Yes',
             buttonDeny: 'No',
             confirm : 'ajax',
@@ -99,7 +99,7 @@ $(document).ready(function() {
                 title : 'Gagal merestore'
             },
             ajax : {
-                url:'/api/v1/trash/section/recovery',
+                url:'/api/v1/trash/menu/recovery',
                 data:{
                     value : value
                 },
@@ -124,7 +124,7 @@ $(document).ready(function() {
         let value = $(this).data('value')
         SweetQuestions({
             title : 'Apakah anda yakin?',
-            subtitle : 'Apakah anda ingin menghapus data section ini?',
+            subtitle : 'Apakah anda ingin menghapus data menu ini?',
             buttonConfirm : 'Yes',
             buttonDeny: 'No',
             confirm : 'ajax',
@@ -133,7 +133,7 @@ $(document).ready(function() {
                 title : 'Gagal menghapus'
             },
             ajax : {
-                url:'/api/v1/trash/section/delete',
+                url:'/api/v1/trash/menu/delete',
                 data:{
                     value : value
                 },

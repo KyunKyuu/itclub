@@ -89,6 +89,8 @@ Route::group(['prefix' => '/setting', 'middleware' => ['auth', 'access']], funct
     Route::get('/menu/role', [MenuAccessControlller::class, 'role']);
     Route::get('/error/page', [ErrorController::class, 'page']);
     Route::get('/trash/section', [TrashController::class, 'section']);
+    Route::get('/trash/menu', [TrashController::class, 'menu']);
+    Route::get('/trash/submenu', [TrashController::class, 'submenu']);
 });
 
 Route::group(['prefix' => '/member', 'middleware' => 'auth'], function () {
@@ -258,6 +260,9 @@ Route::prefix('/api/v1')->group(function () {
         Route::get('section/get', [ApiTrashController::class, 'section_get']);
         Route::post('section/recovery', [ApiTrashController::class, 'section_recovery']);
         Route::delete('section/delete', [ApiTrashController::class, 'section_delete']);
+        Route::get('menu/get', [ApiTrashController::class, 'menu_get']);
+        Route::post('menu/recovery', [ApiTrashController::class, 'menu_recovery']);
+        Route::delete('menu/delete', [ApiTrashController::class, 'menu_delete']);
     });
 
     Route::group(['prefix' => '/setting', 'middleware' => ['auth']], function () {

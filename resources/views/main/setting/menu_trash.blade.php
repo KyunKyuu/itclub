@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Master Data Section</h4>
+                    <h4>Master Data Menu</h4>
                     <div class="ml-auto">
                         <a href="#" class="btn btn-info rounded" id="recoveryData"><i class="fas fa-recycle"></i>
                             Recovery</a>
@@ -27,7 +27,7 @@
                                             <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                         </div>
                                     </th>
-                                    <th>Section</th>
+                                    <th>Menu</th>
                                     <th>Created By</th>
                                     <th>Deleted At</th>
                                     <th>Created At</th>

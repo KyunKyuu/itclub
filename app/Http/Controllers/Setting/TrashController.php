@@ -12,4 +12,9 @@ class TrashController extends Controller
     {
         return view('main.setting.section_trash');
     }
+
+    public function menu()
+    {
+        return view('main.setting.menu_trash');
+    }
 }
