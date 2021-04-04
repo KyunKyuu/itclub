@@ -43,6 +43,7 @@ function Submenu($id)
         ->where('user_id', auth()->user()->id)
         ->where('menu_id', $id)->where('status', 1)
         ->where('access_user_submenu.deleted_at', null)
+        ->orderBy('submenu.id', 'asc')
         ->get();
 
     return $data;

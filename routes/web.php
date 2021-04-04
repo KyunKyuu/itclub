@@ -35,6 +35,7 @@ use App\Http\Controllers\Api\ImageGalleryController as ApiImageGalleryController
 use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
 use App\Http\Controllers\Api\MemberController as ApiMemberController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
+use App\Http\Controllers\Setting\TrashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,7 @@ Route::group(['prefix' => '/setting', 'middleware' => ['auth', 'access']], funct
     Route::get('/menu/user', [MenuAccessControlller::class, 'user']);
     Route::get('/menu/role', [MenuAccessControlller::class, 'role']);
     Route::get('/error/page', [ErrorController::class, 'page']);
+    Route::get('/trash/section', [TrashController::class, 'section']);
 });
 
 Route::group(['prefix' => '/member', 'middleware' => 'auth'], function () {
