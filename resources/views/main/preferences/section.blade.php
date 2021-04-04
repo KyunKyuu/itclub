@@ -10,7 +10,8 @@
                     <div class="ml-auto">
                         <a href="#" class="btn btn-primary rounded" data-target="#insertSection" data-toggle="modal"><i
                                 class="fas fa-plus"></i> Tambah</a>
-                        <a href="#" class="btn btn-danger rounded"><i class="far fa-trash-alt"></i> Hapus</a>
+                        <a href="#" class="btn btn-danger rounded" id="deleteArray"><i class="far fa-trash-alt"></i>
+                            Hapus</a>
                     </div>
                 </div>
                 <div class="card-body p-3">
@@ -22,7 +23,7 @@
                                         <div class="custom-checkbox custom-control">
                                             <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad"
                                                 class="custom-control-input" id="checkbox-all"
-                                                onchange="checkbox_all(this )">
+                                                onchange="checkbox_all(this)">
                                             <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                         </div>
                                     </th>

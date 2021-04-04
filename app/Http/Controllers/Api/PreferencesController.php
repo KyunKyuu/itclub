@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Menu;
 use App\Models\Section;
 use App\Models\Submenu;
+use Hamcrest\Arrays\IsArray;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -20,8 +21,8 @@ class PreferencesController extends Controller
             ->addIndexColumn()
             ->addColumn('check', function ($section) {
                 return  '<div class="custom-checkbox custom-control">
-                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" name="id-checkbox">
-                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $section->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $section->id . '" >
+                    <label for="checkbox-' . $section->id . '" class="custom-control-label">&nbsp;</label>
                     </div>';
             })
             ->addColumn('btn', function ($section) {
@@ -56,6 +57,10 @@ class PreferencesController extends Controller
 
     public function delete_section(Request $request)
     {
+        if (is_array($request->value)) {
+            $section = Section::all()->whereIn('id', $request->value);
+            dd($section);
+        }
         $section = Section::find($request->value);
         $section->delete();
         return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!']);

@@ -7,6 +7,7 @@ use App\Models\{Prestation};
 use App\Http\Requests\PrestationRequest;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
+
 class PrestationController extends Controller
 {
     public function index()
@@ -32,23 +33,22 @@ class PrestationController extends Controller
             <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $prestation->id . '" id="delete"><i class="fas fa-trash"></i></a>
             ';
             })
-           ->addColumn('images', function ($prestation) {   
-                return '<img src="'.$prestation->image().'" width="50">';
+            ->addColumn('images', function ($prestation) {
+                return '<img src="' . $prestation->image() . '" width="50">';
             })
-            
-            ->rawColumns(['check', 'btn','images'])
+
+            ->rawColumns(['check', 'btn', 'images'])
             ->make(true);
     }
 
     public function show($id)
     {
         $prestation = Prestation::find($id);
-        if(!$prestation)
-        {
+        if (!$prestation) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Prestation not found'
-            ],404);
+            ], 404);
         }
 
         return response()->json([
@@ -83,40 +83,37 @@ class PrestationController extends Controller
     public function edit($id)
     {
         $prestation = Prestation::find($id);
-        if(!$prestation)
-        {
+        if (!$prestation) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Prestation not found'
-            ],404);
+            ], 404);
         }
 
         return response()->json([
             'status' => 'success',
             'message' => 'form untuk edit'
         ]);
-
     }
 
     public function update(PrestationRequest $request)
     {
         $prestation = Prestation::find($request->id);
-        if(!$prestation)
-        {
+        if (!$prestation) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Prestation not found'
-            ],404);
+            ], 404);
         }
 
-      if($request->image){
+        if ($request->image) {
             \Storage::delete($prestation->image);
             $image = request()->file('image')->store('images/prestation');
-       }elseif($prestation->image){
+        } elseif ($prestation->image) {
             $image = $prestation->image;
-       }else{
+        } else {
             $image = null;
-       }
+        }
 
         $prestation->update([
             'name' => $request->name,
@@ -135,12 +132,11 @@ class PrestationController extends Controller
     {
         $prestation = Prestation::find($request->id);
 
-        if(!$prestation)
-        {
+        if (!$prestation) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Prestation not found'
-            ],404);
+            ], 404);
         }
 
         $prestation->delete();
@@ -148,6 +144,6 @@ class PrestationController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'prestation deleted successfuly'
-        ],200);
+        ], 200);
     }
 }

@@ -1,4 +1,6 @@
 const csrftoken = $('meta[name="csrf-token"]').data('token')
+const value_checkbox = []
+
 $(document).ready(function() {
     ClassicEditor
     .create( document.querySelector( '.use-ckeditor' ), {

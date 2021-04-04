@@ -49,6 +49,29 @@ $(document).ready(function() {
         })
     })
 
+    $('#deleteArray').on('click', function (e) {
+        e.preventDefault();
+        if (value_checkbox.length < 1) {
+            Swal.fire('Perhatian', 'Pilih salah satu!','warning')
+            return 0;
+        }
+        $.ajax({
+            url:'/api/v1/section/delete',
+            data:{
+                value : value_checkbox
+            },
+            type:'DELETE',
+            headers:{
+                'X-CSRF-TOKEN' : csrftoken
+            },
+            success:res=>{
+                SweetAlert(res)
+                RefreshTable('table')
+            },
+            error:err=>console.log(err)
+        })
+    })
+
     $('#table').on('click', '#edit', function (e) {
         e.preventDefault();
         let value = $(this).data('value')

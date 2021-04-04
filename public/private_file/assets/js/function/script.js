@@ -140,10 +140,15 @@ function checkbox_all(val){
         for (i = 0; i < checkbox.length; i++) {
             if ( val.checked ) {
                 checkbox[i].checked = true;
-                value.push(checkbox[i].value)
+                value_checkbox.push(checkbox[i].value)
             }
             else {
                 checkbox[i].checked = false;
+                 var index = value_checkbox.indexOf(checkbox[i].value);
+
+                if (index > -1) {
+                    value_checkbox.splice(index, 1);
+                }
             }
         }
     }
@@ -156,16 +161,22 @@ function checkbox_all(val){
         }
     }
 
-    console.log(value);
+    console.log(value_checkbox);
 }
 
 function checkbox_this(val) {
     if ( val.checked ) {
-        checkbox[i].checked = true;
-        value.push(checkbox[i].value)
+        $(this).checked = true;
+        value_checkbox.push(val.value)
     }
     else {
-        checkbox[i].checked = false;
+        $(this).checked = false;
+        var index = value_checkbox.indexOf(val.value);
+
+        if (index > -1) {
+            value_checkbox.splice(index, 1);
+        }
     }
+    console.log(value_checkbox);
 }
 
