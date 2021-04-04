@@ -135,13 +135,12 @@ function RefreshTable(data) {
 }
 
 function checkbox_all(val){
-    let id
     var checkbox = $('#table input[name="id-checkbox"]');
     if ( checkbox.length > 0 ) {
         for (i = 0; i < checkbox.length; i++) {
             if ( val.checked ) {
-                id = checkbox[i].checked = true;
-                console.log(checkbox.val());
+                checkbox[i].checked = true;
+                value.push(checkbox[i].value)
             }
             else {
                 checkbox[i].checked = false;
@@ -155,6 +154,18 @@ function checkbox_all(val){
         else {
             checkbox.checked = false;
         }
+    }
+
+    console.log(value);
+}
+
+function checkbox_this(val) {
+    if ( val.checked ) {
+        checkbox[i].checked = true;
+        value.push(checkbox[i].value)
+    }
+    else {
+        checkbox[i].checked = false;
     }
 }
 
