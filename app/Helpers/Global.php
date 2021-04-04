@@ -30,6 +30,7 @@ function Menu($id)
         ->where('section_id', $id)
         ->where('user_id', auth()->user()->id)->where('status', 1)
         ->where('access_user_menu.deleted_at', null)
+        ->orderBy('menu.id', 'asc')
         ->get();
 
     return $data;
