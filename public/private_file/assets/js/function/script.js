@@ -134,3 +134,27 @@ function RefreshTable(data) {
     table.ajax.reload()
 }
 
+function checkbox_all(val){
+    let id
+    var checkbox = $('#table input[name="id-checkbox"]');
+    if ( checkbox.length > 0 ) {
+        for (i = 0; i < checkbox.length; i++) {
+            if ( val.checked ) {
+                id = checkbox[i].checked = true;
+                console.log(checkbox.val());
+            }
+            else {
+                checkbox[i].checked = false;
+            }
+        }
+    }
+    else {
+        if ( val.checked ) {
+            checkbox.checked = true;
+        }
+        else {
+            checkbox.checked = false;
+        }
+    }
+}
+

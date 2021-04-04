@@ -20,6 +20,8 @@ use App\Http\Controllers\Master\AlumniController;
 use App\Http\Controllers\Master\MemberController;
 use App\Http\Controllers\Master\CategoryController;
 use App\Http\Controllers\Master\PrestationController;
+use App\Http\Controllers\Master\DivisionController;
+use App\Http\Controllers\Master\ImageDivisionController;
 use App\Http\Controllers\Setting\ErrorController;
 use Illuminate\Support\Facades\Route;
 
