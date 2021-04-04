@@ -25,7 +25,9 @@ $(document).ready(function() {
                 SweetAlert(res)
                 RefreshTable('table')
             },
-            error:err=>console.log(err)
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+            }
         })
     })
 
@@ -45,7 +47,9 @@ $(document).ready(function() {
                 SweetAlert(res)
                 RefreshTable('table')
             },
-            error:err=>console.log(err)
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+            }
         })
     })
 
@@ -67,8 +71,12 @@ $(document).ready(function() {
             success:res=>{
                 SweetAlert(res)
                 RefreshTable('table')
+                value_checkbox = []
             },
-            error:err=>console.log(err)
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+                value_checkbox = []
+            }
         })
     })
 
@@ -84,7 +92,9 @@ $(document).ready(function() {
                 $('#update_comments').val(res.data.comments)
                 $('#updateSection').modal('show')
             },
-            error:err=>console.log(err)
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+            }
         })
     })
 
@@ -105,7 +115,9 @@ $(document).ready(function() {
                 SweetAlert(res)
                 RefreshTable('table')
             },
-            error:err=>console.log(err)
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+            }
         })
     })
 
@@ -125,7 +137,9 @@ $(document).ready(function() {
                 SweetAlert(res)
                 RefreshTable('table')
             },
-            error:err=>console.log(err)
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+            }
         })
     })
 })

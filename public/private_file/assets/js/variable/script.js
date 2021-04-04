@@ -1,5 +1,5 @@
 const csrftoken = $('meta[name="csrf-token"]').data('token')
-const value_checkbox = []
+let value_checkbox = []
 
 $(document).ready(function() {
     ClassicEditor

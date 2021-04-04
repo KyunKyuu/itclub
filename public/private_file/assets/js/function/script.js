@@ -161,7 +161,6 @@ function checkbox_all(val){
         }
     }
 
-    console.log(value_checkbox);
 }
 
 function checkbox_this(val) {
@@ -177,6 +176,5 @@ function checkbox_this(val) {
             value_checkbox.splice(index, 1);
         }
     }
-    console.log(value_checkbox);
 }
 

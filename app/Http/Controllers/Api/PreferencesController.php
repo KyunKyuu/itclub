@@ -45,39 +45,42 @@ class PreferencesController extends Controller
     public function get_section($id)
     {
         $section = Section::find($id);
-        return response()->json(['status' => 'success', 'message' => 'Get data berhasil', 'data' => $section]);
+        return response()->json(['status' => 'success', 'message' => 'Get data berhasil', 'data' => $section], 200);
     }
 
     public function insert_section(Request $request)
     {
         $request->request->add(['created_by' => auth()->user()->id]);
         Section::create($request->all());
-        return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan!']);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan!'], 200);
     }
 
     public function delete_section(Request $request)
     {
         if (is_array($request->value)) {
-            $section = Section::all()->whereIn('id', $request->value);
-            dd($section);
+            foreach ($request->value as $value) {
+                $section = Section::find($value);
+                $section->delete();
+            }
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
         }
         $section = Section::find($request->value);
         $section->delete();
-        return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!']);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
     }
 
     public function update_section(Request $request)
     {
         $section = Section::find($request->id);
         $section->update($request->all());
-        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!']);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 
     public function update_status_section(Request $request)
     {
         $section = Section::find($request->id);
         $section->update(['status' => $request->status]);
-        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!']);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 
     // !NOTE Menu Query
@@ -118,35 +121,35 @@ class PreferencesController extends Controller
     public function get_menu($id)
     {
         $submenu = Menu::find($id);
-        return response()->json(['status' => 'success', 'message' => 'Get data berhasil', 'data' => $submenu]);
+        return response()->json(['status' => 'success', 'message' => 'Get data berhasil', 'data' => $submenu], 200);
     }
 
     public function insert_menu(Request $request)
     {
         $request->request->add(['created_by' => auth()->user()->id]);
         Menu::create($request->all());
-        return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan!']);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan!'], 200);
     }
 
     public function delete_menu(Request $request)
     {
         $submenu = Menu::find($request->value);
         $submenu->delete();
-        return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!']);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
     }
 
     public function update_menu(Request $request)
     {
         $submenu = Menu::find($request->id);
         $submenu->update($request->all());
-        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!']);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 
     public function update_status_menu(Request $request)
     {
         $menu = Menu::find($request->id);
         $menu->update(['status' => $request->status]);
-        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!']);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 
 
@@ -188,34 +191,34 @@ class PreferencesController extends Controller
     public function get_submenu($id)
     {
         $submenu = Submenu::find($id);
-        return response()->json(['status' => 'success', 'message' => 'Get data berhasil', 'data' => $submenu]);
+        return response()->json(['status' => 'success', 'message' => 'Get data berhasil', 'data' => $submenu], 200);
     }
 
     public function insert_submenu(Request $request)
     {
         $request->request->add(['created_by' => auth()->user()->id]);
         Submenu::create($request->all());
-        return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan!']);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan!'], 200);
     }
 
     public function delete_submenu(Request $request)
     {
         $submenu = Submenu::find($request->value);
         $submenu->delete();
-        return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!']);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
     }
 
     public function update_submenu(Request $request)
     {
         $submenu = Submenu::find($request->id);
         $submenu->update($request->all());
-        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!']);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 
     public function update_status_submenu(Request $request)
     {
         $submenu = Submenu::find($request->id);
         $submenu->update(['status' => $request->status]);
-        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!']);
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 }
