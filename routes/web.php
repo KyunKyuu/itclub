@@ -263,6 +263,9 @@ Route::prefix('/api/v1')->group(function () {
         Route::get('menu/get', [ApiTrashController::class, 'menu_get']);
         Route::post('menu/recovery', [ApiTrashController::class, 'menu_recovery']);
         Route::delete('menu/delete', [ApiTrashController::class, 'menu_delete']);
+        Route::get('submenu/get', [ApiTrashController::class, 'submenu_get']);
+        Route::post('submenu/recovery', [ApiTrashController::class, 'submenu_recovery']);
+        Route::delete('submenu/delete', [ApiTrashController::class, 'submenu_delete']);
     });
 
     Route::group(['prefix' => '/setting', 'middleware' => ['auth']], function () {

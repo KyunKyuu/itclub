@@ -17,4 +17,9 @@ class TrashController extends Controller
     {
         return view('main.setting.menu_trash');
     }
+
+    public function submenu()
+    {
+        return view('main.setting.submenu_trash');
+    }
 }
