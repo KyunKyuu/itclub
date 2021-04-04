@@ -39,6 +39,10 @@ class MenuAccessControlller extends Controller
             ->addColumn('access', function ($menu) {
                 $access = DB::table('set_access_menu')->where('menu_id', $menu->id)->where('role_id', $_GET['id'])->count();
                 $checked = $access > 0 ? 'checked' : ' ';
+                $check = DB::table('set_access_section')->where('section_id', $menu->section_id)->where('role_id', $_GET['id'])->count();
+                if ($check < 1) {
+                    return '<a href="#" class="btn disabled btn-secondary">Disabled</a>';
+                }
                 return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $menu->id . '" data-role="' . $_GET['id'] . '" data-id="menu"> ';
             })
             ->rawColumns(['check', 'btn', 'access'])
@@ -53,7 +57,16 @@ class MenuAccessControlller extends Controller
             ->addColumn('access', function ($submenu) {
                 $access = DB::table('set_access_submenu')->where('submenu_id', $submenu->id)->where('role_id', $_GET['id'])->count();
                 $checked = $access > 0 ? 'checked' : ' ';
-                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $submenu->id . '" data-role="' . $_GET['id'] . '" data-id="submenu"> ';
+                $check = DB::table('set_access_menu')->where('menu_id', $submenu->menu_id)->where('role_id', $_GET['id'])->count();
+                $menu = Menu::find($submenu->menu_id);
+                $check2 = DB::table('set_access_section')->where('section_id', $menu->section_id)->where('role_id', $_GET['id'])->count();
+                if ($check > 0) {
+                    if ($check2 > 0) {
+                        return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $submenu->id . '" data-role="' . $_GET['id'] . '" data-id="submenu"> ';
+                    }
+                    return '<a href="#" class="btn disabled btn-secondary">Disabled</a>';
+                }
+                return '<a href="#" class="btn disabled btn-secondary">Disabled</a>';
             })
             ->rawColumns(['check', 'btn', 'access'])
             ->make(true);
@@ -116,13 +129,17 @@ class MenuAccessControlller extends Controller
         return DataTables::of($submenu)
             ->addIndexColumn()
             ->addColumn('access', function ($submenu) {
-                $check = MenuAccess::where('user_id', $_GET['id'])->where('menu_id', $submenu->menu_id)->count();
                 $access = SubmenuAccess::where('user_id', $_GET['id'])->where('submenu_id', $submenu->id)->count();
                 $checked = $access > 0 ? 'checked' : ' ';
-                if ($check < 1) {
-                    return '<a href="#" class="btn disabled btn-secondary">Disabled</a>';
+                $check = MenuAccess::where('user_id', $_GET['id'])->where('menu_id', $submenu->menu_id)->count();
+                $menu = Menu::find($submenu->menu_id);
+                $check2 = SectionAccess::where('section_id', $menu->section_id)->where('user_id', $_GET['id'])->count();
+                if ($check > 0) {
+                    if ($check2 > 0) {
+                        return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $submenu->id . '" data-user="' . $_GET['id'] . '" data-id="submenu"> ';
+                    }
                 }
-                return '<input type="checkbox" class="input-toggle" ' . $checked . ' data-value="' . $submenu->id . '" data-user="' . $_GET['id'] . '" data-id="submenu"> ';
+                return '<a href="#" class="btn disabled btn-secondary">Disabled</a>';
             })
             ->rawColumns(['access'])
             ->make(true);
