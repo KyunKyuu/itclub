@@ -35,6 +35,7 @@ use App\Http\Controllers\Api\ImageGalleryController as ApiImageGalleryController
 use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
 use App\Http\Controllers\Api\MemberController as ApiMemberController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
+use App\Http\Controllers\Api\TrashController as ApiTrashController;
 use App\Http\Controllers\Setting\TrashController;
 
 /*
@@ -251,6 +252,12 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('insert', [ApiCategoryController::class, 'store']);
         Route::post('update', [ApiCategoryController::class, 'update']);
         Route::delete('delete', [ApiCategoryController::class, 'destroy']);
+    });
+
+    Route::prefix('trash')->group(function () {
+        Route::get('section/get', [ApiTrashController::class, 'section_get']);
+        Route::post('section/recovery', [ApiTrashController::class, 'section_recovery']);
+        Route::delete('section/delete', [ApiTrashController::class, 'section_delete']);
     });
 
     Route::group(['prefix' => '/setting', 'middleware' => ['auth']], function () {

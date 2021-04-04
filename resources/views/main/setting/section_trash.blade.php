@@ -27,10 +27,9 @@
                                         </div>
                                     </th>
                                     <th>Section</th>
-                                    <th></th>
                                     <th>Created By</th>
+                                    <th>Deleted At</th>
                                     <th>Created At</th>
-                                    <th>Updated At</th>
                                     <th width="70px">Action</th>
                                 </tr>
                             </thead>
