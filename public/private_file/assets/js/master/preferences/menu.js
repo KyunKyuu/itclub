@@ -38,23 +38,34 @@ $(document).ready(function() {
     $('#table').on('click', '#delete', function (e) {
         e.preventDefault();
         let value = $(this).data('value')
-        $.ajax({
-            url:'/api/v1/menu/delete',
-            data:{
-                value : value
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin menghapus data menu ini?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal menghapus'
             },
-            type:'DELETE',
-            headers:{
-                'X-CSRF-TOKEN' : csrftoken
-            },
-            success:res=>{
-                SweetAlert(res)
-                RefreshTable('table')
-                value_checkbox = []
-            },
-            error:err=>{
-                SweetAlert({status:'error', message:err.responseJSON.message})
-                value_checkbox = []
+            ajax : {
+                url:'/api/v1/menu/delete',
+                data:{
+                    value : value
+                },
+                type:'DELETE',
+                headers:{
+                    'X-CSRF-TOKEN' : csrftoken
+                },
+                success:res=>{
+                    SweetAlert(res)
+                    RefreshTable('table')
+                    value_checkbox = []
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message})
+                    value_checkbox = []
+                }
             }
         })
     })
@@ -64,23 +75,34 @@ $(document).ready(function() {
             Swal.fire('Perhatian!', 'Pilih salah satu', 'warning')
             return 0;
         }
-        $.ajax({
-            url:'/api/v1/menu/delete',
-            data:{
-                value : value_checkbox
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin menghapus data menu ini?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal menghapus'
             },
-            type:'DELETE',
-            headers:{
-                'X-CSRF-TOKEN' : csrftoken
-            },
-            success:res=>{
-                SweetAlert(res)
-                RefreshTable('table')
-                value_checkbox = []
-            },
-            error:err=>{
-                SweetAlert({status:'error', message:err.responseJSON.message})
-                value_checkbox = []
+            ajax : {
+                url:'/api/v1/menu/delete',
+                data:{
+                    value : value_checkbox
+                },
+                type:'DELETE',
+                headers:{
+                    'X-CSRF-TOKEN' : csrftoken
+                },
+                success:res=>{
+                    SweetAlert(res)
+                    RefreshTable('table')
+                    value_checkbox = []
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message})
+                    value_checkbox = []
+                }
             }
         })
     })

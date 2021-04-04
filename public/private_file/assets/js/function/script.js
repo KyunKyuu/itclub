@@ -178,3 +178,33 @@ function checkbox_this(val) {
     }
 }
 
+function SweetQuestions(data){
+    Swal.fire({
+        title: data.title,
+        text: data.subtitle,
+        icon:'question',
+        showCancelButton: false,
+        showDenyButton: true,
+        confirmButtonText: data.buttonConfirm,
+        denyButtonText: data.buttonDeny,
+        reverseButtons:false,
+    }).then((result) => {
+        if (result.isConfirmed) {
+            if (data.confirm == 'ajax') {
+                $.ajax({
+                    url:data.ajax.url,
+                    type:data.ajax.type,
+                    data:data.ajax.data,
+                    headers:data.ajax.headers,
+                    success:data.ajax.success,
+                    error:data.ajax.error
+                })
+            }else{
+
+            }
+        } else if (result.isDenied) {
+            Swal.fire(data.deny.title, ' ', data.deny.icon)
+        }
+    })
+}
+
