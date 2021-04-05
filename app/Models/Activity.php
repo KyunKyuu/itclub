@@ -16,4 +16,9 @@ class Activity extends Model
     protected $dates = ['deleted_at'];
 
     public $timestamps = false;
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

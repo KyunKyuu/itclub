@@ -11,9 +11,14 @@ use Illuminate\Support\Facades\Mail;
 class IndexController extends Controller
 {
 
-    public function index()
+    public function dashboard_general()
     {
         return view('main.dashboard.index');
+    }
+
+    public function dashboard_user()
+    {
+        return view('main.dashboard.user');
     }
 
     public function mail()

@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\{Member, Division, User, UserProfile};
+use App\Models\{Activity, Member, Division, User, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
+
 class MemberController extends Controller
 {
 
     public function index()
     {
-         if (!empty($_GET['id'])) {
+        if (!empty($_GET['id'])) {
             $data = Member::find($_GET['id']);
             return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data]);
         }
@@ -33,11 +34,11 @@ class MemberController extends Controller
             <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $member->id . '" id="delete"><i class="fas fa-trash"></i></a>
             ';
             })
-           ->addColumn('imageMember', function ($member) {   
-                return '<img src="'.$member->image().'" width="50">';
+            ->addColumn('imageMember', function ($member) {
+                return '<img src="' . $member->image() . '" width="50">';
             })
             ->editColumn('class_majors', function ($member) {
-                return $member->class.' '.$member->majors;
+                return $member->class . ' ' . $member->majors;
             })
             ->editColumn('division_id', function ($member) {
                 return $member->division->name;
@@ -82,7 +83,7 @@ class MemberController extends Controller
             ], 404);
         }
 
-         $memberId = Member::where('user_id', $request->user_id)->exists();
+        $memberId = Member::where('user_id', $request->user_id)->exists();
         if ($memberId) {
             return response()->json([
                 'status' => 'error',
@@ -257,5 +258,28 @@ class MemberController extends Controller
             return response()->json(['status' => 'error', 'message' => 'the new password is the same as the old password'], 500);
         }
         return response()->json(['status' => 'error', 'message' => 'Old Password is wrong'], 404);
+    }
+
+    public function get_activity()
+    {
+        return DataTables::of(Activity::where('user_id', auth()->user()->id))
+            ->editColumn('user_id', function ($activity) {
+                return $activity->user->name;
+            })
+            ->editColumn('status', function ($activity) {
+                $data = '<div class="badge badge-secondary">Unknown</div>';
+                if (strpos($activity->url_access, 'delete') == TRUE) {
+                    $data = '<div class="badge badge-danger">Delete</div>';
+                } else if (strpos($activity->url_access, 'insert') == TRUE) {
+                    $data = '<div class="badge badge-success">Insert</div>';
+                } else if (strpos($activity->url_access, 'update') == TRUE) {
+                    $data = '<div class="badge badge-warning">Edit</div>';
+                } else if (strpos($activity->url_access, 'recovery') == TRUE) {
+                    $data = '<div class="badge badge-info">Recovery</div>';
+                }
+                return $data;
+            })
+            ->rawColumns(['status'])
+            ->make(true);
     }
 }

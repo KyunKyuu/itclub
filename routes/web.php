@@ -63,7 +63,8 @@ Route::get('/article/{slug:slug}', [HomeController::class, 'article_detail'])->n
 
 
 
-Route::get('/dashboard/general/index', [IndexController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/general/index', [IndexController::class, 'dashboard_general'])->name('dashboard');
+Route::get('/dashboard/user/index', [IndexController::class, 'dashboard_user'])->name('dashboard_user');
 Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
@@ -192,6 +193,8 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/insert/profile', [ApiMemberController::class, 'insert_profile']);
         Route::get('/delete/image/profile', [ApiMemberController::class, 'delete_image_profile']);
         Route::post('/setting/changepassword', [ApiMemberController::class, 'setting_changepassword']);
+
+        Route::get('/get/activity', [ApiMemberController::class, 'get_activity']);
     });
 
     Route::group(['prefix' => '/features', 'middleware' => ['auth']], function () {
