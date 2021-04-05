@@ -44,6 +44,7 @@ class TrashController extends Controller
 
     public function section_recovery(Request $request)
     {
+        activity('merecovery data sampah section');
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
                 Section::onlyTrashed()->where('id', $value)->restore();
@@ -56,6 +57,7 @@ class TrashController extends Controller
 
     public function section_delete(Request $request)
     {
+        activity('menghapus data sampah section');
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
                 Section::onlyTrashed()->where('id', $value)->forceDelete();
@@ -98,6 +100,7 @@ class TrashController extends Controller
 
     public function menu_recovery(Request $request)
     {
+        activity('merecovery data sampah menu');
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
                 Menu::onlyTrashed()->where('id', $value)->restore();
@@ -110,6 +113,7 @@ class TrashController extends Controller
 
     public function menu_delete(Request $request)
     {
+        activity('menghapus data sampah menu');
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
                 Menu::onlyTrashed()->where('id', $value)->forceDelete();
@@ -152,6 +156,7 @@ class TrashController extends Controller
 
     public function submenu_recovery(Request $request)
     {
+        activity('merecovery data sampah submenu');
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
                 Submenu::onlyTrashed()->where('id', $value)->restore();
@@ -164,6 +169,7 @@ class TrashController extends Controller
 
     public function submenu_delete(Request $request)
     {
+        activity('menghapus data sampah submenu');
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
                 Submenu::onlyTrashed()->where('id', $value)->forceDelete();

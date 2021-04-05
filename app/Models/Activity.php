@@ -12,7 +12,7 @@ class Activity extends Model
     use SoftDeletes;
 
     protected $table = 'activities';
-    protected $fillable = ['user_id', 'url_access', 'description', 'browser', 'deleted_at'];
+    protected $fillable = ['user_id', 'url_access', 'description', 'browser', 'deleted_at', 'code_activity'];
     protected $dates = ['deleted_at'];
 
     public $timestamps = false;

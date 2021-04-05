@@ -158,7 +158,6 @@ function Suspended($id)
 }
 
 
-
 // !NOTE FORBIDDEN ACCESS HERE
 
 
@@ -167,10 +166,12 @@ function activity($desc)
     $data = url()->full();
     $link  = preg_split('/(:|-|0|com|\*|=)/', $data);
     $url = end($link);
+    $code = auth()->user()->id . date('mdy') . rand(date('dm'), date('mY'));
     $activity = [
         'user_id' => auth()->user()->id,
         'url_access' => $url,
         'description' => $desc,
+        'code_activity' => $code,
         'browser' => BrowserDetect()
     ];
     Activity::create($activity);

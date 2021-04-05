@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Member,Alumni};
+use App\Models\{Member, Alumni};
 use App\Http\Requests\AlumniRequest;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 
 class AlumniController extends Controller
 {
-  
-        public function index()
+
+    public function index()
     {
-       if (!empty($_GET['id'])) {
+        if (!empty($_GET['id'])) {
             $data = Alumni::find($_GET['id']);
             return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data]);
         }
@@ -34,25 +34,24 @@ class AlumniController extends Controller
             <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $alumni->id . '" id="delete"><i class="fas fa-trash"></i></a>
             ';
             })
-           ->addColumn('imageAlumni', function ($alumni) {   
-                return '<img src="'.$alumni->member->image().'" width="50">';
+            ->addColumn('imageAlumni', function ($alumni) {
+                return '<img src="' . $alumni->member->image() . '" width="50">';
             })
-            ->addColumn('member_name', function ($alumni) {   
+            ->addColumn('member_name', function ($alumni) {
                 return $alumni->member->name;
             })
-            ->rawColumns(['check', 'btn','imageAlumni'])
+            ->rawColumns(['check', 'btn', 'imageAlumni'])
             ->make(true);
     }
 
     public function show($id)
     {
-        $alumni = Alumni::with('member','created_by')->find($id);
-        if(!$alumni)
-        {
+        $alumni = Alumni::with('member', 'created_by')->find($id);
+        if (!$alumni) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Alumni not found'
-            ],404);
+            ], 404);
         }
     }
 
@@ -68,24 +67,22 @@ class AlumniController extends Controller
     {
 
         $memberId = Member::where('id', $request->member_id)->exists();
-        if(!$memberId)
-        {
+        if (!$memberId) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Member not found'
-            ],404);
+            ], 404);
         }
 
         $alumniId = Alumni::where('member_id', $request->member_id)->exists();
-        if($alumniId)
-        {
+        if ($alumniId) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Alumni already exists'
             ]);
         }
 
-       
+
         $alumni = Alumni::create([
             'member_id' => $request->member_id,
             'place' => $request->place,
@@ -99,18 +96,16 @@ class AlumniController extends Controller
             'status' => 'success',
             'message' => 'data added successfuly'
         ]);
-
     }
 
     public function edit($id)
     {
         $alumni = Alumni::find($id);
-        if(!$alumni)
-        {
+        if (!$alumni) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'alumni not found'
-            ],404);
+            ], 404);
         }
 
         return response()->json([
@@ -123,21 +118,19 @@ class AlumniController extends Controller
     public function update(AlumniRequest $request)
     {
         $alumni = Alumni::find($request->id);
-        if(!$alumni)
-        {
+        if (!$alumni) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'alumni not found'
-            ],404);
+            ], 404);
         }
 
         $memberId = Member::where('id', $request->member_id)->exists();
-        if(!$memberId)
-        {
+        if (!$memberId) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'member not found'
-            ],404);
+            ], 404);
         }
 
         $alumni->update([
@@ -152,13 +145,12 @@ class AlumniController extends Controller
             'status' => 'success',
             'message' => 'data update successfuly'
         ]);
-
     }
 
     public function destroy(Request $request)
     {
         $alumni = Alumni::find($request->id);
-        if(!$alumni){
+        if (!$alumni) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'alumni not found'
@@ -169,6 +161,6 @@ class AlumniController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'alumni deleted successfuly'
-        ],200);
+        ], 200);
     }
 }

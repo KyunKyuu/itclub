@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\AuthMail;
 use App\Models\User;
 use App\Models\UserProfile;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Mail;
 
 class IndexController extends Controller
@@ -44,5 +43,10 @@ class IndexController extends Controller
     public function changepassword_setting()
     {
         return view('main.resource.setting_user.changepassword');
+    }
+
+    public function activities_user()
+    {
+        return view('main.resource.activities_user');
     }
 }
