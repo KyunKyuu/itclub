@@ -46,6 +46,13 @@ class RoleController extends Controller
         return response()->json(['message' => 'Data berhasil ditambahkan', 'status' => 'success']);
     }
 
+    public function update_role(Request $request)
+    {
+        $role = Role::find($request->id);
+        $role->update($request->all());
+        return response()->json(['message' => 'Data berhasil diperbaharui', 'status' => 'success']);
+    }
+
     public function delete_role(Request $request)
     {
         $role = Role::find($request->id);

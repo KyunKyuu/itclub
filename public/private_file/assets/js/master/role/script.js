@@ -30,6 +30,27 @@ $(document).ready(function() {
         })
     })
 
+    $('#update').on('submit', function(e) {
+        e.preventDefault()
+        let data = new FormData(this)
+        data.append('id', $('#updateRole input[name="name"]').data('id'))
+        $.ajax({
+            url:'/api/v1/role/update',
+            data:data,
+            processData:false,
+            contentType:false,
+            type:'POST',
+            headers:{
+                'X-CSRF-TOKEN':csrftoken
+            },
+            success:res=>{
+                RefreshTable('table');
+                SweetAlert(res);
+            },
+            error:err=>console.log(err)
+        })
+    })
+
     $('#table').on('click', '#delete', function(e) {
         e.preventDefault()
         let id = $(this).data('value')
@@ -61,6 +82,7 @@ $(document).ready(function() {
             success:res=>{
                 $('#updateRole').modal('show');
                 $('#updateRole input[name="name"]').val(res.data.name);
+                $('#updateRole input[name="name"]').attr('data-id', res.data.id);
                 $('#updateRole input[name="id_role"]').val(res.data.id_role);
             },
             error:err=>console.log(err)
