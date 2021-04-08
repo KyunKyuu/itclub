@@ -35,7 +35,7 @@ class IndexController extends Controller
         $profile = UserProfile::where('user_id', $user->id)->get();
         $data = [
             'user' => $user,
-            'profile' => $profile->count() > 0 ? $profile[0] : 0,
+            'profile' => $profile->count() > 0 ? $profile[0] : NULL,
         ];
         return view('main.resource.profile_user', ['data' => $data]);
     }
