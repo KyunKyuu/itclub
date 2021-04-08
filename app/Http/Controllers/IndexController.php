@@ -24,7 +24,7 @@ class IndexController extends Controller
     public function mail()
     {
         $email =  'riezkanaprianda@gmail.com';
-        $data = ['subject' => 'Verify Account!', 'hahaha' => 'hihi'];
+        $data = ['subject' => 'Verify Account!'];
         Mail::to($email)->queue(new AuthMail($data));
         return 'Terkirim';
     }
@@ -32,10 +32,10 @@ class IndexController extends Controller
     public function profile_user()
     {
         $user = User::where('name', request()->segment(2))->get()[0];
-        $profile = UserProfile::where('user_id', $user->id)->get()[0];
+        $profile = UserProfile::where('user_id', $user->id)->get();
         $data = [
             'user' => $user,
-            'profile' => $profile,
+            'profile' => $profile->count() > 0 ? $profile[0] : 0,
         ];
         return view('main.resource.profile_user', ['data' => $data]);
     }
