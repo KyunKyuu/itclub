@@ -37,6 +37,7 @@ use App\Http\Controllers\Api\MemberController as ApiMemberController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
 use App\Http\Controllers\Api\TrashController as ApiTrashController;
 use App\Http\Controllers\Setting\TrashController;
+use Illuminate\Routing\RouteGroup;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,11 +64,15 @@ Route::get('/article/{slug:slug}', [HomeController::class, 'article_detail'])->n
 
 
 
-Route::get('/dashboard/general/index', [IndexController::class, 'dashboard_general'])->name('dashboard');
-Route::get('/dashboard/user/index', [IndexController::class, 'dashboard_user'])->name('dashboard_user');
+
 Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
+
+Route::group(['prefix' => '/dashboard', 'middleware' => ['auth', 'access']], function () {
+    Route::get('/general/index', [IndexController::class, 'dashboard_general'])->name('dashboard');
+    Route::get('/user/index', [IndexController::class, 'dashboard_user'])->name('dashboard_user');
+});
 
 Route::group(['prefix' => '/master', 'middleware' => ['auth', 'access']], function () {
     Route::get('/preferences/section', [PreferencesController::class, 'section']);
@@ -126,6 +131,9 @@ Route::prefix('/api/v1')->group(function () {
         Route::delete('/delete', [ApiUserController::class, 'delete_user']);
         Route::post('/update', [ApiUserController::class, 'update_user']);
         Route::put('/status/update', [ApiUserController::class, 'update_status_user']);
+
+        Route::get('/activity/all', [ApiUserController::class, 'get_all_activity']);
+        Route::get('/activity/browser', [ApiUserController::class, 'get_browser_activity']);
     });
 
     Route::group(['prefix' => '/role'], function () {

@@ -244,9 +244,9 @@ function uriSegment()
 function BrowserDetect()
 {
     if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE)
-        $data = 'Internet explorer';
+        $data = 'Internet Explorer';
     elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== FALSE) //For Supporting IE 11
-        $data = 'Internet explorer';
+        $data = 'Internet Explorer';
     elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox') !== FALSE)
         $data = 'Mozilla Firefox';
     elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== FALSE)

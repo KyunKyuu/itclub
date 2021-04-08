@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use AccessUserSection;
 use App\Http\Controllers\Controller;
+use App\Models\Activity;
 use App\Models\Menu;
 use App\Models\MenuAccess;
 use App\Models\SectionAccess;
@@ -92,5 +93,37 @@ class UserController extends Controller
         activity('Delete user ' . $user->name);
         $user->delete();
         return response()->json(['message' => 'Data berhasil dihapus', 'status' => 'success']);
+    }
+
+    public function get_all_activity()
+    {
+        $delete = Activity::where('url_access', 'like', '%delete%');
+        $insert = Activity::where('url_access', 'like', '%insert%');
+        $update = Activity::where('url_access', 'like', '%update%');
+        $recovery = Activity::where('url_access', 'like', '%recovery%');
+        $all = Activity::all();
+        if (auth()->user()->role_id > 2) {
+            $delete->where('user_id', auth()->user()->id);
+            $insert->where('user_id', auth()->user()->id);
+            $update->where('user_id', auth()->user()->id);
+            $recovery->where('user_id', auth()->user()->id);
+            $all->where('user_id', auth()->user()->id);
+        }
+        $data = [
+            'delete' => $delete->count(),
+            'insert' => $insert->count(),
+            'update' => $update->count(),
+            'update' => $update->count(),
+            'recovery' => $recovery->count(),
+            'recovery' => $recovery->count(),
+            'all' => $all->count(),
+        ];
+        return response()->json(['message' => 'query berhasil', 'status' => 'success', 'values' => $data], 200);
+    }
+
+    public function get_browser_activity()
+    {
+        $data = DB::select('select browser, COUNT(id) as data from activities GROUP BY browser LIMIT 3');
+        return response()->json(['message' => 'query berhasil', 'status' => 'success', 'values' => $data], 200);
     }
 }
