@@ -55,9 +55,11 @@
                         <div class="card-header">
                             <h4>Edit Profile</h4>
                             <div class="text-left ml-auto">
-                                <a href="#" class="btn btn-primary btn-lg">
-                                    <i class="fas fa-laptop-code"></i> Upgrade to Member
-                                </a>
+                                @if (auth()->user()->role_id > 4)
+                                    <a href="#" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-laptop-code"></i> Upgrade to Member
+                                    </a>
+                                @endif
                             </div>
                         </div>
                         <div class="card-body">
@@ -110,8 +112,8 @@
                                 <div class="form-group col-12">
                                     <label>Bio</label>
                                     <textarea class="form-control use-ckeditor" placeholder="hahaha">
-                                    {{ $data['profile']->bio }}
-                                </textarea>
+                                                {{ $data['profile']->bio }}
+                                            </textarea>
                                     <input type="hidden" name="bio" data-editor="ckeditor"
                                         value="{{ $data['profile']->bio }}">
                                 </div>

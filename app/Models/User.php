@@ -69,7 +69,7 @@ class User extends Authenticatable
         return $this->hasMany(Division::class);
     }
 
-     public function member()
+    public function member()
     {
         return $this->hasOne(Member::class);
     }

@@ -8,6 +8,7 @@ $(document).ready(function() {
         {data:'updated_at', name:'updated_at', orderable:false},
         {data:'btn', name:'btn', searchable:false, orderable:false},
     ];
+    let idrole =''
 
     Table({table:'#table', data:data, url:'/api/v1/role/get'});
 
@@ -33,7 +34,7 @@ $(document).ready(function() {
     $('#update').on('submit', function(e) {
         e.preventDefault()
         let data = new FormData(this)
-        data.append('id', $('#updateRole input[name="name"]').data('id'))
+        data.append('id', idrole)
         $.ajax({
             url:'/api/v1/role/update',
             data:data,
@@ -82,7 +83,7 @@ $(document).ready(function() {
             success:res=>{
                 $('#updateRole').modal('show');
                 $('#updateRole input[name="name"]').val(res.data.name);
-                $('#updateRole input[name="name"]').attr('data-id', res.data.id);
+                idrole = res.data.id
                 $('#updateRole input[name="id_role"]').val(res.data.id_role);
             },
             error:err=>console.log(err)
