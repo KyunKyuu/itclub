@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AuthMail;
+use App\Models\Division;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Routing\Route;
@@ -57,6 +58,7 @@ class IndexController extends Controller
 
     public function upgrade_member()
     {
-        return view('main.resource.upgrade');
+        $divisi = Division::all();
+        return view('main.resource.upgrade', compact('divisi'));
     }
 }
