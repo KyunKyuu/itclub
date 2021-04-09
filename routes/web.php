@@ -204,6 +204,8 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/setting/changepassword', [ApiMemberController::class, 'setting_changepassword']);
 
         Route::get('/get/activity', [ApiMemberController::class, 'get_activity']);
+
+        Route::get('/get/activity', [ApiMemberController::class, 'get_activity']);
     });
 
     Route::group(['prefix' => '/features', 'middleware' => ['auth']], function () {
