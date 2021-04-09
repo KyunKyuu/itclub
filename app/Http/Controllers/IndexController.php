@@ -54,4 +54,9 @@ class IndexController extends Controller
     {
         return view('main.resource.activities_user');
     }
+
+    public function upgrade_member()
+    {
+        return view('main.resource.upgrade');
+    }
 }
