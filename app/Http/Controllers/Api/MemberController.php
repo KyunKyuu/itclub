@@ -239,7 +239,7 @@ class MemberController extends Controller
         }
         $user->update($request->except('image'));
 
-
+         activity('memperbarui data profile');
         return response()->json(['status' => 'success', 'message' => 'Profile berhasil diperbarui'], 200);
     }
 
@@ -247,6 +247,7 @@ class MemberController extends Controller
     {
         $user = UserProfile::where('user_id', auth()->user()->id);
         $user->update(['thumbnail' => NULL]);
+        activity('menghapus data image profile');
         return response()->json(['status' => 'success', 'message' => 'Profile berhasil diperbarui'], 200);
     }
 
@@ -262,6 +263,7 @@ class MemberController extends Controller
             }
             return response()->json(['status' => 'error', 'message' => 'the new password is the same as the old password'], 500);
         }
+        activity('memperbarui data password');
         return response()->json(['status' => 'error', 'message' => 'Old Password is wrong'], 404);
     }
 

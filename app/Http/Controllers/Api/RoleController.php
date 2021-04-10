@@ -43,6 +43,7 @@ class RoleController extends Controller
     {
         $request->request->add(['created_by' => auth()->user()->id]);
         Role::create($request->all());
+        activity('menambah data role');
         return response()->json(['message' => 'Data berhasil ditambahkan', 'status' => 'success']);
     }
 
@@ -50,6 +51,7 @@ class RoleController extends Controller
     {
         $role = Role::find($request->id);
         $role->update($request->all());
+        activity('mengubah data role');
         return response()->json(['message' => 'Data berhasil diperbaharui', 'status' => 'success']);
     }
 
@@ -57,6 +59,7 @@ class RoleController extends Controller
     {
         $role = Role::find($request->id);
         $role->delete();
+        activity('menghapus data role');
         return response()->json(['message' => 'Data berhasil dihapus', 'status' => 'success']);
     }
 
