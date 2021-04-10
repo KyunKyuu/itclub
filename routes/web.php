@@ -37,6 +37,7 @@ use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
 use App\Http\Controllers\Api\MemberController as ApiMemberController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
 use App\Http\Controllers\Api\TrashController as ApiTrashController;
+use App\Http\Controllers\Member\MemberController as MemberMemberController;
 use App\Http\Controllers\Setting\TrashController;
 use Illuminate\Routing\RouteGroup;
 
@@ -100,14 +101,14 @@ Route::group(['prefix' => '/setting', 'middleware' => ['auth', 'access']], funct
     Route::get('/trash/submenu', [TrashController::class, 'submenu']);
 });
 
-Route::group(['prefix' => '/member', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => '/members', 'middleware' => 'auth'], function () {
     Route::get('/{resource}/profile', [IndexController::class, 'profile_user']);
     Route::get('/{resource}/dashboard', [IndexController::class, 'dashboard_user']);
     Route::get('/{resource}/setting', [IndexController::class, 'setting_user']);
     Route::get('/{resource}/setting/changepassword', [IndexController::class, 'changepassword_setting']);
     Route::get('/{resource}/activities', [IndexController::class, 'activities_user']);
     Route::get('/{resource}/upgrade', [IndexController::class, 'upgrade_member']);
-    Route::get('/registration', [IndexController::class, 'registration']);
+    Route::get('/registration', [MemberMemberController::class, 'registration']);
 });
 
 Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
