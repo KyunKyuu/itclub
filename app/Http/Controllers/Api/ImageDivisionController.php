@@ -67,6 +67,8 @@ class ImageDivisionController extends Controller
              'created_by' => auth()->user()->id
         ]);
 
+        activity('menambah data image Division');
+
         return response()->json([
             'status' => 'success',
             'data' => $imageDivision
@@ -89,6 +91,8 @@ class ImageDivisionController extends Controller
 
         $imageDivision->delete();
 
+        activity('menghapus data image Division');
+        
         return response()->json([
             'status' => 'success',
             'message' => 'division image deleted successfuly'

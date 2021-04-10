@@ -112,6 +112,8 @@ class MemberController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        activity('menambah data member');
+
         return response()->json([
             'status' => 'success',
             'message' => 'data added successfuly'
@@ -178,6 +180,8 @@ class MemberController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        activity('mengedit data member');
+
         return response()->json([
             'status' => 'success',
             'message' => 'member update successfuly'
@@ -200,6 +204,8 @@ class MemberController extends Controller
 
         $member->alumni()->delete();
         $member->delete();
+
+        activity('menghapus data member');
 
         return response()->json([
             'status' => 'success',

@@ -92,6 +92,8 @@ class GalleryController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        activity('menambah data gallery');
+
          return response()->json([
             'status' => 'success',
             'message' => 'data created successfuly'
@@ -155,6 +157,8 @@ class GalleryController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        activity('mengedit data gallery');
+
         return response()->json([
             'status' => 'success',
             'message' => 'gallery update successfuly'
@@ -177,7 +181,7 @@ class GalleryController extends Controller
 
         $gallery->images()->delete();
         $gallery->delete();
-
+        activity('menghapus data gallery');
         return response()->json([
             'status' => 'success',
             'message' => 'gallery deleted successfuly'

@@ -67,10 +67,13 @@ class ImageGalleryController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        activity('menambah data image Gallery');
+
         return response()->json([
             'status' => 'success',
             'message' =>  'Data added successfuly'
         ]);
+
 
     }
 
@@ -87,10 +90,12 @@ class ImageGalleryController extends Controller
             ],404);
         }
 
-        \Storage::delete($imageGallery->image);
+        // \Storage::delete($imageGallery->image);
 
         $imageGallery->delete();
 
+        activity('menghapus data image Gallery');
+        
         return response()->json([
             'status' => 'success',
             'message' => 'Gallery image deleted successfuly'

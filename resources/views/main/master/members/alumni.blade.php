@@ -47,74 +47,8 @@
 
   {{-- !NOTE Data Modal here  --}}
 
-  <!-- Modal Insert -->
-    <div class="modal fade" id="updateAlumni" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="updateAlumniLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header border-bottom pb-4">
-            <h5 class="modal-title" id="updateAlumniLabel">Apdate Alumni</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form class="needs-validation" novalidate id="update">
-                      <div class="form-group row">
-                        <div class="form-group col-12">
-                        <label>Alumni Name</label>
-                         <select required name="member_id" class="form-control">
-                              <option selected disabled>== Name ID dari table Member ==</option>
-                              @foreach ($members as $data)
-                                <option value="{{$data->id}}">{{$data->name}}</option>
-                              @endforeach
-                          </select>
-                          <div class="invalid-feedback">
-                            What's Alumni name?
-                          </div>
-                        </div>
-                      </div>
-                       <div class="form-group row">
-                        <div class="form-group col-12">
-                        <label>Bekerja Sebagai</label>
-                          <input type="text" class="form-control" name="work" placeholder="Bekerja sebagai"  >
-                          <div class="invalid-feedback">
-                            Bekerja Sebagai apa?
-                          </div>
-                        </div>
-                      </div>
 
-                       <div class="form-group row">
-                        <div class="form-group col-12">
-                        <label>Jurusan Kuliah</label>
-                          <input type="text" class="form-control" name="study"  placeholder="Jurusan Kuliah"  >
-                          <div class="invalid-feedback">
-                            Kuliah Jurusan apa?
-                          </div>
-                        </div>
-                      </div>
-                      
-                       <div class="form-group row">
-                        <div class="form-group col-12">
-                        <label>Nama Kantor / Univ</label>
-                          <input type="text" class="form-control" name="place" required="" placeholder="Nama Kantor / Univ">
-                          <div class="invalid-feedback">
-                           Nama Kantor / Univ?
-                          </div>
-                        </div>
-                      </div>
-  
-              
-                    </div>
-                    <div class="modal-footer ml-3">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
-        </div>
-        </div>
-    </div>
-
-  <!-- Modal Update -->
+  <!-- Modal insert -->
         <div class="modal fade" id="insertAlumni" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="insertAlumniLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -169,6 +103,69 @@
                           </div>
                         </div>
                       </div>
+              
+                    </div>
+                    <div class="modal-footer ml-3">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+        </div>
+        </div>
+    </div>
+
+     <!-- Modal Update -->
+    <div class="modal fade" id="updateAlumni" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="updateAlumniLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom pb-4">
+            <h5 class="modal-title" id="updateAlumniLabel">Update Alumni</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="needs-validation" novalidate id="update">
+                      <div class="form-group row">
+                        <div class="form-group col-12">
+                        <label>Alumni Name</label>
+                        <input type="hidden" name="member_id">
+                         <input readonly="" type="text" class="form-control" name="name_alumni" placeholder="Nama Member"  >
+                          <div class="invalid-feedback">
+                            What's Alumni name?
+                          </div>
+                        </div>
+                      </div>
+                       <div class="form-group row">
+                        <div class="form-group col-12">
+                        <label>Bekerja Sebagai</label>
+                          <input type="text" class="form-control" name="work" placeholder="Bekerja sebagai"  >
+                          <div class="invalid-feedback">
+                            Bekerja Sebagai apa?
+                          </div>
+                        </div>
+                      </div>
+
+                       <div class="form-group row">
+                        <div class="form-group col-12">
+                        <label>Jurusan Kuliah</label>
+                          <input type="text" class="form-control" name="study"  placeholder="Jurusan Kuliah"  >
+                          <div class="invalid-feedback">
+                            Kuliah Jurusan apa?
+                          </div>
+                        </div>
+                      </div>
+                      
+                       <div class="form-group row">
+                        <div class="form-group col-12">
+                        <label>Nama Kantor / Univ</label>
+                          <input type="text" class="form-control" name="place" required="" placeholder="Nama Kantor / Univ">
+                          <div class="invalid-feedback">
+                           Nama Kantor / Univ?
+                          </div>
+                        </div>
+                      </div>
+  
               
                     </div>
                     <div class="modal-footer ml-3">

@@ -122,6 +122,8 @@ class ArticleController extends Controller
             }
         }
 
+          activity('menambah data article');
+
         return response()->json(['message' => 'Selamat, article berhasil ditambahkan!', 'status' => 'success'], 200);
     }
 
@@ -189,13 +191,14 @@ class ArticleController extends Controller
         $request->request->add(['user_id' => auth()->user()->id, 'slug' => \Str::slug(request('title'))]);
        
         $blog->update($request->except('image'));
-
+        activity('mengubah data article');
         return response()->json(['message' => 'Selamat, article berhasil diperbaharui!', 'status' => 'success'], 200);
     }
 
     public function delete_article(Request $request)
     {
         $blog = Blog::find($request->id)->delete();
+          activity('menghapus data article');
         return response()->json(['message' => 'Selamat, article berhasil dihapus!', 'status' => 'success'], 200);
         // $category = CategoryBlog::where('blog_id', $request->id)->delete();
     }

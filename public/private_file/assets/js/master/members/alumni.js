@@ -84,7 +84,8 @@ $(document).ready(function() {
             },
             success:res=>{
                 $('#updateAlumni').modal('show');
-                $('#updateAlumni select[name="member_id"] option[value="'+res.data.member_id+'"]').attr('selected', true);
+                $('#updateAlumni input[name="name_alumni"]').val(res.name_alumni);
+                $('#updateAlumni input[name="member_id"]').val(res.data.member_id);
                 $('#updateAlumni input[name="work"]').val(res.data.work);
                 $('#updateAlumni input[name="study"]').val(res.data.study);
                 $('#updateAlumni input[name="place"]').val(res.data.place);

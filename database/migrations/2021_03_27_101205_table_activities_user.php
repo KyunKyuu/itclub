@@ -19,6 +19,7 @@ class TableActivitiesUser extends Migration
             $table->string('url_access');
             $table->string('description');
             $table->char('browser');
+            $table->string('code_activity');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('created_at')->useCurrent();
         });
