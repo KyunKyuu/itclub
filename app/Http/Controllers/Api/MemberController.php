@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\{Activity, Member, Division, User, UserProfile};
+use App\Models\{Activity, Member, Division, MemberReg, User, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class MemberController extends Controller
@@ -239,7 +240,7 @@ class MemberController extends Controller
         }
         $user->update($request->except('image'));
 
-         activity('memperbarui data profile');
+        activity('memperbarui data profile');
         return response()->json(['status' => 'success', 'message' => 'Profile berhasil diperbarui'], 200);
     }
 
@@ -269,7 +270,7 @@ class MemberController extends Controller
 
     public function get_activity()
     {
-        return DataTables::of(Activity::where('user_id', auth()->user()->id))
+        return DataTables::of(Activity::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC'))
             ->editColumn('user_id', function ($activity) {
                 return $activity->user->name;
             })
@@ -292,6 +293,37 @@ class MemberController extends Controller
 
     public function upgrade(Request $request)
     {
-        dd($request->all());
+        if ($request->image) {
+            $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10) . '.' . $request->file('image')->getClientOriginalExtension();
+            $image = Storage::putFileAs('images/article', $request->file('image'), $name);
+        } else {
+            $image = null;
+        }
+        if ($request->asal_pendaftar == 'lainnya') {
+            $data = [
+                'name' => $request->name,
+                'user_id' => auth()->user()->id,
+                'division_id' => $request->divisions,
+                'image' => $image,
+                'email' => auth()->user()->email,
+            ];
+        } else {
+            $data = [
+                'name' => $request->name,
+                'user_id' => auth()->user()->id,
+                'division_id' => $request->divisions,
+                'class' => $request->class,
+                'entry_year' => $request->entry_year,
+                'majors' => $request->majors,
+                'image' => $image,
+                'email' => auth()->user()->email,
+            ];
+        }
+
+        if (MemberReg::where('user_id', auth()->user()->id)) {
+            return response()->json(['status' => 'error', 'message' => 'Registrasi gagal, anda telah terdaftar sebagai member atau telah mendaftar sebelumnya'], 500);
+        }
+
+        MemberReg::create($data);
     }
 }
