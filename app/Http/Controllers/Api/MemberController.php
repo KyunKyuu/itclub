@@ -281,4 +281,9 @@ class MemberController extends Controller
             ->rawColumns(['status'])
             ->make(true);
     }
+
+    public function upgrade(Request $request)
+    {
+        dd($request->all());
+    }
 }

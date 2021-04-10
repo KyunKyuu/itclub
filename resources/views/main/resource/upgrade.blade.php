@@ -58,7 +58,7 @@
                             <div class="form-group row">
                                 <label class="col-md-4 text-md-right text-left mt-2">Profile User</label>
                                 <div class="col-lg-6 col-md-8">
-                                    <input type="file" class="image-input-preview" data-id="gambar-preview">
+                                    <input type="file" name="image" class="image-input-preview" data-id="gambar-preview">
                                     <img id="gambar-preview" class="img-fluid mt-3" src="" alt="" style="max-width: 250px;">
                                 </div>
                             </div>

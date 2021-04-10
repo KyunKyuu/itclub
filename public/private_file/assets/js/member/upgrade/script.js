@@ -115,6 +115,22 @@ $(document).ready(function(){
         e.preventDefault();
         let data = new FormData(this);
 
+        $.ajax({
+            url:'/api/v1/member/upgrade',
+            data:data,
+            contentType:false,
+            processData:false,
+            type:'POST',
+            headers:{
+                'X-CSRF-TOKEN':csrftoken
+            },
+            success:res=>{
+                console.log(res);
+            },
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
+            }
+        })
     })
 
 })
