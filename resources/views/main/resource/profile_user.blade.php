@@ -39,7 +39,7 @@
                         </div>
                         <div id="deskripsi-profile">No deskripsi</div>
                     </div>
-                    <div class="card-footer text-center" style="margin-top: -20px;">
+                    <div class="card-footer text-center" style="margin-top: -2nullpx;">
                         <div class="font-weight-bold mb-2 text-capitalize">Follow {{ request()->segment(2) }} On</div>
                         <div id="social-media-card">
 
@@ -69,7 +69,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
                                         <label>First Name</label>
-                                        @if ($data['profile'] != 0)
+                                        @if ($data['profile'] != null)
                                             <input type="text" class="form-control"
                                                 value="{{ $data['profile']->first_name }}" required="" name="first_name"
                                                 placeholder="First Name">
@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="form-group col-md-6 col-12">
                                         <label>Last Name</label>
-                                        @if ($data['profile'] != 0)
+                                        @if ($data['profile'] != null)
                                             <input type="text" class="form-control" required="" name="last_name"
                                                 value="{{ $data['profile']->last_name }}" placeholder="Last Name">
                                         @else
@@ -98,7 +98,7 @@
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
                                         <label>Status</label>
-                                        @if ($data['profile'] != 0)
+                                        @if ($data['profile'] != null)
                                             <input type="text" class="form-control" name="status" required=""
                                                 placeholder="Pelajar" value="{{ $data['profile']->status }}">
                                         @else
@@ -111,7 +111,7 @@
                                     </div>
                                     <div class="form-group col-md-6 col-12">
                                         <label>Phone</label>
-                                        @if ($data['profile'] != 0)
+                                        @if ($data['profile'] != null)
                                             <input type="number" class="form-control" name="telepon"
                                                 value="{{ $data['profile']->telepon }}" placeholder="Number Phone">
                                         @else
@@ -127,21 +127,21 @@
                                             placeholder="Pelajar" data-id="img-thumbnail">
                                     </div>
                                     <div class="form-group col-md-6 col-12">
-                                        <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt=""
-                                            class="img-fluid" style="max-width: 150px"><br>
+                                        <img src="/public_file/assets/img/news/imgnull8.jpg" id="img-thumbnail" alt=""
+                                            class="img-fluid" style="max-width: 15nullpx"><br>
                                         <a id="hapusGambarProfile" href="#">Hapus Gambar</a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-12">
                                         <label>Bio</label>
-                                        @if ($data['profile'] != 0)
+                                        @if ($data['profile'] != null)
                                             <textarea class="form-control use-ckeditor"
                                                 placeholder="hahaha">{{ $data['profile']->bio }}</textarea>
                                         @else
                                             <textarea class="form-control use-ckeditor" placeholder="hahaha"></textarea>
                                         @endif
-                                        @if ($data['profile'] != 0)
+                                        @if ($data['profile'] != null)
                                             <input type="hidden" name="bio" data-editor="ckeditor"
                                                 value="{{ $data['profile']->bio }}">
                                         @else
@@ -158,7 +158,7 @@
                                     <div class="row">
                                         <div class="form-group col-md-6 col-12">
                                             <label>Display Name</label>
-                                            @if ($data['profile'] != 0)
+                                            @if ($data['profile'] != null)
                                                 <input type="text" class="form-control"
                                                     value="{{ $data['profile']->facebook_name }}" name="facebook_name"
                                                     placeholder="Input your nickname here">
@@ -169,7 +169,7 @@
                                         </div>
                                         <div class="form-group col-md-6 col-12">
                                             <label>Facebook Url</label>
-                                            @if ($data['profile'] != 0)
+                                            @if ($data['profile'] != null)
                                                 <input type="text" class="form-control" name="facebook_url"
                                                     value="{{ $data['profile']->facebook_url }}"
                                                     placeholder="Input your url facebook here">
@@ -182,7 +182,7 @@
                                     <div class="row">
                                         <div class="form-group col-md-6 col-12">
                                             <label>Display Name</label>
-                                            @if ($data['profile'] != 0)
+                                            @if ($data['profile'] != null)
                                                 <input type="text" class="form-control"
                                                     value="{{ $data['profile']->instagram_name }}" name="instagram_name"
                                                     placeholder="Input your nickname here">
@@ -192,7 +192,7 @@
                                             @endif
                                         </div>
                                         <div class="form-group col-md-6 col-12">
-                                            @if ($data['profile'] != 0)
+                                            @if ($data['profile'] != null)
                                                 <label>Instagram Url</label>
                                                 <input type="text" class="form-control" name="instagram_url"
                                                     value="{{ $data['profile']->instagram_url }}"
@@ -207,7 +207,7 @@
                                     <div class="row">
                                         <div class="form-group col-md-6 col-12">
                                             <label>Display Name</label>
-                                            @if ($data['profile'] != 0)
+                                            @if ($data['profile'] != null)
                                                 <input type="text" class="form-control"
                                                     value="{{ $data['profile']->linkedin_name }}" name="linkedin_name"
                                                     placeholder="Input your nickname here">
@@ -218,7 +218,7 @@
                                         </div>
                                         <div class="form-group col-md-6 col-12">
                                             <label>LinkedIn Url</label>
-                                            @if ($data['profile'] != 0)
+                                            @if ($data['profile'] != null)
                                                 <input type="text" class="form-control" name="linkedin_url"
                                                     value="{{ $data['profile']->linkedin_url }}"
                                                     placeholder="Input your url LinkedIn here">
@@ -231,7 +231,7 @@
                                     <div class="row">
                                         <div class="form-group col-md-6 col-12">
                                             <label>Display Name</label>
-                                            @if ($data['profile'] != 0)
+                                            @if ($data['profile'] != null)
                                                 <input type="text" class="form-control"
                                                     value="{{ $data['profile']->twitter_name }}" name="twitter_name"
                                                     placeholder="Input your nickname here">
@@ -242,7 +242,7 @@
                                         </div>
                                         <div class="form-group col-md-6 col-12">
                                             <label>Twitter Url</label>
-                                            @if ($data['profile'] != 0)
+                                            @if ($data['profile'] != null)
                                                 <input type="text" class="form-control" name="twitter_url"
                                                     value="{{ $data['profile']->twitter_url }}"
                                                     placeholder="Input your url Twitter here">

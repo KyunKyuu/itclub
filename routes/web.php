@@ -106,6 +106,7 @@ Route::group(['prefix' => '/member', 'middleware' => 'auth'], function () {
     Route::get('/{resource}/setting', [IndexController::class, 'setting_user']);
     Route::get('/{resource}/setting/changepassword', [IndexController::class, 'changepassword_setting']);
     Route::get('/{resource}/activities', [IndexController::class, 'activities_user']);
+    Route::get('/{resource}/upgrade', [IndexController::class, 'upgrade_member']);
 });
 
 Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
@@ -204,6 +205,8 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/setting/changepassword', [ApiMemberController::class, 'setting_changepassword']);
 
         Route::get('/get/activity', [ApiMemberController::class, 'get_activity']);
+
+        Route::post('upgrade', [ApiMemberController::class, 'upgrade']);
     });
 
     Route::group(['prefix' => '/features', 'middleware' => ['auth']], function () {

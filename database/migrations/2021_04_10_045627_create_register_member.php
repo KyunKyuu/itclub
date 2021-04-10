@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMembersTable extends Migration
+class CreateRegisterMember extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,21 @@ class CreateMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('members', function (Blueprint $table) {
+        Schema::create('member_reg', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('division_id');
-            $table->foreignId('user_id')->unique();
+            $table->integer('user_id');
+            $table->integer('division_id');
+            $table->string('email');
             $table->string('name');
             $table->string('class');
             $table->string('majors');
             $table->string('position');
             $table->string('status')->default(0);
             $table->string('image')->nullable();
-            $table->timestamp('entry_year')->nullable();
-            $table->foreignId('created_by')->default(1);
-            $table->timestamps();
-            $table->softDeletes();
+            $table->date('entry_year')->nullable();
+            $table->timestamp('deleted_at')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 
@@ -37,6 +38,6 @@ class CreateMembersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('members');
+        Schema::dropIfExists('member_reg');
     }
 }

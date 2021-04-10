@@ -74,7 +74,6 @@ class MemberController extends Controller
 
     public function store(MemberRequest $request)
     {
-
         $user = User::where('id', $request->user_id)->exists();
         if (!$user) {
             return response()->json([
@@ -287,5 +286,10 @@ class MemberController extends Controller
             })
             ->rawColumns(['status'])
             ->make(true);
+    }
+
+    public function upgrade(Request $request)
+    {
+        dd($request->all());
     }
 }

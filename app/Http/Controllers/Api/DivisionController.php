@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Division,ImageDivision};
+use App\Models\{Division, ImageDivision};
 use App\Http\Requests\DivisionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -13,7 +13,7 @@ class DivisionController extends Controller
 {
     public function index()
     {
-       if (!empty($_GET['id'])) {
+        if (!empty($_GET['id'])) {
             $data = Division::find($_GET['id']);
             return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data]);
         }
@@ -34,31 +34,29 @@ class DivisionController extends Controller
             <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $division->id . '" id="delete"><i class="fas fa-trash"></i></a>
             ';
             })
-           ->addColumn('imageDivision', function ($division) {   
-                return '<img src="'.$division->image().'" width="50">';
+            ->addColumn('imageDivision', function ($division) {
+                return '<img src="' . $division->image() . '" width="50">';
             })
-            
-            ->rawColumns(['check', 'btn','imageDivision'])
-            ->make(true);
 
+            ->rawColumns(['check', 'btn', 'imageDivision'])
+            ->make(true);
     }
 
     public function show($id)
     {
-        $division = Division::with('created_by','images')->find($id);
+        $division = Division::with('created_by', 'images')->find($id);
 
-        if(!$division)
-        {
+        if (!$division) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'member not found'
-            ],404);
+            ], 404);
         }
 
         return response()->json([
             'status' => 'success',
             'data' => $division
-        ],200);
+        ], 200);
     }
 
     public function create()
@@ -71,6 +69,7 @@ class DivisionController extends Controller
 
     public function store(DivisionRequest $request)
     {
+
         $slug = Str::slug(request('name'));
         $division = Division::create([
             'name' => $request->name,
@@ -92,8 +91,7 @@ class DivisionController extends Controller
     {
         $division = Division::find($_GET['id']);
 
-        if(!$division)
-        {
+        if (!$division) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'division not found'
@@ -111,40 +109,39 @@ class DivisionController extends Controller
     {
 
 
-        $division = Division::where('id',$request->id)->first();
-        if(!$division)
-        {
+        $division = Division::where('id', $request->id)->first();
+        if (!$division) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'division not found'
             ]);
         }
 
-       $slug = Str::slug(request('name'));
+        $slug = Str::slug(request('name'));
 
-       if($request->image){
+        if ($request->image) {
             \Storage::delete($division->image);
             $image = request()->file('image')->store('images/division');
-       }elseif($division->image){
+        } elseif ($division->image) {
             $image = $division->image;
-       }else{
+        } else {
             $image = null;
-       }
+        }
 
         $division->update([
             'name' => $request->name,
             'content' => $request->content,
             'image' =>  $image,
             'slug' => $slug,
-             'created_by' => auth()->user()->id
+            'created_by' => auth()->user()->id
         ]);
        
        activity('mengedit data divisi');
        return response()->json([
+
             'status' => 'success',
             'message' => 'data update successfuly'
-       ],200);
-
+        ], 200);
     }
 
     public function destroy(Request $request)
@@ -152,12 +149,11 @@ class DivisionController extends Controller
 
         $division = Division::find($request->id);
 
-        if(!$division)
-        {
+        if (!$division) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'division not found'
-            ],404);
+            ], 404);
         }
 
         // \Storage::delete($division->image);

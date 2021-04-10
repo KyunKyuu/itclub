@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AuthMail;
+use App\Models\Division;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Routing\Route;
@@ -35,7 +36,7 @@ class IndexController extends Controller
         $profile = UserProfile::where('user_id', $user->id)->get();
         $data = [
             'user' => $user,
-            'profile' => $profile->count() > 0 ? $profile[0] : 0,
+            'profile' => $profile->count() > 0 ? $profile[0] : NULL,
         ];
         return view('main.resource.profile_user', ['data' => $data]);
     }
@@ -53,5 +54,11 @@ class IndexController extends Controller
     public function activities_user()
     {
         return view('main.resource.activities_user');
+    }
+
+    public function upgrade_member()
+    {
+        $divisi = Division::all();
+        return view('main.resource.upgrade', compact('divisi'));
     }
 }
