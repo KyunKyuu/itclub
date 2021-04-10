@@ -79,6 +79,8 @@ class DivisionController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        activity('menambah data divisi');
+
         return response()->json([
             'status' => 'success',
             'message' => 'data created successfuly'
@@ -133,8 +135,10 @@ class DivisionController extends Controller
             'slug' => $slug,
             'created_by' => auth()->user()->id
         ]);
+       
+       activity('mengedit data divisi');
+       return response()->json([
 
-        return response()->json([
             'status' => 'success',
             'message' => 'data update successfuly'
         ], 200);
@@ -156,7 +160,7 @@ class DivisionController extends Controller
 
         $division->images()->delete();
         $division->delete();
-
+        activity('menghapus data divisi');
         return response()->json([
             'status' => 'success',
             'message' => 'division deleted successfuly'

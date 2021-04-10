@@ -15,7 +15,8 @@ class AlumniController extends Controller
     {
         if (!empty($_GET['id'])) {
             $data = Alumni::find($_GET['id']);
-            return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data]);
+            $name_alumni = $data->member->name;
+            return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data, 'name_alumni' => $name_alumni]);
         }
 
         $alumni = Alumni::all();
@@ -91,6 +92,7 @@ class AlumniController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        activity('menambah data alumni');
 
         return response()->json([
             'status' => 'success',
@@ -117,6 +119,7 @@ class AlumniController extends Controller
 
     public function update(AlumniRequest $request)
     {
+        
         $alumni = Alumni::find($request->id);
         if (!$alumni) {
             return response()->json([
@@ -141,6 +144,8 @@ class AlumniController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        activity('mengedit data alumni');
+
         return response()->json([
             'status' => 'success',
             'message' => 'data update successfuly'
@@ -158,6 +163,9 @@ class AlumniController extends Controller
         }
 
         $alumni->delete();
+
+        activity('menghapus data alumni');
+        
         return response()->json([
             'status' => 'success',
             'message' => 'alumni deleted successfuly'

@@ -74,6 +74,7 @@ class PrestationController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+         activity('menambah data prestasi');
         return response()->json([
             'status' => 'success',
             'message' => 'data added successfuly'
@@ -122,6 +123,8 @@ class PrestationController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        activity('mengedit data prestasi');
+
         return response()->json([
             'status' => 'success',
             'message' => 'data added successfuly'
@@ -140,6 +143,8 @@ class PrestationController extends Controller
         }
 
         $prestation->delete();
+
+        activity('menghapus data prestasi');
 
         return response()->json([
             'status' => 'success',

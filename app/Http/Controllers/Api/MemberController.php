@@ -111,6 +111,8 @@ class MemberController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        activity('menambah data member');
+
         return response()->json([
             'status' => 'success',
             'message' => 'data added successfuly'
@@ -177,6 +179,8 @@ class MemberController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        activity('mengedit data member');
+
         return response()->json([
             'status' => 'success',
             'message' => 'member update successfuly'
@@ -199,6 +203,8 @@ class MemberController extends Controller
 
         $member->alumni()->delete();
         $member->delete();
+
+        activity('menghapus data member');
 
         return response()->json([
             'status' => 'success',
@@ -233,7 +239,7 @@ class MemberController extends Controller
         }
         $user->update($request->except('image'));
 
-
+         activity('memperbarui data profile');
         return response()->json(['status' => 'success', 'message' => 'Profile berhasil diperbarui'], 200);
     }
 
@@ -241,6 +247,7 @@ class MemberController extends Controller
     {
         $user = UserProfile::where('user_id', auth()->user()->id);
         $user->update(['thumbnail' => NULL]);
+        activity('menghapus data image profile');
         return response()->json(['status' => 'success', 'message' => 'Profile berhasil diperbarui'], 200);
     }
 
@@ -256,6 +263,7 @@ class MemberController extends Controller
             }
             return response()->json(['status' => 'error', 'message' => 'the new password is the same as the old password'], 500);
         }
+        activity('memperbarui data password');
         return response()->json(['status' => 'error', 'message' => 'Old Password is wrong'], 404);
     }
 

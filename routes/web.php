@@ -20,6 +20,7 @@ use App\Http\Controllers\Master\AlumniController;
 use App\Http\Controllers\Master\MemberController;
 use App\Http\Controllers\Master\CategoryController;
 use App\Http\Controllers\Master\PrestationController;
+use App\Http\Controllers\Master\GalleryController;
 use App\Http\Controllers\Master\DivisionController;
 use App\Http\Controllers\Master\ImageDivisionController;
 use App\Http\Controllers\Setting\ErrorController;
@@ -221,6 +222,7 @@ Route::prefix('/api/v1')->group(function () {
     });
 
 
+Route::group(['middleware' => ['auth']], function () {
     Route::prefix('division')->group(function () {
         Route::get('get', [ApiDivisionController::class, 'index']);
         Route::post('insert', [ApiDivisionController::class, 'store']);
@@ -269,6 +271,8 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('update', [ApiCategoryController::class, 'update']);
         Route::delete('delete', [ApiCategoryController::class, 'destroy']);
     });
+    
+ });
 
     Route::prefix('trash')->group(function () {
         Route::get('section/get', [ApiTrashController::class, 'section_get']);

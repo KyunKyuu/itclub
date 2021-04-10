@@ -68,6 +68,8 @@ class CategoryController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+        activity('menambah data category');
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'data added succesfuly'
@@ -109,6 +111,8 @@ class CategoryController extends Controller
             'created_by' => auth()->user()->id
         ]);
 
+         activity('mengedit data category');
+
         return response()->json([
             'status' => 'success',
             'message' => 'data update succesfuly'
@@ -129,6 +133,7 @@ class CategoryController extends Controller
         $category->galleries()->delete();
         $category->delete();
 
+        activity('menghapus data category');
         return response()->json([
             'status' => 'success',
             'message' => 'category delete succesfuly'
