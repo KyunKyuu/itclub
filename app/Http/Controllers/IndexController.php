@@ -7,6 +7,7 @@ use App\Models\Division;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class IndexController extends Controller
@@ -59,6 +60,7 @@ class IndexController extends Controller
     public function upgrade_member()
     {
         $divisi = Division::all();
-        return view('main.resource.upgrade', compact('divisi'));
+        $reg = DB::table('member_reg')->where('user_id', auth()->user()->id)->get();
+        return view('main.resource.upgrade', compact('divisi', 'reg'));
     }
 }

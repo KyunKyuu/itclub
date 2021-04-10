@@ -295,7 +295,7 @@ class MemberController extends Controller
     {
         if ($request->image) {
             $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10) . '.' . $request->file('image')->getClientOriginalExtension();
-            $image = Storage::putFileAs('images/article', $request->file('image'), $name);
+            $image = Storage::putFileAs('images/member_reg', $request->file('image'), $name);
         } else {
             $image = null;
         }
@@ -320,10 +320,11 @@ class MemberController extends Controller
             ];
         }
 
-        if (MemberReg::where('user_id', auth()->user()->id)) {
+        if (MemberReg::where('user_id', auth()->user()->id)->count() > 0) {
             return response()->json(['status' => 'error', 'message' => 'Registrasi gagal, anda telah terdaftar sebagai member atau telah mendaftar sebelumnya'], 500);
         }
 
         MemberReg::create($data);
+        return response()->json(['status' => 'success', 'message' => 'Registrasi berhasil, mohon tunggu data sedang di proses'], 200);
     }
 }
