@@ -12,7 +12,7 @@ class MemberReg extends Model
     use SoftDeletes;
 
     protected $table = 'member_reg';
-    protected $fillable = ['user_id', 'division_id', 'email', 'name', 'class', 'majors', 'position', 'status', 'imgae', 'entry_year', 'deleted_at'];
+    protected $fillable = ['user_id', 'division_id', 'email', 'name', 'class', 'majors', 'position', 'status', 'image', 'entry_year', 'deleted_at'];
 
     protected $dates = ['deleted_at'];
 

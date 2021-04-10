@@ -6,7 +6,6 @@ use App\Models\{Activity, Member, Division, MemberReg, User, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class MemberController extends Controller
@@ -293,12 +292,13 @@ class MemberController extends Controller
 
     public function upgrade(Request $request)
     {
+        $image  = null;
         if ($request->image) {
             $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10) . '.' . $request->file('image')->getClientOriginalExtension();
-            $image = Storage::putFileAs('images/member_reg', $request->file('image'), $name);
-        } else {
-            $image = null;
+            $image = \Storage::putFileAs('images/member_reg', $request->file('image'), $name);
         }
+
+
         if ($request->asal_pendaftar == 'lainnya') {
             $data = [
                 'name' => $request->name,
