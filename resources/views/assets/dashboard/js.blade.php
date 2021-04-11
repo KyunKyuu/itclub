@@ -1,7 +1,7 @@
 <!-- General JS Scripts -->
 <script src="/public_file/node_modules/jquery/jquery-3.3.1.min.js"></script>
-<script src="/public_file/node_modules/popper/popper.min.js" ></script>
-<script src="/public_file/node_modules/bootstrap/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+<script src="/public_file/node_modules/popper/popper.min.js"></script>
+<script src="/public_file/node_modules/bootstrap/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script src="/public_file/node_modules/jquery-nicescroll/jquery-nicescroll.min.js"></script>
 <script src="/public_file/node_modules/moment/moment.js"></script>
 <script src="/public_file/assets/js/stisla.js"></script>
@@ -30,13 +30,16 @@
 <script src="/private_file/assets/js/function/script.js"></script>
 <script src="/private_file/assets/js/variable/script.js"></script>
 @if (request()->segment(3))
-    @if (request()->segment(1) == 'member')
-        <script src="/private_file/assets/js/{{request()->segment(1)}}/{{request()->segment(3)}}/script.js"></script>
+    @if (request()->segment(1) == 'members')
+        <script src="/private_file/assets/js/{{ request()->segment(1) }}/{{ request()->segment(3) }}/script.js">
+        </script>
     @else
-        <script src="/private_file/assets/js/{{request()->segment(1)}}/{{request()->segment(2)}}/{{request()->segment(3)}}.js"></script>
+        <script
+            src="/private_file/assets/js/{{ request()->segment(1) }}/{{ request()->segment(2) }}/{{ request()->segment(3) }}.js">
+        </script>
     @endif
 @elseif(request()->segment(2))
-    <script src="/private_file/assets/js/{{request()->segment(1)}}/{{request()->segment(2)}}/script.js"></script>
+    <script src="/private_file/assets/js/{{ request()->segment(1) }}/{{ request()->segment(2) }}/script.js"></script>
 @else
-    <script src="/private_file/assets/js/{{request()->segment(1)}}.js"></script>
+    <script src="/private_file/assets/js/{{ request()->segment(1) }}.js"></script>
 @endif

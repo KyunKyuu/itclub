@@ -24,6 +24,7 @@ class CreateRegisterMember extends Migration
             $table->string('position');
             $table->string('status')->default(0);
             $table->string('image')->nullable();
+            $table->string('type')->nullable();
             $table->date('entry_year')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('created_at')->useCurrent();

@@ -125,10 +125,12 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN':csrftoken
             },
             success:res=>{
-                console.log(res);
+                SweetAlert(res)
+                $('#UpgradeDone').html(`<h1>Mohon tunggu! permintaan anda sedang di proses</h1><i class="fas text-warning fa-hourglass mt-4" style="font-size:62px"></i>`)
+                $('#UpgradeMember').html(' ')
             },
             error:err=>{
-                SweetAlert({status:'error', message:err.responseJSON.message})
+                SweetAlert({status:err.responseJSON.status, message:err.responseJSON.message})
             }
         })
     })

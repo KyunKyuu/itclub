@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\{Activity, Member, Division, User, UserProfile};
+use App\Models\{Activity, Member, Division, MemberReg, User, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class MemberController extends Controller
@@ -250,7 +251,7 @@ class MemberController extends Controller
         }
         $user->update($request->except('image'));
 
-         activity('memperbarui data profile');
+        activity('memperbarui data profile');
         return response()->json(['status' => 'success', 'message' => 'Profile berhasil diperbarui'], 200);
     }
 
@@ -280,7 +281,7 @@ class MemberController extends Controller
 
     public function get_activity()
     {
-        return DataTables::of(Activity::where('user_id', auth()->user()->id))
+        return DataTables::of(Activity::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC'))
             ->editColumn('user_id', function ($activity) {
                 return $activity->user->name;
             })
@@ -303,6 +304,121 @@ class MemberController extends Controller
 
     public function upgrade(Request $request)
     {
-        dd($request->all());
+        $image  = null;
+        if ($request->image) {
+            $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10) . '.' . $request->file('image')->getClientOriginalExtension();
+            $image = \Storage::putFileAs('images/member_reg', $request->file('image'), $name);
+        }
+
+
+        if ($request->asal_pendaftar == 'lainnya') {
+            $data = [
+                'name' => $request->name,
+                'user_id' => auth()->user()->id,
+                'division_id' => $request->divisions,
+                'image' => $image,
+                'email' => auth()->user()->email,
+            ];
+        } else {
+            $data = [
+                'name' => $request->name,
+                'user_id' => auth()->user()->id,
+                'division_id' => $request->divisions,
+                'class' => $request->class,
+                'entry_year' => $request->entry_year,
+                'majors' => $request->majors,
+                'image' => $image,
+                'email' => auth()->user()->email,
+            ];
+        }
+
+        if (MemberReg::where('user_id', auth()->user()->id)->count() > 0) {
+            return response()->json(['status' => 'error', 'message' => 'Registrasi gagal, anda telah terdaftar sebagai member atau telah mendaftar sebelumnya'], 500);
+        }
+
+        MemberReg::create($data);
+        return response()->json(['status' => 'success', 'message' => 'Registrasi berhasil, mohon tunggu data sedang di proses'], 200);
+    }
+
+    public function registration_get()
+    {
+        if (!empty($_GET['id'])) {
+            $data = DB::table('member_reg')->where('id', $_GET['id'])->get()[0];
+            $division = Division::find($data->division_id);
+            return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => compact('data', 'division')]);
+        }
+
+        $member_reg = DB::table('member_reg')->get();
+
+        return DataTables::of($member_reg)
+            ->addIndexColumn()
+            ->addColumn('check', function ($member_reg) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($member_reg) {
+                return '
+                    <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $member_reg->id . '" id="Access"><i class="fas fa-eye"></i></a>
+                    ';
+            })
+            ->editColumn('image', function ($member_reg) {
+                return '<img alt="image" src="/storage/' . $member_reg->image . '" class="rounded-circle" width="35" data-toggle="tooltip" title="" data-original-title="Nur Alpiana">';
+            })
+            ->editColumn('status', function ($member_reg) {
+                if ($member_reg->deleted_at == null) {
+                    if ($member_reg->status == 1) {
+                        $data = '<div class="badge badge-success"><i class="fas fa-check"></i> Diterima</div>';
+                    } else {
+                        $data = '<div class="badge badge-warning"><i class="fas fa-clock"></i> Menunggu</div>';
+                    }
+                } else {
+                    $data = '<div class="badge badge-danger"><i class="fas fa-times"></i> Ditolak</div>';
+                }
+                return $data;
+            })
+            ->rawColumns(['check', 'btn', 'image', 'status'])
+            ->make(true);
+    }
+
+    public function registration_accept(Request $request)
+    {
+        $member = DB::table('member_reg')->where('id', $request->id);
+        $member->update(['status' => 1, 'deleted_at' => null]);
+        $value = $member->get()[0];
+        $data = [
+            'name' => $value->name,
+            'division_id' => $value->division_id,
+            'user_id' => $value->user_id,
+            'class' => $value->class,
+            'majors' => $value->majors,
+            'image' => $value->image,
+            'entry_year' => $value->entry_year,
+        ];
+
+        if ($value->type == 'smkn5') {
+            Member::create($data);
+        }
+
+        $user = User::find($value->user_id)->update(['role_id' => 4]);
+        access_update(4, $value->user_id);
+
+        return response()->json(['status' => 'success', 'message' => 'User berhasil diterima, menjadi member resmi sekarang']);
+    }
+
+    public function registration_reject(Request $request)
+    {
+        $member = DB::table('member_reg')->where('id', $request->id);
+        $member->update(['status' => 0, 'deleted_at' => date('Y-m-d H:i:s')]);
+        $value = $member->get()[0];
+
+        if ($value->type == 'smkn5') {
+            Member::where('user_id', $value->user_id)->delete();
+        }
+
+        $user = User::find($value->user_id)->update(['role_id' => 5]);
+        access_update(5, $value->user_id);
+        return response()->json(['status' => 'success', 'message' => 'User gagal diterima, tidak bisa menjadi member resmi sekarang']);
     }
 }
