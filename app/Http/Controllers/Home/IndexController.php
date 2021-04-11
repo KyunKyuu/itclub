@@ -66,7 +66,6 @@ class IndexController extends Controller
     public function article_detail($slug)
     {
         $article = Article::where('slug', $slug)->first();
-        dd($article);
         $articlies = Article::where('status', '200')->latest()->take(3)->get();
         return view('main/home/article_detail', compact('article', 'articlies'));
     }

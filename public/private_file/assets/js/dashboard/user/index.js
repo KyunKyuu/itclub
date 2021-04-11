@@ -65,7 +65,7 @@ function activity(parm = 'FALSE') {
             let update = val.update
             let hapus = val.delete
             let recovery = val.recovery
-            let unknown = val.all - recovery - hapus -update - insert
+            let unknown = val.unknown
             let all = val.all
             $('#activityInsert').text(insert)
             $('#activityUpdate').text(update)

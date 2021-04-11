@@ -15,7 +15,7 @@
                         <a href="/dashboard/general/index" class="btn btn-info mt-4"><i class="fas fa-home"></i> Back to
                             Dashboard</a>
                     @else
-                        <a href="/member/{{ auth()->user()->name }}/profile" class="btn btn-info mt-4"><i
+                        <a href="/members/{{ auth()->user()->name }}/profile" class="btn btn-info mt-4"><i
                                 class="fas fa-home"></i> Back to
                             Dashboard</a>
                     @endif

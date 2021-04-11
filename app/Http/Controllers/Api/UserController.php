@@ -113,10 +113,9 @@ class UserController extends Controller
             'delete' => $delete->count(),
             'insert' => $insert->count(),
             'update' => $update->count(),
-            'update' => $update->count(),
-            'recovery' => $recovery->count(),
-            'recovery' => $recovery->count(),
+            'recovery' => $all->count(),
             'all' => $all->count(),
+            'unknown' => $all->count() - ($update->count() + $delete->count() + $insert->count())
         ];
         return response()->json(['message' => 'query berhasil', 'status' => 'success', 'values' => $data], 200);
     }
