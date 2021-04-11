@@ -370,4 +370,44 @@ class MemberController extends Controller
             ->rawColumns(['check', 'btn', 'image', 'status'])
             ->make(true);
     }
+
+    public function registration_accept(Request $request)
+    {
+        $member = DB::table('member_reg')->where('id', $request->id);
+        $member->update(['status' => 1, 'deleted_at' => null]);
+        $value = $member->get()[0];
+        $data = [
+            'name' => $value->name,
+            'division_id' => $value->division_id,
+            'user_id' => $value->user_id,
+            'class' => $value->class,
+            'majors' => $value->majors,
+            'image' => $value->image,
+            'entry_year' => $value->entry_year,
+        ];
+
+        if ($value->type == 'smkn5') {
+            Member::create($data);
+        }
+
+        $user = User::find($value->user_id)->update(['role_id' => 4]);
+        access_update(4, $value->user_id);
+
+        return response()->json(['status' => 'success', 'message' => 'User berhasil diterima, menjadi member resmi sekarang']);
+    }
+
+    public function registration_reject(Request $request)
+    {
+        $member = DB::table('member_reg')->where('id', $request->id);
+        $member->update(['status' => 0, 'deleted_at' => date('Y-m-d H:i:s')]);
+        $value = $member->get()[0];
+
+        if ($value->type == 'smkn5') {
+            Member::where('user_id', $value->user_id)->delete();
+        }
+
+        $user = User::find($value->user_id)->update(['role_id' => 5]);
+        access_update(5, $value->user_id);
+        return response()->json(['status' => 'success', 'message' => 'User gagal diterima, tidak bisa menjadi member resmi sekarang']);
+    }
 }

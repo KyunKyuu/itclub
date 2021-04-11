@@ -169,7 +169,7 @@
                             @endif
                         @else
                             <h1>Mohon maaf! anda gagal terdaftar sebagai member. Coba lagi, atau hubungi admin</h1>
-                            <i class="fas text-danger fa-hourglass mt-4" style="font-size: 62px"></i>
+                            <i class="fas text-danger fa-times mt-4" style="font-size: 62px"></i>
                         @endif
                     @endif
                 </div>

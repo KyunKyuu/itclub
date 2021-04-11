@@ -210,6 +210,8 @@ Route::prefix('/api/v1')->group(function () {
 
         Route::post('upgrade', [ApiMemberController::class, 'upgrade']);
         Route::get('registration/get', [ApiMemberController::class, 'registration_get']);
+        Route::post('registration/accept', [ApiMemberController::class, 'registration_accept']);
+        Route::post('registration/reject', [ApiMemberController::class, 'registration_reject']);
     });
 
     Route::group(['prefix' => '/features', 'middleware' => ['auth']], function () {

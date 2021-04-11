@@ -38,5 +38,71 @@ $(document).ready(function() {
 
     $('#close').on('click', function() {
         $('.col-4').addClass('d-none')
+        idUser = ' '
+        value_checkbox = []
+    })
+
+    $('#Accept').on('click', function() {
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin menerima member?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal request'
+            },
+            ajax : {
+                url:'/api/v1/member/registration/accept',
+                data:{
+                    id : idUser
+                },
+                type:'POST',
+                headers:{
+                    'X-CSRF-TOKEN' : csrftoken
+                },
+                success:res=>{
+                    SweetAlert(res)
+                    RefreshTable('table')
+
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message})
+                }
+            }
+        })
+    })
+
+    $('#Reject').on('click', function() {
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin menolak member?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal request'
+            },
+            ajax : {
+                url:'/api/v1/member/registration/reject',
+                data:{
+                    id : idUser
+                },
+                type:'POST',
+                headers:{
+                    'X-CSRF-TOKEN' : csrftoken
+                },
+                success:res=>{
+                    SweetAlert(res)
+                    RefreshTable('table')
+
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message})
+                }
+            }
+        })
     })
 })
