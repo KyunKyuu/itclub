@@ -373,6 +373,7 @@ class MemberController extends Controller
 
     public function registration_accept(Request $request)
     {
+        activity('Accept new member');
         $member = DB::table('member_reg')->where('id', $request->id);
         $member->update(['status' => 1, 'deleted_at' => null]);
         $value = $member->get()[0];
@@ -398,6 +399,7 @@ class MemberController extends Controller
 
     public function registration_reject(Request $request)
     {
+        activity('Reject new member');
         $member = DB::table('member_reg')->where('id', $request->id);
         $member->update(['status' => 0, 'deleted_at' => date('Y-m-d H:i:s')]);
         $value = $member->get()[0];
