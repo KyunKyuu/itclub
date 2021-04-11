@@ -6,6 +6,7 @@ use App\Models\{Activity, Member, Division, MemberReg, User, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class MemberController extends Controller
@@ -326,5 +327,47 @@ class MemberController extends Controller
 
         MemberReg::create($data);
         return response()->json(['status' => 'success', 'message' => 'Registrasi berhasil, mohon tunggu data sedang di proses'], 200);
+    }
+
+    public function registration_get()
+    {
+        if (!empty($_GET['id'])) {
+            $data = DB::table('member_reg')->where('id', $_GET['id'])->get()[0];
+            $division = Division::find($data->division_id);
+            return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => compact('data', 'division')]);
+        }
+
+        $member_reg = DB::table('member_reg')->get();
+
+        return DataTables::of($member_reg)
+            ->addIndexColumn()
+            ->addColumn('check', function ($member_reg) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($member_reg) {
+                return '
+                    <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $member_reg->id . '" id="Access"><i class="fas fa-eye"></i></a>
+                    ';
+            })
+            ->editColumn('image', function ($member_reg) {
+                return '<img alt="image" src="/storage/' . $member_reg->image . '" class="rounded-circle" width="35" data-toggle="tooltip" title="" data-original-title="Nur Alpiana">';
+            })
+            ->editColumn('status', function ($member_reg) {
+                if ($member_reg->deleted_at == null) {
+                    if ($member_reg->status == 1) {
+                        $data = '<div class="badge badge-success"><i class="fas fa-check"></i> Diterima</div>';
+                    } else {
+                        $data = '<div class="badge badge-warning"><i class="fas fa-clock"></i> Menunggu</div>';
+                    }
+                } else {
+                    $data = '<div class="badge badge-danger"><i class="fas fa-times"></i> Ditolak</div>';
+                }
+                return $data;
+            })
+            ->rawColumns(['check', 'btn', 'image', 'status'])
+            ->make(true);
     }
 }
