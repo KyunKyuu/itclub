@@ -12,4 +12,9 @@ class MemberController extends Controller
     {
         return view('main.member.registration');
     }
+
+    public function schedule()
+    {
+        return view('main.member.schedule');
+    }
 }
