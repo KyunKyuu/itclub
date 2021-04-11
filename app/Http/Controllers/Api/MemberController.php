@@ -24,8 +24,8 @@ class MemberController extends Controller
             ->addIndexColumn()
             ->addColumn('check', function ($member) {
                 return  '<div class="custom-checkbox custom-control">
-                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $member->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $member->id . '" >
+                    <label for="checkbox-' . $member->id . '" class="custom-control-label">&nbsp;</label>
                     </div>';
             })
             ->addColumn('btn', function ($member) {
@@ -190,7 +190,18 @@ class MemberController extends Controller
     public function destroy(Request $request)
     {
 
-        $member = Member::find($request->id);
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                $member = Member::find($value);
+                $member->alumni()->delete();
+                $member->delete();
+            }
+             activity('menghapus data member');
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
+        }
+
+
+        $member = Member::find($request->value);
 
         if (!$member) {
             return response()->json([

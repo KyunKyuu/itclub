@@ -25,8 +25,8 @@ class AlumniController extends Controller
             ->addIndexColumn()
             ->addColumn('check', function ($alumni) {
                 return  '<div class="custom-checkbox custom-control">
-                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $alumni->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $alumni->id . '" >
+                    <label for="checkbox-' . $alumni->id . '" class="custom-control-label">&nbsp;</label>
                     </div>';
             })
             ->addColumn('btn', function ($alumni) {
@@ -154,7 +154,16 @@ class AlumniController extends Controller
 
     public function destroy(Request $request)
     {
-        $alumni = Alumni::find($request->id);
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                $alumni = Alumni::find($value);
+                $alumni->delete();
+            }
+            activity('menghapus data alumni');
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
+        }
+
+        $alumni = Alumni::find($request->value);
         if (!$alumni) {
             return response()->json([
                 'status' => 'error',

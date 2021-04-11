@@ -24,8 +24,8 @@ class DivisionController extends Controller
             ->addIndexColumn()
             ->addColumn('check', function ($division) {
                 return  '<div class="custom-checkbox custom-control">
-                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $division->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $division->id . '" >
+                    <label for="checkbox-' . $division->id . '" class="custom-control-label">&nbsp;</label>
                     </div>';
             })
             ->addColumn('btn', function ($division) {
@@ -147,7 +147,17 @@ class DivisionController extends Controller
     public function destroy(Request $request)
     {
 
-        $division = Division::find($request->id);
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                $division = Division::find($value);
+                $division->images()->delete();
+                $division->delete();
+            }
+            activity('menghapus data divisi');
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
+        }
+
+        $division = Division::find($request->value);
 
         if (!$division) {
             return response()->json([

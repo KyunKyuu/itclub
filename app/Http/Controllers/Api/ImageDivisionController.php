@@ -24,8 +24,8 @@ class ImageDivisionController extends Controller
             ->addIndexColumn()
             ->addColumn('check', function ($imageDivision) {
                 return  '<div class="custom-checkbox custom-control">
-                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $imageDivision->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $imageDivision->id . '" >
+                    <label for="checkbox-' . $imageDivision->id . '" class="custom-control-label">&nbsp;</label>
                     </div>';
             })
             ->addColumn('btn', function ($imageDivision) {
@@ -77,8 +77,18 @@ class ImageDivisionController extends Controller
 
 
     public function destroy(Request $request)
-    {
-        $imageDivision = ImageDivision::find($request->id);
+    {   
+
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                $imageDivision = ImageDivision::find($value);
+                $imageDivision->delete();
+            }
+            activity('menghapus data image divisi');
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
+        }
+
+        $imageDivision = ImageDivision::find($request->value);
 
         if (!$imageDivision) {
             return response()->json([

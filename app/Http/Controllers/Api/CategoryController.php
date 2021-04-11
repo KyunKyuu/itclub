@@ -22,8 +22,8 @@ class CategoryController extends Controller
             ->addIndexColumn()
             ->addColumn('check', function ($category) {
                 return  '<div class="custom-checkbox custom-control">
-                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $category->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $category->id . '" >
+                    <label for="checkbox-' . $category->id . '" class="custom-control-label">&nbsp;</label>
                     </div>';
             })
             ->addColumn('btn', function ($category) {
@@ -121,11 +121,22 @@ class CategoryController extends Controller
 
     public function destroy(Request $request)
     {
-        $category = Category::find($request->id);
+         if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                $category = Category::find($value);
+                $category->blogs()->detach();
+                $category->galleries()->delete();
+                $category->delete();
+            }
+            activity('menghapus data category');
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
+        }
+
+        $category = Category::find($request->value);
         if(!$category)
         {
             return response()->json([
-                'status' => 'success',
+                'status' => 'error',
                 'message' => 'category not found'
             ],404);
         }
