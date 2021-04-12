@@ -24,8 +24,8 @@ class GalleryController extends Controller
             ->addIndexColumn()
             ->addColumn('check', function ($gallery) {
                 return  '<div class="custom-checkbox custom-control">
-                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $gallery->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $gallery->id . '" >
+                    <label for="checkbox-' . $gallery->id . '" class="custom-control-label">&nbsp;</label>
                     </div>';
             })
             ->addColumn('btn', function ($gallery) {
@@ -166,8 +166,18 @@ class GalleryController extends Controller
     }
 
     public function destroy(Request $request)
-    {
-        $gallery = Gallery::find($request->id);
+    {   
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                $gallery = Gallery::find($value);
+                $gallery->images()->delete();
+                $gallery->delete();
+            }
+            activity('menghapus data gallery');
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
+        }
+
+        $gallery = Gallery::find($request->value);
 
         if(!$gallery)
         {

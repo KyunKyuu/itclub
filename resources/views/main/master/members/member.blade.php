@@ -9,7 +9,7 @@
                     <h4>Data Member</h4>
                 <div class="ml-auto">
                     <a href="#" class="btn btn-primary rounded" data-target="#insertMember" data-toggle="modal"><i class="fas fa-plus"></i> Tambah</a>
-                    <a href="#" class="btn btn-danger rounded"><i class="far fa-trash-alt"></i> Hapus</a>
+                    <a href="#" class="btn btn-danger rounded" id="deleteArray"><i class="far fa-trash-alt" ></i> Hapus</a>
                 </div>
               </div>
               <div class="card-body p-3">
@@ -65,9 +65,9 @@
                       <div class="form-group col-md-6 col-12">
                         <label>User ID</label>
                         <select required name="user_id" class="form-control">
-                              <option selected disabled>== ID dari table User ==</option>
+                              <option selected disabled>== Email dari table User ==</option>
                               @foreach ($users as $data)
-                                <option value="{{$data->id}}">{{$data->name}}</option>
+                                <option value="{{$data->id}}">{{$data->email}}</option>
                               @endforeach
                           </select>
                         <div class="invalid-feedback">
@@ -184,7 +184,7 @@
                         <select required name="user_id" class="form-control">
                               <option selected disabled>== ID dari table User ==</option>
                               @foreach ($users as $data)
-                                <option value="{{$data->id}}">{{$data->id}}</option>
+                                <option value="{{$data->id}}">{{$data->email}}</option>
                               @endforeach
                           </select>
                         <div class="invalid-feedback">
