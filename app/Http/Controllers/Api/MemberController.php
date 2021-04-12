@@ -197,7 +197,7 @@ class MemberController extends Controller
                 $member->alumni()->delete();
                 $member->delete();
             }
-             activity('menghapus data member');
+            activity('menghapus data member');
             return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
         }
 
@@ -427,14 +427,15 @@ class MemberController extends Controller
     public function schedule_get()
     {
         if (!empty($_GET['id'])) {
-            # code...
+            $schedule = Schedule::find($_GET['id']);
+            return response()->json(['message' => 'Query berhasil', 'status' => 'success', 'values' => $schedule], 200);
         }
 
         return DataTables::of(Schedule::all())
             ->addColumn('check', function ($schedule) {
                 return  '<div class="custom-checkbox custom-control">
-                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" name="id-checkbox" value="' . $schedule->id . '" class="custom-control-input" id="checkbox-' . $schedule->id . '" onclick="checkbox_this(this)">
+                    <label for="checkbox-' . $schedule->id . '" class="custom-control-label">&nbsp;</label>
                     </div>';
             })
             ->addColumn('btn', function ($schedule) {
@@ -444,7 +445,7 @@ class MemberController extends Controller
             ';
             })
             ->addColumn('division', function ($schedule) {
-                return $schedule->divisions->name;
+                return $schedule->division == 'all' ? 'All' : $schedule->divisions->name;
             })
             ->rawColumns(['btn', 'check'])
             ->make(true);
@@ -461,5 +462,21 @@ class MemberController extends Controller
         Schedule::create($request->all());
         activity('Menambahkan jadwal member');
         return response()->json(['status' => 'success', 'message' => 'Jadwal berhasil ditambahkan'], 200);
+    }
+
+    public function schedule_delete(Request $request)
+    {
+        if (is_array($request->value)) {
+            foreach ($request->value as $item) {
+                $schedule = Schedule::find($item);
+                $schedule->delete();
+            }
+            activity('Menghapus jadwal member');
+            return response()->json(['message' => 'Jadwal berhasil dihapus', 'status' => 'success'], 200);
+        }
+        $schedule = Schedule::find($request->value);
+        $schedule->delete();
+        activity('Menghapus jadwal member');
+        return response()->json(['message' => 'Jadwal berhasil dihapus', 'status' => 'success'], 200);
     }
 }
