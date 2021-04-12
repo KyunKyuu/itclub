@@ -219,6 +219,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::get('schedule/get', [ApiMemberController::class, 'schedule_get']);
         Route::post('schedule/insert', [ApiMemberController::class, 'schedule_insert']);
         Route::post('schedule/update', [ApiMemberController::class, 'schedule_update']);
+        Route::delete('schedule/delete', [ApiMemberController::class, 'schedule_delete']);
     });
 
     Route::group(['prefix' => '/features', 'middleware' => ['auth']], function () {
