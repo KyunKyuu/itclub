@@ -9,7 +9,7 @@
                     <h4>Data Gallery</h4>
                 <div class="ml-auto">
                     <a href="#" class="btn btn-primary rounded" data-target="#insertGallery" data-toggle="modal"><i class="fas fa-plus"></i> Tambah</a>
-                    <a href="#" class="btn btn-danger rounded"><i class="far fa-trash-alt"></i> Hapus</a>
+                    <a href="#" class="btn btn-danger rounded" id="deleteArray"><i class="far fa-trash-alt"></i> Hapus</a>
                 </div>
               </div>
               <div class="card-body p-3">

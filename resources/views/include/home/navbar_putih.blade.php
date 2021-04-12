@@ -39,16 +39,16 @@
                         </li>
 
                         @auth
-                        @if(auth()->user()->role_id == 1)
-                         {
-                            <li class="nav-item mx-2">
-                            <a href="{{route('dashboard')}}" class="nav-link btn btn-1 text-white px-4">Dashboard</a>
-                            </li>
-                         @else
-                        <li class="nav-item mx-2">
-                                <a class="nav-link text-white" href="#"><span><i class="fas fa-user mr-2 active"></i></span>{{auth()->user()->name}}</a>
-                            </li>
-                        @endif
+                        
+                        <li class="nav-item mx-2 dropdown">
+                                <a class="nav-link text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span><i class="fas fa-user mr-2 active"></i></span>{{auth()->user()->name}}</a>
+                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{route('dashboard')}}">Dashboard</a>
+                                <a class="dropdown-item" href="/api/v1/auth/logout">Logout</a>
+                               
+                            </div>
+                        </li>
+
                         @endauth
 
                         @guest

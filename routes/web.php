@@ -23,6 +23,7 @@ use App\Http\Controllers\Master\PrestationController;
 use App\Http\Controllers\Master\GalleryController;
 use App\Http\Controllers\Master\DivisionController;
 use App\Http\Controllers\Master\ImageDivisionController;
+use App\Http\Controllers\Master\ImageGalleryController;
 use App\Http\Controllers\Setting\ErrorController;
 use Illuminate\Support\Facades\Route;
 

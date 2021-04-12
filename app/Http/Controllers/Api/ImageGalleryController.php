@@ -21,10 +21,10 @@ class ImageGalleryController extends Controller
 
         return DataTables::of($imageGallery)
             ->addIndexColumn()
-            ->addColumn('check', function ($imageGallery) {
+             ->addColumn('check', function ($imageGallery) {
                 return  '<div class="custom-checkbox custom-control">
-                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
-                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $imageGallery->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $imageGallery->id . '" >
+                    <label for="checkbox-' . $imageGallery->id . '" class="custom-control-label">&nbsp;</label>
                     </div>';
             })
             ->addColumn('btn', function ($imageGallery) {
@@ -79,8 +79,18 @@ class ImageGalleryController extends Controller
 
 
     public function destroy(Request $request)
-    {
-        $imageGallery = ImageGallery::find($request->id);
+    {   
+
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                $imageGallery = ImageGallery::find($value);
+                $imageGallery->delete();
+            }
+            activity('menghapus data image gallery');
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
+        }
+
+        $imageGallery = ImageGallery::find($request->value);
 
         if(!$imageGallery)
         {
