@@ -25,10 +25,11 @@
                                             <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                         </div>
                                     </th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Image</th>
-                                    <th>Status</th>
+                                    <th>Divisi</th>
+                                    <th>Tanggal</th>
+                                    <th>Jam Masuk</th>
+                                    <th>Jam Keluar</th>
+                                    <th>Keterangan</th>
                                     <th width="70px">Action</th>
                                 </tr>
                             </thead>

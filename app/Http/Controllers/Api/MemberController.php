@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\{Activity, Member, Division, MemberReg, User, UserProfile};
+use App\Models\{Activity, Member, Division, MemberReg, Schedule, User, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -411,5 +411,44 @@ class MemberController extends Controller
         $user = User::find($value->user_id)->update(['role_id' => 5]);
         access_update(5, $value->user_id);
         return response()->json(['status' => 'success', 'message' => 'User gagal diterima, tidak bisa menjadi member resmi sekarang']);
+    }
+
+    public function schedule_get()
+    {
+        if (!empty($_GET['id'])) {
+            # code...
+        }
+
+        return DataTables::of(Schedule::all())
+            ->addColumn('check', function ($schedule) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($schedule) {
+                return '
+                    <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $schedule->id . '" id="edit"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $schedule->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+            ->addColumn('division', function ($schedule) {
+                return $schedule->divisions->name;
+            })
+            ->rawColumns(['btn', 'check'])
+            ->make(true);
+    }
+
+    public function schedule_insert(Request $request)
+    {
+        $data = Schedule::where('date', $request->date)->where('division', $request->division)->count();
+        if ($data > 0) {
+            return response()->json(['status' => 'error', 'message' => 'Jadwal sudah ada, coba lagi!'], 500);
+        }
+
+        $request->request->add(['created_by' => auth()->user()->id]);
+        Schedule::create($request->all());
+        activity('Menambahkan jadwal member');
+        return response()->json(['status' => 'success', 'message' => 'Jadwal berhasil ditambahkan'], 200);
     }
 }
