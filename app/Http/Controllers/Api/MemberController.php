@@ -464,6 +464,18 @@ class MemberController extends Controller
         return response()->json(['status' => 'success', 'message' => 'Jadwal berhasil ditambahkan'], 200);
     }
 
+    public function schedule_update(Request $request)
+    {
+        $data = Schedule::find($request->id);
+        if ($data->count() < 1) {
+            return response()->json(['status' => 'error', 'message' => 'Jadwal tidak terdaftar, coba lagi!'], 500);
+        }
+
+        $data->update($request->all());
+        activity('Mengubah jadwal member');
+        return response()->json(['status' => 'success', 'message' => 'Jadwal berhasil diperbaharui'], 200);
+    }
+
     public function schedule_delete(Request $request)
     {
         if (is_array($request->value)) {

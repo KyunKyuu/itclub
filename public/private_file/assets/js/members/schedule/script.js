@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    let idVal = ' '
     const data = [
         {data:'check', name:'check', orderable:false},
         {data:'division', name:'division'},
@@ -14,6 +15,11 @@ $(document).ready(function() {
     $('#TambahData').on('click', function() {
         $('#insertSchedule').modal('show')
         $('#insertSchedule form').attr('id', 'insert')
+        $(`#insertSchedule select[name="division"] option`).attr('selected', false);
+        $(`#insertSchedule input[name="come_in"]`).val(' ')
+        $(`#insertSchedule input[name="come_out"]`).val(' ')
+        $(`#insertSchedule input[name="date"]`).val(' ')
+        $(`#insertSchedule textarea[name="desc"]`).val(' ')
     })
 
     $('#insertSchedule').on('submit', '#insert', function(e) {
@@ -41,10 +47,46 @@ $(document).ready(function() {
                     SweetAlert(res)
                     RefreshTable('table')
                     value_checkbox = []
+                    $('#insertSchedule form').attr('id', ' ')
                 },
                 error:res=>{
                     SweetAlert(res.responseJSON)
+                }
+            }
+        })
+    })
+
+    $('#insertSchedule').on('submit', '#update', function(e) {
+        e.preventDefault();
+        let data = new FormData(this)
+        data.append('id', idVal)
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin mengubah data jadwal member?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal mengubah jadwal'
+            },
+            ajax : {
+                url:'/api/v1/member/schedule/update',
+                type:'post',
+                headers:{
+                    'X-CSRF-TOKEN':csrftoken
+                },
+                contentType:false,
+                processData:false,
+                data:data,
+                success:res=>{
+                    SweetAlert(res)
+                    RefreshTable('table')
                     value_checkbox = []
+                    $('#insertSchedule form').attr('id', ' ')
+                },
+                error:res=>{
+                    SweetAlert(res.responseJSON)
                 }
             }
         })
@@ -85,6 +127,28 @@ $(document).ready(function() {
                 error:err=>{
                     SweetAlert({status:'error', message:err.responseJSON.message})
                 }
+            }
+        })
+    })
+
+    $('#table').on('click', '#edit', function() {
+        idVal = $(this).data('value')
+        $.ajax({
+            url:'/api/v1/member/schedule/get',
+            data:{
+                id : idVal
+            },
+            success:res=>{
+                $('#insertSchedule').modal('show')
+                $('#insertSchedule form').attr('id', 'update')
+                $(`#insertSchedule select[name="division"] option[value="${res.values.division}"]`).attr('selected', true);
+                $(`#insertSchedule input[name="come_in"]`).val(res.values.come_in)
+                $(`#insertSchedule input[name="come_out"]`).val(res.values.come_out)
+                $(`#insertSchedule input[name="date"]`).val(res.values.date)
+                $(`#insertSchedule textarea[name="desc"]`).val(res.values.desc)
+            },
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message})
             }
         })
     })
