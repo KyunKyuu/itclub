@@ -26,7 +26,15 @@ $(document).ready(function() {
                 }
 
             },
-            error:err=>console.log(err)
+            error:err=>{
+                if (err.status == 419) {
+                    SweetAlert({status:'info', message:'Mencoba menghubungkan kembali!'})
+                    setTimeout(() => {
+                        window.location.href = '/auth/login';
+                    }, 2000);
+                }
+                $('#message').html(` <div class="alert alert-danger alert-dismissible show fade"><div class="alert-body"><button class="close" data-dismiss="alert"><span>×</span></button>${err.responseJSON.message}.</div></div>`)
+            }
         })
     })
 })

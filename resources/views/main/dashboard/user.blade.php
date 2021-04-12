@@ -4,7 +4,7 @@
 
     <section class="section">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="col">
                 <div class="card card-statistic-2">
                     <div class="card-stats">
                         <div class="card-stats-title">Data Aktivitas -
@@ -64,13 +64,71 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="card card-statistic-2">
-                    <h2 class="p-5">
-                        MASIH PROSES DEVELOPMENT
-                    </h2>
+
+            @if ($member > 0 || auth()->user()->role_id <= 2)
+                <div class="col">
+                    <div class="card card-statistic-2">
+                        <div class="card-stats">
+                            <div class="card-stats-title">Nama Anggota -
+                            </div>
+                            <div class="card-stats-items">
+                                <div class="card-stats-item">
+                                    <div class="card-stats-item-count" id="activityInsert">-</div>
+                                    <div class="card-stats-item-label text-success">Divisi</div>
+                                </div>
+                                <div class="card-stats-item">
+                                    <div class="card-stats-item-count" id="activityUpdate">-</div>
+                                    <div class="card-stats-item-label text-warning">Jabatan</div>
+                                </div>
+                                <div class="card-stats-item">
+                                    <div class="card-stats-item-count" id="activityUpdate">-</div>
+                                    <div class="card-stats-item-label text-info">Kelas</div>
+                                </div>
+                                <div class="card-stats-item">
+                                    <div class="card-stats-item-count" id="activityUpdate">-</div>
+                                    <div class="card-stats-item-label text-danger">Jurusan</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-icon shadow-primary bg-primary">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="card-wrap">
+                            <div class="card-header">
+                                <h4>Jadwal</h4>
+                            </div>
+                            <div class="card-body" id="activityTotal">
+                                -
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            @endif
+
+            <div class="col-lg-4">
+                <div class="card gradient-bottom">
+                    <div class="card-header">
+                        <h4>Top Browser User</h4>
+                    </div>
+                    <div class="card-body" id="top-5-scroll" tabindex="2"
+                        style="height: 315px; overflow: hidden; outline: none; touch-action: none;">
+
+                    </div>
                 </div>
             </div>
+
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Statistik Aktivitas</h4>
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                </div>
+            </div>
+
         </div>
         @if (auth()->user()->role_id < 3)
             <div class="row">

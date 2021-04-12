@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\AuthMail;
 use App\Models\Division;
+use App\Models\Member;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Routing\Route;
@@ -20,7 +21,8 @@ class IndexController extends Controller
 
     public function dashboard_user()
     {
-        return view('main.dashboard.user');
+        $member = Member::where('user_id', auth()->user()->id)->count();
+        return view('main.dashboard.user', compact('member'));
     }
 
     public function mail()
