@@ -431,6 +431,38 @@ class MemberController extends Controller
             return response()->json(['message' => 'Query berhasil', 'status' => 'success', 'values' => $schedule], 200);
         }
 
+        if (!empty($_GET['member'])) {
+            $member = 0;
+            $data = Member::where('user_id', auth()->user()->id)->get();
+            if ($data->count() > 0) {
+                $member = $data[0]->division_id;
+                $table = DB::table('schedule')->where('division', $member)->orWhere('division', 'all')->orderBy('id', 'asc')->where('deleted_at', null)->get();
+            } else {
+                if (auth()->user()->role_id <= 2) {
+                    $table = DB::table('schedule')->orderBy('id', 'asc')->where('deleted_at', null)->get();
+                } else {
+                    $table = DB::table('schedule')->orderBy('id', 'asc')->where('deleted_at', null)->orWhere('division', 'no')->get();
+                }
+            }
+            return DataTables::of($table)
+                ->addIndexColumn()
+                ->addColumn('status', function ($schedule) {
+                    if ($schedule->date == date('Y-m-d')) {
+                        $color = 'success';
+                        $text = 'Today';
+                    } else if ($schedule->date > date('Y-m-d')) {
+                        $color = 'primary';
+                        $text = 'Already';
+                    } else {
+                        $color = 'danger';
+                        $text = 'Ended';
+                    }
+                    return '<div class="badge badge-pill badge-' . $color . ' mb-1 float-right">' . $text . '</div>';
+                })
+                ->rawColumns(['status', 'check'])
+                ->make(true);
+        }
+
         return DataTables::of(Schedule::all())
             ->addColumn('check', function ($schedule) {
                 return  '<div class="custom-checkbox custom-control">
@@ -490,5 +522,14 @@ class MemberController extends Controller
         $schedule->delete();
         activity('Menghapus jadwal member');
         return response()->json(['message' => 'Jadwal berhasil dihapus', 'status' => 'success'], 200);
+    }
+
+    public function member_profile()
+    {
+        $data = Member::where('user_id', auth()->user()->id)->get()[0];
+        $jadwal = Schedule::where('date', '>', date('Y-m-d'))->where('division', $data->division_id)->orWhere('division', 'all')->limit(1)->get()[0];
+        $divisi = $data->division->name;
+
+        return response()->json(['status' => 'success', 'message' => 'Query data berhasil', 'values' => compact('data', 'jadwal', 'divisi')], 200);
     }
 }

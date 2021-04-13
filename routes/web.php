@@ -210,6 +210,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/setting/changepassword', [ApiMemberController::class, 'setting_changepassword']);
 
         Route::get('/get/activity', [ApiMemberController::class, 'get_activity']);
+        Route::get('/get/profile', [ApiMemberController::class, 'member_profile']);
 
         Route::post('upgrade', [ApiMemberController::class, 'upgrade']);
         Route::get('registration/get', [ApiMemberController::class, 'registration_get']);

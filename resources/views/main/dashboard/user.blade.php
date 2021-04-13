@@ -69,23 +69,24 @@
                 <div class="col">
                     <div class="card card-statistic-2">
                         <div class="card-stats">
-                            <div class="card-stats-title">Nama Anggota -
+                            <div class="card-stats-title">Nama Anggota : <span id="namaAnggota"
+                                    class="text-capitalize">-</span>
                             </div>
                             <div class="card-stats-items">
                                 <div class="card-stats-item">
-                                    <div class="card-stats-item-count" id="activityInsert">-</div>
+                                    <div class="card-stats-item-count" style="font-size: 16px" id="divisiAnggota">-</div>
                                     <div class="card-stats-item-label text-success">Divisi</div>
                                 </div>
                                 <div class="card-stats-item">
-                                    <div class="card-stats-item-count" id="activityUpdate">-</div>
+                                    <div class="card-stats-item-count" style="font-size: 16px" id="jabatanAnggota">-</div>
                                     <div class="card-stats-item-label text-warning">Jabatan</div>
                                 </div>
                                 <div class="card-stats-item">
-                                    <div class="card-stats-item-count" id="activityUpdate">-</div>
+                                    <div class="card-stats-item-count" style="font-size: 16px" id="kelasAnggota">-</div>
                                     <div class="card-stats-item-label text-info">Kelas</div>
                                 </div>
                                 <div class="card-stats-item">
-                                    <div class="card-stats-item-count" id="activityUpdate">-</div>
+                                    <div class="card-stats-item-count" style="font-size: 16px" id="jurusanAnggota">-</div>
                                     <div class="card-stats-item-label text-danger">Jurusan</div>
                                 </div>
                             </div>
@@ -97,8 +98,8 @@
                             <div class="card-header">
                                 <h4>Jadwal</h4>
                             </div>
-                            <div class="card-body" id="activityTotal">
-                                -
+                            <div class="card-body">
+                                <h3 id="jadwalMember" class="mt-2" style="font-size: 21px">-</h3>
                             </div>
                         </div>
 
@@ -106,19 +107,31 @@
                 </div>
             @endif
 
-            <div class="col-lg-4">
+            <div class="col-lg-8">
                 <div class="card gradient-bottom">
                     <div class="card-header">
-                        <h4>Top Browser User</h4>
+                        <h4>Data Jadwal</h4>
                     </div>
-                    <div class="card-body" id="top-5-scroll" tabindex="2"
-                        style="height: 315px; overflow: hidden; outline: none; touch-action: none;">
-
+                    <div class="card-body p-3">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="schedule">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal</th>
+                                        <th>Masuk</th>
+                                        <th>Selesai</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-8">
+            <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">
                         <h4>Statistik Aktivitas</h4>

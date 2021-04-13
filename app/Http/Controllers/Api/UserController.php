@@ -101,7 +101,7 @@ class UserController extends Controller
         $insert = Activity::where('url_access', 'like', '%insert%');
         $update = Activity::where('url_access', 'like', '%update%');
         $recovery = Activity::where('url_access', 'like', '%recovery%');
-        $all = Activity::all();
+        $all = Activity::where('deleted_at', null);
         if (auth()->user()->role_id > 2) {
             $delete->where('user_id', auth()->user()->id);
             $insert->where('user_id', auth()->user()->id);

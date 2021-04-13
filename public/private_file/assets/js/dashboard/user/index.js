@@ -1,7 +1,19 @@
 $(document).ready(function() {
-        activity();
-        browserUser();
-        chartQuery(1);
+
+    const data = [
+        {data:'DT_RowIndex', name:'DT_RowIndex'},
+        {data:'date', name:'date'},
+        {data:'come_in', name:'come_in'},
+        {data:'come_out', name:'come_out'},
+        {data:'status', name:'status'},
+    ];
+
+    Table({table:'#schedule', data:data, url:'/api/v1/member/schedule/get', parm:{member:true}})
+    activity();
+
+    profileMember();
+    browserUser();
+    chartQuery(1);
 })
 
 function browserUser() {
@@ -54,6 +66,23 @@ function browserUser() {
     })
 
 
+}
+
+
+function profileMember() {
+    $.ajax({
+        url:'/api/v1/member/get/profile',
+        success:res=>{
+            let response = res.values
+            $('#namaAnggota').text(response.data.name)
+            $('#kelasAnggota').text(response.data.class)
+            $('#jabatanAnggota').text(response.data.position)
+            $('#jurusanAnggota').text(response.data.majors)
+            $('#divisiAnggota').text(response.divisi)
+            $('#jadwalMember').text(response.jadwal.date + ' ' + response.jadwal.come_in)
+        },
+        error:err=>console.log(err),
+    })
 }
 
 function activity(parm = 'FALSE') {
