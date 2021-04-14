@@ -27,13 +27,13 @@ class AuthController extends Controller
                     'role_id' => 4,
                 ];
 
-                User::create($data);
                 $users = User::where('name', $data['name'])->where('email', $data['email'])->get()[0];
-                access_create($data['role_id'], $users->id);
                 $data = $this->_sendMail($request, 'activation');
                 if ($data) {
                     return response()->json($data, 403);
                 }
+                User::create($data);
+                access_create($data['role_id'], $users->id);
                 $response = ['status' => 'success', 'message' => 'User berhasil ditambahkan, <a href="/auth/login">Login Sekarang</a>'];
             } else {
                 $response = ['status' => 'error', 'message' => 'User gagal ditambahkan, Username atau email telah digunakan'];
