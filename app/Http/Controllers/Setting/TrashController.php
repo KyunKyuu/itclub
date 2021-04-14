@@ -22,4 +22,45 @@ class TrashController extends Controller
     {
         return view('main.setting.submenu_trash');
     }
+
+    public function division()
+    {
+        return view('main.setting.division_trash');
+    }
+
+    public function prestation()
+    {
+        return view('main.setting.prestation_trash');
+    }
+
+    public function imageDivision()
+    {
+        return view('main.setting.imageDivision_trash');
+    }
+
+    public function member()
+    {
+        return view('main.setting.member_trash');
+    }
+
+    public function alumni()
+    {
+        return view('main.setting.alumni_trash');
+    }
+
+    public function gallery()
+    {
+        return view('main.setting.gallery_trash');
+    }
+
+    public function imageGallery()
+    {
+        return view('main.setting.imageGallery_trash');
+    }
+
+    public function category()
+    {
+        return view('main.setting.category_trash');
+    }
+
 }

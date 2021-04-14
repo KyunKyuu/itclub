@@ -24,7 +24,7 @@
                                 </div>
                             </th>
                             <th>Name</th>
-                            <th>User ID</th>
+                            <th>Email</th>
                             <th>Division</th>
                             <th>Class</th>
                             <th>Position</th>

@@ -36,12 +36,12 @@ class AlumniController extends Controller
             ';
             })
             ->addColumn('imageAlumni', function ($alumni) {
-                return '<img src="' . $alumni->member->image() . '" width="50">';
+                return '<img src="' . $alumni->image() . '" width="50">';
             })
-            ->addColumn('member_name', function ($alumni) {
+            ->editColumn('member_id', function ($alumni) {
                 return $alumni->member->name;
             })
-            ->rawColumns(['check', 'btn', 'imageAlumni'])
+            ->rawColumns(['check', 'btn', 'member_id','imageAlumni'])
             ->make(true);
     }
 
@@ -89,6 +89,7 @@ class AlumniController extends Controller
             'place' => $request->place,
             'work' => $request->work,
             'study' => $request->study,
+            'image' =>  $request->file('image')->store('images/alumni'),
             'created_by' => auth()->user()->id
         ]);
 
@@ -136,11 +137,21 @@ class AlumniController extends Controller
             ], 404);
         }
 
+        if ($request->image) {
+            \Storage::delete($alumni->image);
+            $image = request()->file('image')->store('images/alumni');
+        } elseif ($alumni->image) {
+            $image = $division->image;
+        } else {
+            $image = null;
+        }
+
         $alumni->update([
             'member_id' => $request->member_id,
             'place' => $request->place,
             'work' => $request->work,
             'study' => $request->study,
+            'image' => $image,
             'created_by' => auth()->user()->id
         ]);
 

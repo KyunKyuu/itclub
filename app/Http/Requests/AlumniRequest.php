@@ -27,7 +27,8 @@ class AlumniRequest extends FormRequest
             'member_id' => 'integer|required',
             'work' => 'string|nullable',
             'study' => 'string|nullable',
-            'place' => 'string|nullable'
+            'place' => 'string|nullable',
+             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2000',
         ];
     }
 }
