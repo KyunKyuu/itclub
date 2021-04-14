@@ -33,13 +33,13 @@ class ImageDivisionController extends Controller
             <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $imageDivision->id . '" id="delete"><i class="fas fa-trash"></i></a>
             ';
             })
-            ->editColumn('division', function ($imageDivision) {   
+            ->editColumn('division_id', function ($imageDivision) {   
                 return $imageDivision->division->name;
             })
             ->addColumn('imageLearning', function ($imageDivision) {   
                 return '<img src="'.$imageDivision->image().'" width="50">';
             })
-            ->rawColumns(['check', 'btn','division','imageLearning'])
+            ->rawColumns(['check', 'btn','division_id','imageLearning'])
             ->make(true);
     }
 

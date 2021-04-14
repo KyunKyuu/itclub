@@ -61,6 +61,19 @@
             </div>
             <div class="modal-body">
                 <form class="needs-validation" novalidate id="insert">
+                     <div class="form-group row">
+                          <div class="form-group col-md-6 col-12">
+                        <label>Image</label>
+                         <input type="file" class="form-control image-input-preview"  value="" name="image" placeholder="Image Alumni" data-id="img-thumbnail">
+                      </div>
+                      <div class="form-group col-md-6 col-12">
+                          <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt="" class="img-fluid" style="max-width: 150px"><br>
+                          
+                    </div>
+                          <div class="invalid-feedback">
+                            What's image division?
+                      </div>    
+                        </div>
                       <div class="form-group row">
                         <div class="form-group col-12">
                         <label>Alumni Name</label>
@@ -127,6 +140,20 @@
             </div>
             <div class="modal-body">
                 <form class="needs-validation" novalidate id="update">
+                       <div class="form-group row">
+                          <div class="form-group col-md-6 col-12">
+                        <label>Image</label>
+                         <input type="file" class="form-control image-input-preview"  value="" name="image" placeholder="image alumni" data-id="img-thumbnail">
+                      </div>
+                      <div class="form-group col-md-6 col-12">
+                          <img src="/public_file/assets/img/news/img08.jpg" id="img-thumbnail" alt="" class="img-fluid" style="max-width: 150px"><br>
+                          
+                    </div>
+                          <div class="invalid-feedback">
+                            What's image division?
+                      </div>    
+                        </div>
+
                       <div class="form-group row">
                         <div class="form-group col-12">
                         <label>Alumni Name</label>

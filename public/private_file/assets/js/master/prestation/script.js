@@ -34,7 +34,7 @@ $(document).ready(function() {
         let value = $(this).data('value')
         SweetQuestions({
             title : 'Apakah anda yakin?',
-            subtitle : 'Apakah anda ingin menghapus data divisi ini?',
+            subtitle : 'Apakah anda ingin menghapus data prestasi ini?',
             buttonConfirm : 'Yes',
             buttonDeny: 'No',
             confirm : 'ajax',
@@ -43,7 +43,7 @@ $(document).ready(function() {
                 title : 'Gagal menghapus'
             },
             ajax : {
-                url:'/api/v1/division/delete',
+                url:'/api/v1/prestation/delete',
                 data:{
                     value : value
                 },
@@ -71,7 +71,7 @@ $(document).ready(function() {
         }
         SweetQuestions({
             title : 'Apakah anda yakin?',
-            subtitle : 'Apakah anda ingin menghapus data category ini?',
+            subtitle : 'Apakah anda ingin menghapus data prestasi ini?',
             buttonConfirm : 'Yes',
             buttonDeny: 'No',
             confirm : 'ajax',
@@ -80,7 +80,7 @@ $(document).ready(function() {
                 title : 'Gagal menghapus'
             },
             ajax : {
-                url:'/api/v1/category/delete',
+                url:'/api/v1/prestation/delete',
                 data:{
                     value : value_checkbox
                 },

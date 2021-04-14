@@ -1,7 +1,7 @@
 $(document).ready(function() {
     const data = [
         {data:'check', name:'check', orderable:false, searchable:false},
-        {data:'member_name', name:'member_name'},
+        {data:'member_id', name:'member_id'},
         {data:'work', name:'work'},
         {data:'study',name:'study'},
         {data:'place',name:'place'},
@@ -141,6 +141,7 @@ $(document).ready(function() {
                 $('#updateAlumni input[name="work"]').val(res.data.work);
                 $('#updateAlumni input[name="study"]').val(res.data.study);
                 $('#updateAlumni input[name="place"]').val(res.data.place);
+                $('#updateAlumni img').attr('src', '/storage/' +res.data.image);
                 $('#updateAlumni input[name="place"]').data('id',res.data.id);
             },
             error:err=>console.log(err)
