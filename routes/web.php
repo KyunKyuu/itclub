@@ -38,6 +38,7 @@ use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
 use App\Http\Controllers\Api\MemberController as ApiMemberController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
 use App\Http\Controllers\Api\TrashController as ApiTrashController;
+use App\Http\Controllers\Auth\MailController;
 use App\Http\Controllers\Member\MemberController as MemberMemberController;
 use App\Http\Controllers\Member\ScheduleController;
 use App\Http\Controllers\Setting\TrashController;
@@ -77,6 +78,11 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['auth', 'access']], fun
     Route::get('/general/index', [IndexController::class, 'dashboard_general'])->name('dashboard');
     Route::get('/user/index', [IndexController::class, 'dashboard_user'])->name('dashboard_user');
 });
+
+Route::group(['prefix' => '/authentication/mail'], function () {
+    Route::get('/activation/{resource}', [MailController::class, 'activation']);
+});
+
 
 Route::group(['prefix' => '/master', 'middleware' => ['auth', 'access']], function () {
     Route::get('/preferences/section', [PreferencesController::class, 'section']);
@@ -204,7 +210,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('update', [ApiMemberController::class, 'update']);
         Route::delete('delete', [ApiMemberController::class, 'destroy']);
 
-        Route::get('/get/profile', [ApiMemberController::class, 'get_profile']);
+        Route::get('/get_profile', [ApiMemberController::class, 'get_profile']);
         Route::post('/insert/profile', [ApiMemberController::class, 'insert_profile']);
         Route::get('/delete/image/profile', [ApiMemberController::class, 'delete_image_profile']);
         Route::post('/setting/changepassword', [ApiMemberController::class, 'setting_changepassword']);

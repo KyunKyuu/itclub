@@ -24,15 +24,15 @@ class AuthController extends Controller
                     'password' => bcrypt($request->password),
                     'remember_token' => base64_encode($request->name . $request->email),
                     'token' => base64_encode($request->name . $request->email),
-                    'role_id' => 4,
+                    'role_id' => 5,
                 ];
 
-                $users = User::where('name', $data['name'])->where('email', $data['email'])->get()[0];
-                $data = $this->_sendMail($request, 'activation');
-                if ($data) {
-                    return response()->json($data, 403);
+                $email = $this->_sendMail($request, 'activation');
+                if ($email) {
+                    return response()->json($email, 403);
                 }
                 User::create($data);
+                $users = User::where('name', $data['name'])->where('email', $data['email'])->get()[0];
                 access_create($data['role_id'], $users->id);
                 $response = ['status' => 'success', 'message' => 'User berhasil ditambahkan, <a href="/auth/login">Login Sekarang</a>'];
             } else {
