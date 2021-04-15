@@ -19,6 +19,7 @@ class CreateAlumniesTable extends Migration
             $table->string('work')->nullable();
             $table->string('study')->nullable();
             $table->string('place')->nullable();
+            $table->string('image')->nullable();
             $table->foreignId('created_by')->default(1);
             $table->timestamps();
             $table->softDeletes(); 

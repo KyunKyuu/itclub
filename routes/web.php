@@ -107,6 +107,14 @@ Route::group(['prefix' => '/setting', 'middleware' => ['auth', 'access']], funct
     Route::get('/trash/section', [TrashController::class, 'section']);
     Route::get('/trash/menu', [TrashController::class, 'menu']);
     Route::get('/trash/submenu', [TrashController::class, 'submenu']);
+    Route::get('/trash/division', [TrashController::class, 'division']);
+    Route::get('/trash/imagedivision', [TrashController::class, 'imageDivision']);
+    Route::get('/trash/prestation', [TrashController::class, 'prestation']);
+    Route::get('/trash/member', [TrashController::class, 'member']);
+    Route::get('/trash/alumni', [TrashController::class, 'alumni']);
+    Route::get('/trash/gallery', [TrashController::class, 'gallery']);
+    Route::get('/trash/imagegallery', [TrashController::class, 'imageGallery']);
+    Route::get('/trash/category', [TrashController::class, 'category']);
 });
 
 Route::group(['prefix' => '/members', 'middleware' => 'auth'], function () {
@@ -243,6 +251,7 @@ Route::prefix('/api/v1')->group(function () {
 
 
     Route::group(['middleware' => ['auth']], function () {
+
         Route::prefix('division')->group(function () {
             Route::get('get', [ApiDivisionController::class, 'index']);
             Route::post('insert', [ApiDivisionController::class, 'store']);
@@ -291,18 +300,54 @@ Route::prefix('/api/v1')->group(function () {
             Route::post('update', [ApiCategoryController::class, 'update']);
             Route::delete('delete', [ApiCategoryController::class, 'destroy']);
         });
-    });
+    
 
-    Route::prefix('trash')->group(function () {
-        Route::get('section/get', [ApiTrashController::class, 'section_get']);
-        Route::post('section/recovery', [ApiTrashController::class, 'section_recovery']);
-        Route::delete('section/delete', [ApiTrashController::class, 'section_delete']);
-        Route::get('menu/get', [ApiTrashController::class, 'menu_get']);
-        Route::post('menu/recovery', [ApiTrashController::class, 'menu_recovery']);
-        Route::delete('menu/delete', [ApiTrashController::class, 'menu_delete']);
-        Route::get('submenu/get', [ApiTrashController::class, 'submenu_get']);
-        Route::post('submenu/recovery', [ApiTrashController::class, 'submenu_recovery']);
-        Route::delete('submenu/delete', [ApiTrashController::class, 'submenu_delete']);
+        Route::prefix('trash')->group(function () {
+            Route::get('section/get', [ApiTrashController::class, 'section_get']);
+            Route::post('section/recovery', [ApiTrashController::class, 'section_recovery']);
+            Route::delete('section/delete', [ApiTrashController::class, 'section_delete']);
+
+            Route::get('menu/get', [ApiTrashController::class, 'menu_get']);
+            Route::post('menu/recovery', [ApiTrashController::class, 'menu_recovery']);
+            Route::delete('menu/delete', [ApiTrashController::class, 'menu_delete']);
+
+            Route::get('submenu/get', [ApiTrashController::class, 'submenu_get']);
+            Route::post('submenu/recovery', [ApiTrashController::class, 'submenu_recovery']);
+            Route::delete('submenu/delete', [ApiTrashController::class, 'submenu_delete']);
+
+            Route::get('prestation/get', [ApiTrashController::class, 'prestation_get']);
+            Route::post('prestation/recovery', [ApiTrashController::class, 'prestation_recovery']);
+            Route::delete('prestation/delete', [ApiTrashController::class, 'prestation_delete']);
+
+            Route::get('division/get', [ApiTrashController::class, 'division_get']);
+            Route::post('division/recovery', [ApiTrashController::class, 'division_recovery']);
+            Route::delete('division/delete', [ApiTrashController::class, 'division_delete']);
+
+            Route::get('imageDivision/get', [ApiTrashController::class, 'imageDivision_get']);
+            Route::post('imageDivision/recovery', [ApiTrashController::class, 'imageDivision_recovery']);
+            Route::delete('imageDivision/delete', [ApiTrashController::class, 'imageDivision_delete']);
+
+            Route::get('member/get', [ApiTrashController::class, 'member_get']);
+            Route::post('member/recovery', [ApiTrashController::class, 'member_recovery']);
+            Route::delete('member/delete', [ApiTrashController::class, 'member_delete']);
+
+            Route::get('alumni/get', [ApiTrashController::class, 'alumni_get']);
+            Route::post('alumni/recovery', [ApiTrashController::class, 'alumni_recovery']);
+            Route::delete('alumni/delete', [ApiTrashController::class, 'alumni_delete']);
+
+            Route::get('gallery/get', [ApiTrashController::class, 'gallery_get']);
+            Route::post('gallery/recovery', [ApiTrashController::class, 'gallery_recovery']);
+            Route::delete('gallery/delete', [ApiTrashController::class, 'gallery_delete']);
+
+            Route::get('imageGallery/get', [ApiTrashController::class, 'imageGallery_get']);
+            Route::post('imageGallery/recovery', [ApiTrashController::class, 'imageGallery_recovery']);
+            Route::delete('imageGallery/delete', [ApiTrashController::class, 'imageGallery_delete']);
+
+            Route::get('category/get', [ApiTrashController::class, 'category_get']);
+            Route::post('category/recovery', [ApiTrashController::class, 'category_recovery']);
+            Route::delete('category/delete', [ApiTrashController::class, 'category_delete']);
+
+        });
     });
 
     Route::group(['prefix' => '/setting', 'middleware' => ['auth']], function () {

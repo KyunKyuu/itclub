@@ -38,13 +38,16 @@ class MemberController extends Controller
             ->addColumn('imageMember', function ($member) {
                 return '<img src="' . $member->image() . '" width="50">';
             })
-            ->editColumn('class_majors', function ($member) {
+            ->addColumn('class_majors', function ($member) {
                 return $member->class . ' ' . $member->majors;
+            })
+            ->editColumn('user_id', function ($member) {
+                return $member->user->email;
             })
             ->editColumn('division_id', function ($member) {
                 return $member->division->name;
             })
-            ->rawColumns(['check', 'btn', 'imageMember'])
+            ->rawColumns(['check', 'btn', 'imageMember','user_id','division_id'])
             ->make(true);
     }
 

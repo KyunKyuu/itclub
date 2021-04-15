@@ -1,7 +1,7 @@
 $(document).ready(function() {
     const data = [
         {data:'check', name:'check', orderable:false, searchable:false},
-        {data:'division', name:'division'},
+        {data:'division_id', name:'division_id'},
         {data:'imageLearning', name:'imageLearning'},
         {data:'btn', name:'btn', searchable:false, orderable:false},
     ];
