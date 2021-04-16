@@ -19,4 +19,15 @@ class MemberController extends Controller
         $divisi  = Division::all();
         return view('main.member.schedule', compact('divisi'));
     }
+
+    public function test()
+    {
+        $division = Division::all();
+        return view('main.member.precentages.test', compact('division'));
+    }
+
+    public function score()
+    {
+        return view('main.member.precentages.score');
+    }
 }

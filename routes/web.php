@@ -126,6 +126,8 @@ Route::group(['prefix' => '/members', 'middleware' => 'auth'], function () {
     Route::get('/{resource}/upgrade', [IndexController::class, 'upgrade_member']);
     Route::get('/registration', [MemberMemberController::class, 'registration']);
     Route::get('/schedule', [MemberMemberController::class, 'schedule']);
+    Route::get('/precentages/test', [MemberMemberController::class, 'test']);
+    Route::get('/precentages/score', [MemberMemberController::class, 'score']);
 });
 
 Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
@@ -300,7 +302,7 @@ Route::prefix('/api/v1')->group(function () {
             Route::post('update', [ApiCategoryController::class, 'update']);
             Route::delete('delete', [ApiCategoryController::class, 'destroy']);
         });
-    
+
 
         Route::prefix('trash')->group(function () {
             Route::get('section/get', [ApiTrashController::class, 'section_get']);
@@ -346,7 +348,6 @@ Route::prefix('/api/v1')->group(function () {
             Route::get('category/get', [ApiTrashController::class, 'category_get']);
             Route::post('category/recovery', [ApiTrashController::class, 'category_recovery']);
             Route::delete('category/delete', [ApiTrashController::class, 'category_delete']);
-
         });
     });
 

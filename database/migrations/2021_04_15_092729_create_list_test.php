@@ -15,7 +15,14 @@ class CreateListTest extends Migration
     {
         Schema::create('list_test', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('division_id');
+            $table->string('name');
+            $table->text('deskripsi');
+            $table->char('value');
+            $table->integer('created_by');
+            $table->timestamp('deleted_at')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 

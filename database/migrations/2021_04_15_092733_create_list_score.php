@@ -15,7 +15,13 @@ class CreateListScore extends Migration
     {
         Schema::create('list_score', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('test_id');
+            $table->integer('user_id');
+            $table->integer('score');
+            $table->integer('created_by');
+            $table->timestamp('deleted_at')->nullable();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 
