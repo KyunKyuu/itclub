@@ -9,9 +9,8 @@
                 <div class="card-header">
                     <h4>Data Test Member</h4>
                     <div class="ml-auto">
-                        <a href="#" class="btn btn-primary rounded" data-target="#insertTest" data-toggle="modal"><i
-                                class="fas fa-plus"></i> Tambah</a>
-                        <a href="#" class="btn btn-danger rounded" id="deleteArray"><i class="far fa-trash-alt"></i>
+                        <a href="#" class="btn btn-primary rounded" id="btnInsert" class="fas fa-plus"></i> Tambah</a>
+                        <a href="#" class="btn btn-danger rounded" id="deleteData"><i class="far fa-trash-alt"></i>
                             Hapus</a>
                     </div>
                 </div>
@@ -23,7 +22,8 @@
                                     <th width="10px">
                                         <div class="custom-checkbox custom-control">
                                             <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad"
-                                                class="custom-control-input" id="checkbox-all">
+                                                onchange="checkbox_all(this)" class="custom-control-input"
+                                                id="checkbox-all">
                                             <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                         </div>
                                     </th>
@@ -58,7 +58,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="needs-validation" novalidate id="insert">
+                    <form class="needs-validation" novalidate>
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Division</label>
                             <div class="col-sm-9">

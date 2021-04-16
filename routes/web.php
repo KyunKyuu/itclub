@@ -237,6 +237,15 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('schedule/insert', [ApiMemberController::class, 'schedule_insert']);
         Route::post('schedule/update', [ApiMemberController::class, 'schedule_update']);
         Route::delete('schedule/delete', [ApiMemberController::class, 'schedule_delete']);
+
+        Route::get('precentages/test', [ApiMemberController::class, 'precentages_test']);
+        Route::get('precentages/score', [ApiMemberController::class, 'precentages_score']);
+        Route::post('precentages/test/insert', [ApiMemberController::class, 'precentages_test_insert']);
+        Route::post('precentages/score/insert', [ApiMemberController::class, 'precentages_score_insert']);
+        Route::post('precentages/test/update', [ApiMemberController::class, 'precentages_test_update']);
+        Route::post('precentages/score/update', [ApiMemberController::class, 'precentages_score_update']);
+        Route::delete('precentages/test/delete', [ApiMemberController::class, 'precentages_test_delete']);
+        Route::delete('precentages/score/delete', [ApiMemberController::class, 'precentages_score_delete']);
     });
 
     Route::group(['prefix' => '/features', 'middleware' => ['auth']], function () {

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\{Activity, Member, Division, MemberReg, Schedule, User, UserProfile};
+use App\Models\{Activity, Member, Division, MemberReg, Schedule, TestList, User, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Test;
 use Yajra\DataTables\Facades\DataTables;
 
 class MemberController extends Controller
@@ -47,7 +48,7 @@ class MemberController extends Controller
             ->editColumn('division_id', function ($member) {
                 return $member->division->name;
             })
-            ->rawColumns(['check', 'btn', 'imageMember','user_id','division_id'])
+            ->rawColumns(['check', 'btn', 'imageMember', 'user_id', 'division_id'])
             ->make(true);
     }
 
@@ -534,5 +535,49 @@ class MemberController extends Controller
         $divisi = $data->division->name;
 
         return response()->json(['status' => 'success', 'message' => 'Query data berhasil', 'values' => compact('data', 'jadwal', 'divisi')], 200);
+    }
+
+    public function precentages_test()
+    {
+        if (!empty($_GET['id'])) {
+            $test = TestList::find($_GET['id']);
+            $division = $test->division->name;
+            return response()->json(['status' => 'success', 'message' => 'Query data berhasil', 'values' => $test], 200);
+        }
+        return DataTables::of(TestList::where('created_by', auth()->user()->id))
+            ->addColumn('check', function ($test) {
+                return  '<div class="custom-checkbox custom-control">
+                    <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" name="id-checkbox" value="' . $test->id . '" class="custom-control-input" id="checkbox-' . $test->id . '" onclick="checkbox_this(this)">
+                <label for="checkbox-' . $test->id . '" class="custom-control-label">&nbsp;</label>
+                </div>';
+            })
+            ->addColumn('action', function ($test) {
+                return '
+                <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $test->id . '" id="edit"><i class="fas fa-edit"></i></a>
+                <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $test->id . '" id="delete"><i class="fas fa-trash"></i></a>';
+            })
+            ->rawColumns(['action', 'check'])
+            ->make(true);
+    }
+
+    public function precentages_test_insert(Request $request)
+    {
+        $request->request->add(['created_by' => auth()->user()->id]);
+        TestList::create($request->all());
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan'], 200);
+    }
+
+    public function precentages_test_delete(Request $request)
+    {
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                $item = TestList::find($value);
+                $item->delete();
+            }
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus'], 200);
+        }
+        $item = TestList::find($request->value);
+        $item->delete();
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus'], 200);
     }
 }

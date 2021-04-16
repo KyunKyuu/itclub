@@ -14,4 +14,9 @@ class TestList extends Model
     protected $table = 'list_test';
     protected $fillable = ['division_id', 'name', 'deskripsi', 'value', 'created_by', 'deleted_at'];
     protected $dates = ['deleted_at'];
+
+    public function division()
+    {
+        return $this->hasOne(Division::class, 'id', 'division_id');
+    }
 }
