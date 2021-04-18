@@ -41,7 +41,6 @@ $(document).ready(function() {
                     SweetAlert(res)
                     RefreshTable('table')
                     value_checkbox = []
-                    $('#insertTest form').attr('id', ' ')
                 },
                 error:res=>{
                     SweetAlert(res.responseJSON)
@@ -80,7 +79,7 @@ $(document).ready(function() {
         data.append('id', idVal)
         SweetQuestions({
             title : 'Apakah anda yakin?',
-            subtitle : 'Apakah anda ingin mengubah data test?',
+            subtitle : 'Apakah anda ingin mengubah data test member?',
             buttonConfirm : 'Yes',
             buttonDeny: 'No',
             confirm : 'ajax',
@@ -101,7 +100,6 @@ $(document).ready(function() {
                     SweetAlert(res)
                     RefreshTable('table')
                     value_checkbox = []
-                    $('#insertTest form').attr('id', ' ')
                 },
                 error:res=>{
                     SweetAlert(res.responseJSON)
@@ -117,7 +115,6 @@ $(document).ready(function() {
             Swal.fire('Perhatian', 'Pilih salah satu!','warning')
             return 0;
         }
-        console.log(value_checkbox);
         SweetQuestions({
             title : 'Apakah anda yakin?',
             subtitle : 'Apakah anda ingin menghapus test ini?',
@@ -147,6 +144,45 @@ $(document).ready(function() {
                 }
             }
         })
+    })
+
+
+    $('#table').on('click', '#delete', function (e) {
+        e.preventDefault();
+        let value = $(this).data('value')
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin menghapus test ini?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal menghapus test'
+            },
+            ajax : {
+                url:'/api/v1/member/precentages/test/delete',
+                data:{
+                    value : value
+                },
+                type:'DELETE',
+                headers:{
+                    'X-CSRF-TOKEN' : csrftoken
+                },
+                success:res=>{
+                    SweetAlert(res)
+                    RefreshTable('table')
+                    value_checkbox = []
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message})
+                }
+            }
+        })
+    })
+
+    $('button[data-dismiss="modal"]').on('click', function() {
+        $('#insertSchedule form').attr('id', ' ')
     })
 
 

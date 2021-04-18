@@ -22,6 +22,30 @@ class MemberController extends Controller
 
         $member = Member::all();
 
+        if (!empty($_GET['parm'])) {
+            return DataTables::of($member)
+                ->addIndexColumn()
+                ->addColumn('btn', function ($member) {
+                    return '
+                    <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $member->id . '" id="edit"><i class="fas fa-edit"></i></a>
+                    ';
+                })
+                ->addColumn('imageMember', function ($member) {
+                    return '<img src="' . $member->image() . '" width="50">';
+                })
+                ->addColumn('class_majors', function ($member) {
+                    return $member->class . ' ' . $member->majors;
+                })
+                ->editColumn('user_id', function ($member) {
+                    return $member->user->email;
+                })
+                ->editColumn('division_id', function ($member) {
+                    return $member->division->name;
+                })
+                ->rawColumns(['btn', 'imageMember',])
+                ->make(true);
+        }
+
         return DataTables::of($member)
             ->addIndexColumn()
             ->addColumn('check', function ($member) {
@@ -551,6 +575,9 @@ class MemberController extends Controller
                 <label for="checkbox-' . $test->id . '" class="custom-control-label">&nbsp;</label>
                 </div>';
             })
+            ->editColumn('division_id', function ($test) {
+                return $test->division->name;
+            })
             ->addColumn('action', function ($test) {
                 return '
                 <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $test->id . '" id="edit"><i class="fas fa-edit"></i></a>
@@ -564,7 +591,16 @@ class MemberController extends Controller
     {
         $request->request->add(['created_by' => auth()->user()->id]);
         TestList::create($request->all());
+        Activity('Menambah data test member');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan'], 200);
+    }
+
+    public function precentages_test_update(Request $request)
+    {
+        $data = TestList::find($request->id);
+        $data->update($request->all());
+        Activity('Memperbaharui data test member');
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui'], 200);
     }
 
     public function precentages_test_delete(Request $request)
@@ -574,10 +610,12 @@ class MemberController extends Controller
                 $item = TestList::find($value);
                 $item->delete();
             }
+            Activity('Menghapus data test member');
             return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus'], 200);
         }
         $item = TestList::find($request->value);
         $item->delete();
+        Activity('Menghapus data test member');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus'], 200);
     }
 }

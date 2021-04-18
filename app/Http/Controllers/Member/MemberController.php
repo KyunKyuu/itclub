@@ -28,6 +28,7 @@ class MemberController extends Controller
 
     public function score()
     {
-        return view('main.member.precentages.score');
+        $division = Division::all();
+        return view('main.member.precentages.score', compact('division'));
     }
 }

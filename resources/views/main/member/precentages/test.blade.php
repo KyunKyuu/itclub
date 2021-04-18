@@ -27,10 +27,10 @@
                                             <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                         </div>
                                     </th>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Image</th>
-                                    <th>Status</th>
+                                    <th>Test</th>
+                                    <th>Divisi</th>
+                                    <th>Nilai Minimum Test</th>
+                                    <th>Deskripsi</th>
                                     <th width="70px">Action</th>
                                 </tr>
                             </thead>
