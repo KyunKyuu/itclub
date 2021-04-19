@@ -30,10 +30,46 @@ $(document).ready(function() {
 
     $('#score').on('click', '.Save', function() {
         let id = $(this).data('value')
-        $(this).addClass('disabled')
-        $(`#edit-${id}`).removeClass('disabled')
-        $(`#input-${id}`).hide()
-        $(`#nilai-${id}`).show()
+        let user = $(this).data('id')
+        let val = $(`#input-${id}`).val()
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin menambahkan nilai pada test ini?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal menambahkan nilai'
+            },
+            ajax : {
+                url:'/api/v1/member/precentages/score/insert',
+                data:{
+                    user_id:user,
+                    score:val,
+                    test_id:id,
+                },
+                type:'POST',
+                headers:{
+                    'X-CSRF-TOKEN' : csrftoken
+                },
+                success:res=>{
+                    SweetAlert(res)
+                    RefreshTable('score')
+                    $(this).addClass('disabled')
+                    $(`#edit-${id}`).removeClass('disabled')
+                    $(`#input-${id}`).hide()
+                    $(`#nilai-${id}`).show()
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message})
+                    $(this).addClass('disabled')
+                    $(`#edit-${id}`).removeClass('disabled')
+                    $(`#input-${id}`).hide()
+                    $(`#nilai-${id}`).show()
+                }
+            }
+        })
     })
 })
 

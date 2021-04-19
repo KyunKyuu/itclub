@@ -626,7 +626,7 @@ class MemberController extends Controller
             ->addIndexColumn()
             ->addColumn('check', function ($test) {
                 return  '<div class="custom-checkbox custom-control">
-                    <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" name="id-checkbox" value="' . $test->id . '" class="custom-control-input" id="checkbox-' . $test->id . '" onclick="checkbox_this(this)">
+                <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" name="id-checkbox" value="' . $test->id . '" class="custom-control-input" id="checkbox-' . $test->id . '" onclick="checkbox_this(this)">
                 <label for="checkbox-' . $test->id . '" class="custom-control-label">&nbsp;</label>
                 </div>';
             })
@@ -641,5 +641,17 @@ class MemberController extends Controller
             })
             ->rawColumns(['action', 'check', 'score'])
             ->make(true);
+    }
+
+    public function precentages_score_insert(Request $request)
+    {
+        $test = ScoreList::where('user_id', $request->user_id)->where('user_id', $request->user_id);
+
+        if ($test->count() > 0) {
+            $test->delete();
+        }
+        $request->request->add(['created_by' => auth()->user()->id]);
+        ScoreList::create($request->all());
+        return response()->json(['status' => 'success', 'message' => 'Score berhasil ditetapkan'], 200);
     }
 }
