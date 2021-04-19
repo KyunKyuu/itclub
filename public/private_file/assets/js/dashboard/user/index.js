@@ -74,12 +74,16 @@ function profileMember() {
         url:'/api/v1/member/get/profile',
         success:res=>{
             let response = res.values
+            let jadwal = '-'
+            if (response.jadwal != 0) {
+                jadwak = response.jadwal.date + ' ' + response.jadwal.come_in
+            }
             $('#namaAnggota').text(response.data.name)
             $('#kelasAnggota').text(response.data.class)
             $('#jabatanAnggota').text(response.data.position)
             $('#jurusanAnggota').text(response.data.majors)
             $('#divisiAnggota').text(response.divisi)
-            $('#jadwalMember').text(response.jadwal.date + ' ' + response.jadwal.come_in)
+            $('#jadwalMember').text(jadwal)
         },
         error:err=>console.log(err),
     })

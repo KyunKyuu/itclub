@@ -555,7 +555,8 @@ class MemberController extends Controller
     public function member_profile()
     {
         $data = Member::where('user_id', auth()->user()->id)->get()[0];
-        $jadwal = Schedule::where('date', '>', date('Y-m-d'))->where('division', $data->division_id)->orWhere('division', 'all')->limit(1)->get()[0];
+        $schedule = Schedule::where('date', '>', date('Y-m-d'))->where('division', $data->division_id)->orWhere('division', 'all')->limit(1);
+        $jadwal = $schedule->count() > 0 ? $schedule->get()[0] : 0;
         $divisi = $data->division->name;
 
         return response()->json(['status' => 'success', 'message' => 'Query data berhasil', 'values' => compact('data', 'jadwal', 'divisi')], 200);
@@ -645,7 +646,7 @@ class MemberController extends Controller
 
     public function precentages_score_insert(Request $request)
     {
-        $test = ScoreList::where('user_id', $request->user_id)->where('user_id', $request->user_id);
+        $test = ScoreList::where('test_id', $request->test_id)->where('user_id', $request->user_id);
 
         if ($test->count() > 0) {
             $test->delete();
