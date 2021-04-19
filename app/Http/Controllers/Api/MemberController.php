@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\{Activity, Member, Division, MemberReg, Schedule, TestList, User, UserProfile};
+use App\Models\{Activity, Member, Division, MemberReg, Schedule, ScoreList, TestList, User, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -23,11 +23,14 @@ class MemberController extends Controller
         $member = Member::all();
 
         if (!empty($_GET['parm'])) {
+            if ($_GET['parm'] != 'null') {
+                $member = Member::where('division_id', $_GET['parm']);
+            }
             return DataTables::of($member)
                 ->addIndexColumn()
                 ->addColumn('btn', function ($member) {
                     return '
-                    <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $member->id . '" id="edit"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-icon btn-sm btn-primary" data-id="' . $member->id . '" data-value="' . $member->division_id . '" id="edit"><i class="fas fa-edit"></i></a>
                     ';
                 })
                 ->addColumn('imageMember', function ($member) {
@@ -35,9 +38,6 @@ class MemberController extends Controller
                 })
                 ->addColumn('class_majors', function ($member) {
                     return $member->class . ' ' . $member->majors;
-                })
-                ->editColumn('user_id', function ($member) {
-                    return $member->user->email;
                 })
                 ->editColumn('division_id', function ($member) {
                     return $member->division->name;
@@ -617,5 +617,29 @@ class MemberController extends Controller
         $item->delete();
         Activity('Menghapus data test member');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus'], 200);
+    }
+
+
+    public function precentages_score()
+    {
+        return DataTables::of(TestList::all()->where('division_id', $_GET['value']))
+            ->addIndexColumn()
+            ->addColumn('check', function ($test) {
+                return  '<div class="custom-checkbox custom-control">
+                    <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" name="id-checkbox" value="' . $test->id . '" class="custom-control-input" id="checkbox-' . $test->id . '" onclick="checkbox_this(this)">
+                <label for="checkbox-' . $test->id . '" class="custom-control-label">&nbsp;</label>
+                </div>';
+            })
+            ->editColumn('score', function ($test) {
+                $data = '<input type="number" class="form-control" id="input-' . $test->id . '" value="' . score($_GET['id'], $test->id) . '" style="display:none; width:55px;"><a id="nilai-' . $test->id . '">' . score($_GET['id'], $test->id) . '</a>';
+                return $data;
+            })
+            ->addColumn('action', function ($test) {
+                return '
+                <a href="#" class="btn btn-icon btn-sm btn-warning Edit" data-id="' . $_GET['id'] . '" data-value="' . $test->id . '" id="edit-' . $test->id . '"><i class="fas fa-edit"></i></a>
+                <a href="#" class="btn btn-icon btn-sm btn-success disabled Save" data-id="' . $_GET['id'] . '" data-value="' . $test->id . '" id="save-' . $test->id . '"><i class="fas fa-save"></i></a>';
+            })
+            ->rawColumns(['action', 'check', 'score'])
+            ->make(true);
     }
 }

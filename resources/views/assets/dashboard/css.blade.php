@@ -15,4 +15,5 @@
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="/public_file/assets/css/style.css">
+  <link rel="stylesheet" href="/private_file/assets/css/global/style.css">
   <link rel="stylesheet" href="/public_file/assets/css/components.css">
