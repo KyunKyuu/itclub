@@ -134,10 +134,22 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Statistik Aktivitas</h4>
+                        <h4>Statistik Nilai</h4>
                     </div>
                     <div class="card-body">
-
+                        <ul class="list-unstyled list-unstyled-border" id="StatsNilaiSiswa">
+                            @foreach ($nilai as $item)
+                                <li class="media">
+                                    <div class="media-body">
+                                        <div
+                                            class="float-right text-{{ nilai_minimum_test($item->test->value, $item->score) }}">
+                                            {{ $item->score }}</div>
+                                        <div class="media-title">{{ $item->test->name }}</div>
+                                        <span class="text-small text-muted">{{ $item->test->deskripsi }}</span>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>

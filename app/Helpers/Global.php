@@ -169,6 +169,19 @@ function score($id, $test)
     return $score;
 }
 
+function nilai_minimum_test($min, $score)
+{
+    if ($score < $min) {
+        $data = 'danger';
+    } else if ($score >= $min) {
+        $data = 'primary';
+    } else if ($score > 95) {
+        $data = 'success';
+    }
+
+    return $data;
+}
+
 
 // !NOTE FORBIDDEN ACCESS HERE
 

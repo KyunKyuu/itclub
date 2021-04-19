@@ -15,4 +15,9 @@ class ScoreList extends Model
     protected $fillable = ['test_id', 'user_id', 'score', 'created_by', 'deleted_at'];
 
     protected $dates = ['deleted_at'];
+
+    public function test()
+    {
+        return $this->hasOne(TestList::class, 'id', 'test_id');
+    }
 }

@@ -227,6 +227,7 @@ Route::prefix('/api/v1')->group(function () {
 
         Route::get('/get/activity', [ApiMemberController::class, 'get_activity']);
         Route::get('/get/profile', [ApiMemberController::class, 'member_profile']);
+        Route::get('/get/stats_score', [ApiMemberController::class, 'member_stats_score']);
 
         Route::post('upgrade', [ApiMemberController::class, 'upgrade']);
         Route::get('registration/get', [ApiMemberController::class, 'registration_get']);
