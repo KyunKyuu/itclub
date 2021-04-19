@@ -34,13 +34,13 @@ $(document).ready(function() {
         let val = $(`#input-${id}`).val()
         SweetQuestions({
             title : 'Apakah anda yakin?',
-            subtitle : 'Apakah anda ingin menambahkan nilai pada test ini?',
+            subtitle : 'Apakah anda ingin menetapkan nilai pada test ini?',
             buttonConfirm : 'Yes',
             buttonDeny: 'No',
             confirm : 'ajax',
             deny : {
                 icon:'error',
-                title : 'Gagal menambahkan nilai'
+                title : 'Gagal menetapkan nilai'
             },
             ajax : {
                 url:'/api/v1/member/precentages/score/insert',
