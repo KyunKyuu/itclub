@@ -8,6 +8,13 @@ $(document).ready(function() {
         {data:'status', name:'status'},
     ];
 
+    $.ajax({
+        url:'/get/mac/address',
+        success:res=>{
+            $('#MacAddress').text(res)
+        }
+    })
+
     Table({table:'#schedule', data:data, url:'/api/v1/member/schedule/get', parm:{member:true}})
     activity();
 

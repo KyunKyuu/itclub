@@ -68,8 +68,6 @@ Route::get('/article', [HomeController::class, 'article'])->name('article');
 Route::get('/article/{slug:slug}', [HomeController::class, 'article_detail'])->name('article_detail');
 
 
-
-
 Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
