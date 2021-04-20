@@ -131,6 +131,7 @@ Route::group(['prefix' => '/members', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
     Route::get('/article/list_article', [ArticleController::class, 'list_article']);
     Route::get('/article/view/{id}/{resource}', [ArticleController::class, 'article']);
+    Route::get('/user_guides', [ArticleController::class, 'user_guides']);
 });
 
 Route::group(['prefix' => '/error'], function () {
