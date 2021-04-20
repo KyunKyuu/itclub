@@ -653,6 +653,7 @@ class MemberController extends Controller
         }
         $request->request->add(['created_by' => auth()->user()->id]);
         ScoreList::create($request->all());
+        Activity('Menambah data score member');
         return response()->json(['status' => 'success', 'message' => 'Score berhasil ditetapkan'], 200);
     }
 }

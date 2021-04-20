@@ -22,8 +22,11 @@ class IndexController extends Controller
 
     public function dashboard_user()
     {
-        $id = Member::where('user_id', auth()->user()->id)->first()->id;
-        $nilai = ScoreList::where('user_id', $id)->get();
+        $nilai = [];
+        $id = Member::where('user_id', auth()->user()->id);
+        if ($id->count() > 0) {
+            $nilai = ScoreList::where('user_id', $id->first()->id)->get();
+        }
         $member = Member::where('user_id', auth()->user()->id)->count();
         return view('main.dashboard.user', compact('member', 'nilai'));
     }
