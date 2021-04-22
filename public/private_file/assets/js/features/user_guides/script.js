@@ -85,12 +85,16 @@ function listGuide(id) {
             let id = 1
             response.forEach(data=>{
                 html += `<div class="accordion">
-                        <div class="accordion-header collapsed" role="button" data-toggle="collapse"
+                        <div class="accordion-header collapsed row" role="button" data-toggle="collapse"
                             data-target="#panel-body-${data.id}" aria-expanded="false">
                             <h4>Step ${id++}</h4>
+                            <div class="ml-auto">
+                                <a href="#" class="text-warning" id="editListGuide" data-id="${data.id}"><i class="fas fa-edit"></i>Edit</a>
+                                <a href="#" class="text-danger" id="hapusListGuide" data-id="${data.id}"><i class="far fa-trash-alt"></i>Hapus</a>
+                            </div>
                         </div>
                         <div class="accordion-body collapse" id="panel-body-${data.id}" data-parent="#accordion" style="">
-                            <img src="/storage/images/user_guides/${data.thumbnail}" class="img-fluid">
+                            <img src="/storage/images/user_guides/${data.thumbnail}" class="img-fluid ${data.thumbnail == null ? 'd-none' :' '}"">
                             <p class="mb-0">${data.description}</p>
                         </div>
                     </div>`
