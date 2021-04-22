@@ -111,7 +111,7 @@
                             <div class="col-12">
                                 <label>Thumbnail Guides</label>
                                 <input type="file" class="form-control image-input-preview" data-id="imageThumbnail"
-                                    name="thumbnail">
+                                    name="image">
                             </div>
                         </div>
                         <div class="form-group row">

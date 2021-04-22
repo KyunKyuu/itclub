@@ -59,6 +59,14 @@ class UserGuideController extends Controller
 
     public function list_guide_insert(Request $request)
     {
-        dd($request->all());
+        if ($request->image) {
+            $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10) . '.' . $request->file('image')->getClientOriginalExtension();
+            $image = \Storage::putFileAs('images/user_guides', $request->file('image'), $name);
+            $request->request->add(['thumbnail' => $image]);
+        }
+        $request->request->add(['created_by' => auth()->user()->id]);
+        GuideDesc::create($request->all());
+        Activity('Menambah data list guide website');
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan', 'values' => $request->guide_id], 200);
     }
 }
