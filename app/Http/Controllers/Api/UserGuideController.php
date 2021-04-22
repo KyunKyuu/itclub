@@ -59,5 +59,6 @@ class UserGuideController extends Controller
 
     public function list_guide_insert(Request $request)
     {
+        dd($request->all());
     }
 }

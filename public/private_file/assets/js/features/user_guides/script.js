@@ -82,7 +82,7 @@ $(document).ready(function () {
         let data = new FormData(this)
         data.append('id', $('#listGuidesModalLabel').data('id'))
         $.ajax({
-            url:'/api/v1/features/user_guides/list/insert',
+            url:'/api/v1/features/user_guide/list/insert',
             type:'POST',
             headers:{
                 'X-CSRF-TOKEN':csrftoken

@@ -117,8 +117,8 @@
                         <div class="form-group row">
                             <div class="col-12">
                                 <label>Description User Guides</label>
-                                <input type="text" class="form-control use-ckeditor" name="description">
-                                <input type="text" data-editor="ckeditor" style="display: none" required>
+                                <input type="text" class="form-control use-ckeditor">
+                                <input type="text" data-editor="ckeditor" name="description" style="display: none" required>
                                 <div class="invalid-feedback">
                                     What's Description User Guides?
                                 </div>
