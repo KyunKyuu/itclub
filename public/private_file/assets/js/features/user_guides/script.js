@@ -47,6 +47,30 @@ $(document).ready(function () {
         $('#listGuidesModal form').attr('id', 'insert')
     })
 
+    $('#accordion').on('click', '#editListGuide', function() {
+        let id = $(this).data('id')
+        $.ajax({
+            url:'/api/v1/features/user_guide/list',
+            data:{
+                id:id,
+                parm:true,
+            },
+            success:res=>{
+                $('#listGuidesModal').modal('show')
+                $('#listGuidesModalLabel').text($(this).data('value'))
+                $('#listGuidesModalLabel').attr('data-id', id)
+                $('#listGuidesModal form').attr('id', 'update')
+                console.log(res.values.description);
+                $('#listGuidesModal form input[name="description"]').val(res.values.description)
+                $('#listGuidesModal form input[id="descCKE"]').val(res.values.description)
+            },
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message});
+            }
+        })
+
+    })
+
     $('#listGuidesModal').on('submit', '#insert', function(e) {
         e.preventDefault()
         let data = new FormData(this)

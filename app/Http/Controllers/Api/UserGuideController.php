@@ -52,6 +52,10 @@ class UserGuideController extends Controller
 
     public function list_guide()
     {
+        if (!empty($_GET['parm'])) {
+            $data = GuideDesc::find($_GET['id'])->first();
+            return response()->json(['status' => 'success', 'message' => 'query data berhasil', 'values' => $data], 200);
+        }
         $data = GuideDesc::where('guide_id', $_GET['id'])->get();
         $data2 = UserGuides::find($_GET['id'])->first();
         return response()->json(['status' => 'success', 'message' => 'query data berhasil', 'values' => compact('data', 'data2')], 200);
