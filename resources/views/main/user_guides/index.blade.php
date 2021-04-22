@@ -58,7 +58,7 @@
     </div>
     </div>
 
-    <!-- Modal Update -->
+    <!-- Modal User Guides -->
     <div class="modal fade" id="userGuidesModal" data-backdrop="static" tabindex="-1" role="dialog"
         aria-labelledby="userGuidesModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -77,6 +77,50 @@
                                 <input type="text" class="form-control" name="title" required="">
                                 <div class="invalid-feedback">
                                     What's Title User Guides?
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer ml-3" style="margin-top: -30px">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal List Guides -->
+    <div class="modal fade" id="listGuidesModal" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="listGuidesModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-bottom pb-4">
+                    <h5 class="modal-title" id="listGuidesModalLabel"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="needs-validation" novalidate id="">
+                        <div class="text-center">
+                            <img src="" alt="image thumbnail" class="img-fluid" style="max-height: 150px"
+                                id="imageThumbnail">
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>Thumbnail Guides</label>
+                                <input type="file" class="form-control image-input-preview" data-id="imageThumbnail"
+                                    name="thumbnail">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <label>Description User Guides</label>
+                                <input type="text" class="form-control use-ckeditor" name="description">
+                                <input type="text" data-editor="ckeditor" style="display: none" required>
+                                <div class="invalid-feedback">
+                                    What's Description User Guides?
                                 </div>
                             </div>
                         </div>

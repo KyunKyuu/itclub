@@ -60,12 +60,43 @@ $(document).ready(function () {
                 })
 
                 let header = `<h6 class="row mx-1" id="titleGuide">${value.title}</h6>`
-                let btn = `<a href="#" class="badge badge-primary rounded" data-id="${value.id}" id="modalUserGuides"><i class="fas fa-plus"></i></a>`
+                let btn = `<a href="#" class="badge badge-primary rounded" data-value="${value.title}" data-id="${value.id}" id="listGuides"><i class="fas fa-plus"></i></a>`
 
                 $('#accordion').html(html)
                 $('#headerAccordion').html(header)
                 $('#btnAccordion').html(btn)
             }
+        })
+    })
+
+    $('#btnAccordion').on('click', '#listGuides', function() {
+        let id = $(this).data('id')
+        $('#listGuidesModal').modal('show')
+        $('#listGuidesModalLabel').text($(this).data('value'))
+        $('#listGuidesModalLabel').attr('data-id', id)
+        $('#listGuidesModal form').attr('id', 'insert')
+    })
+
+    $('#listGuidesModal').on('submit', '#insert', function(e) {
+        e.preventDefault()
+        let data = new FormData(this)
+        data.append('id', $('#listGuidesModalLabel').data('id'))
+        $.ajax({
+            url:'/api/v1/features/user_guides/list/insert',
+            type:'POST',
+            headers:{
+                'X-CSRF-TOKEN':csrftoken
+            },
+            data:data,
+            contentType:false,
+            processData:false,
+            success:res=>{
+                SweetAlert(res);
+            },
+            error:err=>{
+                SweetAlert({status:'error', message:err.responseJSON.message});
+            }
+
         })
     })
 })

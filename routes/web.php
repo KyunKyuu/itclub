@@ -261,6 +261,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/user_guide/insert', [UserGuideController::class, 'insert_guide']);
         Route::get('/user_guide/get', [UserGuideController::class, 'get_guide']);
         Route::get('/user_guide/list', [UserGuideController::class, 'list_guide']);
+        Route::post('/user_guide/list/insert', [UserGuideController::class, 'list_guide_insert']);
     });
 
 

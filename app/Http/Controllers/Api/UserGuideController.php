@@ -56,4 +56,8 @@ class UserGuideController extends Controller
         $data2 = UserGuides::find($_GET['id'])->first();
         return response()->json(['status' => 'success', 'message' => 'query data berhasil', 'values' => compact('data', 'data2')], 200);
     }
+
+    public function list_guide_insert(Request $request)
+    {
+    }
 }
