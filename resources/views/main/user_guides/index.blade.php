@@ -6,7 +6,13 @@
         <div class="col-12 col-md-12 col-lg-7">
             <div class="card">
                 <div class="card-header">
-                    <h4>Data Category</h4>
+                    <h4>List User Guide</h4>
+                    <div class="ml-auto">
+                        <a href="#" class="btn btn-primary rounded" id="modalUserGuides"><i class="fas fa-plus"></i>
+                            Tambah</a>
+                        <a href="#" class="btn btn-danger rounded" id="deleteArray"><i class="far fa-trash-alt"></i>
+                            Hapus</a>
+                    </div>
                 </div>
                 <div class="card-body p-3">
                     <div class="table-responsive">
@@ -20,8 +26,8 @@
                                             <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
                                         </div>
                                     </th>
-                                    <th>Category Name</th>
-                                    <th>Created at</th>
+                                    <th>Title</th>
+                                    <th width="50px">Created By</th>
                                     <th width="70px">Action</th>
                                 </tr>
                             </thead>
@@ -34,60 +40,48 @@
 
         <div class="col-12 col-md-12 col-lg-5">
             <div class="card">
-                <form id="insert" class="needs-validation" novalidate="">
-                    <div class="card-header">
-                        <h4>Add Category
-                    </div>
-                    <div class="card-body">
+                <div class="card-header">
+                    <h4>Step User Guide</h4>
+                    <div id="btnAccordion" class="ml-auto"></div>
+                </div>
+                <div class="card-body" id="">
+                    <div id="headerAccordion"></div>
 
-                        <div class="row">
-                            <div class="form-group col-md col-12">
-                                <label>Gallery Name</label>
-                                <input type="text" class="form-control" name="name" required="">
-                                <div class="invalid-feedback">
-                                    What's Category name?
-                                </div>
-                            </div>
+                    <hr>
+                    <div id="accordion">
 
-
-                        </div>
                     </div>
-                    <div class="card-footer text-right">
-                        <button class="btn btn-primary" type="submit">Save Changes</button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
+        </section>
     </div>
-    </div>
-    </section>
     </div>
 
     <!-- Modal Update -->
-    <div class="modal fade" id="updateCategory" data-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="updateCategoryLabel" aria-hidden="true">
+    <div class="modal fade" id="userGuidesModal" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="userGuidesModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header border-bottom pb-4">
-                    <h5 class="modal-title" id="updateCategoryLabel">Update Category</h5>
+                    <h5 class="modal-title" id="userGuidesModalLabel"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form class="needs-validation" novalidate id="update">
+                    <form class="needs-validation" novalidate id="">
                         <div class="form-group row">
                             <div class="form-group col-12">
-                                <label>Category Name</label>
-                                <input type="text" class="form-control" name="name" required="">
+                                <label>Title User Guides</label>
+                                <input type="text" class="form-control" name="title" required="">
                                 <div class="invalid-feedback">
-                                    What's Category name?
+                                    What's Title User Guides?
                                 </div>
                             </div>
                         </div>
-
                 </div>
-                <div class="modal-footer ml-3">
+                <div class="modal-footer ml-3" style="margin-top: -30px">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>

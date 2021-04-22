@@ -38,6 +38,7 @@ use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
 use App\Http\Controllers\Api\MemberController as ApiMemberController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
 use App\Http\Controllers\Api\TrashController as ApiTrashController;
+use App\Http\Controllers\Api\UserGuideController;
 use App\Http\Controllers\Auth\MailController;
 use App\Http\Controllers\Member\MemberController as MemberMemberController;
 use App\Http\Controllers\Member\ScheduleController;
@@ -256,6 +257,10 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/article/update', [ApiArticleController::class, 'update_article']);
         Route::delete('/article/delete', [ApiArticleController::class, 'delete_article']);
         Route::post('/article/suspended', [ApiArticleController::class, 'suspended_article']);
+
+        Route::post('/user_guide/insert', [UserGuideController::class, 'insert_guide']);
+        Route::get('/user_guide/get', [UserGuideController::class, 'get_guide']);
+        Route::get('/user_guide/list', [UserGuideController::class, 'list_guide']);
     });
 
 
