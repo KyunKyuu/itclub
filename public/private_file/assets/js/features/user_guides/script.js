@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let idLIST = ''
     const data = [
         {data:'check', name:'check', sortable:false,searchable:false, orderable:false},
         {data:'title', name:'title'},
@@ -15,28 +16,39 @@ $(document).ready(function () {
 
     $('#userGuidesModal').on('submit', '#insert', function(e) {
         e.preventDefault();
-        $.ajax({
-            url:'/api/v1/features/user_guide/insert',
-            data:new FormData(this),
-            type:'POST',
-            headers:{
-                'X-CSRF-TOKEN':csrftoken
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin menambah data user guide?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal menambahkan'
             },
-            contentType:false,
-            processData:false,
-            success:res=>{
-                SweetAlert(res);
-                $('#userGuidesModal').modal('hide')
-            },
-            error:err=>{
-                SweetAlert({status:'error', message:err.responseJSON.message});
+            ajax : {
+                url:'/api/v1/features/user_guide/insert',
+                data:new FormData(this),
+                type:'POST',
+                headers:{
+                    'X-CSRF-TOKEN':csrftoken
+                },
+                contentType:false,
+                processData:false,
+                success:res=>{
+                    SweetAlert(res);
+                    $('#userGuidesModal').modal('hide')
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message});
+                }
             }
         })
     })
 
     $('#table').on('click', '#listGuide', function() {
-        let id = $(this).data('value')
-        listGuide(id)
+        idLIST = $(this).data('value')
+        listGuide(idLIST)
     })
 
     $('#btnAccordion').on('click', '#listGuides', function() {
@@ -71,27 +83,106 @@ $(document).ready(function () {
 
     })
 
+    $('#accordion').on('click', '#hapusListGuide', function() {
+        let id = $(this).data('id')
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin menghapus list guides ini?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal menghapus'
+            },
+            ajax : {
+                url:'/api/v1/features/user_guide/list/delete',
+                type:'DELETE',
+                headers:{
+                    'X-CSRF-TOKEN':csrftoken
+                },
+                data:{
+                    id:id
+                },
+                contentType:false,
+                processData:false,
+                success:res=>{
+                    SweetAlert(res);
+                    listGuide(res.values)
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message});
+                }
+            }
+        })
+
+    })
+
     $('#listGuidesModal').on('submit', '#insert', function(e) {
         e.preventDefault()
         let data = new FormData(this)
         data.append('guide_id', $('#listGuidesModalLabel').data('id'))
-        $.ajax({
-            url:'/api/v1/features/user_guide/list/insert',
-            type:'POST',
-            headers:{
-                'X-CSRF-TOKEN':csrftoken
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin menambah list guides ini?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal menambahkan'
             },
-            data:data,
-            contentType:false,
-            processData:false,
-            success:res=>{
-                SweetAlert(res);
-                listGuide(res.values)
-            },
-            error:err=>{
-                SweetAlert({status:'error', message:err.responseJSON.message});
+            ajax : {
+                url:'/api/v1/features/user_guide/list/insert',
+                type:'POST',
+                headers:{
+                    'X-CSRF-TOKEN':csrftoken
+                },
+                data:data,
+                contentType:false,
+                processData:false,
+                success:res=>{
+                    SweetAlert(res);
+                    listGuide(res.values)
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message});
+                }
             }
+        })
+    })
 
+    $('#listGuidesModal').on('submit', '#update', function(e) {
+        e.preventDefault()
+        let data = new FormData(this)
+        data.append('guide_id', $('#listGuidesModalLabel').data('id'))
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin mengubah list guides ini?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal menambahkan'
+            },
+            ajax : {
+                url:'/api/v1/features/user_guide/list/update',
+                type:'POST',
+                headers:{
+                    'X-CSRF-TOKEN':csrftoken
+                },
+                data:data,
+                contentType:false,
+                processData:false,
+                success:res=>{
+                    SweetAlert(res);
+                    listGuide(idLIST)
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message});
+                }
+            }
         })
     })
 })
@@ -118,7 +209,7 @@ function listGuide(id) {
                             </div>
                         </div>
                         <div class="accordion-body collapse" id="panel-body-${data.id}" data-parent="#accordion" style="">
-                            <img src="/storage/images/user_guides/${data.thumbnail}" class="img-fluid ${data.thumbnail == null ? 'd-none' :' '}"">
+                            <img src="/storage/${data.thumbnail}" class="img-fluid ${data.thumbnail == null ? 'd-none' :' '}"">
                             <p class="mb-0">${data.description}</p>
                         </div>
                     </div>`

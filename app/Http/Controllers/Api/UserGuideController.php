@@ -73,4 +73,22 @@ class UserGuideController extends Controller
         Activity('Menambah data list guide website');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan', 'values' => $request->guide_id], 200);
     }
+
+    public function list_guide_update(Request $request)
+    {
+        $data = GuideDesc::find($request->guide_id);
+        if ($request->description != null && $request->description != ' ') {
+
+            if ($request->image) {
+                $name = auth()->user()->name . '-' . date('YmdHi') . '-' . round(0, 10) . '.' . $request->file('image')->getClientOriginalExtension();
+                $image = \Storage::putFileAs('images/user_guides', $request->file('image'), $name);
+                $request->request->add(['thumbnail' => $image]);
+            }
+
+            $data->update($request->all());
+            Activity('Memperbaharui data list guide website');
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui', 'values' => $request->guide_id], 200);
+        }
+        return response()->json(['status' => 'info', 'message' => 'Tidak ada data yang diperbaharui', 'values' => $request->guide_id], 200);
+    }
 }
