@@ -87,8 +87,16 @@ class UserGuideController extends Controller
 
             $data->update($request->all());
             Activity('Memperbaharui data list guide website');
-            return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui', 'values' => $request->guide_id], 200);
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui'], 200);
         }
-        return response()->json(['status' => 'info', 'message' => 'Tidak ada data yang diperbaharui', 'values' => $request->guide_id], 200);
+        return response()->json(['status' => 'info', 'message' => 'Tidak ada data yang diperbaharui'], 200);
+    }
+
+    public function list_guide_delete(Request $request)
+    {
+        $data = GuideDesc::find($request->id);
+        $data->delete();
+        Activity('menghapus data list guide website');
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus'], 200);
     }
 }

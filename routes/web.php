@@ -263,7 +263,7 @@ Route::prefix('/api/v1')->group(function () {
         Route::get('/user_guide/list', [UserGuideController::class, 'list_guide']);
         Route::post('/user_guide/list/insert', [UserGuideController::class, 'list_guide_insert']);
         Route::post('/user_guide/list/update', [UserGuideController::class, 'list_guide_update']);
-        Route::delete('/user_guide/list/delete', [UserGuideController::class, 'delete']);
+        Route::delete('/user_guide/list/delete', [UserGuideController::class, 'list_guide_delete']);
     });
 
 

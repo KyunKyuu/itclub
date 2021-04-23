@@ -104,11 +104,9 @@ $(document).ready(function () {
                 data:{
                     id:id
                 },
-                contentType:false,
-                processData:false,
                 success:res=>{
                     SweetAlert(res);
-                    listGuide(res.values)
+                    listGuide(idLIST)
                 },
                 error:err=>{
                     SweetAlert({status:'error', message:err.responseJSON.message});
