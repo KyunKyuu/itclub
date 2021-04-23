@@ -54,6 +54,11 @@ class UserGuideController extends Controller
             ->make(true);
     }
 
+    public function update_guide(Request $request)
+    {
+        dd($request->all());
+    }
+
     public function list_guide()
     {
         if (!empty($_GET['parm'])) {

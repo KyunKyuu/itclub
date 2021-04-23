@@ -71,6 +71,40 @@ $(document).ready(function () {
         })
     })
 
+    $('#userGuidesModal').on('submit', '#update', function(e) {
+        e.preventDefault();
+        let data = new FormData(this)
+        data.append('id', $(this).data('id'))
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin mengubah user guides ini?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal menambahkan'
+            },
+            ajax : {
+                url:'/api/v1/features/user_guide/update',
+                type:'POST',
+                headers:{
+                    'X-CSRF-TOKEN':csrftoken
+                },
+                data:data,
+                contentType:false,
+                processData:false,
+                success:res=>{
+                    SweetAlert(res);
+                    listGuide($(this).data('id'))
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message});
+                }
+            }
+        })
+    })
+
     $('#btnAccordion').on('click', '#listGuides', function() {
         let id = $(this).data('id')
         $('#listGuidesModal').modal('show')
