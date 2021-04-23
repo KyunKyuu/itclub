@@ -56,7 +56,10 @@ class UserGuideController extends Controller
 
     public function update_guide(Request $request)
     {
-        dd($request->all());
+        $data = UserGuides::find($request->id);
+        $data->update($request->all());
+
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui'], 200);
     }
 
     public function list_guide()

@@ -95,6 +95,7 @@ $(document).ready(function () {
                 contentType:false,
                 processData:false,
                 success:res=>{
+                    RefreshTable('table')
                     SweetAlert(res);
                     listGuide($(this).data('id'))
                 },
