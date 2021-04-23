@@ -58,8 +58,16 @@ class UserGuideController extends Controller
     {
         $data = UserGuides::find($request->id);
         $data->update($request->all());
-
+        Activity('Memperbaharui data user guides website');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui'], 200);
+    }
+
+    public function delete_guide(Request $request)
+    {
+        $data = UserGuides::find($request->id);
+        $data->delete();
+        Activity('Menghapus data user guides website');
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus'], 200);
     }
 
     public function list_guide()

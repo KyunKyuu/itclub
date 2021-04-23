@@ -106,6 +106,40 @@ $(document).ready(function () {
         })
     })
 
+    $('#table').on('click', '#delete', function(e) {
+        e.preventDefault();
+        let data = [
+            {id : $(this).data('value')}
+        ]
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin menghapus user guides ini?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal menghapus'
+            },
+            ajax : {
+                url:'/api/v1/features/user_guide/delete',
+                type:'DELETE',
+                headers:{
+                    'X-CSRF-TOKEN':csrftoken
+                },
+                data:data,
+                success:res=>{
+                    RefreshTable('table')
+                    SweetAlert(res);
+                    listGuide($(this).data('id'))
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message});
+                }
+            }
+        })
+    })
+
     $('#btnAccordion').on('click', '#listGuides', function() {
         let id = $(this).data('id')
         $('#listGuidesModal').modal('show')
