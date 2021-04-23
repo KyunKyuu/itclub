@@ -51,6 +51,26 @@ $(document).ready(function () {
         listGuide(idLIST)
     })
 
+    $('#table').on('click', '#edit', function() {
+        let id = $(this).data('value')
+        $.ajax({
+            url:'/api/v1/features/user_guide/get',
+            data:{
+                id:id
+            },
+            success:res=>{
+                $('#userGuidesModal').modal('show')
+                $('#userGuidesModal form').attr('id', 'update')
+                $('#userGuidesModal form').attr('data-id', res.values.id)
+                $('#userGuidesModal form input').val(res.values.title)
+                $('#userGuidesModalLabel').text('Update title user guide')
+            },
+            error:err=>{
+                console.log(err);
+            }
+        })
+    })
+
     $('#btnAccordion').on('click', '#listGuides', function() {
         let id = $(this).data('id')
         $('#listGuidesModal').modal('show')

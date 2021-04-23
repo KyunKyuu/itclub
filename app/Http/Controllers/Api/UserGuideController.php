@@ -22,6 +22,10 @@ class UserGuideController extends Controller
 
     public function get_guide()
     {
+        if (!empty($_GET['id'])) {
+            $data = UserGuides::find($_GET['id']);
+            return response()->json(['status' => 'success', 'message' => 'query data berhasil', 'values' => $data], 200);
+        }
         $data = UserGuides::all();
         return DataTables::of($data)
             ->addColumn('check', function ($data) {
