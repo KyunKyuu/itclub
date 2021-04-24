@@ -122,6 +122,8 @@ Route::group(['prefix' => '/members', 'middleware' => 'auth'], function () {
     Route::get('/{resource}/setting', [IndexController::class, 'setting_user']);
     Route::get('/{resource}/setting/changepassword', [IndexController::class, 'changepassword_setting']);
     Route::get('/{resource}/activities', [IndexController::class, 'activities_user']);
+    Route::get('/{resource}/userguides', [IndexController::class, 'userguides_user']);
+    Route::get('/userguides/{resource}', [IndexController::class, 'userguides']);
     Route::get('/{resource}/upgrade', [IndexController::class, 'upgrade_member']);
     Route::get('/registration', [MemberMemberController::class, 'registration']);
     Route::get('/schedule', [MemberMemberController::class, 'schedule']);

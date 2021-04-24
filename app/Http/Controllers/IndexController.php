@@ -65,6 +65,16 @@ class IndexController extends Controller
         return view('main.resource.activities_user');
     }
 
+    public function userguides_user()
+    {
+        return view('main.resource.userguides_user');
+    }
+
+    public function userguides()
+    {
+        return view('main.resource.userguides');
+    }
+
     public function upgrade_member()
     {
         $divisi = Division::all();

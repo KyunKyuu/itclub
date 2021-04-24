@@ -36,6 +36,7 @@ $(document).ready(function () {
                 contentType:false,
                 processData:false,
                 success:res=>{
+                    table('table')
                     SweetAlert(res);
                     $('#userGuidesModal').modal('hide')
                 },
