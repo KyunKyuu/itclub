@@ -43,7 +43,7 @@ $(document).ready(function() {
 
 function profile(name) {
     $.ajax({
-        url:'/api/v1/member/get/profile',
+        url:'/api/v1/member/get_profile',
         data:{
             name:name
         },

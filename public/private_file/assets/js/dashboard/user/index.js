@@ -1,7 +1,26 @@
 $(document).ready(function() {
-        activity();
-        browserUser();
-        chartQuery(1);
+
+    const data = [
+        {data:'DT_RowIndex', name:'DT_RowIndex'},
+        {data:'date', name:'date'},
+        {data:'come_in', name:'come_in'},
+        {data:'come_out', name:'come_out'},
+        {data:'status', name:'status'},
+    ];
+
+    $.ajax({
+        url:'/get/mac/address',
+        success:res=>{
+            $('#MacAddress').text(res)
+        }
+    })
+
+    Table({table:'#schedule', data:data, url:'/api/v1/member/schedule/get', parm:{member:true}})
+    activity();
+
+    profileMember();
+    browserUser();
+    chartQuery(1);
 })
 
 function browserUser() {
@@ -56,6 +75,27 @@ function browserUser() {
 
 }
 
+
+function profileMember() {
+    $.ajax({
+        url:'/api/v1/member/get/profile',
+        success:res=>{
+            let response = res.values
+            let jadwal = '-'
+            if (response.jadwal != 0) {
+                jadwak = response.jadwal.date + ' ' + response.jadwal.come_in
+            }
+            $('#namaAnggota').text(response.data.name)
+            $('#kelasAnggota').text(response.data.class)
+            $('#jabatanAnggota').text(response.data.position)
+            $('#jurusanAnggota').text(response.data.majors)
+            $('#divisiAnggota').text(response.divisi)
+            $('#jadwalMember').text(jadwal)
+        },
+        error:err=>console.log(err),
+    })
+}
+
 function activity(parm = 'FALSE') {
     $.ajax({
         url:'/api/v1/user/activity/all',
@@ -65,7 +105,7 @@ function activity(parm = 'FALSE') {
             let update = val.update
             let hapus = val.delete
             let recovery = val.recovery
-            let unknown = val.all - recovery - hapus -update - insert
+            let unknown = val.unknown
             let all = val.all
             $('#activityInsert').text(insert)
             $('#activityUpdate').text(update)
@@ -123,4 +163,5 @@ function chartQuery(values) {
     }
     });
 }
+
 

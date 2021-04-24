@@ -38,7 +38,10 @@ use App\Http\Controllers\Api\PrestationController as ApiPrestationController;
 use App\Http\Controllers\Api\MemberController as ApiMemberController;
 use App\Http\Controllers\Api\AlumniController as ApiAlumniController;
 use App\Http\Controllers\Api\TrashController as ApiTrashController;
+use App\Http\Controllers\Api\UserGuideController;
+use App\Http\Controllers\Auth\MailController;
 use App\Http\Controllers\Member\MemberController as MemberMemberController;
+use App\Http\Controllers\Member\ScheduleController;
 use App\Http\Controllers\Setting\TrashController;
 use Illuminate\Routing\RouteGroup;
 
@@ -66,8 +69,6 @@ Route::get('/article', [HomeController::class, 'article'])->name('article');
 Route::get('/article/{slug:slug}', [HomeController::class, 'article_detail'])->name('article_detail');
 
 
-
-
 Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
@@ -76,6 +77,11 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['auth', 'access']], fun
     Route::get('/general/index', [IndexController::class, 'dashboard_general'])->name('dashboard');
     Route::get('/user/index', [IndexController::class, 'dashboard_user'])->name('dashboard_user');
 });
+
+Route::group(['prefix' => '/authentication/mail'], function () {
+    Route::get('/activation/{resource}', [MailController::class, 'activation']);
+});
+
 
 Route::group(['prefix' => '/master', 'middleware' => ['auth', 'access']], function () {
     Route::get('/preferences/section', [PreferencesController::class, 'section']);
@@ -119,11 +125,15 @@ Route::group(['prefix' => '/members', 'middleware' => 'auth'], function () {
     Route::get('/{resource}/activities', [IndexController::class, 'activities_user']);
     Route::get('/{resource}/upgrade', [IndexController::class, 'upgrade_member']);
     Route::get('/registration', [MemberMemberController::class, 'registration']);
+    Route::get('/schedule', [MemberMemberController::class, 'schedule']);
+    Route::get('/precentages/test', [MemberMemberController::class, 'test']);
+    Route::get('/precentages/score', [MemberMemberController::class, 'score']);
 });
 
 Route::group(['prefix' => '/features', 'middleware' => 'auth'], function () {
     Route::get('/article/list_article', [ArticleController::class, 'list_article']);
     Route::get('/article/view/{id}/{resource}', [ArticleController::class, 'article']);
+    Route::get('/user_guides', [ArticleController::class, 'user_guides']);
 });
 
 Route::group(['prefix' => '/error'], function () {
@@ -211,17 +221,31 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('update', [ApiMemberController::class, 'update']);
         Route::delete('delete', [ApiMemberController::class, 'destroy']);
 
-        Route::get('/get/profile', [ApiMemberController::class, 'get_profile']);
+        Route::get('/get_profile', [ApiMemberController::class, 'get_profile']);
         Route::post('/insert/profile', [ApiMemberController::class, 'insert_profile']);
         Route::get('/delete/image/profile', [ApiMemberController::class, 'delete_image_profile']);
         Route::post('/setting/changepassword', [ApiMemberController::class, 'setting_changepassword']);
 
         Route::get('/get/activity', [ApiMemberController::class, 'get_activity']);
+        Route::get('/get/profile', [ApiMemberController::class, 'member_profile']);
+        Route::get('/get/stats_score', [ApiMemberController::class, 'member_stats_score']);
 
         Route::post('upgrade', [ApiMemberController::class, 'upgrade']);
         Route::get('registration/get', [ApiMemberController::class, 'registration_get']);
         Route::post('registration/accept', [ApiMemberController::class, 'registration_accept']);
         Route::post('registration/reject', [ApiMemberController::class, 'registration_reject']);
+
+        Route::get('schedule/get', [ApiMemberController::class, 'schedule_get']);
+        Route::post('schedule/insert', [ApiMemberController::class, 'schedule_insert']);
+        Route::post('schedule/update', [ApiMemberController::class, 'schedule_update']);
+        Route::delete('schedule/delete', [ApiMemberController::class, 'schedule_delete']);
+
+        Route::get('precentages/test', [ApiMemberController::class, 'precentages_test']);
+        Route::get('precentages/score', [ApiMemberController::class, 'precentages_score']);
+        Route::post('precentages/test/insert', [ApiMemberController::class, 'precentages_test_insert']);
+        Route::post('precentages/score/insert', [ApiMemberController::class, 'precentages_score_insert']);
+        Route::post('precentages/test/update', [ApiMemberController::class, 'precentages_test_update']);
+        Route::delete('precentages/test/delete', [ApiMemberController::class, 'precentages_test_delete']);
     });
 
     Route::group(['prefix' => '/features', 'middleware' => ['auth']], function () {
@@ -234,6 +258,15 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/article/update', [ApiArticleController::class, 'update_article']);
         Route::delete('/article/delete', [ApiArticleController::class, 'delete_article']);
         Route::post('/article/suspended', [ApiArticleController::class, 'suspended_article']);
+
+        Route::post('/user_guide/insert', [UserGuideController::class, 'insert_guide']);
+        Route::post('/user_guide/update', [UserGuideController::class, 'update_guide']);
+        Route::delete('/user_guide/delete', [UserGuideController::class, 'delete_guide']);
+        Route::get('/user_guide/get', [UserGuideController::class, 'get_guide']);
+        Route::get('/user_guide/list', [UserGuideController::class, 'list_guide']);
+        Route::post('/user_guide/list/insert', [UserGuideController::class, 'list_guide_insert']);
+        Route::post('/user_guide/list/update', [UserGuideController::class, 'list_guide_update']);
+        Route::delete('/user_guide/list/delete', [UserGuideController::class, 'list_guide_delete']);
     });
 
 
@@ -287,7 +320,7 @@ Route::prefix('/api/v1')->group(function () {
             Route::post('update', [ApiCategoryController::class, 'update']);
             Route::delete('delete', [ApiCategoryController::class, 'destroy']);
         });
-    
+
 
         Route::prefix('trash')->group(function () {
             Route::get('section/get', [ApiTrashController::class, 'section_get']);
@@ -337,7 +370,6 @@ Route::prefix('/api/v1')->group(function () {
             Route::get('category/get', [ApiTrashController::class, 'category_get']);
             Route::post('category/recovery', [ApiTrashController::class, 'category_recovery']);
             Route::delete('category/delete', [ApiTrashController::class, 'category_delete']);
-
         });
     });
 

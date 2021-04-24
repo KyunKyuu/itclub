@@ -191,14 +191,27 @@ function SweetQuestions(data){
     }).then((result) => {
         if (result.isConfirmed) {
             if (data.confirm == 'ajax') {
-                $.ajax({
-                    url:data.ajax.url,
-                    type:data.ajax.type,
-                    data:data.ajax.data,
-                    headers:data.ajax.headers,
-                    success:data.ajax.success,
-                    error:data.ajax.error
-                })
+                if (data.ajax.contentType != null) {
+                    $.ajax({
+                        url:data.ajax.url,
+                        type:data.ajax.type,
+                        data:data.ajax.data,
+                        processData:data.ajax.processData,
+                        contentType:data.ajax.contentType,
+                        headers:data.ajax.headers,
+                        success:data.ajax.success,
+                        error:data.ajax.error
+                    })
+                }else{
+                    $.ajax({
+                        url:data.ajax.url,
+                        type:data.ajax.type,
+                        data:data.ajax.data,
+                        headers:data.ajax.headers,
+                        success:data.ajax.success,
+                        error:data.ajax.error
+                    })
+                }
             }else{
 
             }

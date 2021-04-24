@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Mail\AuthMail;
 use App\Models\Division;
+use App\Models\Member;
+use App\Models\ScoreList;
 use App\Models\User;
 use App\Models\UserProfile;
 use Illuminate\Routing\Route;
@@ -20,7 +22,13 @@ class IndexController extends Controller
 
     public function dashboard_user()
     {
-        return view('main.dashboard.user');
+        $nilai = [];
+        $id = Member::where('user_id', auth()->user()->id);
+        if ($id->count() > 0) {
+            $nilai = ScoreList::where('user_id', $id->first()->id)->get();
+        }
+        $member = Member::where('user_id', auth()->user()->id)->count();
+        return view('main.dashboard.user', compact('member', 'nilai'));
     }
 
     public function mail()

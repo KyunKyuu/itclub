@@ -34,4 +34,9 @@ class ArticleController extends Controller
         $data = ['blog' => $blog, 'status' => $status];
         return view('main.article.view_article', ['data' => $data]);
     }
+
+    public function user_guides()
+    {
+        return view('main.user_guides.index');
+    }
 }

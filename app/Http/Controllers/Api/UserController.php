@@ -101,7 +101,7 @@ class UserController extends Controller
         $insert = Activity::where('url_access', 'like', '%insert%');
         $update = Activity::where('url_access', 'like', '%update%');
         $recovery = Activity::where('url_access', 'like', '%recovery%');
-        $all = Activity::all();
+        $all = Activity::where('deleted_at', null);
         if (auth()->user()->role_id > 2) {
             $delete->where('user_id', auth()->user()->id);
             $insert->where('user_id', auth()->user()->id);
@@ -113,10 +113,9 @@ class UserController extends Controller
             'delete' => $delete->count(),
             'insert' => $insert->count(),
             'update' => $update->count(),
-            'update' => $update->count(),
-            'recovery' => $recovery->count(),
             'recovery' => $recovery->count(),
             'all' => $all->count(),
+            'unknown' => $all->count() - ($update->count() + $delete->count() + $insert->count() + $recovery->count())
         ];
         return response()->json(['message' => 'query berhasil', 'status' => 'success', 'values' => $data], 200);
     }

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\{Activity, Member, Division, MemberReg, User, UserProfile};
+use App\Models\{Activity, Member, Division, MemberReg, Schedule, ScoreList, TestList, User, UserProfile};
 use App\Http\Requests\MemberRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Test;
 use Yajra\DataTables\Facades\DataTables;
 
 class MemberController extends Controller
@@ -20,6 +21,30 @@ class MemberController extends Controller
         }
 
         $member = Member::all();
+
+        if (!empty($_GET['parm'])) {
+            if ($_GET['parm'] != 'null') {
+                $member = Member::where('division_id', $_GET['parm']);
+            }
+            return DataTables::of($member)
+                ->addIndexColumn()
+                ->addColumn('btn', function ($member) {
+                    return '
+                    <a href="#" class="btn btn-icon btn-sm btn-primary" data-id="' . $member->id . '" data-value="' . $member->division_id . '" id="edit"><i class="fas fa-edit"></i></a>
+                    ';
+                })
+                ->addColumn('imageMember', function ($member) {
+                    return '<img src="' . $member->image() . '" width="50">';
+                })
+                ->addColumn('class_majors', function ($member) {
+                    return $member->class . ' ' . $member->majors;
+                })
+                ->editColumn('division_id', function ($member) {
+                    return $member->division->name;
+                })
+                ->rawColumns(['btn', 'imageMember',])
+                ->make(true);
+        }
 
         return DataTables::of($member)
             ->addIndexColumn()
@@ -47,7 +72,7 @@ class MemberController extends Controller
             ->editColumn('division_id', function ($member) {
                 return $member->division->name;
             })
-            ->rawColumns(['check', 'btn', 'imageMember','user_id','division_id'])
+            ->rawColumns(['check', 'btn', 'imageMember', 'user_id', 'division_id'])
             ->make(true);
     }
 
@@ -200,7 +225,7 @@ class MemberController extends Controller
                 
                 $member->delete();
             }
-             activity('menghapus data member');
+            activity('menghapus data member');
             return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
         }
 
@@ -387,6 +412,7 @@ class MemberController extends Controller
 
     public function registration_accept(Request $request)
     {
+        activity('Accept new member');
         $member = DB::table('member_reg')->where('id', $request->id);
         $member->update(['status' => 1, 'deleted_at' => null]);
         $value = $member->get()[0];
@@ -412,6 +438,7 @@ class MemberController extends Controller
 
     public function registration_reject(Request $request)
     {
+        activity('Reject new member');
         $member = DB::table('member_reg')->where('id', $request->id);
         $member->update(['status' => 0, 'deleted_at' => date('Y-m-d H:i:s')]);
         $value = $member->get()[0];
@@ -423,5 +450,210 @@ class MemberController extends Controller
         $user = User::find($value->user_id)->update(['role_id' => 5]);
         access_update(5, $value->user_id);
         return response()->json(['status' => 'success', 'message' => 'User gagal diterima, tidak bisa menjadi member resmi sekarang']);
+    }
+
+    public function schedule_get()
+    {
+        if (!empty($_GET['id'])) {
+            $schedule = Schedule::find($_GET['id']);
+            return response()->json(['message' => 'Query berhasil', 'status' => 'success', 'values' => $schedule], 200);
+        }
+
+        if (!empty($_GET['member'])) {
+            $member = 0;
+            $data = Member::where('user_id', auth()->user()->id)->get();
+            if ($data->count() > 0) {
+                $member = $data[0]->division_id;
+                $table = DB::table('schedule')->where('division', $member)->orWhere('division', 'all')->orderBy('id', 'asc')->where('deleted_at', null)->get();
+            } else {
+                if (auth()->user()->role_id <= 2) {
+                    $table = DB::table('schedule')->orderBy('id', 'asc')->where('deleted_at', null)->get();
+                } else {
+                    $table = DB::table('schedule')->orderBy('id', 'asc')->where('deleted_at', null)->orWhere('division', 'no')->get();
+                }
+            }
+            return DataTables::of($table)
+                ->addIndexColumn()
+                ->addColumn('status', function ($schedule) {
+                    if ($schedule->date == date('Y-m-d')) {
+                        $color = 'success';
+                        $text = 'Today';
+                    } else if ($schedule->date > date('Y-m-d')) {
+                        $color = 'primary';
+                        $text = 'Already';
+                    } else {
+                        $color = 'danger';
+                        $text = 'Ended';
+                    }
+                    return '<div class="badge badge-pill badge-' . $color . ' mb-1 float-right">' . $text . '</div>';
+                })
+                ->rawColumns(['status', 'check'])
+                ->make(true);
+        }
+
+        return DataTables::of(Schedule::all())
+            ->addColumn('check', function ($schedule) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" name="id-checkbox" value="' . $schedule->id . '" class="custom-control-input" id="checkbox-' . $schedule->id . '" onclick="checkbox_this(this)">
+                    <label for="checkbox-' . $schedule->id . '" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($schedule) {
+                return '
+                    <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $schedule->id . '" id="edit"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $schedule->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+            ->addColumn('division', function ($schedule) {
+                return $schedule->division == 'all' ? 'All' : $schedule->divisions->name;
+            })
+            ->rawColumns(['btn', 'check'])
+            ->make(true);
+    }
+
+    public function schedule_insert(Request $request)
+    {
+        $data = Schedule::where('date', $request->date)->where('division', $request->division)->count();
+        if ($data > 0) {
+            return response()->json(['status' => 'error', 'message' => 'Jadwal sudah ada, coba lagi!'], 500);
+        }
+
+        $request->request->add(['created_by' => auth()->user()->id]);
+        Schedule::create($request->all());
+        activity('Menambahkan jadwal member');
+        return response()->json(['status' => 'success', 'message' => 'Jadwal berhasil ditambahkan'], 200);
+    }
+
+    public function schedule_update(Request $request)
+    {
+        $data = Schedule::find($request->id);
+        if ($data->count() < 1) {
+            return response()->json(['status' => 'error', 'message' => 'Jadwal tidak terdaftar, coba lagi!'], 500);
+        }
+
+        $data->update($request->all());
+        activity('Mengubah jadwal member');
+        return response()->json(['status' => 'success', 'message' => 'Jadwal berhasil diperbaharui'], 200);
+    }
+
+    public function schedule_delete(Request $request)
+    {
+        if (is_array($request->value)) {
+            foreach ($request->value as $item) {
+                $schedule = Schedule::find($item);
+                $schedule->delete();
+            }
+            activity('Menghapus jadwal member');
+            return response()->json(['message' => 'Jadwal berhasil dihapus', 'status' => 'success'], 200);
+        }
+        $schedule = Schedule::find($request->value);
+        $schedule->delete();
+        activity('Menghapus jadwal member');
+        return response()->json(['message' => 'Jadwal berhasil dihapus', 'status' => 'success'], 200);
+    }
+
+    public function member_profile()
+    {
+        $data = Member::where('user_id', auth()->user()->id)->get()[0];
+        $schedule = Schedule::where('date', '>', date('Y-m-d'))->where('division', $data->division_id)->orWhere('division', 'all')->limit(1);
+        $jadwal = $schedule->count() > 0 ? $schedule->get()[0] : 0;
+        $divisi = $data->division->name;
+
+        return response()->json(['status' => 'success', 'message' => 'Query data berhasil', 'values' => compact('data', 'jadwal', 'divisi')], 200);
+    }
+
+    public function precentages_test()
+    {
+        if (!empty($_GET['id'])) {
+            $test = TestList::find($_GET['id']);
+            $division = $test->division->name;
+            return response()->json(['status' => 'success', 'message' => 'Query data berhasil', 'values' => $test], 200);
+        }
+        return DataTables::of(TestList::where('created_by', auth()->user()->id))
+            ->addColumn('check', function ($test) {
+                return  '<div class="custom-checkbox custom-control">
+                    <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" name="id-checkbox" value="' . $test->id . '" class="custom-control-input" id="checkbox-' . $test->id . '" onclick="checkbox_this(this)">
+                <label for="checkbox-' . $test->id . '" class="custom-control-label">&nbsp;</label>
+                </div>';
+            })
+            ->editColumn('division_id', function ($test) {
+                return $test->division->name;
+            })
+            ->addColumn('action', function ($test) {
+                return '
+                <a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $test->id . '" id="edit"><i class="fas fa-edit"></i></a>
+                <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $test->id . '" id="delete"><i class="fas fa-trash"></i></a>';
+            })
+            ->rawColumns(['action', 'check'])
+            ->make(true);
+    }
+
+    public function precentages_test_insert(Request $request)
+    {
+        $request->request->add(['created_by' => auth()->user()->id]);
+        TestList::create($request->all());
+        Activity('Menambah data test member');
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan'], 200);
+    }
+
+    public function precentages_test_update(Request $request)
+    {
+        $data = TestList::find($request->id);
+        $data->update($request->all());
+        Activity('Memperbaharui data test member');
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui'], 200);
+    }
+
+    public function precentages_test_delete(Request $request)
+    {
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                $item = TestList::find($value);
+                $item->delete();
+            }
+            Activity('Menghapus data test member');
+            return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus'], 200);
+        }
+        $item = TestList::find($request->value);
+        $item->delete();
+        Activity('Menghapus data test member');
+        return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus'], 200);
+    }
+
+
+    public function precentages_score()
+    {
+        return DataTables::of(TestList::all()->where('division_id', $_GET['value']))
+            ->addIndexColumn()
+            ->addColumn('check', function ($test) {
+                return  '<div class="custom-checkbox custom-control">
+                <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" name="id-checkbox" value="' . $test->id . '" class="custom-control-input" id="checkbox-' . $test->id . '" onclick="checkbox_this(this)">
+                <label for="checkbox-' . $test->id . '" class="custom-control-label">&nbsp;</label>
+                </div>';
+            })
+            ->editColumn('score', function ($test) {
+                $data = '<input type="number" class="form-control" id="input-' . $test->id . '" value="' . score($_GET['id'], $test->id) . '" style="display:none; width:55px;"><a id="nilai-' . $test->id . '">' . score($_GET['id'], $test->id) . '</a>';
+                return $data;
+            })
+            ->addColumn('action', function ($test) {
+                return '
+                <a href="#" class="btn btn-icon btn-sm btn-warning Edit" data-id="' . $_GET['id'] . '" data-value="' . $test->id . '" id="edit-' . $test->id . '"><i class="fas fa-edit"></i></a>
+                <a href="#" class="btn btn-icon btn-sm btn-success disabled Save" data-id="' . $_GET['id'] . '" data-value="' . $test->id . '" id="save-' . $test->id . '"><i class="fas fa-save"></i></a>';
+            })
+            ->rawColumns(['action', 'check', 'score'])
+            ->make(true);
+    }
+
+    public function precentages_score_insert(Request $request)
+    {
+        $test = ScoreList::where('test_id', $request->test_id)->where('user_id', $request->user_id);
+
+        if ($test->count() > 0) {
+            $test->delete();
+        }
+        $request->request->add(['created_by' => auth()->user()->id]);
+        ScoreList::create($request->all());
+        Activity('Menambah data score member');
+        return response()->json(['status' => 'success', 'message' => 'Score berhasil ditetapkan'], 200);
     }
 }

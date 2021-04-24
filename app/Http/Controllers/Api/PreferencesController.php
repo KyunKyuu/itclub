@@ -52,6 +52,7 @@ class PreferencesController extends Controller
     {
         $request->request->add(['created_by' => auth()->user()->id]);
         Section::create($request->all());
+        Activity('Menambah data section');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan!'], 200);
     }
 
@@ -62,10 +63,12 @@ class PreferencesController extends Controller
                 $section = Section::find($value);
                 $section->delete();
             }
+            Activity('menghapus data section');
             return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
         }
         $section = Section::find($request->value);
         $section->delete();
+        Activity('menghapus data section');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
     }
 
@@ -73,6 +76,7 @@ class PreferencesController extends Controller
     {
         $section = Section::find($request->id);
         $section->update($request->all());
+        Activity('memperbaharui data section');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 
@@ -80,6 +84,7 @@ class PreferencesController extends Controller
     {
         $section = Section::find($request->id);
         $section->update(['status' => $request->status]);
+        Activity('memperbaharui status data section');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 
@@ -128,6 +133,7 @@ class PreferencesController extends Controller
     {
         $request->request->add(['created_by' => auth()->user()->id]);
         Menu::create($request->all());
+        Activity('Menambah data menu');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan!'], 200);
     }
 
@@ -138,10 +144,12 @@ class PreferencesController extends Controller
                 $menu = Menu::find($value);
                 $menu->delete();
             }
+            Activity('Menghapus data menu');
             return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
         }
         $menu = Menu::find($request->value);
         $menu->delete();
+        Activity('Menghapus data menu');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
     }
 
@@ -149,6 +157,7 @@ class PreferencesController extends Controller
     {
         $menu = Menu::find($request->id);
         $menu->update($request->all());
+        Activity('Memperbaharui data menu');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 
@@ -156,6 +165,7 @@ class PreferencesController extends Controller
     {
         $menu = Menu::find($request->id);
         $menu->update(['status' => $request->status]);
+        Activity('Memperbaharui status data menu');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 
@@ -205,6 +215,7 @@ class PreferencesController extends Controller
     {
         $request->request->add(['created_by' => auth()->user()->id]);
         Submenu::create($request->all());
+        Activity('Menambah data submenu');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil ditambahkan!'], 200);
     }
 
@@ -215,10 +226,12 @@ class PreferencesController extends Controller
                 $submenu = Submenu::find($value);
                 $submenu->delete();
             }
+            Activity('Menghapus data submenu');
             return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
         }
         $submenu = Submenu::find($request->value);
         $submenu->delete();
+        Activity('Menghapus data submenu');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil dihapus!'], 200);
     }
 
@@ -226,6 +239,7 @@ class PreferencesController extends Controller
     {
         $submenu = Submenu::find($request->id);
         $submenu->update($request->all());
+        Activity('Memperbaharui data submenu');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 
@@ -233,6 +247,7 @@ class PreferencesController extends Controller
     {
         $submenu = Submenu::find($request->id);
         $submenu->update(['status' => $request->status]);
+        Activity('Memperbaharui status data submenu');
         return response()->json(['status' => 'success', 'message' => 'Data berhasil diperbaharui!'], 200);
     }
 }

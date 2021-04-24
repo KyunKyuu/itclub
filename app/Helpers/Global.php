@@ -3,6 +3,7 @@
 use App\Models\Activity;
 use App\Models\Menu;
 use App\Models\MenuAccess;
+use App\Models\ScoreList;
 use App\Models\Section;
 use App\Models\SectionAccess;
 use App\Models\Submenu;
@@ -155,6 +156,30 @@ function Suspended($id)
 {
     $suspend = Suspended::where('blog_id', $id)->get()[0];
     return $suspend;
+}
+
+function score($id, $test)
+{
+    $score = 0;
+    $data = ScoreList::where('test_id', $test)->where('user_id', $id)->get();
+    if ($data->count() > 0) {
+        $score = $data[0]->score;
+    }
+
+    return $score;
+}
+
+function nilai_minimum_test($min, $score)
+{
+    if ($score < $min) {
+        $data = 'danger';
+    } else if ($score >= $min) {
+        $data = 'primary';
+    } else if ($score > 95) {
+        $data = 'success';
+    }
+
+    return $data;
 }
 
 

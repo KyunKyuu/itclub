@@ -150,9 +150,11 @@ class MenuAccessControlller extends Controller
         $access = DB::table('set_access_section')->where('section_id', $request->value)->where('role_id', $request->roleid);
         if ($access->count() > 0) {
             $access->delete();
+            Activity('Menghapus access section');
             return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
         } else {
             DB::insert('insert into set_access_section (role_id, created_by, section_id) values (?, ?, ?)', [$request->roleid, auth()->user()->id, $request->value]);
+            Activity('Menambah access section');
             return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
         }
     }
@@ -162,9 +164,11 @@ class MenuAccessControlller extends Controller
         $access = DB::table('set_access_menu')->where('menu_id', $request->value)->where('role_id', $request->roleid);
         if ($access->count() > 0) {
             $access->delete();
+            Activity('Menghapus access menu');
             return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
         } else {
             DB::insert('insert into set_access_menu (role_id, created_by, menu_id) values (?, ?, ?)', [$request->roleid, auth()->user()->id, $request->value]);
+            Activity('Menambah access menu');
             return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
         }
     }
@@ -174,9 +178,11 @@ class MenuAccessControlller extends Controller
         $access = DB::table('set_access_submenu')->where('submenu_id', $request->value)->where('role_id', $request->roleid);
         if ($access->count() > 0) {
             $access->delete();
+            Activity('Menghapus access submenu');
             return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
         } else {
             DB::insert('insert into set_access_submenu (role_id, created_by, submenu_id) values (?, ?, ?)', [$request->roleid, auth()->user()->id, $request->value]);
+            Activity('Menambah access submenu');
             return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
         }
     }
@@ -186,9 +192,11 @@ class MenuAccessControlller extends Controller
         $access = SectionAccess::where('section_id', $request->value)->where('user_id', $request->id);
         if ($access->count() > 0) {
             $access->delete();
+            Activity('Menghapus access section users');
             return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
         } else {
             SectionAccess::create(['user_id' => $request->id, 'section_id' => $request->value, 'created_by' => auth()->user()->id]);
+            Activity('Menambah access section users');
             return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
         }
     }
@@ -198,9 +206,11 @@ class MenuAccessControlller extends Controller
         $access = MenuAccess::where('menu_id', $request->value)->where('user_id', $request->id);
         if ($access->count() > 0) {
             $access->delete();
+            Activity('Menghapus access menu users');
             return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
         } else {
             MenuAccess::create(['user_id' => $request->id, 'menu_id' => $request->value, 'created_by' => auth()->user()->id]);
+            Activity('Menambah access menu users');
             return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
         }
     }
@@ -210,9 +220,11 @@ class MenuAccessControlller extends Controller
         $access = SubmenuAccess::where('submenu_id', $request->value)->where('user_id', $request->id);
         if ($access->count() > 0) {
             $access->delete();
+            Activity('Menghapus access submenu users');
             return response()->json(['message' => 'Access berhasil dihapus!', 'status' => 'success']);
         } else {
             SubmenuAccess::create(['user_id' => $request->id, 'submenu_id' => $request->value, 'created_by' => auth()->user()->id]);
+            Activity('Menambah access submenu users');
             return response()->json(['message' => 'Access berhasil ditambahkan!', 'status' => 'success']);
         }
     }
