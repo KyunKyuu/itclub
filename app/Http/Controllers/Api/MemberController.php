@@ -197,7 +197,7 @@ class MemberController extends Controller
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
                 $member = Member::find($value);
-                $member->alumni()->delete();
+                
                 $member->delete();
             }
              activity('menghapus data member');
@@ -216,7 +216,7 @@ class MemberController extends Controller
 
         // \Storage::delete($member->image);
 
-        $member->alumni()->delete();
+        
         $member->delete();
 
         activity('menghapus data member');

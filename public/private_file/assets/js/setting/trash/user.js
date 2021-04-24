@@ -1,15 +1,16 @@
 $(document).ready(function() {
     const data = [
-        {name:'check', data:'check', orderable:false, searchable:false},
-        {name:'name', data:'name'},
-        {name:'place', data:'place'},
-        {name:'image', data:'image'},
+        {data:'check', name:'check', orderable:false, searchable:false},
+        {data:'name', name:'name'},
+        {data:'role_id', name:'role_id', },
+        {data:'email', name:'email', searchable:false, orderable:false},
+        {data:'email_verified_at', name:'email_verified_at'},
         {name:'deleted_at', data:'deleted_at'},
         {name:'created_at', data:'created_at'},
-        {name:'btn', data:'btn'},
+        {data:'btn', name:'btn', searchable:false, orderable:false},
     ];
 
-    Table({table:'table', data:data, url:'/api/v1/trash/alumni/get'})
+    Table({table:'table', data:data, url:'/api/v1/trash/user/get'})
 
     $('#recoveryData').on('click', function (e) {
         e.preventDefault();
@@ -19,7 +20,7 @@ $(document).ready(function() {
         }
         SweetQuestions({
             title : 'Apakah anda yakin?',
-            subtitle : 'Apakah anda ingin merestore data alumni ini?',
+            subtitle : 'Apakah anda ingin merestore data user ini?',
             buttonConfirm : 'Yes',
             buttonDeny: 'No',
             confirm : 'ajax',
@@ -28,7 +29,7 @@ $(document).ready(function() {
                 title : 'Gagal merestore'
             },
             ajax : {
-                url:'/api/v1/trash/alumni/recovery',
+                url:'/api/v1/trash/user/recovery',
                 data:{
                     value : value_checkbox
                 },
@@ -57,7 +58,7 @@ $(document).ready(function() {
         }
         SweetQuestions({
             title : 'Apakah anda yakin?',
-            subtitle : 'Apakah anda ingin menghapus data alumni ini?',
+            subtitle : 'Apakah anda ingin menghapus data user ini?',
             buttonConfirm : 'Yes',
             buttonDeny: 'No',
             confirm : 'ajax',
@@ -66,7 +67,7 @@ $(document).ready(function() {
                 title : 'Gagal menghapus'
             },
             ajax : {
-                url:'/api/v1/trash/alumni/delete',
+                url:'/api/v1/trash/user/delete',
                 data:{
                     value : value_checkbox
                 },
@@ -91,7 +92,7 @@ $(document).ready(function() {
         let value = $(this).data('value')
         SweetQuestions({
             title : 'Apakah anda yakin?',
-            subtitle : 'Apakah anda ingin merestore data alumni ini?',
+            subtitle : 'Apakah anda ingin merestore data user ini?',
             buttonConfirm : 'Yes',
             buttonDeny: 'No',
             confirm : 'ajax',
@@ -100,7 +101,7 @@ $(document).ready(function() {
                 title : 'Gagal merestore'
             },
             ajax : {
-                url:'/api/v1/trash/alumni/recovery',
+                url:'/api/v1/trash/user/recovery',
                 data:{
                     value : value
                 },
@@ -125,7 +126,7 @@ $(document).ready(function() {
         let value = $(this).data('value')
         SweetQuestions({
             title : 'Apakah anda yakin?',
-            subtitle : 'Apakah anda ingin menghapus data alumni ini?',
+            subtitle : 'Apakah anda ingin menghapus data user ini?',
             buttonConfirm : 'Yes',
             buttonDeny: 'No',
             confirm : 'ajax',
@@ -134,7 +135,7 @@ $(document).ready(function() {
                 title : 'Gagal menghapus'
             },
             ajax : {
-                url:'/api/v1/trash/alumni/delete',
+                url:'/api/v1/trash/user/delete',
                 data:{
                     value : value
                 },

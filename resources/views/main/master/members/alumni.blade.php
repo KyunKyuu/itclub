@@ -74,15 +74,10 @@
                             What's image division?
                       </div>    
                         </div>
-                      <div class="form-group row">
+                       <div class="form-group row">
                         <div class="form-group col-12">
                         <label>Alumni Name</label>
-                         <select required name="member_id" class="form-control">
-                              <option selected disabled>== Name ID dari table Member ==</option>
-                              @foreach ($members as $data)
-                                <option value="{{$data->id}}">{{$data->name}}</option>
-                              @endforeach
-                          </select>
+                         <input type="text" class="form-control" name="name" placeholder="Nama Member"  >
                           <div class="invalid-feedback">
                             What's Alumni name?
                           </div>
@@ -156,9 +151,8 @@
 
                       <div class="form-group row">
                         <div class="form-group col-12">
-                        <label>Alumni Name</label>
-                        <input type="hidden" name="member_id">
-                         <input readonly="" type="text" class="form-control" name="name_alumni" placeholder="Nama Member"  >
+                        <label>Nama Alumni</label>
+                         <input type="text" class="form-control" name="name" placeholder="Nama Member"  >
                           <div class="invalid-feedback">
                             What's Alumni name?
                           </div>
