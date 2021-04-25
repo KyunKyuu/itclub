@@ -105,6 +105,7 @@ Route::group(['prefix' => '/setting', 'middleware' => ['auth', 'access']], funct
     Route::get('/error/page', [ErrorController::class, 'page']);
     Route::get('/trash/section', [TrashController::class, 'section']);
     Route::get('/trash/menu', [TrashController::class, 'menu']);
+    Route::get('/trash/user', [TrashController::class, 'user']);
     Route::get('/trash/submenu', [TrashController::class, 'submenu']);
     Route::get('/trash/division', [TrashController::class, 'division']);
     Route::get('/trash/imagedivision', [TrashController::class, 'imageDivision']);
@@ -337,6 +338,10 @@ Route::prefix('/api/v1')->group(function () {
             Route::get('prestation/get', [ApiTrashController::class, 'prestation_get']);
             Route::post('prestation/recovery', [ApiTrashController::class, 'prestation_recovery']);
             Route::delete('prestation/delete', [ApiTrashController::class, 'prestation_delete']);
+
+            Route::get('user/get', [ApiTrashController::class, 'user_get']);
+            Route::post('user/recovery', [ApiTrashController::class, 'user_recovery']);
+            Route::delete('user/delete', [ApiTrashController::class, 'user_delete']);
 
             Route::get('division/get', [ApiTrashController::class, 'division_get']);
             Route::post('division/recovery', [ApiTrashController::class, 'division_recovery']);

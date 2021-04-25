@@ -1,7 +1,7 @@
 $(document).ready(function() {
     const data = [
         {data:'check', name:'check', orderable:false, searchable:false},
-        {data:'member_id', name:'member_id'},
+        {data:'name', name:'name'},
         {data:'work', name:'work'},
         {data:'study',name:'study'},
         {data:'place',name:'place'},
@@ -108,7 +108,7 @@ $(document).ready(function() {
     $('#update').on('submit', function(e) {
         e.preventDefault();
         let value = new FormData(this)
-        value.append('id', $('#updateAlumni input[name="place"]').data('id'));
+        value.append('id', $('#updateAlumni input[name="name"]').data('id'));
         $.ajax({
             url:'/api/v1/alumni/update',
             data:value,
@@ -136,13 +136,12 @@ $(document).ready(function() {
             },
             success:res=>{
                 $('#updateAlumni').modal('show');
-                $('#updateAlumni input[name="name_alumni"]').val(res.name_alumni);
-                $('#updateAlumni input[name="member_id"]').val(res.data.member_id);
+                $('#updateAlumni input[name="name"]').val(res.data.name);
                 $('#updateAlumni input[name="work"]').val(res.data.work);
                 $('#updateAlumni input[name="study"]').val(res.data.study);
                 $('#updateAlumni input[name="place"]').val(res.data.place);
                 $('#updateAlumni img').attr('src', '/storage/' +res.data.image);
-                $('#updateAlumni input[name="place"]').data('id',res.data.id);
+                $('#updateAlumni input[name="name"]').data('id',res.data.id);
             },
             error:err=>console.log(err)
         })

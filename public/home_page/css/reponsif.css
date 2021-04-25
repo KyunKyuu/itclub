@@ -166,11 +166,12 @@
   .hero-text {
     padding-top: 36%;
   }
-  .hero-text h1, .hero-text p{
+  .hero-text h1,
+  .hero-text p {
     color: white !important;
     margin-top: 1rem;
   }
-  .hero-text .hr-header{
+  .hero-text .hr-header {
     background: white !important;
   }
   .hero-text.w-50 {
@@ -178,7 +179,7 @@
   }
   .text-prestasi {
     padding: 0%;
-    padding-top: 3rem;
+    padding-top: 2.5rem;
   }
   .text-prestasi .row.mt-5 {
     margin-top: 0% !important;
@@ -191,8 +192,8 @@
   .contact-index .pr-5 {
     padding: 0% !important;
   }
-  .contact-address h6 {
-    font-size: 0.8rem;
+  .anggota-11 .card-body h5 {
+    font-size: 16px;
   }
   .navbar-white .navbar-toggler {
     color: #004b8f !important;
@@ -216,18 +217,10 @@
     border-radius: 5px;
     border: 0px;
   }
-  .mentor{
-    background-size: auto;
-    background-repeat: space;
-  }
   .bg-prestasi {
-    height: 106rem;
+    height: 102rem;
   }
-  .berita{
-    background-size: auto;
-    background-repeat: space;
-  }
-  .anggota-11{
+  .anggota-11 {
     padding-top: 1rem !important;
     padding-bottom: 1rem !important;
   }
@@ -235,17 +228,21 @@
     padding-left: 0rem !important;
     padding-right: 0rem !important;
   }
+  .anggota-11 .card.p-4 {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
   .card-body {
     padding: 1rem;
     font-size: 13px;
   }
-  .card-body h5{
+  .card-body h5 {
+    font-size: 20px;
+  }
+  .card-head h4 {
     font-size: 16px;
   }
-  .card-head h4{
-    font-size: 16px;
-  }
-  .pagination{
+  .pagination {
     margin-top: 1rem;
   }
   .berita-kegiatan.p-5 {
@@ -279,38 +276,106 @@
   .img-tentang {
     width: 277px !important;
   }
-  .contact-text.pr-3{
+  .contact-text.pr-3 {
     padding: 1rem !important;
   }
-  .contact-address{
+  .contact-address {
     padding: 1rem;
   }
-  .footer-body .judul-1{
+  .footer-body .judul-1 {
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
   }
-  .tentang-kami{
+  .tentang-kami {
     padding: 1rem;
   }
-  .tentang-kami.mt-5{
+  .tentang-kami.mt-5 {
     margin-top: 0rem !important;
   }
-  .tentang-kami .col-md-6{
+  .tentang-kami .col-md-6 {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
   }
-  .judul-1[data-scroll="out"], .judul-2[data-scroll="out"] {
+  .judul-1[data-scroll="out"],
+  .judul-2[data-scroll="out"] {
     opacity: 1;
     transition: 1s;
     transform: translateX(4px);
   }
-  .hero-mini{
+  .hero-mini {
     display: block;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 50%;
+    margin-left: 0rem;
+  }
+  .carousel .d-flex {
+    float: none !important;
+  }
+
+  .judul {
+    text-align: center;
+    margin-top: 17px;
+  }
+
+  .judul img {
+    width: 33px;
+  }
+
+  .judul h2 {
+    margin-left: 42px;
+    margin-top: -409px;
+    position: absolute;
+  }
+
+  .img-1 {
+    margin-top: 11% !important;
+  }
+
+  .titik {
+    width: 15% !important;
+    height: 15% !important;
+  }
+
+  .berita .card p {
+    font-size: 15px;
+  }
+  .text-prestasi .carousel .card p {
+    font-size: 15px;
+  }
+  .mentor {
+    background-image: url(../img/icon.png);
+    background-repeat: round;
+  }
+  .berita {
+    background-image: url(../img/bg_berita.png);
+    background-repeat: round;
+  }
+  .contact-address span img {
+    width: 10%;
+  }
+
+  .body-divisi {
+    background-image: url(../img/Group\ 182.png);
+    margin-bottom: 0px !important;
+    padding-bottom: 40px;
+  }
+
+  .materi img {
+    max-width: 100px;
+    max-height: 60px;
   }
 }
 
 @media (min-width: 308px) and (max-width: 480px) {
   .img-tentang {
     width: 277px !important;
+  }
+}
+
+@media (max-width: 354px) {
+  .bg-prestasi {
+    height: 97rem;
   }
 }

@@ -15,8 +15,8 @@ class AlumniController extends Controller
     {
         if (!empty($_GET['id'])) {
             $data = Alumni::find($_GET['id']);
-            $name_alumni = $data->member->name;
-            return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data, 'name_alumni' => $name_alumni]);
+           
+            return response()->json(['message' => 'query berhasil', 'status' => 'success', 'data' => $data]);
         }
 
         $alumni = Alumni::all();
@@ -38,16 +38,13 @@ class AlumniController extends Controller
             ->addColumn('imageAlumni', function ($alumni) {
                 return '<img src="' . $alumni->image() . '" width="50">';
             })
-            ->editColumn('member_id', function ($alumni) {
-                return $alumni->member->name;
-            })
-            ->rawColumns(['check', 'btn', 'member_id','imageAlumni'])
+            ->rawColumns(['check', 'btn','imageAlumni'])
             ->make(true);
     }
 
     public function show($id)
     {
-        $alumni = Alumni::with('member', 'created_by')->find($id);
+        $alumni = Alumni::with('created_by')->find($id);
         if (!$alumni) {
             return response()->json([
                 'status' => 'error',
@@ -67,25 +64,8 @@ class AlumniController extends Controller
     public function store(AlumniRequest $request)
     {
 
-        $memberId = Member::where('id', $request->member_id)->exists();
-        if (!$memberId) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Member not found'
-            ], 404);
-        }
-
-        $alumniId = Alumni::where('member_id', $request->member_id)->exists();
-        if ($alumniId) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Alumni already exists'
-            ]);
-        }
-
-
         $alumni = Alumni::create([
-            'member_id' => $request->member_id,
+            'name' => $request->name,
             'place' => $request->place,
             'work' => $request->work,
             'study' => $request->study,
@@ -129,14 +109,6 @@ class AlumniController extends Controller
             ], 404);
         }
 
-        $memberId = Member::where('id', $request->member_id)->exists();
-        if (!$memberId) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'member not found'
-            ], 404);
-        }
-
         if ($request->image) {
             \Storage::delete($alumni->image);
             $image = request()->file('image')->store('images/alumni');
@@ -147,7 +119,7 @@ class AlumniController extends Controller
         }
 
         $alumni->update([
-            'member_id' => $request->member_id,
+            'name' => $request->name,
             'place' => $request->place,
             'work' => $request->work,
             'study' => $request->study,
