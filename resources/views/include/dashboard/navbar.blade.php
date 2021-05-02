@@ -218,7 +218,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="dropdown-title">Logged in 5 min ago</div>
-                            <a href="/members/{{ auth()->user()->name }}/dashboard" class="dropdown-item has-icon">
+                            <a href="/dashboard/user/index" class="dropdown-item has-icon">
                                 <i class="fas fa-columns"></i> Dashboard
                             </a>
                             <a href="/members/{{ auth()->user()->name }}/profile" class="dropdown-item has-icon">
