@@ -24,10 +24,10 @@ class Member extends Model
         return $this->belongsTo(Division::class,'division_id')->withTrashed();
     }
 
-    public function alumni()
-    {
-        return $this->hasOne(Alumni::class);
-    }
+    // public function alumni()
+    // {
+    //     return $this->hasOne(Alumni::class, 'id');
+    // }
 
     public function created_by()
     {

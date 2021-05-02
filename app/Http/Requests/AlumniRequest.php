@@ -24,7 +24,7 @@ class AlumniRequest extends FormRequest
     public function rules()
     {
         return [
-            'member_id' => 'integer|required',
+            'name' => 'string|required',
             'work' => 'string|nullable',
             'study' => 'string|nullable',
             'place' => 'string|nullable',

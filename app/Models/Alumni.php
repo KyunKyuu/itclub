@@ -17,10 +17,10 @@ class Alumni extends Model
         'deleted_at' => 'datetime:Y-m-d H:m:s'
     ];
 
-    public function member()
-    {
-        return $this->belongsTo(Member::class)->withTrashed();
-    }
+    // public function member()
+    // {
+    //     return $this->belongsTo(Member::class, 'member_id')->withTrashed();
+    // }
 
     public function created_by()
     {

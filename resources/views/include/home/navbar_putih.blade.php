@@ -1,3 +1,7 @@
+<?php
+use App\Models\Division;
+?>
+
 <!-- navbar -->
      <div class="index-nav">
         <nav class="navbar navbar-expand-lg fixed-top navbar-dark py-4 bg-transparent">
@@ -25,10 +29,12 @@
                             <a class="nav-link text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 DIVISI
                             </a>
+                            <div style="display: none;">{{$divisions = Division::select('slug','name')->get()}}</div>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{route('division','networking')}}">Networking</a>
-                                <a class="dropdown-item" href="{{route('division','programming')}}">Programming</a>
-                                <a class="dropdown-item" href="{{route('division','multimedia')}}">Multimedia</a>
+                                @foreach($divisions as $division)
+                                <a class="dropdown-item" href="{{route('division',$division->slug)}}">{{$division->name}}</a>
+                                @endforeach
+
                             </div>
                         </li>
                         <li class="nav-item mx-2">

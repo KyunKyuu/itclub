@@ -23,6 +23,11 @@ class TrashController extends Controller
         return view('main.setting.submenu_trash');
     }
 
+    public function user()
+    {
+        return view('main.setting.user_trash');
+    }
+
     public function division()
     {
         return view('main.setting.division_trash');

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\{
-    Section,Submenu,Menu,Prestation,Division,ImageDivision,Alumni,Gallery,ImageGallery,Category,Member
+    Section,Submenu,Menu,Prestation,User,Division,ImageDivision,Alumni,Gallery,ImageGallery,Category,Member
     };
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -238,6 +238,79 @@ class TrashController extends Controller
         return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
     }
 
+     public function user_get()
+    {
+        $user = User::onlyTrashed();
+        return DataTables::of($user)
+            ->addIndexColumn()
+            ->addColumn('check', function ($user) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $user->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $user->id . '" >
+                    <label for="checkbox-' . $user->id . '" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($user) {
+                return '
+            <a href="#" class="btn btn-icon btn-sm btn-info" data-value="' . $user->id . '" id="recycle"><i class="fas fa-recycle"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $user->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+            ->editColumn('role_id', function ($user) {
+                return $user->roles->name;
+            })
+            ->editColumn('email_verified_at', function ($user) {
+                if ($user->email_verified_at) {
+                    $data = '<a class="text-success"><i class="fas fa-check"></i> Verified</a>';
+                } else {
+                    $data = '<a class="text-danger"><i class="fas fa-times"></i> Not Verified</a>';
+                }
+                return $data;
+            })
+            ->editColumn('created_at', function ($user) {
+                return date('d-M-Y H:i', strtotime($user->created_at));
+            })
+            ->editColumn('deleted_at', function ($user) {
+                return date('d-M-Y H:i', strtotime($user->deleted_at));
+            })
+            ->rawColumns(['check', 'btn', 'email_verified_at', 'role_id'])
+            ->make(true);
+    }
+
+    public function user_recovery(Request $request)
+    {
+        activity('merecovery data sampah user');
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                 $user = User::onlyTrashed()->where('id', $value)->first();
+                  $user->restore();  
+            }
+            return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
+        }
+      $user = User::onlyTrashed()->where('id', $request->value)->first();
+      $user->restore();  
+        return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
+    }
+
+    public function user_delete(Request $request)
+    {
+        activity('menghapus data sampah user');
+
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+               $user = User::onlyTrashed()->where('id', $value)->first();
+                $user->member()->forceDelete();
+               $user->forceDelete();
+            }
+            return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
+        }
+      
+      $user = User::onlyTrashed()->where('id', $request->value)->first();
+      $user->member()->forceDelete();  
+      $user->forceDelete();
+
+        return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
+    }
+// 
     public function division_get()
     {
         $division = Division::onlyTrashed();
@@ -274,17 +347,13 @@ class TrashController extends Controller
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
                  $division = Division::onlyTrashed()->where('id', $value)->first();
-                  $division->images->restore();
-                  $division->members->restore();
-                  $division->members->alumni->restore();  
+                  
                   $division->restore();  
             }
             return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
         }
       $division = Division::onlyTrashed()->where('id', $request->value)->first();
-      $division->images->restore();
-      $division->members->restore();
-      $division->members->alumni->restore();  
+     
       $division->restore();  
         return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
     }
@@ -296,8 +365,10 @@ class TrashController extends Controller
         if (is_array($request->value)) {
             foreach ($request->value as $value) {
                $division = Division::onlyTrashed()->where('id', $value)->first();
-               \Storage::delete($division->image);
-                
+                \Storage::delete($division->image);
+
+               $division->images()->forceDelete();
+               $division->members()->forceDelete();
                $division->forceDelete();
             }
             return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
@@ -305,7 +376,13 @@ class TrashController extends Controller
       
       $division = Division::onlyTrashed()->where('id', $request->value)->first();
       \Storage::delete($division->image);
-    
+      
+       foreach ($division->images as $data) {
+            \Storage::delete($data->image);
+         }
+
+      $division->images()->forceDelete();
+      $division->members()->forceDelete();
       $division->forceDelete();
 
         return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
@@ -493,6 +570,7 @@ class TrashController extends Controller
             foreach ($request->value as $value) {
                $member = Member::onlyTrashed()->where('id', $value)->first();
                 \Storage::delete($member->image);
+                // $member->alumni()->forceDelete();
                $member->forceDelete();
             }
             return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
@@ -500,6 +578,7 @@ class TrashController extends Controller
       
       $member = Member::onlyTrashed()->where('id', $request->value)->first();
       \Storage::delete($member->image);
+      // $member->alumni()->forceDelete();
       $member->forceDelete();
         return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
     }
@@ -556,6 +635,7 @@ class TrashController extends Controller
             foreach ($request->value as $value) {
                $gallery = Gallery::onlyTrashed()->where('id', $value)->first();
                 \Storage::delete($gallery->image);
+                $gallery->images()->forceDelete();
                $gallery->forceDelete();
             }
             return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
@@ -563,6 +643,7 @@ class TrashController extends Controller
       
       $gallery = Gallery::onlyTrashed()->where('id', $request->value)->first();
       \Storage::delete($gallery->image);
+      $gallery->images()->forceDelete();
       $gallery->forceDelete();
         return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
     }

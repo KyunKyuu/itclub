@@ -80,7 +80,7 @@ a {
 .mentor {
   background-image: url(../img/background_mentor.jpg);
   background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: round;
 }
 
 .bg-prestasi {
@@ -130,6 +130,7 @@ a {
 
 .icon {
   width: 42px;
+  height: 42px;
 }
 
 .footer-body {
@@ -243,8 +244,10 @@ a {
 }
 
 .body-divisi {
-  background-image: url("../img/background_divisi.jpg");
-  background-size: contain;
+  background-image: url(../img/background_divisi.jpg);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  margin-bottom: 100px;
 }
 
 .kegiatan img {
@@ -283,14 +286,47 @@ p .tanggal {
   color: #04185e;
 }
 
-.hero-mini{
+.hero-mini {
   display: none;
 }
 
-.navbar-dark .navbar-toggler{
+.navbar-dark .navbar-toggler {
   background: white;
   color: gray;
   border-color: gray;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 60%;
+  margin-left: 1rem;
+}
+.footer-body.footer-body-v2 {
+  background: white;
+}
+
+.carousel-item img {
+  max-width: 321px;
+  max-height: 311px;
+}
+.berita img {
+  max-width: 353px;
+  max-height: 239.5px;
+}
+.berita-kegiatan img {
+  max-width: 372px;
+  max-height: 256px;
+}
+.galery-item img {
+  max-width: 353px;
+  max-height: 256px;
+}
+
+.materi img {
+  max-width: 170px;
+  max-height: 150px;
+  /* max-width: 100%;
+  max-height: 100%; */
 }
 
 .judul-1[data-scroll="in"],
@@ -453,5 +489,38 @@ p .tanggal {
   }
   100% {
     transform: scale(1, 1);
+  }
+}
+
+@media (min-width: 728px) {
+  .w-md-50 {
+    width: 50% !important;
+  }
+}
+
+.carousel-fade .carousel-item {
+  opacity: 0;
+  transition-property: opacity;
+  transform: none;
+}
+
+.carousel-fade .carousel-item.active,
+.carousel-fade .carousel-item-next.carousel-item-left,
+.carousel-fade .carousel-item-prev.carousel-item-right {
+  z-index: 1;
+  opacity: 1;
+}
+
+.carousel-fade .active.carousel-item-left,
+.carousel-fade .active.carousel-item-right {
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0s 0.6s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-fade .active.carousel-item-left,
+  .carousel-fade .active.carousel-item-right {
+    transition: none;
   }
 }
