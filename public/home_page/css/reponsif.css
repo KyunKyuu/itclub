@@ -83,10 +83,38 @@
     border-radius: 5px;
     border: 0px;
   }
-
+  /* rian commit */
+  .nama-anggota {
+    font-size: 18px;
+  }
   .img-elearning {
     width: 100%;
   }
+  .anggota-11 .card {
+    height: 310px;
+  }
+  .anggota-11 .card-head h4 {
+    font-size: 19px;
+  }
+  .carousel-item img {
+    max-width: 213px;
+    max-height: 207px;
+    min-width: 213px;
+    min-height: 207px;
+  }
+  .berita img {
+    max-width: 213px;
+    max-height: 144.5px;
+    min-width: 213px;
+    min-height: 144.5px;
+  }
+  .galery-item img {
+    max-width: 201px;
+    max-height: 145px;
+    min-width: 201px;
+    min-height: 145px;
+  }
+  /* end of rian commit */
 }
 
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
@@ -151,6 +179,66 @@
   .bg-prestasi {
     height: 106rem;
   }
+  /* rian commit */
+  .nama-anggota {
+    font-size: 18px;
+  }
+  .anggota-11 .card {
+    height: 310px;
+  }
+  .anggota-11 .card-head h4 {
+    font-size: 19px;
+  }
+  .berita img {
+    max-width: 213px;
+    max-height: 144.5px;
+    min-width: 213px;
+    min-height: 144.5px;
+  }
+  .galery-item img {
+    max-width: 201px;
+    max-height: 145px;
+    min-width: 201px;
+    min-height: 145px;
+  }
+  /* end of rian commit */
+
+  .item-1 {
+    position: absolute;
+    margin-left: -39%;
+  }
+
+  .item-2 {
+    position: absolute;
+    margin-left: -9%;
+  }
+
+  .item-3 {
+    position: absolute;
+    margin-left: 20%;
+  }
+
+  .img-tentang {
+    width: 100%;
+    height: 69%;
+    margin-top: 20%;
+  }
+
+  .judul-tentang b {
+    font-size: 25px;
+  }
+
+  .judul-tentang img {
+    width: 28px;
+  }
+
+  .footer-body-elearning {
+    margin-top: 200px;
+  }
+
+  .deskripsi-tentang {
+    margin-bottom: 30px;
+  }
 }
 
 /* 
@@ -192,9 +280,7 @@
   .contact-index .pr-5 {
     padding: 0% !important;
   }
-  .anggota-11 .card-body h5 {
-    font-size: 16px;
-  }
+
   .navbar-white .navbar-toggler {
     color: #004b8f !important;
     border-color: #004b8f;
@@ -245,15 +331,7 @@
   .pagination {
     margin-top: 1rem;
   }
-  .berita-kegiatan.p-5 {
-    padding: 1rem !important;
-  }
-  .berita-kegiatan .col-md-7 {
-    padding: 1.5rem;
-  }
-  .galery-kegiatan.p-5 {
-    padding: 1.5rem !important;
-  }
+
   .navbar-meta .navbar-dark .navbar-nav {
     background: transparent !important;
     padding: 0rem;
@@ -274,8 +352,41 @@
   }
 
   .img-tentang {
-    width: 277px !important;
+    width: 280px;
+    margin-left: 3%;
   }
+
+  .judul-tentang {
+    position: absolute;
+    margin-top: -452px;
+  }
+
+  .judul-tentang h2 {
+    margin-bottom: 0px;
+  }
+
+  .judul-tentang b {
+    font-size: 20px;
+  }
+
+  .judul-tentang img {
+    width: 23px;
+  }
+
+  .deskripsi-tentang {
+    margin-top: 20px;
+  }
+
+  .divisi-tentang {
+    display: block;
+    margin-top: 20px;
+  }
+
+  .divisi-item img {
+    width: 120px;
+    height: 119px;
+  }
+
   .contact-text.pr-3 {
     padding: 1rem !important;
   }
@@ -313,6 +424,126 @@
   .carousel .d-flex {
     float: none !important;
   }
+
+  .icon-titik-berita-kegiatan {
+    margin-left: 10px;
+    margin-top: -5px;
+    width: 20px;
+  }
+
+  .judul-berita {
+    font-size: 18px;
+  }
+
+  .tanggal-berita {
+    font-size: 12px;
+  }
+
+  .breadcumb-berita-kegiatan {
+    font-size: 14px;
+  }
+
+  .description {
+    font-size: 13px;
+  }
+
+  .judul-kegiatan-terbaru {
+    font-size: 17px;
+  }
+
+  .sub-judul-kegiatan-terbaru {
+    font-size: 14px;
+  }
+
+  .kegiatan-item-2 {
+    font-size: 13px;
+  }
+
+  .body-berita-kegiatan {
+    background-image: url(../img/bg_hijau2.png);
+    background-repeat: no-repeat;
+    background-size: 55rem;
+  }
+
+  /* rian commit */
+
+  .berita-kegiatan.p-5 {
+    padding: 1rem !important;
+  }
+  .berita-kegiatan .col-md-7 {
+    padding: 1.5rem;
+  }
+  .berita-kegiatan {
+    background-repeat: no-repeat;
+    background-size: 55rem;
+  }
+  .berita-kegiatan h2 {
+    text-align: center;
+  }
+  .breadcrumb-galery {
+    margin-bottom: -1.5rem;
+    margin-top: 1rem;
+  }
+  .galery-kegiatan.p-5 {
+    padding-top: 1.5rem !important;
+    padding-left: 0rem !important;
+    padding-right: 0rem !important;
+    padding-bottom: 3rem !important;
+  }
+  .galery-kegiatan {
+    background-repeat: no-repeat;
+    background-size: 55rem;
+  }
+  .galery-kegiatan h1 {
+    text-align: center;
+  }
+  .anggota-11 .card .card-body {
+    padding: 0rem;
+  }
+  span img {
+    width: 10%;
+  }
+  .anggota-11 .card-body h5 {
+    font-size: 15px;
+  }
+  .anggota-11 .card-head h4 {
+    font-size: 14px;
+  }
+  .anggota-11 .card {
+    height: 245px;
+  }
+  .galery-item img {
+    max-width: 353px;
+    max-height: 225px;
+    min-width: auto;
+    min-height: auto;
+  }
+  .berita-kegiatan .container {
+    padding-left: 0.2rem;
+  }
+  .berita img {
+    max-width: 305px;
+    max-height: 206.5px;
+    min-width: auto;
+    min-height: auto;
+  }
+  .alumni.p-5 {
+    padding-top: 3rem !important;
+    padding-left: 0rem !important;
+    padding-right: 0rem !important;
+    padding-bottom: 3rem !important;
+  }
+  .alumni .row.mt-3 {
+    margin-top: -0.75rem !important;
+  }
+
+  .alumni {
+    background-image: url(../img/bg_hijau2.png);
+    background-size: 55rem;
+    background-repeat: no-repeat;
+  }
+
+  /* end of rian commit */
 
   .judul {
     text-align: center;
@@ -362,15 +593,74 @@
     padding-bottom: 40px;
   }
 
-  .materi img {
-    max-width: 100px;
-    max-height: 60px;
+  .item-owl img {
+    max-width: 100px !important;
+    max-height: 72px !important;
+    min-width: 100px !important;
+    min-height: 72px !important;
   }
-}
 
-@media (min-width: 308px) and (max-width: 480px) {
-  .img-tentang {
-    width: 277px !important;
+  .item-1 {
+    margin-bottom: 20px;
+  }
+
+  .item-2 {
+    margin-bottom: 20px;
+  }
+
+  .img-webinar {
+    max-width: 276px;
+    max-height: 187px;
+    object-fit: cover;
+  }
+
+  /* rian commit */
+  .galery-item img {
+    max-width: 19.5rem;
+    max-height: 235px;
+    min-width: auto;
+    min-height: auto;
+  }
+  .owl-item img {
+    max-width: 19rem;
+    max-height: 285px;
+    min-width: auto;
+    min-height: auto;
+    border-top-left-radius: 11px;
+    border-top-right-radius: 11px;
+  }
+  .bg-prestasi {
+    height: 43.5rem;
+  }
+  .owl-nav {
+    width: fit-content;
+    margin: auto;
+  }
+  .customPrevBtn,
+  .customNextBtn {
+    font-size: 20px;
+    padding: 1rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+  .hero {
+    background-image: url(../img/background_prestasi.jpg);
+    height: 108vh;
+  }
+  .berita img {
+    max-width: 19.4rem;
+    max-height: 206.5px;
+    min-width: auto;
+    min-height: auto;
+    margin-top: 1rem;
+  }
+  /* end of rian commit */
+
+  .kegiatan img {
+    max-width: 122px;
+    max-height: 91px;
+    min-width: 122px;
+    min-height: 91px;
   }
 }
 
