@@ -36,6 +36,7 @@ $(document).ready(function () {
                 contentType:false,
                 processData:false,
                 success:res=>{
+                    table('table')
                     SweetAlert(res);
                     $('#userGuidesModal').modal('hide')
                 },
@@ -108,9 +109,6 @@ $(document).ready(function () {
 
     $('#table').on('click', '#delete', function(e) {
         e.preventDefault();
-        let data = [
-            {id : $(this).data('value')}
-        ]
         SweetQuestions({
             title : 'Apakah anda yakin?',
             subtitle : 'Apakah anda ingin menghapus user guides ini?',
@@ -127,7 +125,7 @@ $(document).ready(function () {
                 headers:{
                     'X-CSRF-TOKEN':csrftoken
                 },
-                data:data,
+                data:{id : $(this).data('value')},
                 success:res=>{
                     RefreshTable('table')
                     SweetAlert(res);

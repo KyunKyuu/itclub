@@ -38,6 +38,12 @@ class UserGuideController extends Controller
                 }
                 return $check;
             })
+            ->addColumn('th', function ($data) {
+                return '<i class="fas fa-th"></i>';
+            })
+            ->addColumn('onlySee', function ($data) {
+                return '<a href="/members/userguides/dataguides?uid=' . $data->id . '&slug=' . $data->title . '" class="btn btn-icon btn-sm btn-primary" data-value="' . $data->id . '" id="listGuide"><i class="fas fa-eye"></i></a>';
+            })
             ->addColumn('action', function ($data) {
                 $action = '<a href="#" class="btn btn-icon btn-sm btn-primary" data-value="' . $data->id . '" id="listGuide"><i class="fas fa-eye"></i></a>';
                 if ($data->created_by == auth()->user()->id) {
@@ -50,7 +56,10 @@ class UserGuideController extends Controller
             ->editColumn('created_by', function ($data) {
                 return $data->user->name;
             })
-            ->rawColumns(['check', 'action'])
+            ->editColumn('created_at', function ($data) {
+                return date('d M Y H:i', strtotime($data->created_at));
+            })
+            ->rawColumns(['check', 'action', 'th', 'onlySee'])
             ->make(true);
     }
 
