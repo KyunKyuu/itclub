@@ -49,7 +49,7 @@ use App\Models\Division;
                         <li class="nav-item mx-2 dropdown">
                                 <a class="nav-link text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span><i class="fas fa-user mr-2 active"></i></span>{{auth()->user()->name}}</a>
                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{{route('dashboard')}}">Dashboard</a>
+                                <a class="dropdown-item" href="{{route('dashboard_user')}}">Dashboard</a>
                                 <a class="dropdown-item" href="/api/v1/auth/logout">Logout</a>
                                
                             </div> 

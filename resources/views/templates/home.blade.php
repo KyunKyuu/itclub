@@ -2,4 +2,4 @@
 
 @yield('main')
 
-@include('include.home.footer')
+@yield('footer')

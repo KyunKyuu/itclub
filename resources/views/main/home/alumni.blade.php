@@ -19,3 +19,7 @@
            {{$alumnies->links()}}
           </section>
 @endsection
+
+@section('footer')
+@include('include.home.footer_hijau')
+@endsection

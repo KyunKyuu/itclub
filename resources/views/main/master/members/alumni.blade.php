@@ -145,7 +145,7 @@
                           
                     </div>
                           <div class="invalid-feedback">
-                            What's image division?
+                            What's image alumni?
                       </div>    
                         </div>
 

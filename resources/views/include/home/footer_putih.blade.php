@@ -1,10 +1,10 @@
   <!-- footer -->
-      <div class="footer-body p-md-5">
+      <div class="footer-body-elearning p-md-5 p-2">
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-6 judul-1">
                     <h5><b>Tentang</b></h5>
-                    <a href="berita.html" class="text-decoration-none d-block my-1 mt-2">Prestasi</a>
+                    <a href="{{route('article')}}" class="text-decoration-none d-block my-1 mt-2">Prestasi</a>
                     <a href="{{route('article')}}" class="text-decoration-none d-block my-1">Berita kegiatan</a>
                     <a href="{{route('tentang')}}" class="text-decoration-none d-block my-1">Tentang It Club</a>
                     <a href="{{route('tentang')}}" class="text-decoration-none d-block my-1">Divisi</a>
@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-    <div class="footer text-center p-3"><p class="mb-0">2021 Copyright IT CLUB • All rights reserved • Made in Bandung</p></div>
+    <div class="footer-elearning text-center p-3"><p class="mb-0">2021 Copyright IT CLUB • All rights reserved • Made in Bandung</p></div>
 
 @include('assets.home.js')
 

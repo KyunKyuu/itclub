@@ -19,3 +19,7 @@
                 </div>
             </div>
 @endsection
+
+@section('footer')
+@include('include.home.footer_putih')
+@endsection
