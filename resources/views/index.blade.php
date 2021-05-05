@@ -1,5 +1,7 @@
 @extends('templates.home')
+@section('navbar')
 @include('include.home.navbar_putih')
+@endsection
 @section('main')
 
       <div class="hero">

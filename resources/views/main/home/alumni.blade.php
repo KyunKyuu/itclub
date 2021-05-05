@@ -1,5 +1,9 @@
 @extends('templates.home')
+
+@section('navbar')
 @include('include.home.navbar_biru')
+@endsection
+
 @section('main')
 
   <section class="body-alumni">
@@ -15,8 +19,10 @@
                     </div>
                 </div>
             </div>
-   
-           {{$alumnies->links()}}
+        
+                  <div style="text-align: center;">
+                          {{$alumnies->links()}}
+                  </div>
           </section>
 @endsection
 

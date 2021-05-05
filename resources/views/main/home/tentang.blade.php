@@ -1,5 +1,7 @@
  @extends('templates.home')
+@section('navbar')
 @include('include.home.navbar_biru')
+@endsection
 @section('main')
 
 <div class="container">
