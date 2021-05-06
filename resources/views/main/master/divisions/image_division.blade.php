@@ -7,6 +7,9 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Data Image Learning Division</h4>
+                    <div class="ml-auto">
+                      <a href="#" class="btn btn-danger rounded" id="deleteArray"><i class="far fa-trash-alt"></i>Hapus</a>
+                    </div>
               </div>
               <div class="card-body p-3">
                 <div class="table-responsive">

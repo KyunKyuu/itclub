@@ -67,7 +67,7 @@ Route::get('/member/{class:class}', [HomeController::class, 'member'])->name('me
 Route::get('/alumni', [HomeController::class, 'alumni'])->name('alumni');
 Route::get('/article', [HomeController::class, 'article'])->name('article');
 Route::get('/article/{slug:slug}', [HomeController::class, 'article_detail'])->name('article_detail');
-
+Route::get('/eLearning', [HomeController::class, 'eLearning'])->name('eLearning');
 
 Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
 Route::get('/auth/register', [AuthController::class, 'register']);

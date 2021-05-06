@@ -93,6 +93,10 @@ a {
   position: relative;
 }
 
+.img-tentang {
+  width: 76%;
+}
+
 .text-prestasi .card {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -139,16 +143,12 @@ a {
 }
 
 .footer-body-elearning {
-  background-color: #f4f8fc;
+  background-color: #ffff;
   border: 1px solid #20c3c5;
 }
 
 .footer {
   background-color: #f4f8fc;
-}
-
-.footer-body-elearning {
-  background-color: #ffff;
 }
 
 .footer-elearning {
@@ -222,11 +222,24 @@ a {
   background-color: #f4f8fc;
 }
 
+.alumni {
+  background-image: url(../img/bg_hijau2.png);
+  background-size: 70rem;
+  background-repeat: no-repeat;
+}
+
 .body-alumni {
   background-color: #f4f8fc;
 }
 
 .body-berita {
+  background-color: #f4f8fc;
+}
+
+.body-berita-kegiatan {
+  background-image: url(../img/bg_hijau2.png);
+  background-size: 70rem;
+  background-repeat: no-repeat;
   background-color: #f4f8fc;
 }
 
@@ -239,20 +252,21 @@ a {
   background-color: #f4f8fc;
 }
 
-.galery-item img {
+/* .galery-item img {
   width: 100%;
-}
+} */
 
 .body-divisi {
   background-image: url(../img/background_divisi.jpg);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  margin-bottom: 100px;
 }
 
 .kegiatan img {
-  width: 122px;
-  height: 91px;
+  max-width: 122px;
+  max-height: 91px;
+  min-width: 122px;
+  min-height: 91px;
 }
 
 .kegiatan {
@@ -305,13 +319,48 @@ p .tanggal {
   background: white;
 }
 
-.carousel-item img {
-  max-width: 321px;
-  max-height: 311px;
+.img-webinar {
+  max-width: 709px;
+  max-height: 480px;
+  object-fit: cover;
 }
+
+.kegiatan img {
+  max-width: 122px;
+  max-height: 91px;
+  object-fit: cover;
+}
+
+.item-owl img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  /* max-width: 100%;
+  max-height: 100%; */
+}
+
+.owl-programming img {
+  display: block;
+  max-height: 111px !important;
+  height: 111px;
+  object-fit: contain;
+}
+
+.owl-multimedia img {
+  display: block;
+  max-height: 90px !important;
+  height: 90px;
+  object-fit: contain;
+}
+
+/* rian commit */
+
 .berita img {
   max-width: 353px;
   max-height: 239.5px;
+  min-width: 353px;
+  min-height: 239.5px;
 }
 .berita-kegiatan img {
   max-width: 372px;
@@ -320,20 +369,87 @@ p .tanggal {
 .galery-item img {
   max-width: 353px;
   max-height: 256px;
+  min-width: 353px;
+  min-height: 256px;
+}
+.breadcrumb {
+  padding-left: 0rem;
+}
+.berita-kegiatan {
+  background-image: url(../img/berita.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.galery-kegiatan {
+  background-image: url(../img/berita.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.fw-bold {
+  font-weight: bold;
+}
+.fw-normal {
+  font-weight: normal;
+}
+.anggota-11 .card .card-body {
+  padding: 1rem 0rem;
+}
+.carousel-item img {
+  max-width: 321px;
+  max-height: 311px;
+  min-width: 321px;
+  min-height: 311px;
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
 }
 
-.materi img {
-  max-width: 170px;
-  max-height: 150px;
-  /* max-width: 100%;
-  max-height: 100%; */
+.icon-titik-berita-kegiatan {
+  margin-left: 15px;
+  margin-top: -10px;
 }
+
+.breadcumb-berita-kegiatan {
+  font-size: 18px;
+}
+
+.breadcrumb {
+  padding-left: 0rem;
+  font-size: 18px;
+}
+.owl-item img {
+  max-width: 321px;
+  max-height: 311px;
+  min-width: 321px;
+  min-height: 311px;
+  border-top-left-radius: 11px;
+  border-top-right-radius: 11px;
+}
+.owl-nav {
+  width: fit-content;
+  margin-left: auto;
+}
+.customPrevBtn,
+.customNextBtn {
+  font-size: 20px;
+  padding: 1rem;
+}
+
+/* end of rian commit */
 
 .judul-1[data-scroll="in"],
 .judul-2[data-scroll="in"] {
   opacity: 1;
   transition: 1s;
   transform: translateX(0px);
+}
+
+.divisi-item a {
+  font-size: 14px;
+}
+
+.item-1,
+.item-2 {
+  margin-right: 30px;
 }
 
 .judul-1[data-scroll="out"],

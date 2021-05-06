@@ -1,5 +1,7 @@
 @extends('templates.home')
+@section('navbar')
 @include('include.home.navbar_putih')
+@endsection
 @section('main')
 
       <div class="hero">
@@ -66,19 +68,30 @@
                 <h2 class="text-white slide">Prestasi IT Club</h2>
                 <p class="text-white mb-0 slide">Berikut adalah prestasi yang <br> di peroleh IT Club</p>
                 <hr class="orange mx-auto mt-1">
-                <div class="row mt-5 pt-3">
-                    @foreach($prestations as $prestation)
-                    <div class="col-md-4 down-delay-1 my-2">
-                        <img src="{{$prestation->image()}}" class="w-100">
-                        <div class="card">
-                            <div class="card-body text-left">
-                                <h5><b>{{$prestation->name}}</b></h5>
-                                <p style="word-wrap: break-word;">{!! \Str::limit($prestation->content, 108, '..') !!}</p>
+
+                <div class="owl-carousel owl-theme owl-loaded">
+                    <div class="owl-nav">
+                        <div class="customPrevBtn btn text-white bg-transparent"><i class="fas fa-chevron-left"></i></div>
+                        <div class="customNextBtn btn text-white bg-transparent"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage">
+                             @foreach($prestations as $prestation)
+                            <div class="owl-item px-2 m-auto">
+                              <img  src="{{$prestation->image()}}" class="w-100">
+                                 <div class="card">
+                                     <div class="card-body text-left">
+                                         <h5><b><a href="#" class="text-decoration-none">{{$prestation->name}}</a></b></h5>
+                                         <p style="word-wrap: break-word;">{!! \Str::limit($prestation->content, 108, '..') !!}</p>
+                                     </div>
+                                 </div>
                             </div>
+                            @endforeach
+  
                         </div>
                     </div>
-                    @endforeach
                 </div>
+                
             </div>
           </div>
       </div>
@@ -88,7 +101,7 @@
             <h2 class="slide"><b>Divisi IT Club</b></h2>
             <hr class="orange mt-2 mx-auto">
             <div class="row mt-5">
-                @foreach($divisions as $division)
+               @foreach($divisions as $division)
                 <div class="col-md-4 zoomin my-2">
                     <img src="{{$division->image()}}" alt="Logo Divisi" class="w-50 mb-2">
                     <h4 class="mb-1">{{$division->name}}</h4>
@@ -103,20 +116,21 @@
           <div class="container pt-3 text-center">
               <h2 class="slide"><b>Berita Kegiatan</b></h2>
               <hr class="orange mt-2 mx-auto">
-              <div class="row text-left mt-5">
-                  @foreach($articlies as $article)
+              <div class="row text-left mt-md-5">
+              @foreach($articlies as $article)
                   <div class="col-md-4 down">
                       <img src="{{$article->thumbnail()}}" alt="Webinar" class="w-100">
                       <div class="card">
                           <div class="card-body">
                             <h5 class="mb-1"><b>{{$article->title}}</b></h5>
                             <p class="tanggal mb-3">{{$article->created_at}}</p>
-                            <p style="word-wrap: break-word;">{!! \Str::limit($article->content, 160, '..') !!}</p>
-                            <a href="{{route('article_detail',$article->slug)}}" class="btn btn-shadow">Lihat Selengkapnya</a>
+                           <p style="word-wrap: break-word;">{!! \Str::limit($article->content, 160, '..') !!}</p>
+                             <a href="{{route('article_detail',$article->slug)}}" class="btn btn-shadow">Lihat Selengkapnya</a>
                           </div>
                       </div>
                   </div>
                  @endforeach
+              
               </div>
               <h4 class="mt-4 down"><a href="{{route('article')}}" class="active">Read More...</a></h4>
           </div>
@@ -158,4 +172,8 @@
       </div>
 
      
+@endsection
+
+@section('footer')
+@include('include.home.footer_hijau')
 @endsection

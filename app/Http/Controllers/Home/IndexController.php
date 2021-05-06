@@ -11,11 +11,11 @@ class IndexController extends Controller
 {
     public function home()
     {
-        $prestations = Prestation::latest()->take(3)->get();
+        $prestations = Prestation::latest()->get();
         $divisions = Division::get();
         $articlies = Article::where('status', '200')->latest()->take(3)->get();
 
-        return view('main/home/index', compact('prestations', 'divisions', 'articlies'));
+        return view('index', compact('prestations', 'divisions', 'articlies'));
     }
 
     public function tentang()
@@ -47,7 +47,7 @@ class IndexController extends Controller
     public function member($class)
     {
 
-        $members = Member::where('class', $class)->paginate(12);
+        $members = Member::where('class', $class)->get();
         return view('main/home/member', compact('members', 'class'));
     }
 
@@ -68,5 +68,10 @@ class IndexController extends Controller
         $article = Article::where('slug', $slug)->first();
         $articlies = Article::where('status', '200')->latest()->take(3)->get();
         return view('main/home/article_detail', compact('article', 'articlies'));
+    }
+
+    public function eLearning()
+    {
+        return view('main/home/eLearning');
     }
 }
