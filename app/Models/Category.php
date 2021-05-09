@@ -24,10 +24,6 @@ class Category extends Model
         return $this->belongsToMany(Blog::class)->withPivot('category_id', 'blog_id');
     }
 
-    public function galleries()
-    {
-        return $this->hasMany(Gallery::class);
-    }
 
     public function created_by()
     {

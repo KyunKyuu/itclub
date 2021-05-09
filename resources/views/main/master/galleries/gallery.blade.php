@@ -24,7 +24,7 @@
                                 </div>
                             </th>
                             <th>Name</th>
-                            <th>Category</th>
+                         
                             <th>Image</th>
                             <th>Created At</th>
                             <th>Updated At</th>
@@ -68,20 +68,6 @@
                         </div>
                       </div>
                       
-                      <div class="form-group row">
-                        <div class="form-group col-12">
-                        <label>Category</label>
-                          <select required name="category_id" class="form-control">
-                              <option selected disabled>== Pilih Category ==</option>
-                              @foreach ($category as $data)
-                                <option value="{{$data->id}}">{{$data->name}}</option>
-                              @endforeach
-                          </select>
-                          <div class="invalid-feedback">
-                            What's Gallery name?
-                          </div>
-                        </div>
-                      </div>
 
                          <div class="form-group row">
                           <div class="form-group col-md-6 col-12">
@@ -141,20 +127,6 @@
                         </div>
                       </div>
                       
-                      <div class="form-group row">
-                        <div class="form-group col-12">
-                        <label>Category</label>
-                          <select required name="category_id" class="form-control">
-                              <option selected disabled>== Pilih Category ==</option>
-                              @foreach ($category as $data)
-                                <option value="{{$data->id}}">{{$data->name}}</option>
-                              @endforeach
-                          </select>
-                          <div class="invalid-feedback">
-                            What's Gallery name?
-                          </div>
-                        </div>
-                      </div>
 
                           <div class="form-group row">
                           <div class="form-group col-md-6 col-12">

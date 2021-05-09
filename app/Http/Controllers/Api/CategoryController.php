@@ -125,7 +125,6 @@ class CategoryController extends Controller
             foreach ($request->value as $value) {
                 $category = Category::find($value);
                 $category->blogs()->detach();
-                $category->galleries()->delete();
                 $category->delete();
             }
             activity('menghapus data category');
@@ -141,7 +140,6 @@ class CategoryController extends Controller
             ],404);
         }
         $category->blogs()->detach();
-        $category->galleries()->delete();
         $category->delete();
 
         activity('menghapus data category');

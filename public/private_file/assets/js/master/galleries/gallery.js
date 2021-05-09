@@ -2,7 +2,6 @@ $(document).ready(function() {
     const data = [
         {data:'check', name:'check', orderable:false, searchable:false},
         {data:'name', name:'name'},
-        {data:'category_id', name:'category_id'},
         {data:'imageGallery', name:'imageGallery'},
         {data:'created_at', name:'created_at', searchable:false, orderable:false},
         {data:'updated_at', name:'updated_at', orderable:false},
@@ -64,7 +63,7 @@ $(document).ready(function() {
                 $('#updateGallery input[name="name"]').val(res.data.name);
                 $('#updateGallery img').attr('src', '/storage/' +res.data.image);
                 $('#updateGallery input[name="name"]').data('id',res.data.id);
-                $('#updateGallery select[name="category_id"] option[value="'+res.data.category_id+'"]').attr('selected', true);
+               
                 $('#updateGallery textarea[name="content"]').val(res.data.content);
             },
             error:err=>console.log(err)

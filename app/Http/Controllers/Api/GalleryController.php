@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Category,Gallery};
+use App\Models\Gallery;
 use App\Http\Requests\GalleryRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -37,16 +37,14 @@ class GalleryController extends Controller
            ->addColumn('imageGallery', function ($gallery) {   
                 return '<img src="'.$gallery->image().'" width="50">';
             })
-           ->editColumn('category_id', function ($gallery) {
-                return $gallery->category->name;
-            })
-            ->rawColumns(['check', 'btn','imageGallery','category_id'])
+           
+            ->rawColumns(['check', 'btn','imageGallery'])
             ->make(true);
     }
 
     public function show($id)
     {
-        $gallery = Gallery::with('images','category','created_by')->find($id);
+        $gallery = Gallery::with('images','created_by')->find($id);
         if(!$gallery)
         {
             return response()->json([
@@ -72,21 +70,12 @@ class GalleryController extends Controller
     public function store(GalleryRequest $request)
     {
          
-        $categoryId = Category::where('id', $request->category_id)->exists();
-        if(!$categoryId)
-        {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'category not found'
-            ],404);
-        }
 
         $slug = Str::slug(request('name'));
         
         $gallery = Gallery::create([
             'name' => $request->name,
             'content' => $request->content,
-            'category_id' => $request->category_id,
             'image' =>  $request->file('image')->store('images/gallery'),
             'slug' => $slug,
             'created_by' => auth()->user()->id
@@ -128,14 +117,6 @@ class GalleryController extends Controller
             ],404);
         }
 
-        $categoryId = Category::where('id',$request->category_id)->exists();
-        if(!$categoryId)
-        {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'category not found'
-            ],404);
-        }
 
        $slug = Str::slug(request('name'));
 
@@ -150,7 +131,6 @@ class GalleryController extends Controller
 
         $gallery->update([
             'name' => $request->name,
-            'category_id' => $request->category_id,
             'content' => $request->content,
             'image' => $image,
             'slug' => $slug,

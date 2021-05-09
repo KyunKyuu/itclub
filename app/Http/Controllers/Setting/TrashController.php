@@ -68,4 +68,23 @@ class TrashController extends Controller
         return view('main.setting.category_trash');
     }
 
+    public function activity()
+    {
+        return view('main.setting.activity_trash');
+    }
+
+    public function schedule()
+    {
+        return view('main.setting.schedule_trash');
+    }
+
+    public function tests()
+    {
+        return view('main.setting.tests_trash');
+    }
+
+    public function score()
+    {
+        return view('main.setting.score_trash');
+    }
 }

@@ -15,7 +15,6 @@ class CreateGalleriesTable extends Migration
     {
         Schema::create('galleries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id');
             $table->string('name');
             $table->longText('content');
             $table->string('image')->nullable();

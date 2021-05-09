@@ -40,7 +40,7 @@
                     
                   <div class="row">
                       <div class="form-group col-md col-12">
-                        <label>Gallery Name</label>
+                        <label>Category Name</label>
                          <input type="text" class="form-control" name="name" required="">
                           <div class="invalid-feedback">
                             What's Category name?

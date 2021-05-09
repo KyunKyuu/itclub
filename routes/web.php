@@ -115,6 +115,10 @@ Route::group(['prefix' => '/setting', 'middleware' => ['auth', 'access']], funct
     Route::get('/trash/gallery', [TrashController::class, 'gallery']);
     Route::get('/trash/imagegallery', [TrashController::class, 'imageGallery']);
     Route::get('/trash/category', [TrashController::class, 'category']);
+    Route::get('/trash/activity', [TrashController::class, 'activity']);
+    Route::get('/trash/schedule', [TrashController::class, 'schedule']);
+    Route::get('/trash/tests', [TrashController::class, 'tests']);
+    Route::get('/trash/score', [TrashController::class, 'score']);
 });
 
 Route::group(['prefix' => '/members', 'middleware' => 'auth'], function () {
@@ -372,6 +376,22 @@ Route::prefix('/api/v1')->group(function () {
             Route::get('category/get', [ApiTrashController::class, 'category_get']);
             Route::post('category/recovery', [ApiTrashController::class, 'category_recovery']);
             Route::delete('category/delete', [ApiTrashController::class, 'category_delete']);
+
+            Route::get('activity/get', [ApiTrashController::class, 'activity_get']);
+            Route::post('activity/recovery', [ApiTrashController::class, 'activity_recovery']);
+            Route::delete('activity/delete', [ApiTrashController::class, 'activity_delete']);
+
+            Route::get('schedule/get', [ApiTrashController::class, 'schedule_get']);
+            Route::post('schedule/recovery', [ApiTrashController::class, 'schedule_recovery']);
+            Route::delete('schedule/delete', [ApiTrashController::class, 'schedule_delete']);
+
+            Route::get('tests/get', [ApiTrashController::class, 'tests_get']);
+            Route::post('tests/recovery', [ApiTrashController::class, 'tests_recovery']);
+            Route::delete('tests/delete', [ApiTrashController::class, 'tests_delete']);
+
+            Route::get('score/get', [ApiTrashController::class, 'score_get']);
+            Route::post('score/recovery', [ApiTrashController::class, 'score_recovery']);
+            Route::delete('score/delete', [ApiTrashController::class, 'score_delete']);
         });
     });
 
