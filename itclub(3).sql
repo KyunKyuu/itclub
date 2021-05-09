@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 09 Bulan Mei 2021 pada 23.46
+-- Waktu pembuatan: 10 Bulan Mei 2021 pada 00.07
 -- Versi server: 8.0.23-0ubuntu0.20.04.1
 -- Versi PHP: 7.4.3
 
@@ -395,7 +395,8 @@ INSERT INTO `activities` (`id`, `user_id`, `url_access`, `description`, `browser
 (200, 1, '/api/v1/access/users/change/submenu', 'Menambah access submenu users', 'Mozilla Firefox', '1050921999', '2021-05-09 15:27:57', NULL),
 (201, 1, '/api/v1/member/precentages/test/insert', 'Menambah data test member', 'Mozilla Firefox', '105092117655', '2021-05-09 15:29:44', NULL),
 (202, 1, '/api/v1/member/precentages/score/insert', 'Menambah data score member', 'Mozilla Firefox', '105092147729', '2021-05-09 15:32:43', NULL),
-(203, 1, '/api/v1/category/insert', 'menambah data category', 'Mozilla Firefox', '105092113154', '2021-05-09 16:29:15', NULL);
+(203, 1, '/api/v1/category/insert', 'menambah data category', 'Mozilla Firefox', '105092113154', '2021-05-09 16:29:15', NULL),
+(204, 1, '/api/v1/member/insert/profile', 'memperbarui data profile', 'Mozilla Firefox', '105102134773', '2021-05-09 17:06:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -1184,19 +1185,26 @@ CREATE TABLE `users_profile` (
   `telepon` char(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `thumbnail` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bio` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `facebook_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `facebook_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `instagram_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `instagram_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `linkedin_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `linkedin_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `twitter_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `twitter_url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bio` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `facebook_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `facebook_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `instagram_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `instagram_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `linkedin_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `linkedin_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `twitter_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `twitter_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data untuk tabel `users_profile`
+--
+
+INSERT INTO `users_profile` (`id`, `user_id`, `first_name`, `last_name`, `telepon`, `status`, `thumbnail`, `bio`, `facebook_name`, `facebook_url`, `instagram_name`, `instagram_url`, `linkedin_name`, `linkedin_url`, `twitter_name`, `twitter_url`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 'test', '123', '07875', 'pelajar', 'admin-202105100006-0.png', '<p>test</p>', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-05-09 17:06:05', '2021-05-09 17:06:05');
 
 -- --------------------------------------------------------
 
@@ -1473,7 +1481,7 @@ ALTER TABLE `access_user_submenu`
 -- AUTO_INCREMENT untuk tabel `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=205;
 
 --
 -- AUTO_INCREMENT untuk tabel `alumnies`
@@ -1635,7 +1643,7 @@ ALTER TABLE `users_activation`
 -- AUTO_INCREMENT untuk tabel `users_profile`
 --
 ALTER TABLE `users_profile`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_guides`
