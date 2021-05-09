@@ -47,25 +47,25 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
-        $user = User::all()->where($fieldType, $request->username)->count();
-        if ($user > 0) {
+        $user = User::all()->where($fieldType, $request->username);
+        if ($user->count() > 0) {
             $verified = User::all()->where($fieldType, $request->username)->where('email_verified_at', '!=', null);
             if ($verified->count() > 0) {
                 $active = User::all()->where($fieldType, $request->username)->where('status', 1);
                 if ($active->count() > 0) {
                     if (Auth::attempt([$fieldType => $request->username, 'password' => $request->password])) {
-                        return response()->json(['message' => 'Login berhasil', 'status' => 'success']);
+                        return response()->json(['message' => 'Login berhasil', 'status' => 'success', 'username' => $user[0]->name], 200);
                     } else {
-                        return response()->json(['message' => 'Login gagal, Username atau Password Salah!', 'status' => 'error']);
+                        return response()->json(['message' => 'Login gagal, Username atau Password Salah!', 'status' => 'error'], 500);
                     }
                 } else {
-                    return response()->json(['message' => 'Login gagal, Username belum aktif, atau hubungi admin!', 'status' => 'error']);
+                    return response()->json(['message' => 'Login gagal, Username belum aktif, atau hubungi admin!', 'status' => 'error'], 500);
                 }
             } else {
-                return response()->json(['message' => 'Login gagal, Username belum melakukan aktivasi email, mohon lakukan aktivasi terlebih dahulu atau hubungi admin!', 'status' => 'error']);
+                return response()->json(['message' => 'Login gagal, Username belum melakukan aktivasi email, mohon lakukan aktivasi terlebih dahulu atau hubungi admin!', 'status' => 'error'], 500);
             }
         } else {
-            return response()->json(['message' => 'Login gagal, Username/email belum terdaftar!', 'status' => 'error']);
+            return response()->json(['message' => 'Login gagal, Username/email belum terdaftar!', 'status' => 'error'], 404);
         }
     }
 

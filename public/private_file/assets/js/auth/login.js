@@ -20,7 +20,7 @@ $(document).ready(function() {
             success:res=>{
                 let color = ''
                 if (res.status == 'success') {
-                    window.location.href = `/members/${$('#username').val()}/profile`;
+                    window.location.href = `/members/${res.username}/profile`;
                 }else{
                     $('#message').html(` <div class="alert alert-danger alert-dismissible show fade"><div class="alert-body"><button class="close" data-dismiss="alert"><span>×</span></button>${res.message}.</div></div>`)
                 }

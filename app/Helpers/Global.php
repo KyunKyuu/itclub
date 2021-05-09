@@ -27,7 +27,7 @@ function Section()
 function Menu($id)
 {
     $data = DB::table('menu')
-        ->join('access_user_menu', 'menu.id', '=', 'menu_id',)
+        ->join('access_user_menu', 'menu.id', '=', 'menu_id')
         ->where('section_id', $id)
         ->where('user_id', auth()->user()->id)->where('status', 1)
         ->where('access_user_menu.deleted_at', null)
