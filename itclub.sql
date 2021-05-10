@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 10 Bulan Mei 2021 pada 12.00
+-- Waktu pembuatan: 10 Bulan Mei 2021 pada 19.33
 -- Versi server: 8.0.23-0ubuntu0.20.04.1
 -- Versi PHP: 7.4.3
 
@@ -1199,7 +1199,7 @@ INSERT INTO `submenu` (`id`, `menu_id`, `name`, `url`, `comments`, `status`, `cr
 (27, 16, 'Member', '/setting/trash/member', 'Submenu untuk menampung sampah data member', '1', 1, NULL, '2021-05-10 04:51:21', '2021-05-10 04:51:21'),
 (28, 16, 'Alumni', '/setting/trash/alumni', 'Submenu untuk menampung sampah data alumni', '1', 1, NULL, '2021-05-10 04:51:38', '2021-05-10 04:51:38'),
 (29, 16, 'Gallery', '/setting/trash/gallery', 'Submenu untuk menampung sampah data gallery', '1', 1, NULL, '2021-05-10 04:51:52', '2021-05-10 04:51:52'),
-(30, 16, 'Image Gallery', '/setting/trash/gallery', 'Submenu untuk menampung sampah data image gallery', '1', 1, NULL, '2021-05-10 04:52:01', '2021-05-10 04:52:01'),
+(30, 16, 'Image Gallery', '/setting/trash/imagegallery', 'Submenu untuk menampung sampah data image gallery', '1', 1, NULL, '2021-05-10 04:52:01', '2021-05-10 12:31:15'),
 (31, 16, 'Category', '/setting/trash/categoty', 'Submenu untuk menampung sampah data category', '1', 1, NULL, '2021-05-10 04:52:18', '2021-05-10 04:52:18'),
 (32, 16, 'Activity', '/setting/trash/activity', 'Submenu untuk menampung sampah data activity', '1', 1, NULL, '2021-05-10 04:52:37', '2021-05-10 04:52:37'),
 (33, 16, 'Schedule', '/setting/trash/schedule', 'Submenu untuk menampung sampah data schedule', '1', 1, NULL, '2021-05-10 04:52:57', '2021-05-10 04:52:57'),
