@@ -13,7 +13,11 @@ class TestList extends Model
 
     protected $table = 'list_test';
     protected $fillable = ['division_id', 'name', 'deskripsi', 'value', 'created_by', 'deleted_at'];
-    protected $dates = ['deleted_at'];
+     protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:m:s',
+        'updated_at' => 'datetime:Y-m-d H:m:s',
+        'deleted_at' => 'datetime:Y-m-d H:m:s'
+    ];
 
     public function division()
     {

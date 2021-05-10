@@ -64,6 +64,11 @@ class User extends Authenticatable
         return $this->hasMany(Blog::class);
     }
 
+     public function score()
+    {
+        return $this->hasMany(ScoreList::class);
+    }
+
     public function divisions()
     {
         return $this->hasMany(Division::class);

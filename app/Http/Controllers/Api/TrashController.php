@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\{
-    Section,Submenu,Menu,Prestation,User,Division,ImageDivision,Alumni,Gallery,ImageGallery,Category,Member
+    Section,Submenu,Menu,Prestation,User,Division,ImageDivision,Alumni,Gallery,ImageGallery,Category,Member,Activity,Schedule,TestList,ScoreList,
     };
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -767,6 +767,235 @@ class TrashController extends Controller
         }
       
      Category::onlyTrashed()->where('id', $request->value)->forceDelete();
+        return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
+    }
+
+    public function activity_get()
+    {
+
+        $activity = Activity::onlyTrashed();
+
+        return DataTables::of($activity)
+            ->addIndexColumn()
+            ->addColumn('check', function ($activity) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $activity->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $activity->id . '" >
+                    <label for="checkbox-' . $activity->id . '" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($activity) {
+                return '
+            <a href="#" class="btn btn-icon btn-sm btn-info" data-value="' . $activity->id . '" id="recycle"><i class="fas fa-recycle"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $activity->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+            ->editColumn('user_id', function ($activity) {
+                return $activity->user->name;
+            })
+            ->editColumn('status', function ($activity) {
+                $data = '<div class="badge badge-secondary">Unknown</div>';
+                if (strpos($activity->url_access, 'delete') == TRUE) {
+                    $data = '<div class="badge badge-danger">Delete</div>';
+                } else if (strpos($activity->url_access, 'insert') == TRUE) {
+                    $data = '<div class="badge badge-success">Insert</div>';
+                } else if (strpos($activity->url_access, 'update') == TRUE) {
+                    $data = '<div class="badge badge-warning">Edit</div>';
+                } else if (strpos($activity->url_access, 'recovery') == TRUE) {
+                    $data = '<div class="badge badge-info">Recovery</div>';
+                }
+                return $data;
+            })
+            ->rawColumns(['status','check','btn'])
+            ->make(true);
+    }
+
+    public function activity_recovery(Request $request)
+    {
+        activity('merecovery data sampah activity');
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                Activity::onlyTrashed()->where('id', $value)->restore();
+            }
+            return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
+        }
+         Activity::onlyTrashed()->where('id', $request->value)->restore();
+        return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
+    }
+
+    public function activity_delete(Request $request)
+    {
+        activity('menghapus data sampah activity');
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+               Activity::onlyTrashed()->where('id', $value)->forceDelete();
+            }
+            return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
+        }
+      
+     Activity::onlyTrashed()->where('id', $request->value)->forceDelete();
+        return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
+    }
+
+    public function schedule_get()
+    {
+
+        $schedule = Schedule::onlyTrashed();
+
+        return DataTables::of($schedule)
+            ->addIndexColumn()
+            ->addColumn('check', function ($schedule) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $schedule->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $schedule->id . '" >
+                    <label for="checkbox-' . $schedule->id . '" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($schedule) {
+                return '
+            <a href="#" class="btn btn-icon btn-sm btn-info" data-value="' . $schedule->id . '" id="recycle"><i class="fas fa-recycle"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $schedule->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+            ->addColumn('division', function ($schedule) {
+                return $schedule->division == 'all' ? 'All' : $schedule->divisions->name;
+            })
+            ->rawColumns(['check','btn'])
+            ->make(true);
+    }
+
+    public function schedule_recovery(Request $request)
+    {
+        activity('merecovery data sampah schedule');
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                Schedule::onlyTrashed()->where('id', $value)->restore();
+            }
+            return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
+        }
+         Schedule::onlyTrashed()->where('id', $request->value)->restore();
+        return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
+    }
+
+    public function schedule_delete(Request $request)
+    {
+        activity('menghapus data sampah schedule');
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+               Schedule::onlyTrashed()->where('id', $value)->forceDelete();
+            }
+            return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
+        }
+      
+     Schedule::onlyTrashed()->where('id', $request->value)->forceDelete();
+        return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
+    }
+
+
+    public function tests_get()
+    {
+
+        $test = TestList::onlyTrashed();
+
+        return DataTables::of($test)
+            ->addIndexColumn()
+            ->addColumn('check', function ($test) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $test->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $test->id . '" >
+                    <label for="checkbox-' . $test->id . '" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($test) {
+                return '
+            <a href="#" class="btn btn-icon btn-sm btn-info" data-value="' . $test->id . '" id="recycle"><i class="fas fa-recycle"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $test->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+            ->editColumn('division_id', function ($test) {
+                return $test->division->name;
+            })
+            ->rawColumns(['check','btn'])
+            ->make(true);
+    }
+
+    public function tests_recovery(Request $request)
+    {
+        activity('merecovery data sampah test');
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                TestList::onlyTrashed()->where('id', $value)->restore();
+            }
+            return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
+        }
+         TestList::onlyTrashed()->where('id', $request->value)->restore();
+        return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
+    }
+
+    public function tests_delete(Request $request)
+    {
+        activity('menghapus data sampah test');
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+               TestList::onlyTrashed()->where('id', $value)->forceDelete();
+            }
+            return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
+        }
+      
+     TestList::onlyTrashed()->where('id', $request->value)->forceDelete();
+        return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
+    }
+
+    public function score_get()
+    {
+
+        $score = ScoreList::onlyTrashed();
+
+        return DataTables::of($score)
+            ->addIndexColumn()
+            ->addColumn('check', function ($score) {
+                return  '<div class="custom-checkbox custom-control">
+                        <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" value="' . $score->id . '" name="id-checkbox" onchange="checkbox_this(this)" id="checkbox-' . $score->id . '" >
+                    <label for="checkbox-' . $score->id . '" class="custom-control-label">&nbsp;</label>
+                    </div>';
+            })
+            ->addColumn('btn', function ($score) {
+                return '
+            <a href="#" class="btn btn-icon btn-sm btn-info" data-value="' . $score->id . '" id="recycle"><i class="fas fa-recycle"></i></a>
+            <a href="#" class="btn btn-icon btn-sm btn-danger" data-value="' . $score->id . '" id="delete"><i class="fas fa-trash"></i></a>
+            ';
+            })
+            ->editColumn('user_id', function ($score) {
+                return $score->user->name;
+            })
+            ->editColumn('test_id', function ($score) {
+                return $score->test->name;
+            })
+            ->rawColumns(['check','btn'])
+            ->make(true);
+    }
+
+    public function score_recovery(Request $request)
+    {
+        activity('merecovery data sampah score');
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+                ScoreList::onlyTrashed()->where('id', $value)->restore();
+            }
+            return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
+        }
+         ScoreList::onlyTrashed()->where('id', $request->value)->restore();
+        return response()->json(['message' => 'Data berhasil di restore', 'status' => 'success'], 200);
+    }
+
+    public function score_delete(Request $request)
+    {
+        activity('menghapus data sampah score');
+        if (is_array($request->value)) {
+            foreach ($request->value as $value) {
+               ScoreList::onlyTrashed()->where('id', $value)->forceDelete();
+            }
+            return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
+        }
+      
+     ScoreList::onlyTrashed()->where('id', $request->value)->forceDelete();
         return response()->json(['message' => 'Data berhasil di hapus', 'status' => 'success'], 200);
     }
 }
