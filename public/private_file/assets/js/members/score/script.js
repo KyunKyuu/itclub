@@ -98,7 +98,7 @@ $(document).ready(function() {
                 },
                 success:res=>{
                     SweetAlert(res)
-                    RefreshTable('table')
+                     RefreshTable('score')
                     value_checkbox = []
                 },
                 error:err=>{
