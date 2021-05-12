@@ -18,15 +18,15 @@
                   <h5><b>Kontak</b></h5>
                   <p class="my-1 mt-2">Bandung</a>
                   <p class="my-1">Indonesia</a>
-                  <p class="my-1">08880335851</a>
-                  <p class="my-1">itclubsmk5bdg@ gmail.com</p>
+                  <p class="my-1">087812845006</a>
+                  <p class="my-1">itclubsmk5bdg@gmail.com</p>
                 </div>
                 <div class="col-md-3 col-6 judul-1">
                   <h5><b>Ikut Kami</b></h5>
                   <div class="d-flex mb-3">
-                      <a href="" class="mr-3"><img src="{{asset('home_page/img/ic_fb.png')}}"></a>
-                      <a href="" class="mr-3"><img src="{{asset('home_page/img/ic_ig.png')}}"></a>
-                      <a href="" class="mr-3"><img src="{{asset('home_page/img/ic_yt.png')}}"></a>
+                      <a href="https://m.facebook.com/groups/1947499468732047/" class="mr-3"><img src="{{asset('home_page/img/ic_fb.png')}}"></a>
+                      <a href="https://www.instagram.com/itclubsmkn5bdg/" class="mr-3"><img src="{{asset('home_page/img/ic_ig.png')}}"></a>
+                      <a href="https://www.youtube.com/channel/UC4k9rPrapnWphcuQYgqJF4w/videos" class="mr-3"><img src="{{asset('home_page/img/ic_yt.png')}}"></a>
                   </div>
                   <img src="{{asset('home_page/img/logo.png')}}" class="w-md-50 w-100">
                 </div>
