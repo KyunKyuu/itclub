@@ -638,7 +638,9 @@ class MemberController extends Controller
             ->addColumn('action', function ($test) {
                 return '
                 <a href="#" class="btn btn-icon btn-sm btn-warning Edit" data-id="' . $_GET['id'] . '" data-value="' . $test->id . '" id="edit-' . $test->id . '"><i class="fas fa-edit"></i></a>
-                <a href="#" class="btn btn-icon btn-sm btn-success disabled Save" data-id="' . $_GET['id'] . '" data-value="' . $test->id . '" id="save-' . $test->id . '"><i class="fas fa-save"></i></a>';
+                <a href="#" class="btn btn-icon btn-sm btn-success disabled Save" data-id="' . $_GET['id'] . '" data-value="' . $test->id . '" id="save-' . $test->id . '"><i class="fas fa-save"></i></a>
+                <a href="#" class="btn btn-icon btn-sm btn-danger Delete" data-id="' . $_GET['id'] . '" data-value="' . $test->id . '" id="delete"><i class="fas fa-trash"></i></a>'; 
+
             })
             ->rawColumns(['action', 'check', 'score'])
             ->make(true);
@@ -655,5 +657,15 @@ class MemberController extends Controller
         ScoreList::create($request->all());
         Activity('Menambah data score member');
         return response()->json(['status' => 'success', 'message' => 'Score berhasil ditetapkan'], 200);
+    }
+
+     public function precentages_score_delete(Request $request)
+    {
+        $test = ScoreList::where('test_id', $request->test_id)->where('user_id', $request->user_id);
+        $test->delete();
+
+        Activity('Menghapus data score member');
+        return response()->json(['status' => 'success', 'message' => 'Score berhasil dihapus'], 200);
+
     }
 }
