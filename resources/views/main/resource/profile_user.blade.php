@@ -59,7 +59,7 @@
                                 <h4>Edit Profile</h4>
                                 <div class="text-left ml-auto">
                                     @if (auth()->user()->role_id > 4)
-                                        <a href="#" class="btn btn-primary btn-lg">
+                                        <a href="/members/{{auth()->user()->name}}/upgrade" class="btn btn-primary btn-lg">
                                             <i class="fas fa-laptop-code"></i> Upgrade to Member
                                         </a>
                                     @endif

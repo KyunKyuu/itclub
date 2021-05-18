@@ -71,6 +71,44 @@ $(document).ready(function() {
             }
         })
     })
+
+     $('#score').on('click', '#delete', function(e) {
+        e.preventDefault();
+        let id = $(this).data('value')
+        let user = $(this).data('id')
+        SweetQuestions({
+            title : 'Apakah anda yakin?',
+            subtitle : 'Apakah anda ingin menghapus data nilai ini?',
+            buttonConfirm : 'Yes',
+            buttonDeny: 'No',
+            confirm : 'ajax',
+            deny : {
+                icon:'error',
+                title : 'Gagal menghapus'
+            },
+            ajax : {
+                url:'/api/v1/member/precentages/score/delete',
+                data:{
+                     user_id:user,
+                     test_id:id,
+                },
+                type:'DELETE',
+                headers:{
+                    'X-CSRF-TOKEN' : csrftoken
+                },
+                success:res=>{
+                    SweetAlert(res)
+                     RefreshTable('score')
+                    value_checkbox = []
+                },
+                error:err=>{
+                    SweetAlert({status:'error', message:err.responseJSON.message})
+                    value_checkbox = []
+                }
+            }
+        })
+    })
+
 })
 
 function division(params) {
@@ -79,3 +117,5 @@ function division(params) {
     console.log(id);
     Table({table:'#table', data:data, url:'/api/v1/member/get', parm:{parm:id}})
 }
+
+

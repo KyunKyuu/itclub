@@ -230,7 +230,11 @@
                             <a href="/members/{{ auth()->user()->name }}/setting" class="dropdown-item has-icon">
                                 <i class="fas fa-cog"></i> Setting
                             </a>
+
                             <div class="dropdown-divider"></div>
+                             <a href="{{route('home')}}" class="dropdown-item has-icon">
+                                <i class="fas fa-home"></i> Home Page
+                            </a>
                             <a href="/api/v1/auth/logout" class="dropdown-item has-icon text-danger">
                                 <i class="fas fa-sign-out-alt"></i> Logout
                             </a>

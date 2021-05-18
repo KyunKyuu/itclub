@@ -155,7 +155,7 @@
                         <h3>Contact Us <span><img src="{{asset('home_page/img/icon_titik.png')}}" class="mb-1"></span></h3>
                         <div class="d-flex mt-4">
                             <img src="{{asset('home_page/img/ic_wa.png')}}" class="icon mr-3">
-                            <h5 class="my-auto">088802335851</h5>
+                            <h5 class="my-auto">087812845006</h5>
                         </div>
                         <div class="d-flex mt-4">
                             <img src="{{asset('home_page/img/ic_mail.png')}}" class="icon mr-3">
