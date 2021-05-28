@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Trash Member SMKN 5</h4>
+                    <h4>Trash Member IT CLub</h4>
                     <div class="ml-auto">
                         <a href="#" class="btn btn-info rounded" id="recoveryData"><i class="fas fa-recycle"></i>
                             Recovery</a>
@@ -28,7 +28,7 @@
                                         </div>
                                     </th>
                                     <th>Name</th>
-                                    <th>Email</th>
+                                 
                                     <th>Divisi</th>
                                     <th>Position</th>
                                     <th>Image</th>

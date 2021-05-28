@@ -2,22 +2,23 @@ $(document).ready(function() {
     const data = [
         {data:'check', name:'check', orderable:false, searchable:false},
         {data:'name', name:'name'},
+        {data:'user_id', name:'user_id'},
         {data:'division_id', name:'division_id',},
         {data:'class_majors', name:'class_majors'},
         {data:'position', name:'position'},
         {data:'entry_year', name:'entry_year'},
         {data:'imageMember', name:'imageMember'},
         {data:'created_at', name:'created_at', searchable:false, orderable:false},
-     
+        {data:'status', name:'status'},
         {data:'btn', name:'btn', searchable:false, orderable:false},
     ];
 
-    Table({table:'#table', data:data, url:'/api/v1/member/get'});
+    Table({table:'#table', data:data, url:'/api/v1/member/member/get'});
 
     $('#insert').on('submit', function(e) {
         e.preventDefault()
         $.ajax({
-            url:'/api/v1/member/insert',
+            url:'/api/v1/member/member/insert',
             data:new FormData(this),
             processData:false,
             contentType:false,
@@ -48,7 +49,7 @@ $(document).ready(function() {
                 title : 'Gagal menghapus'
             },
             ajax : {
-                url:'/api/v1/member/delete',
+                url:'/api/v1/member/member/delete',
                 data:{
                     value : value
                 },
@@ -85,7 +86,7 @@ $(document).ready(function() {
                 title : 'Gagal menghapus'
             },
             ajax : {
-                url:'/api/v1/member/delete',
+                url:'/api/v1/member/member/delete',
                 data:{
                     value : value_checkbox
                 },
@@ -111,7 +112,7 @@ $(document).ready(function() {
         let value = new FormData(this)
         value.append('id', $('#updateMember input[name="name"]').data('id'));
         $.ajax({
-            url:'/api/v1/member/update',
+            url:'/api/v1/member/member/update',
             data:value,
             type:'POST',
             contentType:false,
@@ -131,13 +132,13 @@ $(document).ready(function() {
         e.preventDefault();
         let id = $(this).data('value')
         $.ajax({
-            url:'/api/v1/member/get',
+            url:'/api/v1/member/member/get',
             data:{
                 id:id
             },
             success:res=>{
                 $('#updateMember').modal('show');
-              
+                $('#updateMember select[name="user_id"] option[value="'+res.data.user_id+'"]').attr('selected', true);
                 $('#updateMember select[name="division_id"] option[value="'+res.data.division_id+'"]').attr('selected', true);
                 $('#updateMember input[name="name"]').val(res.data.name);
                 $('#updateMember input[name="position"]').val(res.data.position);
