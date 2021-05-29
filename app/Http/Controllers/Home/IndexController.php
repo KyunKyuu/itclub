@@ -77,7 +77,7 @@ class IndexController extends Controller
 
     public function mentor()
     {
-        $mentors = Mentor::paginate(1);
+        $mentors = Mentor::paginate(9);
         return view('main/home/mentor', compact('mentors'));
     }
 

@@ -50,7 +50,7 @@
          
     </section>
     
-    <div class="mt-0 text-center">
+    <div class="d-flex justify-content-center">
          {{$mentors->links()}}
     </div>
 
