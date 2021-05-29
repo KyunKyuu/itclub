@@ -149,7 +149,7 @@ $(document).ready(function() {
                 $('#updateMentor select[name="divisions[]"]').val(division)
                 $('#updateMentor select[name="divisions[]"]').select2()
                 $('#updateMentor input[name="facebook"]').val(res.data.mentor.facebook);
-                $('#updateMentor input[name="twiter"]').val(res.data.mentor.twiter);
+                $('#updateMentor input[name="youtube"]').val(res.data.mentor.youtube);
                 $('#updateMentor input[name="website"]').val(res.data.mentor.website);
                 $('#updateMentor input[name="email"]').val(res.data.mentor.email);
                 $('#updateMentor input[name="whatsapp"]').val(res.data.mentor.whatsapp);

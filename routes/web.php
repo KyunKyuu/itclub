@@ -69,6 +69,7 @@ Route::get('/gallery/{slug:slug}', [HomeController::class, 'image_gallery'])->na
 Route::get('/member/{class:class}', [HomeController::class, 'member'])->name('member');
 Route::get('/alumni', [HomeController::class, 'alumni'])->name('alumni');
 Route::get('/mentor', [HomeController::class, 'mentor'])->name('mentor');
+Route::get('/mentor/{slug:slug}', [HomeController::class, 'mentor_detail'])->name('mentor_detail');
 Route::get('/article', [HomeController::class, 'article'])->name('article');
 Route::get('/article/{slug:slug}', [HomeController::class, 'article_detail'])->name('article_detail');
 Route::get('/eLearning', [HomeController::class, 'eLearning'])->name('eLearning');

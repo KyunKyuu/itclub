@@ -39,7 +39,7 @@
                                 <div class="ml-1 divisi divisi-{{$divisi->name}}">Mentor {{$divisi->name}}</div>
                               @endforeach
                             </div>
-                            <a href="mentor-detail.html" class="btn btn-primary mt-4">Lihat Profile Mentor</a href="mentor-detail.html">
+                            <a href="{{route('mentor_detail', $mentor->slug)}}" class="btn btn-primary mt-4">Lihat Profile Mentor</a>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,13 @@
               
             </div>
         </div>
+         
     </section>
+    
+    <div class="mt-0 text-center">
+         {{$mentors->links()}}
+    </div>
+
 
     <!-- Mentor -->
 @endsection

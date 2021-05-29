@@ -161,8 +161,8 @@
 
                         <div class="form-group row">
                         <div class="form-group col-6">
-                        <label>Twiter</label>
-                          <input type="text" class="form-control" name="twiter"  placeholder="Twiter"  >
+                        <label>Youtube</label>
+                          <input type="text" class="form-control" name="youtube"  placeholder="Youtube"  >
                           
                         </div>
                      
@@ -301,8 +301,8 @@
 
                         <div class="form-group row">
                         <div class="form-group col-6">
-                        <label>Twiter</label>
-                          <input type="text" class="form-control" name="twiter"  placeholder="Twiter"  >
+                        <label>Youtube</label>
+                          <input type="text" class="form-control" name="youtube"  placeholder="Youtube"  >
                           
                         </div>
                      
