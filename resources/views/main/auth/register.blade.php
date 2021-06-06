@@ -1,5 +1,5 @@
 @extends('templates.auth')
-
+@section('title', 'Register - IT CLUB')
 @section('main')
 <body>
     <div id="app">

@@ -1,5 +1,5 @@
 @extends('templates.auth')
-
+@section('title', 'Forgot Password - IT CLUB')
 @section('main')
 
 <div id="app">
@@ -8,7 +8,7 @@
         <div class="row">
           <div class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-4 offset-xl-4">
             <div class="login-brand">
-                <i class="fa fa-5x fa-laptop-code text-primary"></i>
+                <img src="{{asset('home_page/img/logo.png')}}" />
             </div>
 
             <div class="card card-primary">

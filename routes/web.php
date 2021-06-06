@@ -78,7 +78,7 @@ Route::get('/dashboard/general/mail', [IndexController::class, 'mail']);
 Route::get('/auth/register', [AuthController::class, 'register']);
 Route::get('/auth/login', [AuthController::class, 'login'])->name('login');
 Route::get('/auth/forgotpassword', [AuthController::class, 'forgotpassword']);
-
+Route::get('/auth/resetpassword/{resource}', [AuthController::class, 'resetpassword']);
 Route::group(['prefix' => '/dashboard', 'middleware' => ['auth', 'access']], function () {
     Route::get('/general/index', [IndexController::class, 'dashboard_general'])->name('dashboard');
     Route::get('/user/index', [IndexController::class, 'dashboard_user'])->name('dashboard_user');
@@ -86,6 +86,7 @@ Route::group(['prefix' => '/dashboard', 'middleware' => ['auth', 'access']], fun
 
 Route::group(['prefix' => '/authentication/mail'], function () {
     Route::get('/activation/{resource}', [MailController::class, 'activation']);
+    Route::get('/forgotpassword/{resource}', [MailController::class, 'forgotpassword']);
 });
 
 
@@ -164,7 +165,9 @@ Route::prefix('/api/v1')->group(function () {
         Route::post('/register', [ApiAuthController::class, 'register']);
         Route::post('/login', [ApiAuthController::class, 'login']);
         Route::get('/logout', [ApiAuthController::class, 'logout']);
+
         Route::post('/forgotpassword', [ApiAuthController::class, 'forgotpassword']);
+        Route::post('/resetpassword', [ApiAuthController::class, 'resetpassword']);
     });
 
     Route::group(['prefix' => '/user'], function () {
